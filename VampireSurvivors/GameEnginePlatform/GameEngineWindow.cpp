@@ -28,8 +28,40 @@ void GameEngineWindow::Open(const std::string& _Title, HINSTANCE _hInstance)
     InitInstance();
 }
 
+void GameEngineWindow::MyRegisterClass() //윈도우 형식 등록
+{
+    static bool Check = false;
 
-void GameEngineWindow::InitInstance()
+    if (true == Check)
+    {
+        return;
+    }
+
+    WNDCLASSEXA wcex;
+    wcex.cbSize = sizeof(WNDCLASSEX);
+    wcex.style = CS_HREDRAW | CS_VREDRAW;
+    // LRESULT(CALLBACK* WNDPROC)(HWND, unsigned int, unsigned int, unsigned int);
+    wcex.lpfnWndProc = GameEngineWindow::WndProc;
+    wcex.cbClsExtra = 0;
+    wcex.cbWndExtra = 0;
+    wcex.hInstance = Instance;
+    wcex.hIcon = nullptr;
+    wcex.hCursor = LoadCursor(nullptr, IDC_CROSS);
+    wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 2);
+    wcex.lpszMenuName = nullptr;
+    wcex.lpszClassName = "DefaultWindow";
+    wcex.hIconSm = nullptr;
+
+    if (false == RegisterClassExA(&wcex))
+    {
+        MsgBoxAssert("윈도우 클래스 동록에 실패했습니다.");
+        return;
+    }
+
+    Check = true;
+}
+
+void GameEngineWindow::InitInstance() //윈도우 생성
 {
     // 윈도우 만드는 함수인
     // const char* == std::string
@@ -67,38 +99,6 @@ LRESULT CALLBACK GameEngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wPara
     return 0;
 }
 
-void GameEngineWindow::MyRegisterClass()
-{
-    static bool Check = false;
-
-    if (true == Check)
-    {
-        return;
-    }
-
-    WNDCLASSEXA wcex;
-    wcex.cbSize = sizeof(WNDCLASSEX);
-    wcex.style = CS_HREDRAW | CS_VREDRAW;
-    // LRESULT(CALLBACK* WNDPROC)(HWND, unsigned int, unsigned int, unsigned int);
-    wcex.lpfnWndProc = GameEngineWindow::WndProc;
-    wcex.cbClsExtra = 0;
-    wcex.cbWndExtra = 0;
-    wcex.hInstance = Instance;
-    wcex.hIcon = nullptr;
-    wcex.hCursor = LoadCursor(nullptr, IDC_CROSS);
-    wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 2);
-    wcex.lpszMenuName = nullptr;
-    wcex.lpszClassName = "DefaultWindow";
-    wcex.hIconSm = nullptr;
-
-    if (false == RegisterClassExA(&wcex))
-    {
-        MsgBoxAssert("윈도우 클래스 동록에 실패했습니다.");
-        return;
-    }
-
-    Check = true;
-}
 
 void GameEngineWindow::MessageLoop(HINSTANCE _Inst, void(*_Start)(HINSTANCE), void(*_Update)(), void(*_End)())
 {
