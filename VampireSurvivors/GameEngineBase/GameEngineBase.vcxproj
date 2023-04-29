@@ -148,11 +148,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineDebug.cpp" />
+    <ClCompile Include="GameEngineMath.cpp" />
     <ClCompile Include="GameEngineRandom.cpp" />
     <ClCompile Include="GameEngineString.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngineDebug.h" />
+    <ClInclude Include="GameEngineMath.h" />
     <ClInclude Include="GameEngineRandom.h" />
     <ClInclude Include="GameEngineString.h" />
   </ItemGroup>

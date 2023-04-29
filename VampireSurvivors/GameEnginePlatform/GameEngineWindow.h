@@ -18,18 +18,24 @@ public:
 	GameEngineWindow& operator=(const GameEngineWindow& _Other) = delete;
 	GameEngineWindow& operator=(GameEngineWindow&& _Other) noexcept = delete;
 
-	void Open(const std::string& _Title, HINSTANCE _hInstance); //객체로 접근해서 윈도우를 만들기위한 함수
+	void Open(const std::string& _Title, HINSTANCE _hInstance);
 
-	static void MessageLoop(HINSTANCE _Inst, void(*_Start)(HINSTANCE), void(*_Update)(), void(*_End)()); //이벤트 핸들러
+	static void MessageLoop(HINSTANCE _Inst, void(*_Start)(HINSTANCE), void(*_Update)(), void(*_End)());
+
+	HDC GetHDC()
+	{
+		return Hdc;
+	}
 
 protected:
 
 private:
-	static HINSTANCE Instance; // 프로그램 핸들
-	std::string Title = ""; // 윈도우 형식 타이틀
-	HWND hWnd = nullptr; // 윈도우창 핸들
+	static HINSTANCE Instance;
+	std::string Title = "";
+	HWND hWnd = nullptr;
+	HDC Hdc = nullptr;
 
-	static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam); //콜백함수
+	static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	void InitInstance();
 	void MyRegisterClass();
 };

@@ -151,12 +151,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ContentCore.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="EndingLevel.cpp" />
     <ClCompile Include="PlayLevel.cpp" />
     <ClCompile Include="TitleLevel.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ContentCore.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="EndingLevel.h" />
     <ClInclude Include="PlayLevel.h" />

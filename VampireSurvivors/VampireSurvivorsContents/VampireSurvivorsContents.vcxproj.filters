@@ -2,27 +2,29 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="TitleLevel.cpp">
+    <ClCompile Include="EndingLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
     <ClCompile Include="PlayLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
-    <ClCompile Include="EndingLevel.cpp">
+    <ClCompile Include="TitleLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
+    <ClCompile Include="ContentCore.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h" />
-    <ClInclude Include="TitleLevel.h">
+    <ClInclude Include="EndingLevel.h">
       <Filter>Level</Filter>
     </ClInclude>
     <ClInclude Include="PlayLevel.h">
       <Filter>Level</Filter>
     </ClInclude>
-    <ClInclude Include="EndingLevel.h">
+    <ClInclude Include="TitleLevel.h">
       <Filter>Level</Filter>
     </ClInclude>
+    <ClInclude Include="ContentCore.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">

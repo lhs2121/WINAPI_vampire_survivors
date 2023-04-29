@@ -28,7 +28,50 @@ void GameEngineWindow::Open(const std::string& _Title, HINSTANCE _hInstance)
     InitInstance();
 }
 
-void GameEngineWindow::MyRegisterClass() //윈도우 형식 등록
+
+void GameEngineWindow::InitInstance()
+{
+    // 윈도우 만드는 함수인
+    // const char* == std::string
+    hWnd = CreateWindowA("DefaultWindow", Title.c_str(), WS_OVERLAPPEDWINDOW,
+        CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, Instance, nullptr);
+
+    if (!hWnd)
+    {
+        MsgBoxAssert("윈도우 생성에 실패했습니다.");
+        return;
+    }
+
+    Hdc = ::GetDC(hWnd);
+
+    // CreateDC()
+
+    ShowWindow(hWnd, SW_SHOW);
+    UpdateWindow(hWnd);
+
+}
+
+LRESULT CALLBACK GameEngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+    switch (message)
+    {
+    case WM_PAINT:
+    {
+        PAINTSTRUCT ps;
+        HDC hdc = BeginPaint(hWnd, &ps);
+        EndPaint(hWnd, &ps);
+    }
+    break;
+    case WM_DESTROY:
+        PostQuitMessage(0);
+        break;
+    default:
+        return DefWindowProc(hWnd, message, wParam, lParam);
+    }
+    return 0;
+}
+
+void GameEngineWindow::MyRegisterClass()
 {
     static bool Check = false;
 
@@ -60,45 +103,6 @@ void GameEngineWindow::MyRegisterClass() //윈도우 형식 등록
 
     Check = true;
 }
-
-void GameEngineWindow::InitInstance() //윈도우 생성
-{
-    // 윈도우 만드는 함수인
-    // const char* == std::string
-    hWnd = CreateWindowA("DefaultWindow", Title.c_str(), WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, Instance, nullptr);
-
-    if (!hWnd)
-    {
-        MsgBoxAssert("윈도우 생성에 실패했습니다.");
-        return;
-    }
-
-    ShowWindow(hWnd, SW_SHOW);
-    UpdateWindow(hWnd);
-
-}
-
-LRESULT CALLBACK GameEngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    switch (message)
-    {
-    case WM_PAINT:
-    {
-        PAINTSTRUCT ps;
-        HDC hdc = BeginPaint(hWnd, &ps);
-        EndPaint(hWnd, &ps);
-    }
-    break;
-    case WM_DESTROY:
-        PostQuitMessage(0);
-        break;
-    default:
-        return DefWindowProc(hWnd, message, wParam, lParam);
-    }
-    return 0;
-}
-
 
 void GameEngineWindow::MessageLoop(HINSTANCE _Inst, void(*_Start)(HINSTANCE), void(*_Update)(), void(*_End)())
 {
