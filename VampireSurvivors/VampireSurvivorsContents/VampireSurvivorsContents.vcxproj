@@ -151,20 +151,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ContentCore.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="EndingLevel.cpp" />
-    <ClCompile Include="PlayLevel.cpp" />
-    <ClCompile Include="TitleLevel.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="ContentCore.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="EndingLevel.h" />
-    <ClInclude Include="PlayLevel.h" />
-    <ClInclude Include="TitleLevel.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\GameEngineBase\GameEngineBase.vcxproj">
       <Project>{196b25bc-6f8b-492d-9962-4e08ef8d6c1a}</Project>
     </ProjectReference>

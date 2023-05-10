@@ -19,7 +19,7 @@ public:
 	virtual void Start() {}
 
 	// 행동한고.
-	virtual void Update() {}
+	virtual void Update(float _Delta) {}
 
 	// 그려지고.
 	virtual void Render() {}
@@ -52,10 +52,15 @@ public:
 		return IsDeathValue;
 	}
 
+	void SetOrder(int _Order)
+	{
+		Order = _Order;
+	}
 protected:
 
 
 private:
+	int Order = 0;
 	bool IsUpdateValue = true; // 이걸 false로 만들면 됩니다.
 	bool IsDeathValue = false; // 아예 메모리에서 날려버리고 싶어.
 };
