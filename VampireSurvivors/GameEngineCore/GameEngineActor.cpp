@@ -63,7 +63,3 @@ GameEngineRenderer* GameEngineActor::CreateRenderer(const std::string& _ImageNam
 	return NewRenderer;
 }
 
-GameEngineRenderer* GameEngineActor::CreateCollision(int _Order/* = 0*/)
-{
-
-}
