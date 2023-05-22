@@ -6,11 +6,11 @@
 #pragma comment(lib, "msimg32.lib")
 
 
-GameEngineWindowTexture::GameEngineWindowTexture() 
+GameEngineWindowTexture::GameEngineWindowTexture()
 {
 }
 
-GameEngineWindowTexture::~GameEngineWindowTexture() 
+GameEngineWindowTexture::~GameEngineWindowTexture()
 {
 }
 
@@ -89,7 +89,7 @@ void GameEngineWindowTexture::ScaleCheck()
 
 float4 GameEngineWindowTexture::GetScale()
 {
-	
+
 	return { static_cast<float>(Info.bmWidth), static_cast<float>(Info.bmHeight) };
 }
 
@@ -101,22 +101,22 @@ void GameEngineWindowTexture::BitCopy(GameEngineWindowTexture* _CopyTexture, con
 }
 
 void GameEngineWindowTexture::BitCopy(
-	GameEngineWindowTexture* _CopyTexture, 
-	const float4& _Pos, 
+	GameEngineWindowTexture* _CopyTexture,
+	const float4& _Pos,
 	const float4& _Scale)
 {
 	HDC CopyImageDC = _CopyTexture->GetImageDC();
 
 	//// 특정 DC에 연결된 색상을
 	//// 특정 DC에 고속복사하는 함수입니다.
-	BitBlt(ImageDC, 
+	BitBlt(ImageDC,
 		_Pos.iX() - _Scale.ihX(),
 		_Pos.iY() - _Scale.ihY(),
 		_Scale.iX(),
 		_Scale.iY(),
 		CopyImageDC,
-		0, 
-		0, 
+		0,
+		0,
 		SRCCOPY);
 
 }
@@ -140,4 +140,29 @@ void GameEngineWindowTexture::TransCopy(GameEngineWindowTexture* _CopyTexture, c
 		_TransColor
 	);
 
+}
+
+unsigned int GameEngineWindowTexture::GetColor(unsigned int _DefaultColor, float4 _Pos)
+{
+	if (0 > _Pos.iX())
+	{
+		return _DefaultColor;
+	}
+
+	if (0 > _Pos.iY())
+	{
+		return _DefaultColor;
+	}
+
+	if (GetScale().iX() <= _Pos.iX())
+	{
+		return _DefaultColor;
+	}
+
+	if (GetScale().iX() <= _Pos.iY())
+	{
+		return _DefaultColor;
+	}
+
+	return GetPixel(ImageDC, _Pos.iX(), _Pos.iY());
 }

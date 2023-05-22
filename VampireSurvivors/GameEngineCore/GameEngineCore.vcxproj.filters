@@ -11,22 +11,61 @@
     <ClCompile Include="GameEngineObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="GameEngineCamera.cpp">
+      <Filter>Object\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineRenderer.cpp">
+      <Filter>Object\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineCollision.cpp">
+      <Filter>Object\Collison</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineSprite.cpp">
+      <Filter>Object\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourcesManager.cpp">
+      <Filter>Object\Resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngineCore.h" />
+    <ClInclude Include="GameEngineObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
     <ClInclude Include="GameEngineActor.h">
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineLevel.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineObject.h">
-      <Filter>Object</Filter>
+    <ClInclude Include="GameEngineCamera.h">
+      <Filter>Object\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineRenderer.h">
+      <Filter>Object\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineCollision.h">
+      <Filter>Object\Collison</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineSprite.h">
+      <Filter>Object\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourcesManager.h">
+      <Filter>Object\Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Object">
       <UniqueIdentifier>{118b5764-c956-4b06-97ad-083967b7348e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Rendering">
+      <UniqueIdentifier>{1a38f3de-6e75-4c69-bfb3-eab227d83bed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Collison">
+      <UniqueIdentifier>{e4bd392c-f87a-41c7-acdd-c0e185a6aaef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Resources">
+      <UniqueIdentifier>{d8078419-96cf-496e-8ec7-5d39c7416e97}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

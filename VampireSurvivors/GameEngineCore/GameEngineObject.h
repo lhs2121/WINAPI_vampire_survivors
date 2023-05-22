@@ -4,10 +4,13 @@
 // 제안하는 클래스
 class GameEngineObject
 {
+	friend class GameEngineLevel;
+	friend class GameEngineCore;
+
 public:
 	// constrcuter destructer
 	GameEngineObject();
-	~GameEngineObject();
+	virtual ~GameEngineObject();
 
 	// delete Function
 	GameEngineObject(const GameEngineObject& _Other) = delete;
@@ -27,7 +30,7 @@ public:
 	// 정리된다.
 	virtual void Release() {}
 
-	void On() 
+	void On()
 	{
 		IsUpdateValue = true;
 	}
@@ -39,15 +42,15 @@ public:
 
 	void Death()
 	{
-		IsDeathValue = true;
+		this->IsDeathValue = true;
 	}
 
-	bool IsUpdate() 
+	bool IsUpdate()
 	{
 		return true == IsUpdateValue && false == IsDeathValue;
 	}
 
-	bool IsDeath()
+	virtual bool IsDeath()
 	{
 		return IsDeathValue;
 	}
@@ -56,12 +59,29 @@ public:
 	{
 		Order = _Order;
 	}
+
+	float GetLiveTime()
+	{
+		return LiveTime;
+	}
+
+	void ResetLiveTime()
+	{
+		LiveTime = 0.0f;
+	}
+
 protected:
 
 
 private:
+	float LiveTime = 0.0f;
 	int Order = 0;
 	bool IsUpdateValue = true; // 이걸 false로 만들면 됩니다.
 	bool IsDeathValue = false; // 아예 메모리에서 날려버리고 싶어.
+
+	void AddLiveTime(float _DeltaTime)
+	{
+		LiveTime += _DeltaTime;
+	}
 };
 
