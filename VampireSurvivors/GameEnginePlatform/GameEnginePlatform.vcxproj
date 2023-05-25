@@ -172,16 +172,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="ThirdParty\FMOD\lib\x64\fmod.dll">
+    <CopyFileToFolders Include="ThirdParty\FMOD\lib\x64\fmod.dll">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </Library>
-    <Library Include="ThirdParty\FMOD\lib\x64\fmodL.dll">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\FMOD\lib\x64\fmodL.dll">
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </Library>
+    </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
     <Library Include="ThirdParty\FMOD\lib\x64\fmodL_vc.lib">
