@@ -1,5 +1,6 @@
 #include "GameEngineActor.h"
 #include "GameEngineRenderer.h"
+#include "GameEngineCollision.h"
 #include "GameEngineLevel.h"
 #include "GameEngineCamera.h"
 #include <GameEngineBase/GameEngineDebug.h>
@@ -15,6 +16,13 @@ GameEngineActor::~GameEngineActor()
 		delete Render;
 		Render = nullptr;
 	}
+
+	for (GameEngineCollision* Collision : AllCollision)
+	{
+		delete Collision;
+		Collision = nullptr;
+	}
+
 }
 
 void GameEngineActor::ActorRelease()
@@ -51,8 +59,6 @@ GameEngineRenderer* GameEngineActor::CreateRenderer(const std::string& _ImageNam
 {
 	GameEngineRenderer* NewRenderer = new GameEngineRenderer();
 
-	GetLevel()->MainCamera->PushRenderer(NewRenderer, _Order);
-
 	NewRenderer->Master = this;
 	NewRenderer->MainCameraSetting();
 	NewRenderer->SetOrder(_Order);
@@ -65,6 +71,7 @@ GameEngineRenderer* GameEngineActor::CreateRenderer(const std::string& _ImageNam
 
 	return NewRenderer;
 }
+
 
 GameEngineRenderer* GameEngineActor::CreateUIRenderer(const std::string& _ImageName, int _Order)
 {
