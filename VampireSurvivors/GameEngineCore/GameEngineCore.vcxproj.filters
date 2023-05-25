@@ -21,10 +21,13 @@
       <Filter>Object\Collison</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineSprite.cpp">
-      <Filter>Object\Resources</Filter>
+      <Filter>Resources</Filter>
     </ClCompile>
     <ClCompile Include="ResourcesManager.cpp">
-      <Filter>Object\Resources</Filter>
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineActorSubObject.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -48,10 +51,13 @@
       <Filter>Object\Collison</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineSprite.h">
-      <Filter>Object\Resources</Filter>
+      <Filter>Resources</Filter>
     </ClInclude>
     <ClInclude Include="ResourcesManager.h">
-      <Filter>Object\Resources</Filter>
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineActorSubObject.h">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -64,7 +70,7 @@
     <Filter Include="Object\Collison">
       <UniqueIdentifier>{e4bd392c-f87a-41c7-acdd-c0e185a6aaef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Resources">
+    <Filter Include="Resources">
       <UniqueIdentifier>{d8078419-96cf-496e-8ec7-5d39c7416e97}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

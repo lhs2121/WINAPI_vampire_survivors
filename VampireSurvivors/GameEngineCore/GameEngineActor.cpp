@@ -54,6 +54,9 @@ GameEngineRenderer* GameEngineActor::CreateRenderer(const std::string& _ImageNam
 	GetLevel()->MainCamera->PushRenderer(NewRenderer, _Order);
 
 	NewRenderer->Master = this;
+	NewRenderer->MainCameraSetting();
+	NewRenderer->SetOrder(_Order);
+
 	if (_ImageName != "")
 	{
 		NewRenderer->SetTexture(_ImageName);
@@ -63,3 +66,31 @@ GameEngineRenderer* GameEngineActor::CreateRenderer(const std::string& _ImageNam
 	return NewRenderer;
 }
 
+GameEngineRenderer* GameEngineActor::CreateUIRenderer(const std::string& _ImageName, int _Order)
+{
+	GameEngineRenderer* NewRenderer = new GameEngineRenderer();
+
+	NewRenderer->Master = this;
+	NewRenderer->UICameraSetting();
+	NewRenderer->SetOrder(_Order);
+
+	if (_ImageName != "")
+	{
+		NewRenderer->SetTexture(_ImageName);
+	}
+	AllRenderer.push_back(NewRenderer);
+
+	return NewRenderer;
+}
+
+GameEngineCollision* GameEngineActor::CreateCollision(int _Order/* = 0*/)
+{
+	GameEngineCollision* NewCollision = new GameEngineCollision();
+
+	NewCollision->Master = this;
+	NewCollision->Start();
+	NewCollision->SetOrder(_Order);
+	AllCollision.push_back(NewCollision);
+
+	return NewCollision;
+}

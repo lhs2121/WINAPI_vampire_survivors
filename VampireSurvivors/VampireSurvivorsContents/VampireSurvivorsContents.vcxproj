@@ -167,13 +167,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp" />
-    <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Title.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
