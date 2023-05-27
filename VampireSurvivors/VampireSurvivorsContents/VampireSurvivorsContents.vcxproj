@@ -167,9 +167,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp" />
+    <ClCompile Include="Image.h">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TitleLevel.h">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TitleLevel.cpp" />
+    <ClCompile Include="Image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ContentsEnum.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
