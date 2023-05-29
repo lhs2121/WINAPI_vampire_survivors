@@ -21,6 +21,8 @@ void Image::Start()
 
 	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture("introBG.bmp");
 	Renderer->SetTexture("introBG.bmp");
-	Renderer->SetRenderScale({1090,690});
+	Renderer->SetRenderPos({0,0});
+	Renderer->SetRenderScale(Texture->GetScale()*4);
+	
 	
 }

@@ -9,10 +9,10 @@
       <Filter>Level</Filter>
     </ClCompile>
     <ClCompile Include="Image.h">
-      <Filter>Actor</Filter>
+      <Filter>Actor\Title</Filter>
     </ClCompile>
     <ClCompile Include="Image.cpp">
-      <Filter>Actor</Filter>
+      <Filter>Actor\Title</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -24,6 +24,9 @@
     </Filter>
     <Filter Include="Actor">
       <UniqueIdentifier>{550c2e45-c781-4ab4-8de5-a4736bba4d43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Title">
+      <UniqueIdentifier>{ca0365d9-f26f-4604-95aa-a7bc5966aa99}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
