@@ -26,6 +26,16 @@ void TitleLevel::Start()
 
 	}
 
+	if (false == ResourcesManager::GetInst().IsLoadTexture("illustrations.bmp"))
+	{
+		GameEnginePath path;
+		path.SetCurrentPath();
+		path.MoveParentToExistsChild("Resources");
+		path.MoveChild("Resources\\BackGround\\");
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("illustrations.bmp"));
+
+	}
+
 	Image* image = CreateActor<Image>(0);
 }
 

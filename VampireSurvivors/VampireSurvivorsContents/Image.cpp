@@ -17,12 +17,13 @@ void Image::Start()
 {
 
 	SetPos({ 545, 345 });
-	Renderer = CreateRenderer(RenderOrder::BackGround);
 
-	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture("introBG.bmp");
-	Renderer->SetTexture("introBG.bmp");
-	Renderer->SetRenderPos({0,0});
-	Renderer->SetRenderScale(Texture->GetScale()*4);
-	
-	
+	{
+		Renderer = CreateRenderer(RenderOrder::BackGround);
+		GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture("introBG.bmp");
+		Renderer->SetTexture("introBG.bmp");
+		Renderer->SetRenderPos({ 0,0 });
+		Renderer->SetRenderScale(Texture->GetScale());
+	}
+
 }
