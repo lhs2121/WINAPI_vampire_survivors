@@ -1,29 +1,33 @@
-#include "Image.h"
+#include "IntroBackGround.h"
 #include "ContentsEnum.h"
+#include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineRenderer.h>
+#include <GameEnginePlatform/GameEngineInput.h>
 
-Image::Image()
+IntroBackGround::IntroBackGround()
 {
 
 }
 
-Image::~Image()
+IntroBackGround::~IntroBackGround()
 {
 
 }
-void Image::Start()
+void IntroBackGround::Start()
 {
 
-	SetPos({ 545, 345 });
+	SetPos(float4::ZERO);
 
 	{
 		Renderer = CreateRenderer(RenderOrder::BackGround);
 		GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture("introBG.bmp");
 		Renderer->SetTexture("introBG.bmp");
-		Renderer->SetRenderPos({ 0,0 });
+		Renderer->SetRenderPos({GameEngineWindow::MainWindow.GetScale().Half()});
 		Renderer->SetRenderScale(Texture->GetScale());
 	}
+
+
 
 }

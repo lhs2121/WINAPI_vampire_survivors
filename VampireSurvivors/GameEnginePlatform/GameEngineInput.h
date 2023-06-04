@@ -83,9 +83,12 @@ public:
 	static bool IsPress(int _Key);
 	static bool IsFree(int _Key);
 
+
+
 protected:
 
 private:
+	
 	static std::map<int, GameEngineKey> AllKeys;
 };
 

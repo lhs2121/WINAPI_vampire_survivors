@@ -167,7 +167,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp" />
-    <ClCompile Include="Image.h">
+    <ClCompile Include="IntroBackGround.h">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PressAnyKey.h">
       <SubType>
       </SubType>
     </ClCompile>
@@ -176,7 +180,8 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="TitleLevel.cpp" />
-    <ClCompile Include="Image.cpp" />
+    <ClCompile Include="IntroBackGround.cpp" />
+    <ClCompile Include="PressAnyKey.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />

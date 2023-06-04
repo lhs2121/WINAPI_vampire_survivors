@@ -3,6 +3,7 @@
 
 std::map<int, GameEngineInput::GameEngineKey> GameEngineInput::AllKeys;
 
+
 GameEngineInput::GameEngineInput()
 {
 }
@@ -127,7 +128,7 @@ void GameEngineInput::GameEngineKey::Update(float _DeltaTime)
 	if (true == KeyCheck())
 	{
 		// 키가 눌렸다.
-
+    	
 		PressTime += _DeltaTime;
 
 		// 여태까지 키가 눌렸던적이 없다는 거죠.
@@ -149,7 +150,9 @@ void GameEngineInput::GameEngineKey::Update(float _DeltaTime)
 	}
 	else
 	{
+
 		PressTime = 0.0f;
+
 		// 키가 눌리지 않았다.
 		if (true == Press)
 		{
@@ -165,6 +168,7 @@ void GameEngineInput::GameEngineKey::Update(float _DeltaTime)
 			Up = false;
 			Free = true;
 		}
+		
 	}
 }
 

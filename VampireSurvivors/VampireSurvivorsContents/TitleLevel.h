@@ -20,8 +20,10 @@ protected:
 
 private:
 	void Start() override;
+	void Update(float _Delta) override;
 
-
+	class IntroBackGround* introBackGround;
+	class PressAnyKey* pressAnyKey;
 
 };
 
