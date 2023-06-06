@@ -21,7 +21,8 @@ protected:
 private:
 	void Start() override;
 	void Update(float _Delta) override;
-	
+	bool CheckCollision(float left, float right, float top, float bottom, int mouseX, int mouseY);
+	float4 Scale;
 
 	class GameEngineRenderer* Renderer;
 };

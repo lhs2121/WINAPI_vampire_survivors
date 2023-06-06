@@ -60,6 +60,7 @@ public:
 	}
 
 
+	float4 GetScreenPos();
 
 	CameraType GetCameraType()
 	{

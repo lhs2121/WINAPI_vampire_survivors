@@ -172,8 +172,17 @@ void GameEngineRenderer::Render(float _DeltaTime)
 	GameEngineWindowTexture* BackBuffer = GameEngineWindow::MainWindow.GetBackBuffer();
 
 	BackBuffer->TransCopy(Texture, GetActor()->GetPos() + RenderPos - Camera->GetPos(), RenderScale, CopyPos, CopyScale);
-
+	
 }
+
+float4 GameEngineRenderer::GetScreenPos()
+{
+	return GetActor()->GetPos() + RenderPos - Camera->GetPos();
+}
+
+
+
+
 
 
 GameEngineRenderer::Animation* GameEngineRenderer::FindAnimation(const std::string& _AniamtionName)
@@ -186,7 +195,7 @@ GameEngineRenderer::Animation* GameEngineRenderer::FindAnimation(const std::stri
 	{
 		return nullptr;
 	}
-
+	
 	return &FindIter->second;
 }
 
