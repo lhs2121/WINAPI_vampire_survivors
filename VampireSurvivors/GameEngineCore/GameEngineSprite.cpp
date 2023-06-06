@@ -32,7 +32,7 @@ void GameEngineSprite::CreateSpriteSheet(GameEngineWindowTexture* _Texture, int 
 			AllSprite[Index].RenderPos.Y = StartPos.Y;
 
 			AllSprite[Index].RenderScale.X = ImageSize.X;
-			AllSprite[Index].RenderScale.Y = ImageSize.Y;
+			AllSprite[Index].RenderScale.Y = ImageSize.Y;	
 
 			StartPos.X += ImageSize.X;
 		}
@@ -55,8 +55,11 @@ void GameEngineSprite::CreateSpriteFolder(const std::string& _Path)
 	for (size_t i = 0; i < Files.size(); i++)
 	{
 		GameEngineWindowTexture* Texture = ResourcesManager::GetInst().TextureLoad(Files[i].GetStringPath());
+
 		AllSprite[i].BaseTexture = Texture;
+
 		AllSprite[i].RenderPos = float4::ZERO;
+
 		AllSprite[i].RenderScale = Texture->GetScale();
 	}
 }

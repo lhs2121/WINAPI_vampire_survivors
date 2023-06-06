@@ -1,22 +1,23 @@
-#include "TitleLevel.h"
+#include "IntroLevel.h"
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineActor.h>
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEnginePlatform/GameEngineInput.h>
-#include "IntroBackGround.h"
+#include <GameEngineCore/GameEngineCore.h>
+#include "TitleBackGround.h"
 #include "PressAnyKey.h"
-TitleLevel::TitleLevel()
+IntroLevel::IntroLevel()
 {
 
 }
 
-TitleLevel::~TitleLevel()
+IntroLevel::~IntroLevel()
 {
 
 }
 
 
-void TitleLevel::Start()
+void IntroLevel::Start()
 {
 	if (false == ResourcesManager::GetInst().IsLoadTexture("introBG.bmp"))
 	{
@@ -28,20 +29,20 @@ void TitleLevel::Start()
 
 	}
 
-	introBackGround = CreateActor<IntroBackGround>(0);
+	CreateActor<TitleBackGround>(0);
 
-	pressAnyKey = CreateActor<PressAnyKey>(10);
+	CreateActor<PressAnyKey>(1);
 
+	
 }
 
-void TitleLevel::Update(float _Delta)
+void IntroLevel::Update(float _Delta)
 {
 	if (true == GameEngineInput::IsDown(VK_RETURN))
 	{
-		if (nullptr != pressAnyKey)
-		{
-			pressAnyKey->Death();
-		}
+
+		GameEngineCore::ChangeLevel("MenuLevel");
+		
 	} 
 
 }

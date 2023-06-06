@@ -2,16 +2,16 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp" />
-    <ClCompile Include="TitleLevel.h">
+    <ClCompile Include="IntroLevel.h">
       <Filter>Level</Filter>
     </ClCompile>
-    <ClCompile Include="TitleLevel.cpp">
+    <ClCompile Include="IntroLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
-    <ClCompile Include="IntroBackGround.h">
+    <ClCompile Include="TitleBackGround.h">
       <Filter>Actor\TitleScene</Filter>
     </ClCompile>
-    <ClCompile Include="IntroBackGround.cpp">
+    <ClCompile Include="TitleBackGround.cpp">
       <Filter>Actor\TitleScene</Filter>
     </ClCompile>
     <ClCompile Include="PressAnyKey.h">
@@ -19,6 +19,12 @@
     </ClCompile>
     <ClCompile Include="PressAnyKey.cpp">
       <Filter>Actor\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Actor\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuLevel.cpp">
+      <Filter>Level</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -38,6 +44,12 @@
   <ItemGroup>
     <ClInclude Include="ContentsEnum.h">
       <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Actor\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuLevel.h">
+      <Filter>Level</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

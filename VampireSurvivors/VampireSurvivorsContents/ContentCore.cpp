@@ -1,5 +1,6 @@
 #include "ContentCore.h"
-#include "TitleLevel.h"
+#include "IntroLevel.h"
+#include "MenuLevel.h"
 #include <GameEnginePlatform/GameEngineWindow.h>
 
 ContentCore::ContentCore()
@@ -14,9 +15,11 @@ void ContentCore::Start()
 {
 	GameEngineWindow::MainWindow.SetPosAndScale({ 100, 100 }, { 1090, 690 });
 
-	GameEngineCore::CreateLevel<TitleLevel>("TitleLevel");
+	GameEngineCore::CreateLevel<IntroLevel>("IntroLevel");
 
-	GameEngineCore::ChangeLevel("TitleLevel");
+	GameEngineCore::CreateLevel<MenuLevel>("MenuLevel");
+
+	GameEngineCore::ChangeLevel("IntroLevel");
 
 }
 

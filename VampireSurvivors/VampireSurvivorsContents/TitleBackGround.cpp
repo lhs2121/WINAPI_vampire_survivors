@@ -1,4 +1,4 @@
-#include "IntroBackGround.h"
+#include "TitleBackGround.h"
 #include "ContentsEnum.h"
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
@@ -6,16 +6,16 @@
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 
-IntroBackGround::IntroBackGround()
+TitleBackGround::TitleBackGround()
 {
 
 }
 
-IntroBackGround::~IntroBackGround()
+TitleBackGround::~TitleBackGround()
 {
 
 }
-void IntroBackGround::Start()
+void TitleBackGround::Start()
 {
 
 	SetPos(float4::ZERO);

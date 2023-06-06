@@ -366,6 +366,7 @@ void GameEngineCollision::DebugRender()
 	case CollisionType::CirCle:
 		Data.Scale.X = Data.Scale.Max2D();
 		Data.Scale.Y = Data.Scale.X;
+		
 		Ellipse(BackBuffer->GetImageDC(), Data.iLeft(), Data.iTop(), Data.iRight(), Data.iBot());
 		break;
 	case CollisionType::Max:

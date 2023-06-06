@@ -166,8 +166,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ContentCore.cpp" />
-    <ClCompile Include="IntroBackGround.h">
+    <ClCompile Include="TitleBackGround.h">
       <SubType>
       </SubType>
     </ClCompile>
@@ -175,19 +179,25 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="TitleLevel.h">
+    <ClCompile Include="IntroLevel.h">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="TitleLevel.cpp" />
-    <ClCompile Include="IntroBackGround.cpp" />
+    <ClCompile Include="IntroLevel.cpp" />
+    <ClCompile Include="TitleBackGround.cpp" />
     <ClCompile Include="PressAnyKey.cpp" />
+    <ClCompile Include="MenuLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsEnum.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="MenuLevel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
