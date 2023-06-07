@@ -4,7 +4,7 @@
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineCore.h>
-#include "TitleBackGround.h"
+#include "imageUI.h"
 #include "PressAnyKey.h"
 IntroLevel::IntroLevel()
 {
@@ -29,7 +29,7 @@ void IntroLevel::Start()
 
 	}
 
-	CreateActor<TitleBackGround>(0);
+	CreateActor<imageUI>(0)->Init("introBG.bmp");
 
 	CreateActor<PressAnyKey>(1);
 

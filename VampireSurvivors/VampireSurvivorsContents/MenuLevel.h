@@ -23,6 +23,8 @@ private:
 	void Start() override;
 	void Update(float _delta) override;
 
+	class imageUI* background;
+
 	class Button* StartButton = nullptr;
 	class Button* CollectionButton = nullptr;
 	class Button* UpgradeButton = nullptr;

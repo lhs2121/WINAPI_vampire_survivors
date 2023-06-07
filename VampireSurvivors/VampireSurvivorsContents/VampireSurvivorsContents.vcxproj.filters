@@ -8,23 +8,23 @@
     <ClCompile Include="IntroLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
-    <ClCompile Include="TitleBackGround.h">
-      <Filter>Actor\TitleScene</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleBackGround.cpp">
-      <Filter>Actor\TitleScene</Filter>
-    </ClCompile>
     <ClCompile Include="PressAnyKey.h">
-      <Filter>Actor\TitleScene</Filter>
+      <Filter>Actor\Scene1</Filter>
     </ClCompile>
     <ClCompile Include="PressAnyKey.cpp">
-      <Filter>Actor\TitleScene</Filter>
+      <Filter>Actor\Scene1</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
-      <Filter>Actor\TitleScene</Filter>
+      <Filter>Actor\Scene1</Filter>
     </ClCompile>
     <ClCompile Include="MenuLevel.cpp">
       <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="imageUI.cpp">
+      <Filter>Actor\Scene1</Filter>
+    </ClCompile>
+    <ClCompile Include="imageUI.h">
+      <Filter>Actor\Scene1</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -37,7 +37,7 @@
     <Filter Include="Actor">
       <UniqueIdentifier>{550c2e45-c781-4ab4-8de5-a4736bba4d43}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\TitleScene">
+    <Filter Include="Actor\Scene1">
       <UniqueIdentifier>{ca0365d9-f26f-4604-95aa-a7bc5966aa99}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -46,7 +46,7 @@
       <Filter>Actor</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
-      <Filter>Actor\TitleScene</Filter>
+      <Filter>Actor\Scene1</Filter>
     </ClInclude>
     <ClInclude Include="MenuLevel.h">
       <Filter>Level</Filter>

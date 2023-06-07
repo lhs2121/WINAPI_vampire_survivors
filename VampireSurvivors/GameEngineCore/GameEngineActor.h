@@ -106,6 +106,11 @@ public:
 		IsOverValue = false;
 	}
 
+	GameEngineRenderer* GetRenderer()
+	{
+		std::list<GameEngineRenderer*>::iterator iter = AllRenderer.begin();
+		return *iter;
+	}
 protected:
 	virtual void LevelStart() {}
 	virtual void LevelEnd() {}

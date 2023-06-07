@@ -25,13 +25,13 @@ void Button::Start()
 }
 
 
-void Button::Init(const std::string& path,const float4 RenderPos,float Ratio)
+void Button::Init(const std::string& path, const float4 RenderPos, float Ratio)
 {
 	GameEngineWindowTexture* texture = ResourcesManager::GetInst().FindTexture(path);
 	Renderer = CreateRenderer(RenderOrder::PlayUI);
 	Renderer->SetTexture(path);
 	Renderer->SetRenderPos(RenderPos);
-	Renderer->SetRenderScale(texture->GetScale()*Ratio);
+	Renderer->SetRenderScale(texture->GetScale() * Ratio);
 
 	Scale = texture->GetScale() * Ratio;
 
@@ -41,9 +41,9 @@ bool Button::CheckCollision(float left, float right, float top, float bottom, in
 {
 	if (mouseX >= left && mouseX <= right && mouseY >= top && mouseY <= bottom)
 	{
-		return true; // 충돌이 감지되었음
+		return true;
 	}
-	return false; // 충돌이 감지되지 않았음
+	return false;
 }
 
 void Button::Update(float _delta)
@@ -61,11 +61,17 @@ void Button::Update(float _delta)
 
 		if (true == CheckCollision(left, Right, Top, Bottom, mousePos.x, mousePos.y))
 		{
-			Death();
+			if (Panel != nullptr)
+			{
+				if (false == Panel->GetRenderer()->IsUpdate())
+				{
+					Panel->GetRenderer()->On();
+				}
+			}
 		}
 
 	}
-	
+
 
 }
 

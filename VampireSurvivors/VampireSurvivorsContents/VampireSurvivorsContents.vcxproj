@@ -171,7 +171,7 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ContentCore.cpp" />
-    <ClCompile Include="TitleBackGround.h">
+    <ClCompile Include="imageUI.h">
       <SubType>
       </SubType>
     </ClCompile>
@@ -184,7 +184,7 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="IntroLevel.cpp" />
-    <ClCompile Include="TitleBackGround.cpp" />
+    <ClCompile Include="imageUI.cpp" />
     <ClCompile Include="PressAnyKey.cpp" />
     <ClCompile Include="MenuLevel.cpp">
       <SubType>
