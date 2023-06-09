@@ -170,7 +170,13 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="CharactorButton.cpp" />
     <ClCompile Include="ContentCore.cpp" />
+    <ClCompile Include="PlayLevel.cpp" />
+    <ClCompile Include="SelectPanel.h">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="imageUI.h">
       <SubType>
       </SubType>
@@ -190,14 +196,17 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="SelectPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CharactorButton.h" />
     <ClInclude Include="ContentsEnum.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="MenuLevel.h" />
+    <ClInclude Include="PlayLevel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

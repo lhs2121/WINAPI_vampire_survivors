@@ -20,20 +20,21 @@ Button::~Button()
 void Button::Start()
 {
 
-	SetPos({ 545,345 });
+	SetPos({ GameEngineWindow::MainWindow.GetScale().Half()});
 
 }
 
 
-void Button::Init(const std::string& path, const float4 RenderPos, float Ratio)
+void Button::Init(const std::string& path, const float4 RenderPos, int _Order)
 {
 	GameEngineWindowTexture* texture = ResourcesManager::GetInst().FindTexture(path);
 	Renderer = CreateRenderer(RenderOrder::PlayUI);
 	Renderer->SetTexture(path);
 	Renderer->SetRenderPos(RenderPos);
-	Renderer->SetRenderScale(texture->GetScale() * Ratio);
+	Renderer->SetRenderScale(texture->GetScale());
+	Renderer->SetOrder(_Order);
 
-	Scale = texture->GetScale() * Ratio;
+	Scale = texture->GetScale();
 
 }
 
@@ -61,17 +62,22 @@ void Button::Update(float _delta)
 
 		if (true == CheckCollision(left, Right, Top, Bottom, mousePos.x, mousePos.y))
 		{
-			if (Panel != nullptr)
-			{
-				if (false == Panel->GetRenderer()->IsUpdate())
-				{
-					Panel->GetRenderer()->On();
-				}
-			}
+			OnClick();
 		}
 
 	}
 
 
+}
+
+void Button::OnClick()
+{
+	if (Panel != nullptr)
+	{
+		if (false == Panel->IsUpdate())
+		{
+			Panel->On();
+		}
+	}
 }
 

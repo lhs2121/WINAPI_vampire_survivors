@@ -10,7 +10,6 @@ imageUI::imageUI()
 {
 
 }
-
 imageUI::~imageUI()
 {
 
@@ -18,15 +17,16 @@ imageUI::~imageUI()
 void imageUI::Start()
 {
 
-	SetPos({ GameEngineWindow::MainWindow.GetScale().Half()});
+	SetPos({ GameEngineWindow::MainWindow.GetScale().Half() });
 
 }
 
-void imageUI::Init(const std::string& path, const float4 RenderPos, float Ratio)
+void imageUI::Init(const std::string& path, const float4 RenderPos, int _Order)
 {
 	GameEngineWindowTexture* texture = ResourcesManager::GetInst().FindTexture(path);
 	Renderer = CreateRenderer(RenderOrder::BackGround);
 	Renderer->SetTexture(path);
 	Renderer->SetRenderPos(RenderPos);
-	Renderer->SetRenderScale(texture->GetScale() * Ratio);
+	Renderer->SetRenderScale(texture->GetScale());
+	Renderer->SetOrder(_Order);
 }

@@ -7,7 +7,8 @@ class imageUI : public GameEngineActor
 public:
 
 	imageUI();
-	~imageUI();
+	virtual ~imageUI();
+	
 
 
 	imageUI(const imageUI& _Other) = delete;
@@ -16,7 +17,7 @@ public:
 	imageUI& operator=(imageUI&& _Other) noexcept = delete;
 
 
-	void Init(const std::string& path, const float4 RenderPos = float4::ZERO, float Ratio = 1.0f);
+	void Init(const std::string& path, const float4 RenderPos = float4::ZERO, int _Order = 0);
 
 protected:
 

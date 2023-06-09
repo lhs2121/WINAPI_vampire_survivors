@@ -3,6 +3,8 @@
 
 class Button : public GameEngineActor
 {
+
+
 public:
 
 	Button();
@@ -14,7 +16,7 @@ public:
 	Button& operator=(Button&& _Other) noexcept = delete;
 
 
-	void Init(const std::string& path, const float4 RenderPos, float Ratio = 1.0f);
+	void Init(const std::string& path, const float4 RenderPos, int _Order = 0);
 
 	void SetPanel(GameEngineActor* _Panel)
 	{
@@ -23,15 +25,20 @@ public:
 
 protected:
 
+	
+	virtual void OnClick();
+	
+
 private:
 	void Start() override;
 	void Update(float _Delta) override;
 	bool CheckCollision(float left, float right, float top, float bottom, int mouseX, int mouseY);
-	
-	float4 Scale;
-
 	class GameEngineRenderer* Renderer;
 	GameEngineActor* Panel;
-	
+	float4 Scale;
+
+
+
+
 };
 

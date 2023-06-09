@@ -1,6 +1,7 @@
 #include "ContentCore.h"
 #include "IntroLevel.h"
 #include "MenuLevel.h"
+#include "PlayLevel.h"
 #include <GameEnginePlatform/GameEngineWindow.h>
 
 ContentCore::ContentCore()
@@ -18,6 +19,8 @@ void ContentCore::Start()
 	GameEngineCore::CreateLevel<IntroLevel>("IntroLevel");
 
 	GameEngineCore::CreateLevel<MenuLevel>("MenuLevel");
+
+	GameEngineCore::CreateLevel<PlayLevel>("PlayLevel");
 
 	GameEngineCore::ChangeLevel("IntroLevel");
 

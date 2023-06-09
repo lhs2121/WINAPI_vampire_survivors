@@ -17,7 +17,7 @@ PressAnyKey::~PressAnyKey()
 void PressAnyKey::Start()
 {
 	
-	SetPos(float4::ZERO);
+	SetPos({ 545,345 });
 
 	if (false == ResourcesManager::GetInst().IsLoadTexture("PressAnyKey.bmp"))
 	{
@@ -32,7 +32,7 @@ void PressAnyKey::Start()
 
 	{
 		Renderer = CreateRenderer(RenderOrder::BackGround);
-		Renderer->SetRenderPos({ 545,345 });
+		Renderer->SetRenderPos(float4::ZERO);
 		Renderer->SetRenderScaleToTexture();
 		
 		Renderer->CreateAnimation("pak", "PressAnyKey", 0, 1, 0.5, true);
