@@ -25,16 +25,24 @@ void Button::Start()
 }
 
 
-void Button::Init(const std::string& path, const float4 RenderPos, int _Order)
+void Button::Init(const std::string& _FileName, const float4 RenderPos, int _Order)
 {
-	GameEngineWindowTexture* texture = ResourcesManager::GetInst().FindTexture(path);
+
+
+	GameEngineWindowTexture* texture = ResourcesManager::GetInst().FindTexture(_FileName);
+	Scale = texture->GetScale();
+
 	Renderer = CreateRenderer(RenderOrder::PlayUI);
-	Renderer->SetTexture(path);
+
+	Renderer->SetTexture(_FileName);
+
 	Renderer->SetRenderPos(RenderPos);
-	Renderer->SetRenderScale(texture->GetScale());
+
+	Renderer->SetRenderScale(Scale);
+
 	Renderer->SetOrder(_Order);
 
-	Scale = texture->GetScale();
+
 
 }
 

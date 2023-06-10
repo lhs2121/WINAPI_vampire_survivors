@@ -166,12 +166,24 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BackGround.h">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Button.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="CharactorButton.cpp" />
     <ClCompile Include="ContentCore.cpp" />
+    <ClCompile Include="Player.h">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PlayLevel.cpp" />
     <ClCompile Include="SelectPanel.h">
       <SubType>
@@ -197,6 +209,7 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="SelectPanel.cpp" />
+    <ClCompile Include="BackGround.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />

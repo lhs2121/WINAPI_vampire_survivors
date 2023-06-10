@@ -9,34 +9,46 @@
       <Filter>Level</Filter>
     </ClCompile>
     <ClCompile Include="PressAnyKey.h">
-      <Filter>Actor\Scene1</Filter>
+      <Filter>Actor\MenuScene</Filter>
     </ClCompile>
     <ClCompile Include="PressAnyKey.cpp">
-      <Filter>Actor\Scene1</Filter>
+      <Filter>Actor\MenuScene</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
-      <Filter>Actor\Scene1</Filter>
+      <Filter>Actor\MenuScene</Filter>
     </ClCompile>
     <ClCompile Include="MenuLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
     <ClCompile Include="imageUI.cpp">
-      <Filter>Actor\Scene1</Filter>
+      <Filter>Actor\MenuScene</Filter>
     </ClCompile>
     <ClCompile Include="imageUI.h">
-      <Filter>Actor\Scene1</Filter>
+      <Filter>Actor\MenuScene</Filter>
     </ClCompile>
     <ClCompile Include="SelectPanel.h">
-      <Filter>Actor\Scene1</Filter>
+      <Filter>Actor\MenuScene</Filter>
     </ClCompile>
     <ClCompile Include="SelectPanel.cpp">
-      <Filter>Actor\Scene1</Filter>
+      <Filter>Actor\MenuScene</Filter>
     </ClCompile>
     <ClCompile Include="PlayLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
     <ClCompile Include="CharactorButton.cpp">
-      <Filter>Actor\Scene1</Filter>
+      <Filter>Actor\MenuScene</Filter>
+    </ClCompile>
+    <ClCompile Include="BackGround.h">
+      <Filter>Actor\PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="BackGround.cpp">
+      <Filter>Actor\PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Actor\PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.h">
+      <Filter>Actor\PlayScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -49,8 +61,11 @@
     <Filter Include="Actor">
       <UniqueIdentifier>{550c2e45-c781-4ab4-8de5-a4736bba4d43}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Scene1">
+    <Filter Include="Actor\MenuScene">
       <UniqueIdentifier>{ca0365d9-f26f-4604-95aa-a7bc5966aa99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\PlayScene">
+      <UniqueIdentifier>{bd976b73-3c66-417e-b000-ab9f1b23b5eb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -58,7 +73,7 @@
       <Filter>Actor</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
-      <Filter>Actor\Scene1</Filter>
+      <Filter>Actor\MenuScene</Filter>
     </ClInclude>
     <ClInclude Include="MenuLevel.h">
       <Filter>Level</Filter>
@@ -67,7 +82,7 @@
       <Filter>Level</Filter>
     </ClInclude>
     <ClInclude Include="CharactorButton.h">
-      <Filter>Actor\Scene1</Filter>
+      <Filter>Actor\MenuScene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

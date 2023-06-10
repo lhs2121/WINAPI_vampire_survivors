@@ -23,6 +23,7 @@ private:
 	void Start() override;
 	void Update(float _delta) override;
 
-	
+	class BackGround* BackGroundPtr;
+	class Player* Player = nullptr;
 };
 

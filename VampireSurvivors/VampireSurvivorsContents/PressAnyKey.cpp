@@ -24,14 +24,14 @@ void PressAnyKey::Start()
 		GameEnginePath path;
 		path.SetCurrentPath();
 		path.MoveParentToExistsChild("Resources");
-		path.MoveChild("Resources\\BackGround\\");
+		path.MoveChild("Resources\\MenuScene\\");
 		
 		ResourcesManager::GetInst().CreateSpriteFolder("PressAnyKey", path.PlusFilePath("PressAnyKey"));
 
 	}
 
 	{
-		Renderer = CreateRenderer(RenderOrder::BackGround);
+		Renderer = CreateRenderer(1);
 		Renderer->SetRenderPos(float4::ZERO);
 		Renderer->SetRenderScaleToTexture();
 		
