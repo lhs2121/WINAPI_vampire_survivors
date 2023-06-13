@@ -50,6 +50,9 @@
     <ClCompile Include="Player.h">
       <Filter>Actor\PlayScene</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Actor\PlayScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
@@ -83,6 +86,9 @@
     </ClInclude>
     <ClInclude Include="CharactorButton.h">
       <Filter>Actor\MenuScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Actor\PlayScene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

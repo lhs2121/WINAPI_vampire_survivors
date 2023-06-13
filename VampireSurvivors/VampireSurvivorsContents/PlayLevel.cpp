@@ -1,6 +1,7 @@
 #include "PlayLevel.h"
 #include "BackGround.h"
 #include "Player.h"
+#include "Enemy.h"
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/ResourcesManager.h>
@@ -28,9 +29,14 @@ void PlayLevel::Start()
 		path.SetCurrentPath();
 		path.MoveParentToExistsChild("Resources");
 		path.MoveChild("Resources\\PlayScene\\");
+
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("enemy1.bmp"));
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("enemy1.bmp"), 5, 1);
+		
 		path.MoveChild("BackGround\\");
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("dummy1.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("Debugdummy1.bmp"));
+
 	}
 	if (nullptr == GameEngineSound::FindSound("bgm_elrond_library.ogg"))
 	{
@@ -42,6 +48,12 @@ void PlayLevel::Start()
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("bgm_elrond_library.ogg"));
 
 	}
+
+
+	CreateActor<Enemy>(1);
+
+	CreateActor<Enemy>(1);
+
 	PlayerPtr = CreateActor<Player>(1);
 
 	BackGroundPtr = CreateActor<BackGround>(0);

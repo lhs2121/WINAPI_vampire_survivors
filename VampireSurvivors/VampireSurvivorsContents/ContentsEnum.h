@@ -9,7 +9,9 @@ enum class UpdateOrder
 enum class RenderOrder
 {
 	BackGround,
-	Play,
+	UnderMonster,
+	Player,
+	UpperMonster,
 	PlayUI,
 };
 

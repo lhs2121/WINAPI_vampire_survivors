@@ -176,6 +176,7 @@
     </ClCompile>
     <ClCompile Include="CharactorButton.cpp" />
     <ClCompile Include="ContentCore.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Player.h">
       <SubType>
       </SubType>
@@ -218,6 +219,7 @@
     <ClInclude Include="CharactorButton.h" />
     <ClInclude Include="ContentsEnum.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="MenuLevel.h" />
     <ClInclude Include="PlayLevel.h" />
   </ItemGroup>

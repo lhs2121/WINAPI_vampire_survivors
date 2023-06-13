@@ -37,7 +37,7 @@ void Player::Start()
 		Collison = CreateCollision(0);
 		Collison->SetCollisionScale({ 32,32 });
 
-		Renderer = CreateRenderer(RenderOrder::Play);
+		Renderer = CreateRenderer(RenderOrder::Player);
 
 		Renderer->CreateAnimation("RightRun", "RightRun.bmp", 0, 3, 0.1f, true);
 		Renderer->CreateAnimation("LeftRun", "LeftRun.bmp", 0, 3, 0.1f, true);
@@ -51,20 +51,20 @@ void Player::Update(float _Delta)
 	Renderer->FindAnimation("LeftRun");
 	if (GameEngineInput::IsPress('W'))
 	{
-		AddPos({ 0,-0.1 });
+		AddPos({ 0,-1 });
 	}
 	if (GameEngineInput::IsPress('S'))
 	{
-		AddPos({ 0,0.1 });
+		AddPos({ 0,1 });
 	}
 	if (GameEngineInput::IsPress('A'))
 	{
-		AddPos({ -0.1,0 });
+		AddPos({ -1,0 });
 		Renderer->ChangeAnimation("LeftRun");
 	}
 	if (GameEngineInput::IsPress('D'))
 	{
-		AddPos({ 0.1,0 });
+		AddPos({ 1,0 });
 		Renderer->ChangeAnimation("RightRun");
 	}
 

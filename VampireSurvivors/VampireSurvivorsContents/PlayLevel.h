@@ -34,6 +34,8 @@ private:
 
 	class Player* PlayerPtr = nullptr;
 
+
+
 	bool IsLooping = false;
 
 };
