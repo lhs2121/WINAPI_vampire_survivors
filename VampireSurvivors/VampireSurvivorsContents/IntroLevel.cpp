@@ -1,12 +1,15 @@
 #include "IntroLevel.h"
+#include "IntroImage.h"
+#include "PressAnyKey.h"
+
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineActor.h>
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEnginePlatform/GameEngineSound.h>
-#include "imageUI.h"
-#include "PressAnyKey.h"
+#include <GameEngineCore/GameEngineRenderer.h>
+
 IntroLevel::IntroLevel()
 {
 
@@ -41,7 +44,7 @@ void IntroLevel::Start()
 
 	}
 
-	CreateActor<imageUI>(0)->Init("introBG.bmp");
+	CreateActor<IntroImage>(0);
 
 	CreateActor<PressAnyKey>(1);
 
@@ -52,11 +55,8 @@ void IntroLevel::Update(float _Delta)
 {
 	if (true == GameEngineInput::IsDown(VK_RETURN))
 	{
-
 		GameEngineCore::ChangeLevel("MenuLevel");
-		
 	} 
-
 }
 
 void IntroLevel::LevelStart(GameEngineLevel* _PrevLevel)

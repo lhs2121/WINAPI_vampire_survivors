@@ -175,15 +175,6 @@ void GameEngineRenderer::Render(float _DeltaTime)
 	
 }
 
-float4 GameEngineRenderer::GetScreenPos()
-{
-	return GetActor()->GetPos() + RenderPos - Camera->GetPos();
-}
-
-
-
-
-
 
 GameEngineRenderer::Animation* GameEngineRenderer::FindAnimation(const std::string& _AniamtionName)
 {

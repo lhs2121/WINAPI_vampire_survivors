@@ -170,12 +170,15 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Button.cpp">
+    <ClCompile Include="ContentCore.cpp" />
+    <ClCompile Include="CharactorSelectUI.h">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="CharactorButton.cpp" />
-    <ClCompile Include="ContentCore.cpp" />
+    <ClCompile Include="IntroImage.h">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Player.h">
       <SubType>
@@ -186,14 +189,6 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="PlayLevel.cpp" />
-    <ClCompile Include="SelectPanel.h">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="imageUI.h">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="PressAnyKey.h">
       <SubType>
       </SubType>
@@ -203,22 +198,20 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="IntroLevel.cpp" />
-    <ClCompile Include="imageUI.cpp" />
     <ClCompile Include="PressAnyKey.cpp" />
     <ClCompile Include="MenuLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="SelectPanel.cpp" />
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="CharactorSelectUI.cpp" />
+    <ClCompile Include="IntroImage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CharactorButton.h" />
     <ClInclude Include="ContentsEnum.h" />
-    <ClInclude Include="Button.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="MenuLevel.h" />
     <ClInclude Include="PlayLevel.h" />

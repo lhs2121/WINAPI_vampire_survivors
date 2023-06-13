@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineLevel.h>
-class Button;
+
 class MenuLevel : public GameEngineLevel
 {
 public:
@@ -22,16 +22,5 @@ private:
 
 	void Start() override;
 	void Update(float _delta) override;
-
-	class imageUI* BackGroundImg = nullptr;
-	class SelectPanel* SPanel = nullptr;
-
-	class CharactorButton* ZenaroButton = nullptr;
-
-	Button* StartButton = nullptr;
-	Button* CollectionButton = nullptr;
-	Button* UpgradeButton = nullptr;
-	Button* MakersButton = nullptr;
-	Button* UnlockButton = nullptr;
 };
 

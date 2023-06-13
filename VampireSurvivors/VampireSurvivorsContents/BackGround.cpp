@@ -89,7 +89,7 @@ void BackGround::SwitchRender()
 
 void BackGround::BackGroundLoop(Player* player)
 {
-	if (Right->CollisonCheck(player->Collison, CollisionType::Rect, CollisionType::Rect))
+	if (Right->CollisonCheck(player->Collision, CollisionType::Rect, CollisionType::Rect))
 	{
 		if (OnCollision == false)
 		{
@@ -103,7 +103,7 @@ void BackGround::BackGroundLoop(Player* player)
 		}
 		
 	}
-	else if (Left->CollisonCheck(player->Collison, CollisionType::Rect, CollisionType::Rect))
+	else if (Left->CollisonCheck(player->Collision, CollisionType::Rect, CollisionType::Rect))
 	{
 
 		if (OnCollision == false)
@@ -118,8 +118,8 @@ void BackGround::BackGroundLoop(Player* player)
 		}
 		
 	}
-	else if (false == Right->CollisonCheck(player->Collison, CollisionType::Rect, CollisionType::Rect) && 
-		false == Left->CollisonCheck(player->Collison, CollisionType::Rect, CollisionType::Rect) && 
+	else if (false == Right->CollisonCheck(player->Collision, CollisionType::Rect, CollisionType::Rect) && 
+		false == Left->CollisonCheck(player->Collision, CollisionType::Rect, CollisionType::Rect) && 
 		true == OnCollision)
 	{
 		OnCollision = false;

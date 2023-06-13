@@ -64,8 +64,6 @@ public:
 		return RenderPos;
 	}
 
-	float4 GetScreenPos();
-
 	CameraType GetCameraType()
 	{
 		return CameraTypeValue;

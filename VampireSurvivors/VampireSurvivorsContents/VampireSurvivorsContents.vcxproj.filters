@@ -14,29 +14,11 @@
     <ClCompile Include="PressAnyKey.cpp">
       <Filter>Actor\MenuScene</Filter>
     </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Actor\MenuScene</Filter>
-    </ClCompile>
     <ClCompile Include="MenuLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
-    <ClCompile Include="imageUI.cpp">
-      <Filter>Actor\MenuScene</Filter>
-    </ClCompile>
-    <ClCompile Include="imageUI.h">
-      <Filter>Actor\MenuScene</Filter>
-    </ClCompile>
-    <ClCompile Include="SelectPanel.h">
-      <Filter>Actor\MenuScene</Filter>
-    </ClCompile>
-    <ClCompile Include="SelectPanel.cpp">
-      <Filter>Actor\MenuScene</Filter>
-    </ClCompile>
     <ClCompile Include="PlayLevel.cpp">
       <Filter>Level</Filter>
-    </ClCompile>
-    <ClCompile Include="CharactorButton.cpp">
-      <Filter>Actor\MenuScene</Filter>
     </ClCompile>
     <ClCompile Include="BackGround.h">
       <Filter>Actor\PlayScene</Filter>
@@ -52,6 +34,18 @@
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Actor\PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="CharactorSelectUI.h">
+      <Filter>Actor\MenuScene</Filter>
+    </ClCompile>
+    <ClCompile Include="CharactorSelectUI.cpp">
+      <Filter>Actor\MenuScene</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroImage.h">
+      <Filter>Actor\MenuScene</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroImage.cpp">
+      <Filter>Actor\MenuScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -75,17 +69,11 @@
     <ClInclude Include="ContentsEnum.h">
       <Filter>Actor</Filter>
     </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Actor\MenuScene</Filter>
-    </ClInclude>
     <ClInclude Include="MenuLevel.h">
       <Filter>Level</Filter>
     </ClInclude>
     <ClInclude Include="PlayLevel.h">
       <Filter>Level</Filter>
-    </ClInclude>
-    <ClInclude Include="CharactorButton.h">
-      <Filter>Actor\MenuScene</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Actor\PlayScene</Filter>

@@ -30,8 +30,8 @@ void PlayLevel::Start()
 		path.MoveParentToExistsChild("Resources");
 		path.MoveChild("Resources\\PlayScene\\");
 
-		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("enemy1.bmp"));
-		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("enemy1.bmp"), 5, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Lenemy1.bmp"), 5, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Renemy1.bmp"), 5, 1);
 		
 		path.MoveChild("BackGround\\");
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("dummy1.bmp"));
@@ -40,24 +40,30 @@ void PlayLevel::Start()
 	}
 	if (nullptr == GameEngineSound::FindSound("bgm_elrond_library.ogg"))
 	{
-		GameEnginePath FilePath;
-		FilePath.SetCurrentPath();
-		FilePath.MoveParentToExistsChild("Resources");
-		FilePath.MoveChild("Resources\\Sound\\");
+		GameEnginePath path;
+		path.SetCurrentPath();
+		path.MoveParentToExistsChild("Resources");
+		path.MoveChild("Resources\\Sound\\");
 
-		GameEngineSound::SoundLoad(FilePath.PlusFilePath("bgm_elrond_library.ogg"));
+		GameEngineSound::SoundLoad(path.PlusFilePath("bgm_elrond_library.ogg"));
 
 	}
 
+	BackGroundPtr = CreateActor<BackGround>(0);
 
-	CreateActor<Enemy>(1);
-
-	CreateActor<Enemy>(1);
+	BackGroundPtr->Init("dummy1.bmp", "Debugdummy1.bmp");
 
 	PlayerPtr = CreateActor<Player>(1);
 
-	BackGroundPtr = CreateActor<BackGround>(0);
-	BackGroundPtr->Init("dummy1.bmp", "Debugdummy1.bmp");
+	{
+		
+		CreateActor<Enemy>(1);
+		CreateActor<Enemy>(1)->SetPos({ 100,0 });
+		CreateActor<Enemy>(1)->SetPos({ 50,50 });
+		CreateActor<Enemy>(1)->SetPos({ -50,50 });
+		CreateActor<Enemy>(1)->SetPos({ -50,-50 });
+		CreateActor<Enemy>(1)->SetPos({ 50,-50 });
+	}
 }
 
 

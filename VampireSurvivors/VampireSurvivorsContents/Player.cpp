@@ -8,6 +8,9 @@
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineCollision.h>
+
+Player* Player::MainPlayer = nullptr;
+
 Player::Player()
 {
 
@@ -34,8 +37,13 @@ void Player::Start()
 	}
 
 	{
-		Collison = CreateCollision(0);
-		Collison->SetCollisionScale({ 32,32 });
+		Collision = CreateCollision(1);
+		Collision->SetCollisionScale({ 32,32 });
+		Collision->SetCollisionType(CollisionType::CirCle);
+
+		InnerCollision = CreateCollision(1);
+		InnerCollision->SetCollisionScale({ 10,10 });
+		InnerCollision->SetCollisionType(CollisionType::CirCle);
 
 		Renderer = CreateRenderer(RenderOrder::Player);
 
@@ -49,26 +57,32 @@ void Player::Start()
 void Player::Update(float _Delta)
 {
 	Renderer->FindAnimation("LeftRun");
+
 	if (GameEngineInput::IsPress('W'))
 	{
-		AddPos({ 0,-1 });
+		AddPos({ 0,-1 * _Delta * speed });
 	}
 	if (GameEngineInput::IsPress('S'))
 	{
-		AddPos({ 0,1 });
+		AddPos({ 0,1 * _Delta * speed });
 	}
 	if (GameEngineInput::IsPress('A'))
 	{
-		AddPos({ -1,0 });
+		AddPos({ -1 * _Delta * speed,0 });
 		Renderer->ChangeAnimation("LeftRun");
 	}
 	if (GameEngineInput::IsPress('D'))
 	{
-		AddPos({ 1,0 });
+		AddPos({ 1 * _Delta * speed,0 });
 		Renderer->ChangeAnimation("RightRun");
 	}
 
 
 	float4 WindowScale = GameEngineWindow::MainWindow.GetScale();
 	GetLevel()->GetMainCamera()->SetPos(GetPos() + float4{ -545, -345 });
+}
+
+void Player::LevelStart()
+{
+	MainPlayer = this;
 }

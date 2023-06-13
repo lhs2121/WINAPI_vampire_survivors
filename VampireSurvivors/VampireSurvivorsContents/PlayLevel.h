@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineLevel.h>
+#include <vector>
 
 class PlayLevel : public GameEngineLevel
 {
@@ -20,23 +21,15 @@ protected:
 
 private:
 
-	void Start() override;
-	void Update(float _delta) override;
-	void LevelStart(GameEngineLevel* _PrevLevel) override;
-	void LevelEnd(GameEngineLevel* _NextLevel) override;
-
-	float4 TopCameraPos;
-	float4 BottomCameraPos;
-	float4 LeftCameraPos;
-	float4 RightCameraPos;
-
 	class BackGround* BackGroundPtr;
 
 	class Player* PlayerPtr = nullptr;
 
-
-
 	bool IsLooping = false;
 
+	void Start() override;
+	void Update(float _delta) override;
+	void LevelStart(GameEngineLevel* _PrevLevel) override;
+	void LevelEnd(GameEngineLevel* _NextLevel) override;
 };
 

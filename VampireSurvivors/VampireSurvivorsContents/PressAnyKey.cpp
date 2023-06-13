@@ -33,8 +33,8 @@ void PressAnyKey::Start()
 		Renderer->SetRenderPos(float4::ZERO);
 		Renderer->SetRenderScaleToTexture();
 
-		Renderer->CreateAnimation("pak", "PressAnyKey", 0, 1, 0.5, true);
-		Renderer->ChangeAnimation("pak");
+		Renderer->CreateAnimation("PressAnyKey", "PressAnyKey", 0, 1, 0.5, true);
+		Renderer->ChangeAnimation("PressAnyKey");
 	}
 }
 
