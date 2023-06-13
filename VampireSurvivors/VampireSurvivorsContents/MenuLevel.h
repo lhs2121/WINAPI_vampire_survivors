@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineLevel.h>
-
+class Button;
 class MenuLevel : public GameEngineLevel
 {
 public:
@@ -28,10 +28,10 @@ private:
 
 	class CharactorButton* ZenaroButton = nullptr;
 
-	class Button* StartButton = nullptr;
-	class Button* CollectionButton = nullptr;
-	class Button* UpgradeButton = nullptr;
-	class Button* MakersButton = nullptr;
-	class Button* UnlockButton = nullptr;
+	Button* StartButton = nullptr;
+	Button* CollectionButton = nullptr;
+	Button* UpgradeButton = nullptr;
+	Button* MakersButton = nullptr;
+	Button* UnlockButton = nullptr;
 };
 

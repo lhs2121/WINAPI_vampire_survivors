@@ -1,8 +1,10 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
+#include <vector>
 
 class Player : public GameEngineActor
 {
+	friend class BackGround;
 public:
 
 	Player();
@@ -20,6 +22,11 @@ protected:
 
 private:
 
+	class GameEngineCollision* Collison;
+
+	class GameEngineRenderer* Renderer;
+
+	
 	void Start() override;
 	void Update(float _Delta) override;
 };

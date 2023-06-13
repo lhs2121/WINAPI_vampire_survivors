@@ -27,18 +27,14 @@ void PressAnyKey::Start()
 		path.MoveChild("Resources\\MenuScene\\");
 		
 		ResourcesManager::GetInst().CreateSpriteFolder("PressAnyKey", path.PlusFilePath("PressAnyKey"));
-
 	}
-
 	{
 		Renderer = CreateRenderer(1);
 		Renderer->SetRenderPos(float4::ZERO);
 		Renderer->SetRenderScaleToTexture();
-		
+
 		Renderer->CreateAnimation("pak", "PressAnyKey", 0, 1, 0.5, true);
 		Renderer->ChangeAnimation("pak");
 	}
-
-
 }
 

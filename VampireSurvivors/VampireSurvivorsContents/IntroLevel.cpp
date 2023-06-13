@@ -4,6 +4,7 @@
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineCore.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 #include "imageUI.h"
 #include "PressAnyKey.h"
 IntroLevel::IntroLevel()
@@ -19,6 +20,17 @@ IntroLevel::~IntroLevel()
 
 void IntroLevel::Start()
 {
+	if (nullptr == GameEngineSound::FindSound("sfx_titleIntro.ogg"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("Resources");
+		FilePath.MoveChild("Resources\\Sound\\");
+
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("sfx_titleIntro.ogg"));
+
+	}
+
 	if (false == ResourcesManager::GetInst().IsLoadTexture("introBG.bmp"))
 	{
 		GameEnginePath path;
@@ -47,3 +59,7 @@ void IntroLevel::Update(float _Delta)
 
 }
 
+void IntroLevel::LevelStart(GameEngineLevel* _PrevLevel)
+{
+	GameEngineSound::SoundPlay("sfx_titleIntro.ogg");
+}

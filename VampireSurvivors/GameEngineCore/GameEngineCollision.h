@@ -100,6 +100,10 @@ public:
 		CollisionPos = _Value;
 	}
 
+	float4 GetCollisionPos()
+	{
+		return CollisionPos;
+	}
 	// 몇가지 문제가 있는데. 
 	// 1. 몬스터데 몬스터랑
 

@@ -59,6 +59,10 @@ public:
 		ScaleRatio = _Scale;
 	}
 
+	float4 GetRenderPos()
+	{
+		return RenderPos;
+	}
 
 	float4 GetScreenPos();
 

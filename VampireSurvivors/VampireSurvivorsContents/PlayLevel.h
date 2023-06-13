@@ -22,8 +22,19 @@ private:
 
 	void Start() override;
 	void Update(float _delta) override;
+	void LevelStart(GameEngineLevel* _PrevLevel) override;
+	void LevelEnd(GameEngineLevel* _NextLevel) override;
+
+	float4 TopCameraPos;
+	float4 BottomCameraPos;
+	float4 LeftCameraPos;
+	float4 RightCameraPos;
 
 	class BackGround* BackGroundPtr;
-	class Player* Player = nullptr;
+
+	class Player* PlayerPtr = nullptr;
+
+	bool IsLooping = false;
+
 };
 

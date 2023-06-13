@@ -16,7 +16,7 @@ public:
 
 	void Init(const std::string& _FileName, const std::string& _DebugFileName);
 	void SwitchRender();
-
+	void BackGroundLoop(class Player* player);
 protected:
 
 private:
@@ -24,8 +24,23 @@ private:
 	bool SwitchRenderValue = true;
 	class GameEngineRenderer* Renderer;
 	class GameEngineRenderer* DebugRenderer;
+	class GameEngineRenderer* OtherRendererGroup[2];
 
+	std::string FileName;
+	float4 Scale;
+	float4 OffSetX;
+	float4 OffSetY;
+
+	GameEngineCollision* Top;
+	GameEngineCollision* Left;
+	GameEngineCollision* Right;
+	GameEngineCollision* Bottom;
+
+	bool OnCollision = false;
+
+	void MoveOtherRenderer();
 	void Start() override;
 	void Update(float _Delta) override;
+	
 };
 
