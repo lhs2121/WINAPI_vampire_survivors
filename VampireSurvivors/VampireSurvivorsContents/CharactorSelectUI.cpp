@@ -54,8 +54,10 @@ void CharactorSelectUI::Start()
 		SelectPanel->SetRenderPos({ 0,40 });
 		CharactorButton1->SetRenderPos({ -190,-100 });
 
-		LFocusCursor->SetRenderPos(StartButton->GetRenderPos() + float4(-120, 0));
-		RFocusCursor->SetRenderPos(StartButton->GetRenderPos() + float4(120, 0));
+		LFocusCursor->SetRenderPos(StartButton->GetRenderPos() + float4(-115, 0));
+		LFocusCursor->SetScaleRatio(2);
+		RFocusCursor->SetRenderPos(StartButton->GetRenderPos() + float4(115, 0));
+		RFocusCursor->SetScaleRatio(2);
 	}
 
 	{
