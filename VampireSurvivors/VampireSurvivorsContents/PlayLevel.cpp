@@ -8,6 +8,7 @@
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEnginePlatform/GameEngineSound.h>
+#include <GameEngineBase/GameEngineRandom.h>
 
 PlayLevel::PlayLevel()
 {
@@ -32,7 +33,7 @@ void PlayLevel::Start()
 
 		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Lenemy1.bmp"), 5, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Renemy1.bmp"), 5, 1);
-		
+
 		path.MoveChild("BackGround\\");
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("dummy1.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("Debugdummy1.bmp"));
@@ -55,15 +56,8 @@ void PlayLevel::Start()
 
 	PlayerPtr = CreateActor<Player>(1);
 
-	{
-		
-		CreateActor<Enemy>(1);
-		CreateActor<Enemy>(1)->SetPos({ 100,0 });
-		CreateActor<Enemy>(1)->SetPos({ 50,50 });
-		CreateActor<Enemy>(1)->SetPos({ -50,50 });
-		CreateActor<Enemy>(1)->SetPos({ -50,-50 });
-		CreateActor<Enemy>(1)->SetPos({ 50,-50 });
-	}
+
+	
 }
 
 
@@ -75,6 +69,8 @@ void PlayLevel::Update(float _delta)
 		CollisionDebugRenderSwitch();
 	}
 	BackGroundPtr->BackGroundLoop(PlayerPtr);
+
+	EnemySpawn(_delta);
 }
 
 void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)
@@ -84,6 +80,59 @@ void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)
 }
 void PlayLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
+
+}
+
+void PlayLevel::EnemySpawn(float _Delta)
+{
+	static float sumDelta;
+	sumDelta += _Delta;
+	if (sumDelta > 8)
+	{
+		{
+			int num;
+			num = GameEngineRandom::MainRandom.RandomInt(9, 15);
+
+			Enemy* prevEnemy = nullptr;
+
+			for (int i = 0; i < num; i++)
+			{
+				Enemy* NewEnemy = CreateActor<Enemy>(1);
+
+				NewEnemy->SetPos({ PlayerPtr->GetPos() + float4(600,-200) });
+
+				if (prevEnemy != nullptr)
+				{
+					NewEnemy->SetPos(prevEnemy->GetPos() + float4(0, 35));
+				}
+
+				prevEnemy = NewEnemy;
+			}
+		}
+		{
+			int num;
+			num = GameEngineRandom::MainRandom.RandomInt(5, 15);
+
+			Enemy* prevEnemy = nullptr;
+
+			for (int i = 0; i < num; i++)
+			{
+				Enemy* NewEnemy = CreateActor<Enemy>(1);
+
+				NewEnemy->SetPos({ PlayerPtr->GetPos() + float4(-600,-200) });
+
+				if (prevEnemy != nullptr)
+				{
+					NewEnemy->SetPos(prevEnemy->GetPos() + float4(0, 35));
+				}
+
+				prevEnemy = NewEnemy;
+			}
+		}
+
+		sumDelta = 0;
+	}
+
 
 }
 

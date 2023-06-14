@@ -25,13 +25,14 @@ void Enemy::Start()
 	if (random % 2 == 0)
 	{
 		Renderer = CreateRenderer(RenderOrder::UnderMonster);
-		speed = 10;
 	}
 	else
 	{
 		Renderer = CreateRenderer(RenderOrder::UpperMonster);
-		speed = 30;
 	}
+
+	speed = 40 + GameEngineRandom::MainRandom.RandomInt(1, 5);
+
 
 	Renderer->CreateAnimation("LeftRun", "Lenemy1.bmp", 0, 4, 0.1f, true);
 	Renderer->CreateAnimation("RightRun", "Renemy1.bmp", 0, 4, 0.1f, true);
