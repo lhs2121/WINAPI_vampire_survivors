@@ -80,7 +80,7 @@ void Enemy::Update(float _Delta)
 			dir = AllMonsterCollision[i]->GetActor()->GetPos() - GetPos();
 			dir.Normalize();
 
-			SetPos(GetPos() - dir * 3000 * _Delta);
+			SetPos(GetPos() - dir * 1000 * _Delta);
 		}
 		
 		AllMonsterCollision.clear();
