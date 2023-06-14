@@ -56,7 +56,46 @@ void PlayLevel::Start()
 
 	PlayerPtr = CreateActor<Player>(1);
 
+	{
+		int num;
+		num = GameEngineRandom::MainRandom.RandomInt(9, 15);
 
+		Enemy* prevEnemy = nullptr;
+
+		for (int i = 0; i < num; i++)
+		{
+			Enemy* NewEnemy = CreateActor<Enemy>(1);
+
+			NewEnemy->SetPos({ PlayerPtr->GetPos() + float4(600,-200) });
+
+			if (prevEnemy != nullptr)
+			{
+				NewEnemy->SetPos(prevEnemy->GetPos() + float4(0, 35));
+			}
+
+			prevEnemy = NewEnemy;
+		}
+	}
+	{
+		int num;
+		num = GameEngineRandom::MainRandom.RandomInt(5, 15);
+
+		Enemy* prevEnemy = nullptr;
+
+		for (int i = 0; i < num; i++)
+		{
+			Enemy* NewEnemy = CreateActor<Enemy>(1);
+
+			NewEnemy->SetPos({ PlayerPtr->GetPos() + float4(-600,-200) });
+
+			if (prevEnemy != nullptr)
+			{
+				NewEnemy->SetPos(prevEnemy->GetPos() + float4(0, 35));
+			}
+
+			prevEnemy = NewEnemy;
+		}
+	}
 	
 }
 
