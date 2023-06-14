@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "ContentsEnum.h"
+#include "Weapon.h"
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineBase/GameEnginePath.h>
@@ -42,15 +43,19 @@ void Player::Start()
 		Collision->SetCollisionType(CollisionType::CirCle);
 
 		InnerCollision = CreateCollision(1);
-		InnerCollision->SetCollisionScale({ 10,10 });
+		InnerCollision->SetCollisionScale({ 15,20 });
 		InnerCollision->SetCollisionType(CollisionType::CirCle);
 
 		Renderer = CreateRenderer(RenderOrder::Player);
-
 		Renderer->CreateAnimation("RightRun", "RightRun.bmp", 0, 3, 0.1f, true);
 		Renderer->CreateAnimation("LeftRun", "LeftRun.bmp", 0, 3, 0.1f, true);
-
 		Renderer->ChangeAnimation("RightRun");
+	}
+
+	{
+		WeaponFunc[0] = Weapon::Knife;
+		WeaponFunc[1] = Weapon::MagicWand;
+		WeaponFunc[2] = Weapon::Axe;
 	}
 
 }
@@ -77,7 +82,14 @@ void Player::Update(float _Delta)
 		Renderer->ChangeAnimation("RightRun");
 	}
 
-
+	for (int i = 0; i < 5; i++)
+	{
+		if (WeaponFunc[i] != nullptr)
+		{
+			WeaponFunc[i](_Delta);
+		}
+	}
+	
 	float4 WindowScale = GameEngineWindow::MainWindow.GetScale();
 	GetLevel()->GetMainCamera()->SetPos(GetPos() + float4{ -545, -345 });
 }
@@ -86,3 +98,4 @@ void Player::LevelStart()
 {
 	MainPlayer = this;
 }
+

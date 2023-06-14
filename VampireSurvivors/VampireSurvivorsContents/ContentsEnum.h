@@ -11,6 +11,7 @@ enum class RenderOrder
 	BackGround,
 	UnderMonster,
 	Player,
+	Weapon,
 	UpperMonster,
 	PlayUI,
 };

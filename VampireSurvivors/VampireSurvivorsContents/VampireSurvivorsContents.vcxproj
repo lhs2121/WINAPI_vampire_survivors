@@ -175,6 +175,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Weapon.h">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="IntroImage.h">
       <SubType>
       </SubType>
@@ -206,6 +210,7 @@
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="CharactorSelectUI.cpp" />
     <ClCompile Include="IntroImage.cpp" />
+    <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />

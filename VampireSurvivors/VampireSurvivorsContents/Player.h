@@ -1,9 +1,9 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 
+class Weapon;
 class Player : public GameEngineActor
 {
-	friend class BackGround;
 public:
 
 	Player();
@@ -36,9 +36,15 @@ private:
 
 	class GameEngineRenderer* Renderer;
 
+	class Bullet* knife1;
+	class Bullet* knife2;
+
 	static Player* MainPlayer;
 
 	float speed = 100;
+
+	void (*WeaponFunc[6])(float _Delta);
+
 	void LevelStart() override;
 	void Start() override;
 	void Update(float _Delta) override;

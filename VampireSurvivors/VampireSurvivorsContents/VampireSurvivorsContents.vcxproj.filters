@@ -47,6 +47,12 @@
     <ClCompile Include="IntroImage.cpp">
       <Filter>Actor\MenuScene</Filter>
     </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Actor\PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.h">
+      <Filter>Actor\PlayScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
