@@ -32,6 +32,16 @@ void CharactorSelectUI::Start()
 
 		SelectPanel = CreateRenderer(2);
 		CharactorButton1 = CreateRenderer(3);
+
+		LFocusCursor = CreateRenderer(1);
+		LFocusCursor->CreateAnimation("LFocusCursor", "LFocusCursor.bmp", 0, 5);
+		LFocusCursor->ChangeAnimation("LFocusCursor");
+
+
+
+		RFocusCursor = CreateRenderer(1);
+		RFocusCursor->CreateAnimation("RFocusCursor", "RFocusCursor.bmp", 0, 5);
+		RFocusCursor->ChangeAnimation("RFocusCursor");
 	}
 
 	{
@@ -44,6 +54,8 @@ void CharactorSelectUI::Start()
 		SelectPanel->SetRenderPos({ 0,40 });
 		CharactorButton1->SetRenderPos({ -190,-100 });
 
+		LFocusCursor->SetRenderPos(StartButton->GetRenderPos() + float4(-120, 0));
+		RFocusCursor->SetRenderPos(StartButton->GetRenderPos() + float4(120, 0));
 	}
 
 	{

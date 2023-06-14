@@ -36,6 +36,9 @@ void MenuLevel::Start()
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("makers.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("SelectPanel.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("Zenaro.bmp"));
+
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("LFocusCursor.bmp"), 6, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("RFocusCursor.bmp"), 6, 1);
 	}
 
 	CreateActor<IntroImage>(0);

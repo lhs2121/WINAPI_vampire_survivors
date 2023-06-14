@@ -66,7 +66,7 @@ void PlayLevel::Start()
 		{
 			Enemy* NewEnemy = CreateActor<Enemy>(1);
 
-			NewEnemy->SetPos({ PlayerPtr->GetPos() + float4(600,-200) });
+			NewEnemy->SetPos({ PlayerPtr->GetPos() + float4(500,-200) });
 
 			if (prevEnemy != nullptr)
 			{
@@ -86,7 +86,7 @@ void PlayLevel::Start()
 		{
 			Enemy* NewEnemy = CreateActor<Enemy>(1);
 
-			NewEnemy->SetPos({ PlayerPtr->GetPos() + float4(-600,-200) });
+			NewEnemy->SetPos({ PlayerPtr->GetPos() + float4(-500,-200) });
 
 			if (prevEnemy != nullptr)
 			{

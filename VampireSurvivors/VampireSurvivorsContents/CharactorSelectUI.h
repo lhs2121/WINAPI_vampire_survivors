@@ -32,6 +32,9 @@ private:
 
 	GameEngineRenderer* SelectPanel;
 	GameEngineRenderer* CharactorButton1;
+	
+	GameEngineRenderer* LFocusCursor;
+	GameEngineRenderer* RFocusCursor;
 
 	GameEngineCollision* Mouse;
 	GameEngineCollision* StartCol;
