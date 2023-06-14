@@ -40,7 +40,10 @@ void Enemy::Start()
 
 
 	Collision = CreateCollision(2);
-	Collision->SetCollisionScale({ 20,20 });
+
+	Collision->SetCollisionPos({ 0,10 });
+	Collision->SetCollisionScale({ 22,22 });
+	
 	Collision->SetCollisionType(CollisionType::CirCle);
 
 }
@@ -65,11 +68,11 @@ void Enemy::Update(float _Delta)
 
 	if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion(), CollisionType::CirCle, CollisionType::CirCle))
 	{
-		SetPos(GetPos() - dir * (speed - 1) * _Delta); //에너미와 플레이어가 서로 밀어냄
+		SetPos(GetPos() - dir * (speed - 1) * _Delta); //플레이어가 에너미를 약하게 밀어냄
 	}
 	if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetInnerCollsion(), CollisionType::CirCle, CollisionType::CirCle))
 	{
-		SetPos(GetPos() - dir * 5000 * _Delta); // 강하게 밀어냄
+		SetPos(GetPos() - dir * 500 * _Delta); //플레이어가 에너미를 강하게 밀어냄
 	}
 
 	if (true == Collision->Collision(2, AllMonsterCollision, CollisionType::CirCle, CollisionType::CirCle))
@@ -80,7 +83,7 @@ void Enemy::Update(float _Delta)
 			dir = AllMonsterCollision[i]->GetActor()->GetPos() - GetPos();
 			dir.Normalize();
 
-			SetPos(GetPos() - dir * 1000 * _Delta);
+			SetPos(GetPos() - dir * speed * _Delta);
 		}
 		
 		AllMonsterCollision.clear();
