@@ -17,6 +17,7 @@ enum class RenderOrder
 	UpperMonster,
 	Weapon,
 	PlayUI,
+	PlayUI2
 };
 
 // ÇïÅ×ÀÌÄ¿ 

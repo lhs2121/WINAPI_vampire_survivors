@@ -34,6 +34,9 @@ private:
 	
 	class GameEngineRenderer* Renderer;
 
+	class GameEngineRenderer* HpBackGround;
+	class GameEngineRenderer* HpBar;
+
 	class GameEngineCollision* Collision;
 	class GameEngineCollision* InnerCollision;
 

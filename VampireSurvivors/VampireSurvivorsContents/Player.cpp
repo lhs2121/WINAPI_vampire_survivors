@@ -28,14 +28,23 @@ void Player::Start()
 	SetPos({ 0,0 });
 
 	{
+		GameEnginePath FolderPath;
 		GameEnginePath path;
 		path.SetCurrentPath();
 		path.MoveParentToExistsChild("Resources\\");
 		path.MoveChild("Resources\\PlayScene\\");
+		
+		FolderPath = path.GetStringPath();
 		path.MoveChild("Player\\");
+
+
 
 		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("RightRun.bmp"), 4, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("LeftRun.bmp"), 4, 1);
+
+		FolderPath.MoveChild("UI\\");
+		ResourcesManager::GetInst().TextureLoad(FolderPath.PlusFilePath("HpBG.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FolderPath.PlusFilePath("HpBar.bmp"));
 	}
 
 	{
@@ -51,6 +60,14 @@ void Player::Start()
 		Renderer->CreateAnimation("RightRun", "RightRun.bmp", 0, 3, 0.1f, true);
 		Renderer->CreateAnimation("LeftRun", "LeftRun.bmp", 0, 3, 0.1f, true);
 		Renderer->ChangeAnimation("RightRun");
+
+		HpBackGround = CreateRenderer(RenderOrder::PlayUI);
+		HpBackGround->SetRenderPos({ 0,25 });
+		HpBackGround->SetTexture("HpBG.bmp");
+
+		HpBar = CreateRenderer(RenderOrder::PlayUI2);
+		HpBar->SetRenderPos({ 0,25 });
+		HpBar->SetTexture("HpBar.bmp");
 
 		PlayerDir = float4::RIGHT;
 	}
