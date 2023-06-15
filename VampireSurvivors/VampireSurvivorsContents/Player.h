@@ -37,12 +37,20 @@ private:
 	class GameEngineCollision* Collision;
 	class GameEngineCollision* InnerCollision;
 
+	float4 KnifePos1;
+	float4 KnifePos2;
+
+	float4 PlayerDir;
+
 	class Knife* KnifeActor;
+	class Knife* KnifeActor2;
 	
 
 	float speed = 100;
 
 	void (Player::*WeaponFunc[6])(float _Delta);
+
+	bool OnKnifeFunc = false;
 	void KnifeFunc(float _Delta);
 	
 

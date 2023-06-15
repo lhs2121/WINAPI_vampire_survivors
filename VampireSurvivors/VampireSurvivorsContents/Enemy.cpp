@@ -33,17 +33,13 @@ void Enemy::Start()
 
 	speed = 50 + GameEngineRandom::MainRandom.RandomInt(1, 5);
 
-
 	Renderer->CreateAnimation("LeftRun", "Lenemy1.bmp", 0, 4, 0.1f, true);
 	Renderer->CreateAnimation("RightRun", "Renemy1.bmp", 0, 4, 0.1f, true);
 	Renderer->ChangeAnimation("LeftRun");
 
-
 	Collision = CreateCollision(CollisionOrder::Monster);
-
 	Collision->SetCollisionPos({ 0,10 });
 	Collision->SetCollisionScale({ 22,22 });
-	
 	Collision->SetCollisionType(CollisionType::CirCle);
 
 }
@@ -70,6 +66,7 @@ void Enemy::Update(float _Delta)
 	{
 		AddPos(-dir * (speed - 1) * _Delta); //플레이어가 에너미를 약하게 밀어냄
 	}
+
 	if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetInnerCollsion(), CollisionType::CirCle, CollisionType::CirCle))
 	{
 		AddPos(-dir * 500 * _Delta); //플레이어가 에너미를 강하게 밀어냄
@@ -87,6 +84,11 @@ void Enemy::Update(float _Delta)
 		}
 		
 		AllMonsterCollision.clear();
+	}
+
+	if (hp < 0)
+	{
+		Death();
 	}
 }
 

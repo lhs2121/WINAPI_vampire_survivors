@@ -51,10 +51,13 @@ void Player::Start()
 		Renderer->CreateAnimation("RightRun", "RightRun.bmp", 0, 3, 0.1f, true);
 		Renderer->CreateAnimation("LeftRun", "LeftRun.bmp", 0, 3, 0.1f, true);
 		Renderer->ChangeAnimation("RightRun");
+
+		PlayerDir = float4::RIGHT;
 	}
 
 	{
 		KnifeActor = GetLevel()->CreateActor<Knife>(UpdateOrder::Weapon);
+		KnifeActor2 = GetLevel()->CreateActor<Knife>(UpdateOrder::Weapon);
 	}
 }
 void Player::Update(float _Delta)
@@ -64,20 +67,24 @@ void Player::Update(float _Delta)
 	if (GameEngineInput::IsPress('W'))
 	{
 		AddPos({ 0,-1 * _Delta * speed });
+		PlayerDir = float4::UP;
 	}
 	if (GameEngineInput::IsPress('S'))
 	{
 		AddPos({ 0,1 * _Delta * speed });
+		PlayerDir = float4::DOWN;
 	}
 	if (GameEngineInput::IsPress('A'))
 	{
 		AddPos({ -1 * _Delta * speed,0 });
 		Renderer->ChangeAnimation("LeftRun");
+		PlayerDir = float4::LEFT;
 	}
 	if (GameEngineInput::IsPress('D'))
 	{
 		AddPos({ 1 * _Delta * speed,0 });
 		Renderer->ChangeAnimation("RightRun");
+		PlayerDir = float4::RIGHT;
 	}
 
 	for (int i = 0; i < 5; i++)
@@ -96,7 +103,8 @@ void Player::LevelStart()
 {
 	MainPlayer = this;
 
-	KnifeActor->SetPos(GetPos());
+	KnifeActor->SetPos(KnifePos1);
+	KnifeActor2->SetPos(KnifePos2);
 
 	{
 		WeaponFunc[0] = &Player::KnifeFunc;
@@ -108,16 +116,31 @@ void Player::KnifeFunc(float _Delta)
 	static float sumdelta;
 	sumdelta += _Delta;
 
-	if (false == KnifeActor->IsUpdate())
+	if (false == OnKnifeFunc)
 	{
-		KnifeActor->On();
+		Knife::KnifeDir = PlayerDir;
 	}
+	
 
-	KnifeActor->AddPos({ 1,0 });
+	KnifePos1 = GetPos();
+	KnifePos2 = GetPos() + float4{ -15,10 };
+
+	KnifeActor->AddPos(Knife::KnifeDir * _Delta * Knife::Speed);
+	KnifeActor2->AddPos(Knife::KnifeDir * _Delta * Knife::Speed);
+
+	OnKnifeFunc = true;
 
 	if (sumdelta > 3)
 	{
-		KnifeActor->SetPos(GetPos());
+		if (false == KnifeActor->IsUpdate())
+		{
+			KnifeActor->On();
+			KnifeActor2->On();
+		}
+
+		KnifeActor->SetPos(KnifePos1);
+		KnifeActor2->SetPos(KnifePos2);
+		OnKnifeFunc = false;	
 		sumdelta = 0;
 	}
 

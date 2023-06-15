@@ -4,8 +4,9 @@ enum class UpdateOrder
 {
 	BackGround,
 	Player,
-	Monster,
 	Weapon,
+	Monster,
+	
 };
 
 enum class RenderOrder

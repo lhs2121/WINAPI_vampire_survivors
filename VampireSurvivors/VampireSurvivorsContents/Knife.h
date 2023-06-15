@@ -23,11 +23,11 @@ private:
 	class GameEngineRenderer* Renderer;
 	class GameEngineCollision* Collision;
 
-	float speed;
-
+	static float Speed;
+	static float4 KnifeDir;
+	float4 Scale;
 	void Start() override;
-
-
+	void Update(float _Delta) override;
 	void On() override;
 	void Off() override;
 };

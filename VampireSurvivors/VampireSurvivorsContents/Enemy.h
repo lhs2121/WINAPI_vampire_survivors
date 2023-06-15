@@ -18,6 +18,10 @@ public:
 	Enemy& operator=(const Enemy& _Other) = delete;
 	Enemy& operator=(Enemy&& _Other) noexcept = delete;
 
+	void SetHp(float _Damage)
+	{
+		hp -= _Damage;
+	}
 
 protected:
 
@@ -25,6 +29,7 @@ private:
 	class GameEngineRenderer* Renderer;
 	class GameEngineCollision* Collision;
 
+	float hp= 100;
 	float speed;
 
 	void Start() override;
