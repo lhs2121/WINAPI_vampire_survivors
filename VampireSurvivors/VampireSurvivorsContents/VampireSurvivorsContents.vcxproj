@@ -175,7 +175,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Weapon.h">
+    <ClCompile Include="Knife.h">
       <SubType>
       </SubType>
     </ClCompile>
@@ -210,7 +210,7 @@
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="CharactorSelectUI.cpp" />
     <ClCompile Include="IntroImage.cpp" />
-    <ClCompile Include="Weapon.cpp" />
+    <ClCompile Include="Knife.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />

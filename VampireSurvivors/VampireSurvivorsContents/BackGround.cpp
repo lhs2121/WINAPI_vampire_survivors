@@ -35,16 +35,16 @@ void BackGround::Start()
 
 	for (int i = 0; i < 2; i++)
 	{
-		OtherRendererGroup[i] = CreateRenderer(0);
+		OtherRendererGroup[i] = CreateRenderer(RenderOrder::BackGround);
 		OtherRendererGroup[i]->SetTexture("dummy1.bmp");
 	}
 
 	{
-		Left = CreateCollision(0);
+		Left = CreateCollision(CollisionOrder::BackGround);
 		Left->SetCollisionPos(-OffSetX.Half());
 		Left->SetCollisionScale(OffSetY);
 
-		Right = CreateCollision(0);
+		Right = CreateCollision(CollisionOrder::BackGround);
 		Right->SetCollisionPos(OffSetX.Half());
 		Right->SetCollisionScale(OffSetY);
 	}

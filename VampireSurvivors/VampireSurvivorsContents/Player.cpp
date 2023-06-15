@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "ContentsEnum.h"
-#include "Weapon.h"
+#include "Knife.h"
+#include <GameEngineCore/GameEngineActor.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineBase/GameEnginePath.h>
@@ -38,11 +39,11 @@ void Player::Start()
 	}
 
 	{
-		Collision = CreateCollision(1);
+		Collision = CreateCollision(CollisionOrder::Player);
 		Collision->SetCollisionScale({ 32,32 });
 		Collision->SetCollisionType(CollisionType::CirCle);
 
-		InnerCollision = CreateCollision(1);
+		InnerCollision = CreateCollision(CollisionOrder::Player);
 		InnerCollision->SetCollisionScale({ 15,20 });
 		InnerCollision->SetCollisionType(CollisionType::CirCle);
 
@@ -53,11 +54,8 @@ void Player::Start()
 	}
 
 	{
-		WeaponFunc[0] = Weapon::Knife;
-		WeaponFunc[1] = Weapon::MagicWand;
-		WeaponFunc[2] = Weapon::Axe;
+		KnifeActor = GetLevel()->CreateActor<Knife>(UpdateOrder::Weapon);
 	}
-
 }
 void Player::Update(float _Delta)
 {
@@ -86,7 +84,7 @@ void Player::Update(float _Delta)
 	{
 		if (WeaponFunc[i] != nullptr)
 		{
-			WeaponFunc[i](_Delta);
+			(this->*WeaponFunc[i])(_Delta);
 		}
 	}
 	
@@ -97,5 +95,31 @@ void Player::Update(float _Delta)
 void Player::LevelStart()
 {
 	MainPlayer = this;
+
+	KnifeActor->SetPos(GetPos());
+
+	{
+		WeaponFunc[0] = &Player::KnifeFunc;
+	}
+}
+
+void Player::KnifeFunc(float _Delta)
+{
+	static float sumdelta;
+	sumdelta += _Delta;
+
+	if (false == KnifeActor->IsUpdate())
+	{
+		KnifeActor->On();
+	}
+
+	KnifeActor->AddPos({ 1,0 });
+
+	if (sumdelta > 3)
+	{
+		KnifeActor->SetPos(GetPos());
+		sumdelta = 0;
+	}
+
 }
 

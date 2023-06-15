@@ -30,20 +30,21 @@ public:
 protected:
 
 private:
+	static Player* MainPlayer;
+	
+	class GameEngineRenderer* Renderer;
 
 	class GameEngineCollision* Collision;
 	class GameEngineCollision* InnerCollision;
 
-	class GameEngineRenderer* Renderer;
-
-	class Bullet* knife1;
-	class Bullet* knife2;
-
-	static Player* MainPlayer;
+	class Knife* KnifeActor;
+	
 
 	float speed = 100;
 
-	void (*WeaponFunc[6])(float _Delta);
+	void (Player::*WeaponFunc[6])(float _Delta);
+	void KnifeFunc(float _Delta);
+	
 
 	void LevelStart() override;
 	void Start() override;

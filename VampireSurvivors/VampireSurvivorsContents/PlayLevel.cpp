@@ -2,6 +2,7 @@
 #include "BackGround.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "ContentsEnum.h"
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/ResourcesManager.h>
@@ -50,11 +51,13 @@ void PlayLevel::Start()
 
 	}
 
-	BackGroundPtr = CreateActor<BackGround>(0);
+	BackGroundPtr = CreateActor<BackGround>(UpdateOrder::BackGround);
 
 	BackGroundPtr->Init("dummy1.bmp", "Debugdummy1.bmp");
 
-	PlayerPtr = CreateActor<Player>(1);
+	PlayerPtr = CreateActor<Player>(UpdateOrder::Player);
+
+	
 
 	{
 		int num;
@@ -64,7 +67,7 @@ void PlayLevel::Start()
 
 		for (int i = 0; i < num; i++)
 		{
-			Enemy* NewEnemy = CreateActor<Enemy>(1);
+			Enemy* NewEnemy = CreateActor<Enemy>(UpdateOrder::Monster);
 
 			NewEnemy->SetPos({ PlayerPtr->GetPos() + float4(500,-200) });
 
@@ -84,7 +87,7 @@ void PlayLevel::Start()
 
 		for (int i = 0; i < num; i++)
 		{
-			Enemy* NewEnemy = CreateActor<Enemy>(1);
+			Enemy* NewEnemy = CreateActor<Enemy>(UpdateOrder::Monster);
 
 			NewEnemy->SetPos({ PlayerPtr->GetPos() + float4(-500,-200) });
 
@@ -136,7 +139,7 @@ void PlayLevel::EnemySpawn(float _Delta)
 
 			for (int i = 0; i < num; i++)
 			{
-				Enemy* NewEnemy = CreateActor<Enemy>(1);
+				Enemy* NewEnemy = CreateActor<Enemy>(UpdateOrder::Monster);
 
 				NewEnemy->SetPos({ PlayerPtr->GetPos() + float4(600,-200) });
 
@@ -156,7 +159,7 @@ void PlayLevel::EnemySpawn(float _Delta)
 
 			for (int i = 0; i < num; i++)
 			{
-				Enemy* NewEnemy = CreateActor<Enemy>(1);
+				Enemy* NewEnemy = CreateActor<Enemy>(UpdateOrder::Monster);
 
 				NewEnemy->SetPos({ PlayerPtr->GetPos() + float4(-600,-200) });
 

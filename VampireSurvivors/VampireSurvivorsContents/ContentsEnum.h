@@ -2,8 +2,10 @@
 
 enum class UpdateOrder
 {
+	BackGround,
 	Player,
 	Monster,
+	Weapon,
 };
 
 enum class RenderOrder
@@ -11,16 +13,22 @@ enum class RenderOrder
 	BackGround,
 	UnderMonster,
 	Player,
-	Weapon,
 	UpperMonster,
+	Weapon,
 	PlayUI,
 };
 
 // ÇïÅ×ÀÌÄ¿ 
 enum class CollisionOrder
 {
-	Map,
-	Potal,
-	PlayerBody,
-	MonsterBody,
+	BackGround,
+	Player,
+	Monster,
+	Weapon,
+};
+
+enum class WeaponType
+{
+	Projectile,
+
 };

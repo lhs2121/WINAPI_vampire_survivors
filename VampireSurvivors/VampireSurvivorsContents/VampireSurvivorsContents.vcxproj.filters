@@ -47,11 +47,11 @@
     <ClCompile Include="IntroImage.cpp">
       <Filter>Actor\MenuScene</Filter>
     </ClCompile>
-    <ClCompile Include="Weapon.cpp">
-      <Filter>Actor\PlayScene</Filter>
+    <ClCompile Include="Knife.h">
+      <Filter>Actor\PlayScene\Weapon</Filter>
     </ClCompile>
-    <ClCompile Include="Weapon.h">
-      <Filter>Actor\PlayScene</Filter>
+    <ClCompile Include="Knife.cpp">
+      <Filter>Actor\PlayScene\Weapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +69,9 @@
     </Filter>
     <Filter Include="Actor\PlayScene">
       <UniqueIdentifier>{bd976b73-3c66-417e-b000-ab9f1b23b5eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\PlayScene\Weapon">
+      <UniqueIdentifier>{e76c082d-fab7-474c-918f-989da9c27085}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

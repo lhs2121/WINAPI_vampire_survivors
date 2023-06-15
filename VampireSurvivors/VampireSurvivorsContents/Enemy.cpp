@@ -39,7 +39,7 @@ void Enemy::Start()
 	Renderer->ChangeAnimation("LeftRun");
 
 
-	Collision = CreateCollision(2);
+	Collision = CreateCollision(CollisionOrder::Monster);
 
 	Collision->SetCollisionPos({ 0,10 });
 	Collision->SetCollisionScale({ 22,22 });
@@ -75,7 +75,7 @@ void Enemy::Update(float _Delta)
 		AddPos(-dir * 500 * _Delta); //플레이어가 에너미를 강하게 밀어냄
 	}
 
-	if (true == Collision->Collision(2, AllMonsterCollision, CollisionType::CirCle, CollisionType::CirCle))
+	if (true == Collision->Collision(CollisionOrder::Monster, AllMonsterCollision, CollisionType::CirCle, CollisionType::CirCle))
 	{
 		for (int i = 0; i < AllMonsterCollision.size(); i++)
 		{
