@@ -53,6 +53,7 @@ public:
 	{
 		CopyScale = _Value;
 	}
+	
 
 	void SetScaleRatio(const float& _Scale)
 	{
@@ -62,6 +63,11 @@ public:
 	float4 GetRenderPos()
 	{
 		return RenderPos;
+	}
+
+	float4 GetRenderScale()
+	{
+		return RenderScale;
 	}
 
 	CameraType GetCameraType()

@@ -175,6 +175,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="MagicWand.h">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Knife.h">
       <SubType>
       </SubType>
@@ -184,6 +188,7 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="MagicWand.cpp" />
     <ClCompile Include="Player.h">
       <SubType>
       </SubType>

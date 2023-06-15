@@ -26,6 +26,7 @@ private:
 	static float Speed;
 	static float4 KnifeDir;
 	float4 Scale;
+
 	void Start() override;
 	void Update(float _Delta) override;
 	void On() override;

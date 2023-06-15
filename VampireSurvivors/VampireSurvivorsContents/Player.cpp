@@ -33,7 +33,7 @@ void Player::Start()
 		path.SetCurrentPath();
 		path.MoveParentToExistsChild("Resources\\");
 		path.MoveChild("Resources\\PlayScene\\");
-		
+
 		FolderPath = path.GetStringPath();
 		path.MoveChild("Player\\");
 
@@ -62,12 +62,19 @@ void Player::Start()
 		Renderer->ChangeAnimation("RightRun");
 
 		HpBackGround = CreateRenderer(RenderOrder::PlayUI);
-		HpBackGround->SetRenderPos({ 0,25 });
+		HpBackGround->SetRenderPos({ 0,20 });
 		HpBackGround->SetTexture("HpBG.bmp");
 
 		HpBar = CreateRenderer(RenderOrder::PlayUI2);
-		HpBar->SetRenderPos({ 0,25 });
+		HpBar->SetRenderPos({ 0,20 });
 		HpBar->SetTexture("HpBar.bmp");
+
+
+		HpBar->SetCopyScale({ 1,5 });
+
+		HpBarScale = ResourcesManager::GetInst().FindTexture("HpBar.bmp")->GetScale();
+
+
 
 		PlayerDir = float4::RIGHT;
 	}
@@ -80,6 +87,11 @@ void Player::Start()
 void Player::Update(float _Delta)
 {
 	Renderer->FindAnimation("LeftRun");
+
+	if (GameEngineInput::IsDown('Q'))
+	{
+		GetDamage(20);
+	}
 
 	if (GameEngineInput::IsPress('W'))
 	{
@@ -111,9 +123,15 @@ void Player::Update(float _Delta)
 			(this->*WeaponFunc[i])(_Delta);
 		}
 	}
-	
+
 	float4 WindowScale = GameEngineWindow::MainWindow.GetScale();
 	GetLevel()->GetMainCamera()->SetPos(GetPos() + float4{ -545, -345 });
+
+	if (Hp <= 0)
+	{
+		HpBar->Off();
+		HpBackGround->Off();
+	}
 }
 
 void Player::LevelStart()
@@ -128,6 +146,14 @@ void Player::LevelStart()
 	}
 }
 
+void Player::GetDamage(float _Damage)
+{
+	Hp -= _Damage;
+
+	float Damage = (HpBarScale.X / MaxHp) * _Damage;
+	HpBar->SetRenderScale(HpBar->GetRenderScale() - float4{ Damage, 0 });
+	HpBar->SetRenderPos(HpBar->GetRenderPos() - float4(Damage / 2, 0));
+}
 void Player::KnifeFunc(float _Delta)
 {
 	static float sumdelta;
@@ -137,7 +163,7 @@ void Player::KnifeFunc(float _Delta)
 	{
 		Knife::KnifeDir = PlayerDir;
 	}
-	
+
 
 	KnifePos1 = GetPos();
 	KnifePos2 = GetPos() + float4{ -15,10 };
@@ -157,7 +183,7 @@ void Player::KnifeFunc(float _Delta)
 
 		KnifeActor->SetPos(KnifePos1);
 		KnifeActor2->SetPos(KnifePos2);
-		OnKnifeFunc = false;	
+		OnKnifeFunc = false;
 		sumdelta = 0;
 	}
 

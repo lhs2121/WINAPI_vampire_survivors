@@ -53,6 +53,12 @@
     <ClCompile Include="Knife.cpp">
       <Filter>Actor\PlayScene\Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="MagicWand.cpp">
+      <Filter>Actor\PlayScene\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="MagicWand.h">
+      <Filter>Actor\PlayScene\Weapon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />

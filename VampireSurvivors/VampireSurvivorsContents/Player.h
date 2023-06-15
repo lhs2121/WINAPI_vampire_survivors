@@ -27,6 +27,7 @@ public:
 	{
 		return InnerCollision;
 	}
+	void GetDamage(float _Damage);
 protected:
 
 private:
@@ -40,15 +41,18 @@ private:
 	class GameEngineCollision* Collision;
 	class GameEngineCollision* InnerCollision;
 
+	class Knife* KnifeActor;
+	class Knife* KnifeActor2;
+	
 	float4 KnifePos1;
 	float4 KnifePos2;
 
 	float4 PlayerDir;
 
-	class Knife* KnifeActor;
-	class Knife* KnifeActor2;
-	
+	float4 HpBarScale;
 
+	float MaxHp = 100;
+	float Hp = 100;
 	float speed = 100;
 
 	void (Player::*WeaponFunc[6])(float _Delta);
