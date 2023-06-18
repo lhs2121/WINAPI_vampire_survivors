@@ -62,12 +62,12 @@ void Knife::Update(float _Delta)
 		Collision->SetCollisionScale(Scale);
 	}
 
-	if (true == Collision->Collision(CollisionOrder::Monster, Enemy::AllMonsterCollision, CollisionType::Rect, CollisionType::CirCle))
+	if (true == Collision->Collision(CollisionOrder::Monster, result, CollisionType::Rect, CollisionType::CirCle))
 	{
-	    Enemy* FistEnemy = static_cast<Enemy*>(Enemy::AllMonsterCollision[0]->GetActor());
+	    Enemy* FistEnemy = static_cast<Enemy*>(result[0]->GetActor());
 		FistEnemy->SetHp(500);
 		
-		Enemy::AllMonsterCollision.clear();
+		result.clear();
 
 		Off();
 	}

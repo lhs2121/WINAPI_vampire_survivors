@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-
+#include <vector>
 class Knife : public GameEngineActor
 {
 	friend class Player;
@@ -26,6 +26,9 @@ private:
 	static float Speed;
 	static float4 KnifeDir;
 	float4 Scale;
+
+
+	std::vector<GameEngineCollision*> result;
 
 	void Start() override;
 	void Update(float _Delta) override;

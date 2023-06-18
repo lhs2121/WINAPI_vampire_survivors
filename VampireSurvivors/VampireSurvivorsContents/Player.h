@@ -19,15 +19,19 @@ public:
 	{
 		return MainPlayer;
 	}
+
 	GameEngineCollision* GetCollsion()
 	{
 		return Collision;
     }
+
 	GameEngineCollision* GetInnerCollsion()
 	{
 		return InnerCollision;
 	}
+
 	void GetDamage(float _Damage);
+
 protected:
 
 private:
