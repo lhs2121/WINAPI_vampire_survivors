@@ -189,6 +189,7 @@
     </ClCompile>
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="MagicWand.cpp" />
+    <ClCompile Include="PlayActor.cpp" />
     <ClCompile Include="Player.h">
       <SubType>
       </SubType>
@@ -224,6 +225,7 @@
     <ClInclude Include="ContentsEnum.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="MenuLevel.h" />
+    <ClInclude Include="PlayActor.h" />
     <ClInclude Include="PlayLevel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

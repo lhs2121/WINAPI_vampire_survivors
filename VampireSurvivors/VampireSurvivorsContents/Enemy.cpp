@@ -103,6 +103,7 @@ void Enemy::Move(float _Delta)
 
 	AddPos(dir * speed * _Delta);//플레이어 추적
 }
+
 void Enemy::CollisionCheck(float _Delta)
 {
 	if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion(), CollisionType::CirCle, CollisionType::CirCle))
@@ -110,7 +111,7 @@ void Enemy::CollisionCheck(float _Delta)
 		AddPos(-dir * (speed - 1) * _Delta); //플레이어가 에너미를 약하게 밀어냄
 	}
 
-	if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetInnerCollsion(), CollisionType::CirCle, CollisionType::CirCle))
+	if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion2(), CollisionType::CirCle, CollisionType::CirCle))
 	{
 		AddPos(-dir * 500 * _Delta); //플레이어가 에너미를 강하게 밀어냄
 	}

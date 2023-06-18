@@ -31,13 +31,15 @@ private:
 	float4 OffSetX;
 	float4 OffSetY;
 
-	GameEngineCollision* Top;
 	GameEngineCollision* Left;
 	GameEngineCollision* Right;
-	GameEngineCollision* Bottom;
 
+	bool RightCheck;
+	bool LeftCheck;
 	bool OnCollision = false;
 
+	void MoveLeft();
+	void MoveRight();
 	void MoveOtherRenderer();
 	void Start() override;
 	void Update(float _Delta) override;

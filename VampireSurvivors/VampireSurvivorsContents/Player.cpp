@@ -33,11 +33,9 @@ void Player::Start()
 		path.SetCurrentPath();
 		path.MoveParentToExistsChild("Resources\\");
 		path.MoveChild("Resources\\PlayScene\\");
-
 		FolderPath = path.GetStringPath();
+
 		path.MoveChild("Player\\");
-
-
 
 		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("RightRun.bmp"), 4, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("LeftRun.bmp"), 4, 1);
@@ -48,18 +46,15 @@ void Player::Start()
 	}
 
 	{
-		Collision = CreateCollision(CollisionOrder::Player);
-		Collision->SetCollisionScale({ 32,32 });
-		Collision->SetCollisionType(CollisionType::CirCle);
+		SetGroundTexture("Debugdummy1.bmp");
+	}
 
-		InnerCollision = CreateCollision(CollisionOrder::Player);
-		InnerCollision->SetCollisionScale({ 15,20 });
-		InnerCollision->SetCollisionType(CollisionType::CirCle);
-
-		Renderer = CreateRenderer(RenderOrder::Player);
+	{
+    	Renderer = CreateRenderer(RenderOrder::Player);
 		Renderer->CreateAnimation("RightRun", "RightRun.bmp", 0, 3, 0.1f, true);
 		Renderer->CreateAnimation("LeftRun", "LeftRun.bmp", 0, 3, 0.1f, true);
 		Renderer->ChangeAnimation("RightRun");
+		PlayerDir = float4::RIGHT;
 
 		HpBackGround = CreateRenderer(RenderOrder::PlayUI);
 		HpBackGround->SetRenderPos({ 0,20 });
@@ -69,14 +64,18 @@ void Player::Start()
 		HpBar->SetRenderPos({ 0,20 });
 		HpBar->SetTexture("HpBar.bmp");
 
-
-		HpBar->SetCopyScale({ 1,5 });
-
 		HpBarScale = ResourcesManager::GetInst().FindTexture("HpBar.bmp")->GetScale();
 
+	}
 
+	{
+		Collision = CreateCollision(CollisionOrder::Player);
+		Collision->SetCollisionScale({ 32,32 });
+		Collision->SetCollisionType(CollisionType::CirCle);
 
-		PlayerDir = float4::RIGHT;
+		Collision2 = CreateCollision(CollisionOrder::Player);
+		Collision2->SetCollisionScale({ 15,20 });
+		Collision2->SetCollisionType(CollisionType::CirCle);
 	}
 
 	{
@@ -124,14 +123,15 @@ void Player::Update(float _Delta)
 		}
 	}
 
-	float4 WindowScale = GameEngineWindow::MainWindow.GetScale();
-	GetLevel()->GetMainCamera()->SetPos(GetPos() + float4{ -545, -345 });
-
 	if (Hp <= 0)
 	{
 		HpBar->Off();
 		HpBackGround->Off();
 	}
+
+
+	CollisionWall(_Delta);
+	CameraFocus();
 }
 
 void Player::LevelStart()
@@ -164,7 +164,6 @@ void Player::KnifeFunc(float _Delta)
 		Knife::KnifeDir = PlayerDir;
 	}
 
-
 	KnifePos1 = GetPos();
 	KnifePos2 = GetPos() + float4{ -15,10 };
 
@@ -189,3 +188,11 @@ void Player::KnifeFunc(float _Delta)
 
 }
 
+void Player::CollisionWall(float _Delta)
+{
+	/*unsigned int color = RGB(255, 255, 255);
+	if (color != GetGroundColor(RGB(255, 255, 255),float4(0,16)))
+	{
+		AddPos(-PlayerDir * speed * _Delta);
+	}*/
+}

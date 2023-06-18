@@ -1,8 +1,8 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include <VampireSurvivorsContents/PlayActor.h>
 
 class Weapon;
-class Player : public GameEngineActor
+class Player : public PlayActor
 {
 public:
 
@@ -25,9 +25,9 @@ public:
 		return Collision;
     }
 
-	GameEngineCollision* GetInnerCollsion()
+	GameEngineCollision* GetCollsion2()
 	{
-		return InnerCollision;
+		return Collision2;
 	}
 
 	void GetDamage(float _Damage);
@@ -43,7 +43,9 @@ private:
 	class GameEngineRenderer* HpBar;
 
 	class GameEngineCollision* Collision;
-	class GameEngineCollision* InnerCollision;
+	class GameEngineCollision* Collision2;
+
+
 
 	class Knife* KnifeActor[4];
 	
@@ -56,13 +58,13 @@ private:
 
 	float MaxHp = 100;
 	float Hp = 100;
-	float speed = 100;
+	float speed = 1000;
 
 	void (Player::*WeaponFunc[6])(float _Delta);
 
 	bool OnKnifeFunc = false;
 	void KnifeFunc(float _Delta);
-	
+	void CollisionWall(float _Delta);
 
 	void LevelStart() override;
 	void Start() override;

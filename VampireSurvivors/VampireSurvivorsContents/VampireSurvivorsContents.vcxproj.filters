@@ -56,6 +56,9 @@
     <ClCompile Include="MagicWand.cpp">
       <Filter>Actor\PlayScene\Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="PlayActor.cpp">
+      <Filter>Actor\PlayScene</Filter>
+    </ClCompile>
     <ClCompile Include="MagicWand.h">
       <Filter>Actor\PlayScene\Weapon</Filter>
     </ClCompile>
@@ -91,6 +94,9 @@
       <Filter>Level</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
+      <Filter>Actor\PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayActor.h">
       <Filter>Actor\PlayScene</Filter>
     </ClInclude>
   </ItemGroup>

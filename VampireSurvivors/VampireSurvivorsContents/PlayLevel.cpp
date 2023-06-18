@@ -42,6 +42,32 @@ void PlayLevel::Start()
 
 	PlayerPtr = CreateActor<Player>(UpdateOrder::Player);
 
+
+}
+
+
+
+void PlayLevel::Update(float _delta)
+{
+	if (GameEngineInput::IsDown('C'))
+	{
+		CollisionDebugRenderSwitch();
+	}
+
+	if (GameEngineInput::IsDown('X'))
+	{
+		BackGroundPtr->SwitchRender();
+	}
+	BackGroundPtr->BackGroundLoop(PlayerPtr);
+
+	//EnemySpawn(_delta);
+}
+
+void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)
+{
+	GameEngineSound::SoundPlay("bgm_elrond_library.ogg");
+	GameEngineWindow::MainWindow.AddDoubleBufferingCopyScaleRatio(0.5f);
+
 	{
 		int num;
 		num = GameEngineRandom::MainRandom.RandomInt(9, 15);
@@ -52,7 +78,7 @@ void PlayLevel::Start()
 		{
 			Enemy* NewEnemy = CreateActor<Enemy>(UpdateOrder::Monster);
 
-			NewEnemy->SetPos({ float4(PlayerPtr->GetPos().X , 0) + float4(500,-200)});
+			NewEnemy->SetPos({ float4(PlayerPtr->GetPos().X , 0) + float4(500,-200) });
 
 			if (prevEnemy != nullptr)
 			{
@@ -62,6 +88,7 @@ void PlayLevel::Start()
 			prevEnemy = NewEnemy;
 		}
 	}
+	//처음 오른쪽 몬스터 스폰
 	{
 		int num;
 		num = GameEngineRandom::MainRandom.RandomInt(9, 15);
@@ -82,26 +109,7 @@ void PlayLevel::Start()
 			prevEnemy = NewEnemy;
 		}
 	}
-	
-}
-
-
-
-void PlayLevel::Update(float _delta)
-{
-	if (GameEngineInput::IsDown('C'))
-	{
-		CollisionDebugRenderSwitch();
-	}
-	BackGroundPtr->BackGroundLoop(PlayerPtr);
-
-	EnemySpawn(_delta);
-}
-
-void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)
-{
-	GameEngineSound::SoundPlay("bgm_elrond_library.ogg");
-	GameEngineWindow::MainWindow.AddDoubleBufferingCopyScaleRatio(0.5f);
+	//처음 왼쪽 몬스터 스폰
 }
 void PlayLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
