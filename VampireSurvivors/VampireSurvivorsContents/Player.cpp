@@ -80,8 +80,8 @@ void Player::Start()
 	}
 
 	{
-		KnifeActor = GetLevel()->CreateActor<Knife>(UpdateOrder::Weapon);
-		KnifeActor2 = GetLevel()->CreateActor<Knife>(UpdateOrder::Weapon);
+		KnifeActor[0] = GetLevel()->CreateActor<Knife>(UpdateOrder::Weapon);
+		KnifeActor[1] = GetLevel()->CreateActor<Knife>(UpdateOrder::Weapon);
 	}
 }
 void Player::Update(float _Delta)
@@ -138,8 +138,8 @@ void Player::LevelStart()
 {
 	MainPlayer = this;
 
-	KnifeActor->SetPos(KnifePos1);
-	KnifeActor2->SetPos(KnifePos2);
+	KnifeActor[0]->SetPos(KnifePos1);
+	KnifeActor[1]->SetPos(KnifePos2);
 
 	{
 		WeaponFunc[0] = &Player::KnifeFunc;
@@ -168,21 +168,21 @@ void Player::KnifeFunc(float _Delta)
 	KnifePos1 = GetPos();
 	KnifePos2 = GetPos() + float4{ -15,10 };
 
-	KnifeActor->AddPos(Knife::KnifeDir * _Delta * Knife::Speed);
-	KnifeActor2->AddPos(Knife::KnifeDir * _Delta * Knife::Speed);
+	KnifeActor[0]->AddPos(Knife::KnifeDir * _Delta * Knife::Speed);
+	KnifeActor[1]->AddPos(Knife::KnifeDir * _Delta * Knife::Speed);
 
 	OnKnifeFunc = true;
 
 	if (sumdelta > 3)
 	{
-		if (false == KnifeActor->IsUpdate())
+		if (false == KnifeActor[0]->IsUpdate())
 		{
-			KnifeActor->On();
-			KnifeActor2->On();
+			KnifeActor[0]->On();
+			KnifeActor[1]->On();
 		}
 
-		KnifeActor->SetPos(KnifePos1);
-		KnifeActor2->SetPos(KnifePos2);
+		KnifeActor[0]->SetPos(KnifePos1);
+		KnifeActor[1]->SetPos(KnifePos2);
 		OnKnifeFunc = false;
 		sumdelta = 0;
 	}

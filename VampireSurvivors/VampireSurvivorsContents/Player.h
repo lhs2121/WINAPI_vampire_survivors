@@ -45,8 +45,7 @@ private:
 	class GameEngineCollision* Collision;
 	class GameEngineCollision* InnerCollision;
 
-	class Knife* KnifeActor;
-	class Knife* KnifeActor2;
+	class Knife* KnifeActor[4];
 	
 	float4 KnifePos1;
 	float4 KnifePos2;

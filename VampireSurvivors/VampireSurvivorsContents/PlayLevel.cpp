@@ -25,21 +25,6 @@ void PlayLevel::Start()
 {
 	GameEngineSound::SetGlobalVolume(0.1f);
 
-	if (false == ResourcesManager::GetInst().IsLoadTexture("dummy1.bmp"))
-	{
-		GameEnginePath path;
-		path.SetCurrentPath();
-		path.MoveParentToExistsChild("Resources");
-		path.MoveChild("Resources\\PlayScene\\");
-
-		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Lenemy1.bmp"), 5, 1);
-		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Renemy1.bmp"), 5, 1);
-
-		path.MoveChild("BackGround\\");
-		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("dummy1.bmp"));
-		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("Debugdummy1.bmp"));
-
-	}
 	if (nullptr == GameEngineSound::FindSound("bgm_elrond_library.ogg"))
 	{
 		GameEnginePath path;
@@ -57,8 +42,6 @@ void PlayLevel::Start()
 
 	PlayerPtr = CreateActor<Player>(UpdateOrder::Player);
 
-	
-
 	{
 		int num;
 		num = GameEngineRandom::MainRandom.RandomInt(9, 15);
@@ -69,7 +52,7 @@ void PlayLevel::Start()
 		{
 			Enemy* NewEnemy = CreateActor<Enemy>(UpdateOrder::Monster);
 
-			NewEnemy->SetPos({ PlayerPtr->GetPos() + float4(500,-200) });
+			NewEnemy->SetPos({ float4(PlayerPtr->GetPos().X , 0) + float4(500,-200)});
 
 			if (prevEnemy != nullptr)
 			{
@@ -81,7 +64,7 @@ void PlayLevel::Start()
 	}
 	{
 		int num;
-		num = GameEngineRandom::MainRandom.RandomInt(5, 15);
+		num = GameEngineRandom::MainRandom.RandomInt(9, 15);
 
 		Enemy* prevEnemy = nullptr;
 
@@ -89,7 +72,7 @@ void PlayLevel::Start()
 		{
 			Enemy* NewEnemy = CreateActor<Enemy>(UpdateOrder::Monster);
 
-			NewEnemy->SetPos({ PlayerPtr->GetPos() + float4(-500,-200) });
+			NewEnemy->SetPos({ float4(PlayerPtr->GetPos().X , 0) + float4(-500,-200) });
 
 			if (prevEnemy != nullptr)
 			{
@@ -129,11 +112,11 @@ void PlayLevel::EnemySpawn(float _Delta)
 {
 	static float sumDelta;
 	sumDelta += _Delta;
-	if (sumDelta > 8)
+	if (sumDelta > 6)
 	{
 		{
 			int num;
-			num = GameEngineRandom::MainRandom.RandomInt(9, 15);
+			num = GameEngineRandom::MainRandom.RandomInt(5, 12);
 
 			Enemy* prevEnemy = nullptr;
 
@@ -141,7 +124,7 @@ void PlayLevel::EnemySpawn(float _Delta)
 			{
 				Enemy* NewEnemy = CreateActor<Enemy>(UpdateOrder::Monster);
 
-				NewEnemy->SetPos({ PlayerPtr->GetPos() + float4(600,-200) });
+				NewEnemy->SetPos({ float4(PlayerPtr->GetPos().X , 0) + float4(500,-200) });
 
 				if (prevEnemy != nullptr)
 				{
@@ -153,7 +136,7 @@ void PlayLevel::EnemySpawn(float _Delta)
 		}
 		{
 			int num;
-			num = GameEngineRandom::MainRandom.RandomInt(5, 15);
+			num = GameEngineRandom::MainRandom.RandomInt(5, 12);
 
 			Enemy* prevEnemy = nullptr;
 
@@ -161,7 +144,7 @@ void PlayLevel::EnemySpawn(float _Delta)
 			{
 				Enemy* NewEnemy = CreateActor<Enemy>(UpdateOrder::Monster);
 
-				NewEnemy->SetPos({ PlayerPtr->GetPos() + float4(-600,-200) });
+				NewEnemy->SetPos({ float4(PlayerPtr->GetPos().X , 0) + float4(-500,-200) });
 
 				if (prevEnemy != nullptr)
 				{

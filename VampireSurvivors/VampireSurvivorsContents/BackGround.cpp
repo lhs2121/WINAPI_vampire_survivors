@@ -21,6 +21,18 @@ BackGround::~BackGround()
 
 void BackGround::Start()
 {
+	if (false == ResourcesManager::GetInst().IsLoadTexture("dummy1.bmp"))
+	{
+		GameEnginePath path;
+		path.SetCurrentPath();
+		path.MoveParentToExistsChild("Resources");
+		path.MoveChild("Resources\\PlayScene\\");
+		path.MoveChild("BackGround\\");
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("dummy1.bmp"));
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("Debugdummy1.bmp"));
+
+	}
+
 	Scale = ResourcesManager::GetInst().FindTexture("dummy1.bmp")->GetScale();
 	OffSetX = float4(Scale.X, 0);
 	OffSetY = float4(0, Scale.Y);

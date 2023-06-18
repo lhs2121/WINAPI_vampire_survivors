@@ -29,10 +29,18 @@ private:
 	class GameEngineRenderer* Renderer;
 	class GameEngineCollision* Collision;
 
-	float hp= 100;
+	float hp = 100;
 	float speed;
+	float4 dir;
+
+	bool move = true;
+	bool collisioncheck = true;
+	int deathCount = 0;
 
 	void Start() override;
 	void Update(float _Delta) override;
+
+	void Move(float _Delta);
+	void CollisionCheck(float _Delta);
 };
 

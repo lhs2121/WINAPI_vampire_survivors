@@ -20,6 +20,18 @@ Enemy::~Enemy()
 
 void Enemy::Start()
 {
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Lenemy1.bmp"))
+	{
+		GameEnginePath path;
+		path.SetCurrentPath();
+		path.MoveParentToExistsChild("Resources");
+		path.MoveChild("Resources\\PlayScene\\");
+
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Lenemy1.bmp"), 5, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Renemy1.bmp"), 5, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Enemy_death.bmp"), 8, 1);
+	}
+
 	int random = GameEngineRandom::MainRandom.RandomInt(1, 2);
 
 	if (random % 2 == 0)
@@ -31,11 +43,14 @@ void Enemy::Start()
 		Renderer = CreateRenderer(RenderOrder::UpperMonster);
 	}
 
+
 	speed = 50 + GameEngineRandom::MainRandom.RandomInt(1, 5);
 
-	Renderer->CreateAnimation("LeftRun", "Lenemy1.bmp", 0, 4, 0.1f, true);
-	Renderer->CreateAnimation("RightRun", "Renemy1.bmp", 0, 4, 0.1f, true);
-	Renderer->ChangeAnimation("LeftRun");
+	Renderer->CreateAnimation("Enemy_LeftRun", "Lenemy1.bmp", 0, 4, 0.1f, true);
+	Renderer->CreateAnimation("Enemy_RightRun", "Renemy1.bmp", 0, 4, 0.1f, true);
+	Renderer->CreateAnimation("Enemy_Death", "Enemy_death.bmp", 0, 7, 0.1f, false);
+
+	Renderer->ChangeAnimation("Enemy_LeftRun");
 
 	Collision = CreateCollision(CollisionOrder::Monster);
 	Collision->SetCollisionPos({ 0,10 });
@@ -46,22 +61,50 @@ void Enemy::Start()
 
 void Enemy::Update(float _Delta)
 {
-	float4 dir;
+
+	if (hp > 0)
+	{
+		Move(_Delta);
+		CollisionCheck(_Delta);
+	}
+
+	if (hp < 0)
+	{
+		if (deathCount < 1)
+		{
+			Renderer->ChangeAnimation("Enemy_Death");
+			deathCount++;
+		}
+
+		if (Renderer->IsAnimationEnd())
+		{
+			Death();
+		}
+	}
+
+	
+
+}
+
+void Enemy::Move(float _Delta)
+{
 	dir = Player::GetMainPlayer()->GetPos() - GetPos();
 	dir.Normalize();
 
 
 	if (dir.X < 0)
 	{
-		Renderer->ChangeAnimation("LeftRun");
+		Renderer->ChangeAnimation("Enemy_LeftRun");
 	}
 	else
 	{
-		Renderer->ChangeAnimation("RightRun");
+		Renderer->ChangeAnimation("Enemy_RightRun");
 	}
 
 	AddPos(dir * speed * _Delta);//플레이어 추적
-
+}
+void Enemy::CollisionCheck(float _Delta)
+{
 	if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion(), CollisionType::CirCle, CollisionType::CirCle))
 	{
 		AddPos(-dir * (speed - 1) * _Delta); //플레이어가 에너미를 약하게 밀어냄
@@ -82,13 +125,7 @@ void Enemy::Update(float _Delta)
 
 			AddPos(-dir * speed * _Delta);
 		}
-		
+
 		AllMonsterCollision.clear();
 	}
-
-	if (hp < 0)
-	{
-		Death();
-	}
 }
-
