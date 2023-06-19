@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include "Player.h"
+#include "PlayLevel.h"
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
@@ -29,7 +30,8 @@ void Enemy::Start()
 
 		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Lenemy1.bmp"), 5, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Renemy1.bmp"), 5, 1);
-		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Enemy_death.bmp"), 8, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("LEnemy_death.bmp"), 8, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("REnemy_death.bmp"), 8, 1);
 	}
 
 	int random = GameEngineRandom::MainRandom.RandomInt(1, 2);
@@ -48,7 +50,8 @@ void Enemy::Start()
 
 	Renderer->CreateAnimation("Enemy_LeftRun", "Lenemy1.bmp", 0, 4, 0.1f, true);
 	Renderer->CreateAnimation("Enemy_RightRun", "Renemy1.bmp", 0, 4, 0.1f, true);
-	Renderer->CreateAnimation("Enemy_Death", "Enemy_death.bmp", 0, 7, 0.1f, false);
+	Renderer->CreateAnimation("Enemy_Death_Left", "LEnemy_death.bmp", 0, 7, 0.1f, false);
+	Renderer->CreateAnimation("Enemy_Death_Right", "REnemy_death.bmp", 0, 7, 0.1f, false);
 
 	Renderer->ChangeAnimation("Enemy_LeftRun");
 
@@ -72,18 +75,24 @@ void Enemy::Update(float _Delta)
 	{
 		if (deathCount < 1)
 		{
-			Renderer->ChangeAnimation("Enemy_Death");
+			if (dir.X > 0)
+			{
+				Renderer->ChangeAnimation("Enemy_Death_Right");
+			}
+			else if(dir.X < 0)
+			{
+				Renderer->ChangeAnimation("Enemy_Death_Left");
+			}
+			
 			deathCount++;
 		}
 
 		if (Renderer->IsAnimationEnd())
 		{
+			DropExp();
 			Death();
 		}
 	}
-
-	
-
 }
 
 void Enemy::Move(float _Delta)
@@ -129,4 +138,20 @@ void Enemy::CollisionCheck(float _Delta)
 
 		AllMonsterCollision.clear();
 	}
+}
+
+void Enemy::DropExp()
+{
+	int random = GameEngineRandom::MainRandom.RandomInt(1, 2);
+
+	if (random % 2 == 0)
+	{
+		PlayLevel* level = static_cast<PlayLevel*>(GetLevel());
+		level->AddExP(GetPos()); // 50%확률로 아이템 드랍
+	}
+	else
+	{
+		return;
+	}
+	
 }

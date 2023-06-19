@@ -8,7 +8,7 @@
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 
 float Knife::Speed = 400;
-float4 Knife::KnifeDir = float4::RIGHT;
+float4 Knife::Dir = float4::RIGHT;
 
 void Knife::Start()
 {
@@ -41,34 +41,37 @@ void Knife::Start()
 
 void Knife::Update(float _Delta)
 {
-	if (Knife::KnifeDir == float4::UP)
+
+	AddPos(Dir * _Delta * Speed);
+
+	if (Dir == float4::UP)
 	{
 		Renderer->SetTexture("TKnife.bmp");
 		Collision->SetCollisionScale({ Scale.Y, Scale.X });
 	}
-	else if (Knife::KnifeDir == float4::DOWN)
+	else if (Dir == float4::DOWN)
 	{
 		Renderer->SetTexture("BKnife.bmp");
 		Collision->SetCollisionScale({ Scale.Y, Scale.X });
 	}
-	else if (Knife::KnifeDir == float4::LEFT)
+	else if (Dir == float4::LEFT)
 	{
 		Renderer->SetTexture("LKnife.bmp");
 		Collision->SetCollisionScale(Scale);
 	}
-	else if (Knife::KnifeDir == float4::RIGHT)
+	else if (Dir == float4::RIGHT)
 	{
 		Renderer->SetTexture("RKnife.bmp");
 		Collision->SetCollisionScale(Scale);
 	}
 
+	std::vector<GameEngineCollision*> result;
+
 	if (true == Collision->Collision(CollisionOrder::Monster, result, CollisionType::Rect, CollisionType::CirCle))
 	{
 	    Enemy* FistEnemy = static_cast<Enemy*>(result[0]->GetActor());
-		FistEnemy->SetHp(500);
+		FistEnemy->ApplyDamage(500);
 		
-		result.clear();
-
 		Off();
 	}
 }

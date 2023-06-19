@@ -217,6 +217,7 @@
     <ClCompile Include="CharactorSelectUI.cpp" />
     <ClCompile Include="IntroImage.cpp" />
     <ClCompile Include="Knife.cpp" />
+    <ClCompile Include="Exp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
@@ -227,6 +228,7 @@
     <ClInclude Include="MenuLevel.h" />
     <ClInclude Include="PlayActor.h" />
     <ClInclude Include="PlayLevel.h" />
+    <ClInclude Include="Exp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

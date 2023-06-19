@@ -2,6 +2,7 @@
 #include "BackGround.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Exp.h"
 #include "ContentsEnum.h"
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -13,7 +14,7 @@
 
 PlayLevel::PlayLevel()
 {
-
+	ExpGroup.reserve(500);
 }
 
 PlayLevel::~PlayLevel()
@@ -165,9 +166,12 @@ void PlayLevel::EnemySpawn(float _Delta)
 
 		sumDelta = 0;
 	}
-
-
 }
 
-
+void PlayLevel::AddExP(float4 _Pos)
+{
+	Exp* NewExp = CreateActor<Exp>(UpdateOrder::Monster);
+	NewExp->SetPos(_Pos);
+	ExpGroup.push_back(NewExp);
+}
 

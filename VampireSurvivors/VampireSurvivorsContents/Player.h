@@ -30,6 +30,11 @@ public:
 		return Collision2;
 	}
 
+	GameEngineCollision* GetCollsion3()
+	{
+		return Collision3;
+	}
+
 	void GetDamage(float _Damage);
 
 protected:
@@ -39,26 +44,26 @@ private:
 	
 	class GameEngineRenderer* Renderer;
 
-	class GameEngineRenderer* HpBackGround;
 	class GameEngineRenderer* HpBar;
+	class GameEngineRenderer* HpGauge;
 
 	class GameEngineCollision* Collision;
 	class GameEngineCollision* Collision2;
-
-
+	class GameEngineCollision* Collision3;
 
 	class Knife* KnifeActor[4];
 	
 	float4 KnifePos1;
+
 	float4 KnifePos2;
 
 	float4 PlayerDir;
 
-	float4 HpBarScale;
+	float4 HpGaugeScale;
 
 	float MaxHp = 100;
 	float Hp = 100;
-	float speed = 1000;
+	float speed = 100;
 
 	void (Player::*WeaponFunc[6])(float _Delta);
 

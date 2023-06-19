@@ -62,6 +62,9 @@
     <ClCompile Include="MagicWand.h">
       <Filter>Actor\PlayScene\Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="Exp.cpp">
+      <Filter>Actor\PlayScene\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
@@ -82,6 +85,9 @@
     <Filter Include="Actor\PlayScene\Weapon">
       <UniqueIdentifier>{e76c082d-fab7-474c-918f-989da9c27085}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\PlayScene\Item">
+      <UniqueIdentifier>{33718f09-7788-4d44-9964-023cdee4b7a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsEnum.h">
@@ -98,6 +104,9 @@
     </ClInclude>
     <ClInclude Include="PlayActor.h">
       <Filter>Actor\PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp.h">
+      <Filter>Actor\PlayScene\Item</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -15,7 +15,7 @@ public:
 	PlayLevel& operator=(const PlayLevel& _Other) = delete;
 	PlayLevel& operator=(PlayLevel&& _Other) noexcept = delete;
 
-
+	void AddExP(float4 _Pos);
 
 protected:
 
@@ -25,6 +25,8 @@ private:
 
 	class Player* PlayerPtr = nullptr;
 
+	std::vector<class Exp*> ExpGroup;
+
 	bool IsLooping = false;
 
 	void Start() override;
@@ -32,5 +34,6 @@ private:
 	void EnemySpawn(float _Delta);
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
+	
 };
 

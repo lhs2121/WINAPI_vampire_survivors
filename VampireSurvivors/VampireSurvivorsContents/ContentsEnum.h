@@ -16,6 +16,7 @@ enum class RenderOrder
 	Player,
 	UpperMonster,
 	Weapon,
+	Exp,
 	PlayUI,
 	PlayUI2
 };
@@ -26,6 +27,7 @@ enum class CollisionOrder
 	BackGround,
 	Player,
 	Monster,
+	Exp,
 	Weapon,
 };
 

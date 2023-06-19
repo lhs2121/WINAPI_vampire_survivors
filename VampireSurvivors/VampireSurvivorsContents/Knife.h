@@ -24,11 +24,8 @@ private:
 	class GameEngineCollision* Collision;
 
 	static float Speed;
-	static float4 KnifeDir;
+	static float4 Dir;
 	float4 Scale;
-
-
-	std::vector<GameEngineCollision*> result;
 
 	void Start() override;
 	void Update(float _Delta) override;

@@ -18,7 +18,7 @@ public:
 	Enemy& operator=(const Enemy& _Other) = delete;
 	Enemy& operator=(Enemy&& _Other) noexcept = delete;
 
-	void SetHp(float _Damage)
+	void ApplyDamage(float _Damage)
 	{
 		hp -= _Damage;
 	}
@@ -42,5 +42,6 @@ private:
 
 	void Move(float _Delta);
 	void CollisionCheck(float _Delta);
+	void DropExp();
 };
 
