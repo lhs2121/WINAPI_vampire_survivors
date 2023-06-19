@@ -65,10 +65,12 @@ private:
 	float Hp = 100;
 	float speed = 100;
 
-	void (Player::*WeaponFunc[6])(float _Delta);
-
 	bool OnKnifeFunc = false;
+
+	void (Player::* WeaponFunc[6])(float _Delta);
+
 	void KnifeFunc(float _Delta);
+
 	void CollisionWall(float _Delta);
 
 	void LevelStart() override;

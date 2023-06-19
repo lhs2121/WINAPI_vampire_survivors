@@ -17,9 +17,9 @@ enum class RenderOrder
 	UpperMonster,
 	Weapon,
 	Exp,
-	PlayUI,
-	PlayUI2
+	PlayUI
 };
+
 
 // ÇïÅ×ÀÌÄ¿ 
 enum class CollisionOrder

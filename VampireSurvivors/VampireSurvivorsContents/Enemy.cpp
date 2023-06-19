@@ -84,12 +84,13 @@ void Enemy::Update(float _Delta)
 				Renderer->ChangeAnimation("Enemy_Death_Left");
 			}
 			
+			DropExp();
+
 			deathCount++;
 		}
 
 		if (Renderer->IsAnimationEnd())
 		{
-			DropExp();
 			Death();
 		}
 	}
@@ -142,14 +143,14 @@ void Enemy::CollisionCheck(float _Delta)
 
 void Enemy::DropExp()
 {
-	int random = GameEngineRandom::MainRandom.RandomInt(1, 2);
+	int random = GameEngineRandom::MainRandom.RandomInt(1, 3);
 
-	if (random % 2 == 0)
+	if (random % 2 != 0)
 	{
 		PlayLevel* level = static_cast<PlayLevel*>(GetLevel());
-		level->AddExP(GetPos()); // 50%확률로 아이템 드랍
+		level->AddExP(GetPos()); // 66%확률로 아이템 드랍
 	}
-	else
+	else if(random % 2 == 0)
 	{
 		return;
 	}

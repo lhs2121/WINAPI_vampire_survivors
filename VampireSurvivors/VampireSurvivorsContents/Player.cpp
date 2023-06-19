@@ -55,19 +55,19 @@ void Player::Start()
 		Renderer->CreateAnimation("LeftRun", "LeftRun.bmp", 0, 3, 0.1f, true);
 		Renderer->ChangeAnimation("RightRun");
 		PlayerDir = float4::RIGHT;
+	}
 
+
+	{	
 		HpBar = CreateRenderer(RenderOrder::PlayUI);
 		HpBar->SetRenderPos({ 0,20 });
 		HpBar->SetTexture("HpBar.bmp");
-		HpBar->UICameraSetting();
 
-		HpGauge = CreateRenderer(RenderOrder::PlayUI2);
+		HpGauge = CreateRenderer(RenderOrder::PlayUI);
 		HpGauge->SetRenderPos({ 0,20 });
 		HpGauge->SetTexture("HpGauge.bmp");
-		HpGauge->UICameraSetting();
-
+	
 		HpGaugeScale = ResourcesManager::GetInst().FindTexture("HpGauge.bmp")->GetScale();
-
 	}
 
 	{

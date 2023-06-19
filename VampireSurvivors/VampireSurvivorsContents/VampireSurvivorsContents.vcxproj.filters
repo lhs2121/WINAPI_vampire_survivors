@@ -65,6 +65,9 @@
     <ClCompile Include="Exp.cpp">
       <Filter>Actor\PlayScene\Item</Filter>
     </ClCompile>
+    <ClCompile Include="PlayUIManager.cpp">
+      <Filter>Actor\PlayScene\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
@@ -88,6 +91,9 @@
     <Filter Include="Actor\PlayScene\Item">
       <UniqueIdentifier>{33718f09-7788-4d44-9964-023cdee4b7a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\PlayScene\UI">
+      <UniqueIdentifier>{524013c2-034d-45b4-9456-919209e9f0f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsEnum.h">
@@ -107,6 +113,9 @@
     </ClInclude>
     <ClInclude Include="Exp.h">
       <Filter>Actor\PlayScene\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayUIManager.h">
+      <Filter>Actor\PlayScene\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

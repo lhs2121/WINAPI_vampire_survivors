@@ -199,6 +199,7 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="PlayLevel.cpp" />
+    <ClCompile Include="PlayUIManager.cpp" />
     <ClCompile Include="PressAnyKey.h">
       <SubType>
       </SubType>
@@ -229,6 +230,7 @@
     <ClInclude Include="PlayActor.h" />
     <ClInclude Include="PlayLevel.h" />
     <ClInclude Include="Exp.h" />
+    <ClInclude Include="PlayUIManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

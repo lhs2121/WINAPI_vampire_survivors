@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Exp.h"
+#include "PlayUIManager.h"
 #include "ContentsEnum.h"
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -43,7 +44,7 @@ void PlayLevel::Start()
 
 	PlayerPtr = CreateActor<Player>(UpdateOrder::Player);
 
-
+	CreateActor<PlayUIManager>(UpdateOrder::Player);
 }
 
 
@@ -67,7 +68,7 @@ void PlayLevel::Update(float _delta)
 void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	GameEngineSound::SoundPlay("bgm_elrond_library.ogg");
-	GameEngineWindow::MainWindow.AddDoubleBufferingCopyScaleRatio(0.5f);
+	//GameEngineWindow::MainWindow.AddDoubleBufferingCopyScaleRatio(0.5f);
 
 	{
 		int num;
