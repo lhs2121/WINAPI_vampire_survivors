@@ -69,10 +69,6 @@ void GameEngineCore::CoreUpdate()
 	// 한프레임 동안은 절대로 기본적인 세팅의 
 	// 변화가 없게 하려고 하는 설계의도가 있는것.
 	// 이걸 호출한 애는 PlayLevel
-	if (CurLevel == nullptr)
-	{
-		return;
-	}
 	CurLevel->AddLiveTime(Delta);
 	CurLevel->Update(Delta);
 

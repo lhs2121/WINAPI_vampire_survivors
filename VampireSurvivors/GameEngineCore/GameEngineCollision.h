@@ -100,10 +100,6 @@ public:
 		CollisionPos = _Value;
 	}
 
-	float4 GetCollisionPos()
-	{
-		return CollisionPos;
-	}
 	// 몇가지 문제가 있는데. 
 	// 1. 몬스터데 몬스터랑
 
@@ -125,9 +121,25 @@ public:
 		, CollisionType _ThisType = CollisionType::CirCle
 		, CollisionType _OtherType = CollisionType::CirCle);
 
+	template<typename EnumType>
+	bool CollisionNext(const float4& _NextPos, EnumType _Order, std::vector<GameEngineCollision*>& _Result
+		, CollisionType _ThisType = CollisionType::CirCle
+		, CollisionType _OtherType = CollisionType::CirCle)
+	{
+		return CollisionNext(_NextPos, static_cast<int>(_Order), _Result, _ThisType, _OtherType);
+	}
+
+	bool CollisionNext(const float4& _NextPos, int _Order, std::vector<GameEngineCollision*>& _Result
+		, CollisionType _ThisType = CollisionType::CirCle
+		, CollisionType _OtherType = CollisionType::CirCle);
+
 	void SetOrder(int _Order) override;
 
 	bool CollisonCheck(GameEngineCollision* _Other
+		, CollisionType _ThisType
+		, CollisionType _OtherType);
+
+	bool CollisonCheckNext(const CollisionData& _Next, GameEngineCollision* _Other
 		, CollisionType _ThisType
 		, CollisionType _OtherType);
 
@@ -161,6 +173,11 @@ public:
 	{
 		GameEngineActorSubObject::Off();
 		CollisionRenderValue = false;
+	}
+
+	float4 GetCollisionPos()
+	{
+		return CollisionPos;
 	}
 
 protected:

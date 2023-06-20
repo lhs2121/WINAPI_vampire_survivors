@@ -175,6 +175,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ItemSelectUI.cpp" />
     <ClCompile Include="MagicWand.h">
       <SubType>
       </SubType>
@@ -231,6 +232,7 @@
     <ClInclude Include="PlayLevel.h" />
     <ClInclude Include="Exp.h" />
     <ClInclude Include="PlayerUI.h" />
+    <ClInclude Include="ItemSelectUI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -68,6 +68,9 @@
     <ClCompile Include="PlayerUI.cpp">
       <Filter>Actor\PlayScene\UI</Filter>
     </ClCompile>
+    <ClCompile Include="ItemSelectUI.cpp">
+      <Filter>Actor\PlayScene\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
@@ -115,6 +118,9 @@
       <Filter>Actor\PlayScene\Item</Filter>
     </ClInclude>
     <ClInclude Include="PlayerUI.h">
+      <Filter>Actor\PlayScene\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemSelectUI.h">
       <Filter>Actor\PlayScene\UI</Filter>
     </ClInclude>
   </ItemGroup>

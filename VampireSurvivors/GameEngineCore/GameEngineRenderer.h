@@ -53,11 +53,15 @@ public:
 	{
 		CopyScale = _Value;
 	}
-	
 
 	void SetScaleRatio(const float& _Scale)
 	{
 		ScaleRatio = _Scale;
+	}
+
+	void SetYPivot(float _Pivot)
+	{
+		YPivot = _Pivot;
 	}
 
 	float4 GetRenderPos()
@@ -69,12 +73,14 @@ public:
 	{
 		return RenderScale;
 	}
-
 	CameraType GetCameraType()
 	{
 		return CameraTypeValue;
 	}
 
+	void SetAlpha(unsigned char _Alpha);
+
+	void SetAngle(float _Angle);
 
 	void SetSprite(const std::string& _Name, size_t _Index = 0);
 
@@ -84,6 +90,8 @@ public:
 
 	void SetOrder(int _Order) override;
 
+	float GetActorYPivot();
+
 protected:
 	void Start() override;
 
@@ -91,6 +99,8 @@ protected:
 private:
 	GameEngineCamera* Camera = nullptr;
 	GameEngineWindowTexture* Texture = nullptr;
+	GameEngineWindowTexture* MaskTexture = nullptr;
+
 	GameEngineSprite* Sprite = nullptr;
 	float ScaleRatio = 1.0f;
 	bool ScaleCheck = false;
@@ -100,6 +110,11 @@ private:
 	float4 CopyScale;
 	CameraType CameraTypeValue = CameraType::MAIN;
 	std::string Text;
+
+	float YPivot = 0.0f;
+
+	float Angle = 0.0f;
+	unsigned char Alpha = 255;
 
 	void TextRender(float _DeltaTime);
 
@@ -111,6 +126,7 @@ private:
 	class Animation
 	{
 	public:
+		std::string Name = "";
 		GameEngineSprite* Sprite = nullptr;
 		size_t CurFrame = 0;
 		size_t StartFrame = -1;
@@ -144,6 +160,8 @@ public:
 	void MainCameraSetting();
 	void UICameraSetting();
 
+	void Update(float _Delta) override;
+
 	size_t GetCurFrame()
 	{
 		return CurAnimation->CurFrame;
@@ -152,6 +170,11 @@ public:
 	bool IsAnimationEnd()
 	{
 		return CurAnimation->IsEnd;
+	}
+
+	bool IsAnimation(const std::string& _Name)
+	{
+		return CurAnimation->Name == _Name;
 	}
 
 private:

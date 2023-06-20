@@ -1,9 +1,21 @@
 #pragma once
 #include "GameEngineDebug.h"
+#include <Windows.h>
 
 // 설명 :
 class GameEngineMath
 {
+public:
+	static const float PI;
+	static const float PI2;
+
+	static const float D2R;
+	static const float R2D;
+
+	// 3.14 => 180도
+	// float R = 3.14;
+	// float Result = R * (180.0f / 3.14);
+
 };
 
 class float4
@@ -200,5 +212,138 @@ public:
 		return X > Y ? X : Y;
 	}
 
+	POINT WindowPOINT()
+	{
+		return POINT{ iX(), iY() };
+	}
+
+	float4 	GetRotationToDegZ(const float _Angle) const
+	{
+		return GetRotationToDegZ(*this, _Angle);
+	}
+
+
+
+
+public:
+	inline float AngleDeg()
+	{
+		return AngleRad() * GameEngineMath::R2D;
+	}
+
+	inline float AngleRad()
+	{
+		float4 AngleVector = NormalizeReturn();
+
+		// 라디안 각도만 나오게 된다. = acosf(AngleVector.X);
+
+		float Angle = acosf(AngleVector.X);
+
+		if (0 >= AngleVector.Y)
+		{
+			Angle = GameEngineMath::PI + GameEngineMath::PI - Angle;
+		}
+
+		return Angle;
+	}
+
+	static float4 GetRotationToDegZ(const float4& _Value, const float _Deg)
+	{
+		return GetRotationToRadZ(_Value, _Deg * GameEngineMath::D2R);
+	}
+
+	static float4 GetRotationToRadZ(const float4& _Value, const float _Rad)
+	{
+		float4 Rot;
+		Rot.X = _Value.X * cosf(_Rad) - _Value.Y * sinf(_Rad);
+		Rot.Y = _Value.X * sinf(_Rad) + _Value.Y * cosf(_Rad);
+		return Rot;
+	}
+
+	// GetUnitVectorFromDeg(45)
+
+	static float4 GetUnitVectorFromDeg(const float _Degree)
+	{
+		// 90 => 1.57
+		return GetUnitVectorFromRad(_Degree * GameEngineMath::D2R);
+	}
+
+	//                                       90.0f
+	static float4 GetUnitVectorFromRad(const float _Rad)
+	{
+		// cosf(_Rad)반지름의 길이 1일때의 cosf값이 구해집니다.
+		// sinf(_Rad)반지름의 길이 1일때의 sinf값이 구해집니다.
+		// => 빗변의 길이가 1일때의 결과가 나온다.
+
+		// 1.57
+		return { cosf(_Rad) , sinf(_Rad) };
+	}
 };
 
+class GameEngineRect
+{
+public:
+	float4 Pos;
+	float4 Scale;
+
+public:
+	float4 CenterLeftTop()
+	{
+		return { CenterLeft(), CenterTop() };
+	}
+
+	float4 CenterRightTop()
+	{
+		return{ CenterRight(), CenterTop() };
+	}
+
+	float4 CenterLeftBot()
+	{
+		return{ CenterLeft(), CenterBot() };
+	}
+
+	float4 CenterRightBot()
+	{
+		return{ CenterRight(), CenterBot() };
+	}
+
+	float CenterLeft()
+	{
+		return Pos.X - Scale.hX();
+	}
+
+	float CenterRight()
+	{
+		return Pos.X + Scale.hX();
+	}
+
+	float CenterTop()
+	{
+		return Pos.Y - Scale.hY();
+	}
+
+	float CenterBot()
+	{
+		return Pos.Y + Scale.hY();
+	}
+
+	int iCenterLeft()
+	{
+		return Pos.iX() - Scale.ihX();
+	}
+
+	int iCenterRight()
+	{
+		return Pos.iX() + Scale.ihX();
+	}
+
+	int iCenterTop()
+	{
+		return Pos.iY() - Scale.ihY();
+	}
+
+	int iCenterBot()
+	{
+		return Pos.iY() + Scale.ihY();
+	}
+};
