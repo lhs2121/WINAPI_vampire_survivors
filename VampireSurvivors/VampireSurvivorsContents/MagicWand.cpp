@@ -5,7 +5,8 @@
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
-
+#include <windows.h>   
+#include <math.h>
 
 
 void MagicWand::Start()

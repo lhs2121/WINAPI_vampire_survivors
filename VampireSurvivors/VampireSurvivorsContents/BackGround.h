@@ -31,11 +31,11 @@ private:
 	float4 OffSetX;
 	float4 OffSetY;
 
-	GameEngineCollision* Left;
-	GameEngineCollision* Right;
+	GameEngineCollision* LeftWall;
+	GameEngineCollision* RightWall;
 
-	bool RightCheck;
-	bool LeftCheck;
+	bool RightWallCheck;
+	bool LeftWallCheck;
 	bool OnCollision = false;
 
 	void MoveLeft();

@@ -52,13 +52,13 @@ void BackGround::Start()
 	}
 
 	{
-		Left = CreateCollision(CollisionOrder::BackGround);
-		Left->SetCollisionPos(-OffSetX.Half());
-		Left->SetCollisionScale(OffSetY);
+		LeftWall = CreateCollision(CollisionOrder::BackGround);
+		LeftWall->SetCollisionPos(-OffSetX.Half());
+		LeftWall->SetCollisionScale(OffSetY);
 
-		Right = CreateCollision(CollisionOrder::BackGround);
-		Right->SetCollisionPos(OffSetX.Half());
-		Right->SetCollisionScale(OffSetY);
+		RightWall = CreateCollision(CollisionOrder::BackGround);
+		RightWall->SetCollisionPos(OffSetX.Half());
+		RightWall->SetCollisionScale(OffSetY);
 	}
 
 	MoveOtherRenderer();
@@ -104,47 +104,47 @@ void BackGround::BackGroundLoop(Player* player)
 
 	GameEngineCollision* PlayerCol = Player::GetMainPlayer()->GetCollsion();
 
-	if (Right->CollisonCheck(PlayerCol, CollisionType::Rect, CollisionType::CirCle))//플레이어가 오른쪽벽에 닿았을때
+	if (RightWall->CollisonCheck(PlayerCol, CollisionType::Rect, CollisionType::CirCle))//플레이어가 오른쪽벽에 닿았을때
 	{
 		if (OnCollision == false)
 		{
 			MoveRight();
 
-			RightCheck = true;
-			LeftCheck = false;
+			RightWallCheck = true;
+			LeftWallCheck = false;
 			OnCollision = true;
 		}
 	}
 
-	else if (Left->CollisonCheck(PlayerCol, CollisionType::Rect, CollisionType::CirCle)) //플레이어가 왼쪽벽에 닿았을때
+	else if (LeftWall->CollisonCheck(PlayerCol, CollisionType::Rect, CollisionType::CirCle)) //플레이어가 왼쪽벽에 닿았을때
 	{
 
 		if (OnCollision == false)
 		{
 			MoveLeft();
 
-			LeftCheck = true;
-			RightCheck = false;
+			LeftWallCheck = true;
+			RightWallCheck = false;
 			OnCollision = true;
 		}
 	}
 
-	else if (false == Right->CollisonCheck(PlayerCol, CollisionType::Rect, CollisionType::CirCle) &&
-		false == Left->CollisonCheck(PlayerCol, CollisionType::Rect, CollisionType::CirCle) &&
+	else if (false == RightWall->CollisonCheck(PlayerCol, CollisionType::Rect, CollisionType::CirCle) &&
+		false == LeftWall->CollisonCheck(PlayerCol, CollisionType::Rect, CollisionType::CirCle) &&
 		true == OnCollision) //플레이어가 벽에서 벗어났을 때
 	{
-		if (true == RightCheck) //이전프레임 에서 오른쪽벽과 충돌하고 있었다면
+		if (true == RightWallCheck) //이전프레임 에서 오른쪽벽과 충돌하고 있었다면
 		{
-			float4 dir = Player::GetMainPlayer()->GetPos() - Left->GetCollisionPos();
+			float4 dir = Player::GetMainPlayer()->GetPos() - LeftWall->GetCollisionPos();
 
-			if (dir.X < 0) 
+			if (dir.X < 0)
 			{
 				MoveLeft();
 			}
 		}
-		else if (true == LeftCheck) //이전프레임 에서 왼벽과 충돌하고 있었다면
+		else if (true == LeftWallCheck) //이전프레임 에서 왼벽과 충돌하고 있었다면
 		{
-			float4 dir = Player::GetMainPlayer()->GetPos() - Right->GetCollisionPos();
+			float4 dir = Player::GetMainPlayer()->GetPos() - RightWall->GetCollisionPos();
 
 			if (dir.X > 0)
 			{
@@ -152,8 +152,8 @@ void BackGround::BackGroundLoop(Player* player)
 			}
 		}
 
-		LeftCheck = false;
-		RightCheck = false;
+		LeftWallCheck = false;
+		RightWallCheck = false;
 		OnCollision = false;
 	}
 }
@@ -163,8 +163,8 @@ void BackGround::MoveRight()
 	Renderer->SetRenderPos(Renderer->GetRenderPos() + OffSetX);
 	DebugRenderer->SetRenderPos(Renderer->GetRenderPos());
 
-	Left->SetCollisionPos(Left->GetCollisionPos() + OffSetX);
-	Right->SetCollisionPos(Right->GetCollisionPos() + OffSetX);
+	LeftWall->SetCollisionPos(LeftWall->GetCollisionPos() + OffSetX);
+	RightWall->SetCollisionPos(RightWall->GetCollisionPos() + OffSetX);
 	MoveOtherRenderer();
 }
 
@@ -173,8 +173,8 @@ void BackGround::MoveLeft()
 	Renderer->SetRenderPos(Renderer->GetRenderPos() + (-OffSetX));
 	DebugRenderer->SetRenderPos(Renderer->GetRenderPos());
 
-	Left->SetCollisionPos(Left->GetCollisionPos() + (-OffSetX));
-	Right->SetCollisionPos(Right->GetCollisionPos() + (-OffSetX));
+	LeftWall->SetCollisionPos(LeftWall->GetCollisionPos() + (-OffSetX));
+	RightWall->SetCollisionPos(RightWall->GetCollisionPos() + (-OffSetX));
 	MoveOtherRenderer();
 }
 

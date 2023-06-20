@@ -89,7 +89,7 @@ void GameEngineRenderer::TextRender(float _DeltaTime)
 	OldFont = static_cast<HFONT>(SelectObject(hdc, hFont));
 
 	//SetTextAlign(hdc, static_cast<UINT>(Align));
-	SetTextColor(hdc, RGB(255, 0, 0));
+	SetTextColor(hdc, RGB(255, 255, 255));
 	SetBkMode(hdc, TRANSPARENT);
 
 	RECT Rect;

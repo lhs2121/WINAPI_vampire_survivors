@@ -1,6 +1,8 @@
 #include "Player.h"
 #include "ContentsEnum.h"
 #include "Knife.h"
+#include "PlayerUI.h"
+#include "PlayLevel.h"
 #include <GameEngineCore/GameEngineActor.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
@@ -58,7 +60,7 @@ void Player::Start()
 	}
 
 
-	{	
+	{
 		HpBar = CreateRenderer(RenderOrder::PlayUI);
 		HpBar->SetRenderPos({ 0,20 });
 		HpBar->SetTexture("HpBar.bmp");
@@ -66,7 +68,7 @@ void Player::Start()
 		HpGauge = CreateRenderer(RenderOrder::PlayUI);
 		HpGauge->SetRenderPos({ 0,20 });
 		HpGauge->SetTexture("HpGauge.bmp");
-	
+
 		HpGaugeScale = ResourcesManager::GetInst().FindTexture("HpGauge.bmp")->GetScale();
 	}
 
@@ -91,11 +93,14 @@ void Player::Start()
 }
 void Player::Update(float _Delta)
 {
-	Renderer->FindAnimation("LeftRun");
+	if (PlayLevel::AllStop)
+	{
+		return;
+	}
 
 	if (GameEngineInput::IsDown('Q'))
 	{
-		GetDamage(20);
+		ApplyDamage(20);
 	}
 
 	if (GameEngineInput::IsPress('W'))
@@ -135,7 +140,7 @@ void Player::Update(float _Delta)
 		HpGauge->Off();
 	}
 
-
+	LevelUp();
 	CollisionWall(_Delta);
 	CameraFocus();
 }
@@ -152,7 +157,7 @@ void Player::LevelStart()
 	}
 }
 
-void Player::GetDamage(float _Damage)
+void Player::ApplyDamage(float _Damage)
 {
 	Hp -= _Damage;
 
@@ -175,7 +180,7 @@ void Player::KnifeFunc(float _Delta)
 
 	OnKnifeFunc = true;
 
-	if (sumdelta > 3)
+	if (sumdelta > 1)
 	{
 		if (false == KnifeActor[0]->IsUpdate())
 		{
@@ -187,6 +192,31 @@ void Player::KnifeFunc(float _Delta)
 		KnifeActor[1]->SetPos(KnifePos2);
 		OnKnifeFunc = false;
 		sumdelta = 0;
+	}
+
+}
+
+void Player::AddExp(float _Exp)
+{
+	Exp += _Exp;
+
+	float expGaugeImage = (PlayerUI::UI->ExpGuageScale.X / Player::GetMainPlayer()->MaxExp) * _Exp;
+
+	PlayerUI::UI->ExpGauge->SetRenderScale(PlayerUI::UI->ExpGauge->GetRenderScale() + float4{ expGaugeImage, 0 });
+}
+void Player::LevelUp()
+{
+	if (Exp > MaxExp)
+	{
+		Exp = 0;
+		MaxExp += 50;
+		Level += 1;
+
+		
+		PlayerUI::UI->ExpGauge->SetRenderScale({ 0,16 });
+		PlayerUI::UI->Text_Level->SetText("LV" + std::to_string(Level), 20, "메이플스토리");
+		
+
 	}
 
 }

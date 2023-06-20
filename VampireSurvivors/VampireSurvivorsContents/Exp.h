@@ -28,6 +28,8 @@ private:
 	float OutWardSpeed = 300;
 	float InWardSpeed = 0;
 
+	float ExpValue = 21;
+
 	float4 CollisionScale = {50,50};
 
 	void Start() override;

@@ -65,7 +65,7 @@
     <ClCompile Include="Exp.cpp">
       <Filter>Actor\PlayScene\Item</Filter>
     </ClCompile>
-    <ClCompile Include="PlayUIManager.cpp">
+    <ClCompile Include="PlayerUI.cpp">
       <Filter>Actor\PlayScene\UI</Filter>
     </ClCompile>
   </ItemGroup>
@@ -114,7 +114,7 @@
     <ClInclude Include="Exp.h">
       <Filter>Actor\PlayScene\Item</Filter>
     </ClInclude>
-    <ClInclude Include="PlayUIManager.h">
+    <ClInclude Include="PlayerUI.h">
       <Filter>Actor\PlayScene\UI</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,7 @@
 #include "Exp.h"
 #include "ContentsEnum.h"
 #include "Player.h"
+#include "PlayLevel.h"
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineBase/GameEnginePath.h>
@@ -28,6 +29,12 @@ void Exp::Start()
 }
 void Exp::Update(float _Delta)
 {
+	
+	if (PlayLevel::AllStop)
+	{
+		return;
+	}
+
 	if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion(),CollisionType::CirCle,CollisionType::CirCle))
 	{
 		isItemTaken = true;
@@ -52,6 +59,7 @@ void Exp::Update(float _Delta)
 
 	if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion3(), CollisionType::CirCle, CollisionType::CirCle))
 	{
+		Player::GetMainPlayer()->AddExp(ExpValue);
 		Death();
 	}
 }

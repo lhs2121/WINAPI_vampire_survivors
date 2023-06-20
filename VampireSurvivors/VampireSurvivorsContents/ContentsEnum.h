@@ -17,7 +17,8 @@ enum class RenderOrder
 	UpperMonster,
 	Weapon,
 	Exp,
-	PlayUI
+	PlayUI,
+	Text
 };
 
 

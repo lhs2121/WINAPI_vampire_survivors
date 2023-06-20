@@ -7,7 +7,7 @@ class Enemy : public GameEngineActor
 public:
 
 	static std::vector<GameEngineCollision*> AllMonsterCollision;
-
+	static int DeathCount;
 	// constrcuter destructer
 	Enemy();
 	~Enemy();
@@ -30,12 +30,13 @@ private:
 	class GameEngineCollision* Collision;
 
 	float hp = 100;
+	int ItemdropRate = 80;
 	float speed;
 	float4 dir;
 
 	bool move = true;
 	bool collisioncheck = true;
-	int deathCount = 0;
+	int value = 0;
 
 	void Start() override;
 	void Update(float _Delta) override;

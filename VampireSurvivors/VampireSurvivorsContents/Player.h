@@ -4,6 +4,8 @@
 class Weapon;
 class Player : public PlayActor
 {
+	friend class PlayerUI;
+
 public:
 
 	Player();
@@ -35,9 +37,8 @@ public:
 		return Collision3;
 	}
 
-	void GetDamage(float _Damage);
-
-protected:
+	void ApplyDamage(float _Damage);
+	void AddExp(float _Exp);
 
 private:
 	static Player* MainPlayer;
@@ -63,7 +64,15 @@ private:
 
 	float MaxHp = 100;
 	float Hp = 100;
+
 	float speed = 100;
+
+	float Gold = 0;
+
+	float MaxExp = 50;
+	float Exp = 0;
+	
+	int Level = 1;
 
 	bool OnKnifeFunc = false;
 
@@ -72,6 +81,8 @@ private:
 	void KnifeFunc(float _Delta);
 
 	void CollisionWall(float _Delta);
+
+	void LevelUp();
 
 	void LevelStart() override;
 	void Start() override;

@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "PlayLevel.h"
+#include "PlayerUI.h"
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
@@ -9,7 +10,7 @@
 #include "ContentsEnum.h"
 
 std::vector<GameEngineCollision*> Enemy::AllMonsterCollision;
-
+int Enemy::DeathCount = 0;
 Enemy::Enemy()
 {
 
@@ -44,9 +45,11 @@ void Enemy::Start()
 	{
 		Renderer = CreateRenderer(RenderOrder::UpperMonster);
 	}
+	// 50%확률로 몬스터의 렌더위치를 플레이어의 위나 아래로 설정
 
 
 	speed = 50 + GameEngineRandom::MainRandom.RandomInt(1, 5);
+	// 몬스터의 스피드를 서로 다르게 설정
 
 	Renderer->CreateAnimation("Enemy_LeftRun", "Lenemy1.bmp", 0, 4, 0.1f, true);
 	Renderer->CreateAnimation("Enemy_RightRun", "Renemy1.bmp", 0, 4, 0.1f, true);
@@ -64,6 +67,10 @@ void Enemy::Start()
 
 void Enemy::Update(float _Delta)
 {
+	if (PlayLevel::AllStop)
+	{
+		return;
+	}
 
 	if (hp > 0)
 	{
@@ -73,7 +80,7 @@ void Enemy::Update(float _Delta)
 
 	if (hp < 0)
 	{
-		if (deathCount < 1)
+		if (value < 1)
 		{
 			if (dir.X > 0)
 			{
@@ -84,13 +91,17 @@ void Enemy::Update(float _Delta)
 				Renderer->ChangeAnimation("Enemy_Death_Left");
 			}
 			
+			PlayerUI::UI->Text_MonsterDeathCount->SetText(std::to_string(DeathCount), 20, "메이플스토리");
+
 			DropExp();
 
-			deathCount++;
+			value++; // 위의 블록이 한번만 실행되게하는 변수
 		}
 
 		if (Renderer->IsAnimationEnd())
 		{
+			DeathCount += 1;
+			
 			Death();
 		}
 	}
@@ -118,12 +129,12 @@ void Enemy::CollisionCheck(float _Delta)
 {
 	if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion(), CollisionType::CirCle, CollisionType::CirCle))
 	{
-		AddPos(-dir * (speed - 1) * _Delta); //플레이어가 에너미를 약하게 밀어냄
+		AddPos(-dir * (speed - 1) * _Delta); //플레이어와 바깥쪽 콜리전과 충돌시 서로 밀어냄
 	}
 
 	if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion2(), CollisionType::CirCle, CollisionType::CirCle))
 	{
-		AddPos(-dir * 500 * _Delta); //플레이어가 에너미를 강하게 밀어냄
+		AddPos(-dir * 500 * _Delta); //플레이어의 안쪽 콜리전과 충돌시 서로 강하게 밀어냄
 	}
 
 	if (true == Collision->Collision(CollisionOrder::Monster, AllMonsterCollision, CollisionType::CirCle, CollisionType::CirCle))
@@ -139,20 +150,22 @@ void Enemy::CollisionCheck(float _Delta)
 
 		AllMonsterCollision.clear();
 	}
+	// 다른 몬스터와 충돌시 서로 밀어냄
 }
 
 void Enemy::DropExp()
 {
-	int random = GameEngineRandom::MainRandom.RandomInt(1, 3);
+	int random = GameEngineRandom::MainRandom.RandomInt(1, 100);
 
-	if (random % 2 != 0)
+	if (random <= ItemdropRate)
 	{
 		PlayLevel* level = static_cast<PlayLevel*>(GetLevel());
-		level->AddExP(GetPos()); // 66%확률로 아이템 드랍
+		level->AddExP(GetPos()); 
 	}
-	else if(random % 2 == 0)
+	else
 	{
 		return;
 	}
-	
+
+	// 80% 확률로 아이템 드랍
 }

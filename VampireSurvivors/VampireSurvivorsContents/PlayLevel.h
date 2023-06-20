@@ -17,6 +17,8 @@ public:
 
 	void AddExP(float4 _Pos);
 
+	static bool AllStop;
+
 protected:
 
 private:
@@ -34,6 +36,7 @@ private:
 	void EnemySpawn(float _Delta);
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
+	
 	
 };
 

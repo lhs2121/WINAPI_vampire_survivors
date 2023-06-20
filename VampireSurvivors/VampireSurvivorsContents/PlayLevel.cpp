@@ -3,7 +3,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Exp.h"
-#include "PlayUIManager.h"
+#include "PlayerUI.h"
 #include "ContentsEnum.h"
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -12,6 +12,8 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEnginePlatform/GameEngineSound.h>
 #include <GameEngineBase/GameEngineRandom.h>
+
+bool PlayLevel::AllStop = false;
 
 PlayLevel::PlayLevel()
 {
@@ -44,7 +46,7 @@ void PlayLevel::Start()
 
 	PlayerPtr = CreateActor<Player>(UpdateOrder::Player);
 
-	CreateActor<PlayUIManager>(UpdateOrder::Player);
+	CreateActor<PlayerUI>(UpdateOrder::Player);
 }
 
 
@@ -59,6 +61,11 @@ void PlayLevel::Update(float _delta)
 	if (GameEngineInput::IsDown('X'))
 	{
 		BackGroundPtr->SwitchRender();
+	}
+
+	if (GameEngineInput::IsDown('Z'))
+	{
+		AllStop = !AllStop;
 	}
 	BackGroundPtr->BackGroundLoop(PlayerPtr);
 
