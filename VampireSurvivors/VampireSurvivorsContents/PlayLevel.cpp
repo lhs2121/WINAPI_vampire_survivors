@@ -67,9 +67,10 @@ void PlayLevel::Update(float _delta)
 	{
 		AllStop = !AllStop;
 	}
+
 	BackGroundPtr->BackGroundLoop(PlayerPtr);
 
-	//EnemySpawn(_delta);
+	EnemySpawn(_delta);
 }
 
 void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)
