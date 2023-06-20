@@ -25,7 +25,7 @@ private:
 	bool isItemTaken = false;
 	float sumdelta = 0;
 
-	float OutWardSpeed = 300;
+	float OutWardSpeed = 250;
 	float InWardSpeed = 0;
 
 	float ExpValue = 21;
