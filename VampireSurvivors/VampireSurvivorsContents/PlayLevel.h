@@ -15,9 +15,11 @@ public:
 	PlayLevel& operator=(const PlayLevel& _Other) = delete;
 	PlayLevel& operator=(PlayLevel&& _Other) noexcept = delete;
 
-	void AddExP(float4 _Pos);
+	void AddExp(float4 _Pos);
 
-	static bool AllStop;
+	void ShowItemSelectUI();
+
+	static bool SpawnCheck;
 
 protected:
 
@@ -27,6 +29,8 @@ private:
 
 	class Player* PlayerPtr = nullptr;
 
+	class ItemSelectUI* ItemSelectUIPtr;
+
 	std::vector<class Exp*> ExpGroup;
 
 	bool IsLooping = false;
@@ -34,6 +38,9 @@ private:
 	void Start() override;
 	void Update(float _delta) override;
 	void EnemySpawn(float _Delta);
+
+	
+
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 	

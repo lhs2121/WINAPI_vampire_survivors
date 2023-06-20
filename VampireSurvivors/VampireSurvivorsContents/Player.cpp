@@ -3,6 +3,7 @@
 #include "Knife.h"
 #include "PlayerUI.h"
 #include "PlayLevel.h"
+#include <GameEngineBase/GameEngineTime.h>
 #include <GameEngineCore/GameEngineActor.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
@@ -93,11 +94,6 @@ void Player::Start()
 }
 void Player::Update(float _Delta)
 {
-	if (PlayLevel::AllStop)
-	{
-		return;
-	}
-
 	if (GameEngineInput::IsDown('Q'))
 	{
 		ApplyDamage(20);
@@ -215,7 +211,9 @@ void Player::LevelUp()
 		
 		PlayerUI::UI->ExpGauge->SetRenderScale({ 0,16 });
 		PlayerUI::UI->Text_Level->SetText("LV" + std::to_string(Level), 20, "메이플스토리");
-		
+
+		PlayLevel* level = static_cast<PlayLevel*>(GetLevel());
+		level->ShowItemSelectUI();
 
 	}
 

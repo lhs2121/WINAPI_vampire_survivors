@@ -29,11 +29,6 @@ void Exp::Start()
 }
 void Exp::Update(float _Delta)
 {
-	
-	if (PlayLevel::AllStop)
-	{
-		return;
-	}
 
 	if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion(),CollisionType::CirCle,CollisionType::CirCle))
 	{

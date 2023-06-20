@@ -5,6 +5,8 @@
 #include "Exp.h"
 #include "PlayerUI.h"
 #include "ContentsEnum.h"
+#include "ItemSelectUI.h"
+#include <GameEngineBase/GameEngineTime.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/ResourcesManager.h>
@@ -13,7 +15,7 @@
 #include <GameEnginePlatform/GameEngineSound.h>
 #include <GameEngineBase/GameEngineRandom.h>
 
-bool PlayLevel::AllStop = false;
+bool PlayLevel::SpawnCheck = true;
 
 PlayLevel::PlayLevel()
 {
@@ -46,7 +48,9 @@ void PlayLevel::Start()
 
 	PlayerPtr = CreateActor<Player>(UpdateOrder::Player);
 
-	CreateActor<PlayerUI>(UpdateOrder::Player);
+	CreateActor<PlayerUI>(UpdateOrder::PlayUI);
+
+	ItemSelectUIPtr = CreateActor<ItemSelectUI>(UpdateOrder::PlayUI);
 }
 
 
@@ -63,14 +67,14 @@ void PlayLevel::Update(float _delta)
 		BackGroundPtr->SwitchRender();
 	}
 
-	if (GameEngineInput::IsDown('Z'))
-	{
-		AllStop = !AllStop;
-	}
 
 	BackGroundPtr->BackGroundLoop(PlayerPtr);
 
-	EnemySpawn(_delta);
+	if (SpawnCheck == true)
+	{
+		EnemySpawn(_delta);
+	}
+	
 }
 
 void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)
@@ -125,7 +129,6 @@ void PlayLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
 
 }
-
 void PlayLevel::EnemySpawn(float _Delta)
 {
 	static float sumDelta;
@@ -177,10 +180,22 @@ void PlayLevel::EnemySpawn(float _Delta)
 	}
 }
 
-void PlayLevel::AddExP(float4 _Pos)
+void PlayLevel::AddExp(float4 _Pos)
 {
 	Exp* NewExp = CreateActor<Exp>(UpdateOrder::Monster);
 	NewExp->SetPos(_Pos);
 	ExpGroup.push_back(NewExp);
 }
 
+void PlayLevel::ShowItemSelectUI()
+{
+	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Monster, 0);
+	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Player, 0);
+	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Item, 0);
+	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Weapon, 0);
+
+
+	SpawnCheck = false;
+
+	ItemSelectUIPtr->On();
+}

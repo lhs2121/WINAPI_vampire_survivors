@@ -28,8 +28,6 @@ void PlayerUI::Start()
 		path.MoveChild("UI\\");
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("ExpBar.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("ExpGauge.bmp"));
-		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("ItemSelectPanel.bmp"));
-		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("ItemPanel.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("DeathMark.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("CoinMark.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("SlotPanel.bmp"));
@@ -80,19 +78,6 @@ void PlayerUI::Start()
 		ExpGauge->SetRenderScale({ 0,16 });
 
 		ExpGuageScale = ResourcesManager::GetInst().FindTexture("ExpGauge.bmp")->GetScale();
-	}
-	{
-		
-		ItemSelectPanel = CreateUIRenderer(RenderOrder::PlayUI);
-		ItemSelectPanel->SetTexture("ItemSelectPanel.bmp");
-		ItemSelectPanel->SetRenderPos({ 545,345 });
-
-		ItemPanel = CreateUIRenderer(RenderOrder::PlayUI);
-		ItemPanel->SetTexture("ItemPanel.bmp");
-		ItemPanel->SetRenderPos({ 545,345 });
-
-		ItemSelectPanel->Off();
-		ItemPanel->Off();
 	}
 	
 }

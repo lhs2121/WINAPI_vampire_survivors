@@ -190,6 +190,7 @@
     </ClCompile>
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="MagicWand.cpp" />
+    <ClCompile Include="PauseUI.cpp" />
     <ClCompile Include="PlayActor.cpp" />
     <ClCompile Include="Player.h">
       <SubType>
@@ -228,6 +229,7 @@
     <ClInclude Include="ContentsEnum.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="MenuLevel.h" />
+    <ClInclude Include="PauseUI.h" />
     <ClInclude Include="PlayActor.h" />
     <ClInclude Include="PlayLevel.h" />
     <ClInclude Include="Exp.h" />

@@ -67,10 +67,6 @@ void Enemy::Start()
 
 void Enemy::Update(float _Delta)
 {
-	if (PlayLevel::AllStop)
-	{
-		return;
-	}
 
 	if (hp > 0)
 	{
@@ -160,7 +156,7 @@ void Enemy::DropExp()
 	if (random <= ItemdropRate)
 	{
 		PlayLevel* level = static_cast<PlayLevel*>(GetLevel());
-		level->AddExP(GetPos()); 
+		level->AddExp(GetPos()); 
 	}
 	else
 	{

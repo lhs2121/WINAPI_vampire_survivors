@@ -2,6 +2,7 @@
 #include <VampireSurvivorsContents/PlayActor.h>
 
 class Weapon;
+class GameEngineRenderer;
 class Player : public PlayActor
 {
 	friend class PlayerUI;
@@ -25,7 +26,7 @@ public:
 	GameEngineCollision* GetCollsion()
 	{
 		return Collision;
-    }
+	}
 
 	GameEngineCollision* GetCollsion2()
 	{
@@ -42,18 +43,18 @@ public:
 
 private:
 	static Player* MainPlayer;
-	
-	class GameEngineRenderer* Renderer;
 
-	class GameEngineRenderer* HpBar;
-	class GameEngineRenderer* HpGauge;
+	GameEngineRenderer* Renderer;
 
-	class GameEngineCollision* Collision;
-	class GameEngineCollision* Collision2;
-	class GameEngineCollision* Collision3;
+	GameEngineRenderer* HpBar;
+	GameEngineRenderer* HpGauge;
+
+	GameEngineCollision* Collision;
+	GameEngineCollision* Collision2;
+	GameEngineCollision* Collision3;
 
 	class Knife* KnifeActor[4];
-	
+
 	float4 KnifePos1;
 
 	float4 KnifePos2;
@@ -71,7 +72,7 @@ private:
 
 	float MaxExp = 50;
 	float Exp = 0;
-	
+
 	int Level = 1;
 
 	bool OnKnifeFunc = false;
