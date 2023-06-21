@@ -3,6 +3,7 @@
 #include "Knife.h"
 #include "PlayerUI.h"
 #include "PlayLevel.h"
+#include "MagicWand.h"
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEngineCore/GameEngineActor.h>
 #include <GameEngineCore/GameEngineRenderer.h>
@@ -86,11 +87,6 @@ void Player::Start()
 		Collision3->SetCollisionScale({ 5,5 });
 		Collision3->SetCollisionType(CollisionType::CirCle);
 	}
-
-	{
-		KnifeActor[0] = GetLevel()->CreateActor<Knife>(UpdateOrder::Weapon);
-		KnifeActor[1] = GetLevel()->CreateActor<Knife>(UpdateOrder::Weapon);
-	}
 }
 void Player::Update(float _Delta)
 {
@@ -145,11 +141,21 @@ void Player::LevelStart()
 {
 	MainPlayer = this;
 
-	KnifeActor[0]->SetPos(KnifePos1);
-	KnifeActor[1]->SetPos(KnifePos2);
+	{
+		KnifeActor[0] = GetLevel()->CreateActor<Knife>(UpdateOrder::Weapon);
+		KnifeActor[1] = GetLevel()->CreateActor<Knife>(UpdateOrder::Weapon);
+		MagicWandActor[0] = GetLevel()->CreateActor<MagicWand>(UpdateOrder::Weapon);
+	}
 
 	{
+		KnifeActor[0]->SetPos(KnifePos1);
+		KnifeActor[1]->SetPos(KnifePos2);
+		MagicWandActor[0]->SetPos(GetPos());
+	}
+	
+	{
 		WeaponFunc[0] = &Player::KnifeFunc;
+		WeaponFunc[1] = &Player::MagicWandFunc;
 	}
 }
 
@@ -187,6 +193,33 @@ void Player::KnifeFunc(float _Delta)
 		KnifeActor[0]->SetPos(KnifePos1);
 		KnifeActor[1]->SetPos(KnifePos2);
 		OnKnifeFunc = false;
+		sumdelta = 0;
+	}
+
+}
+
+void Player::MagicWandFunc(float _Delta)
+{
+	static float sumdelta;
+	sumdelta += _Delta;
+
+	if (false == OnMWFunc)
+	{
+		MagicWand::Dir = -PlayerDir;
+		MagicWandActor[0]->SetAngle(PlayerDir.AngleDeg() + 180);
+	}
+
+	OnMWFunc = true;
+
+	if (sumdelta > 2)
+	{
+		if (false == MagicWandActor[0]->IsUpdate())
+		{
+			MagicWandActor[0]->On();
+		}
+
+		MagicWandActor[0]->SetPos(GetPos());
+		OnMWFunc = false;
 		sumdelta = 0;
 	}
 

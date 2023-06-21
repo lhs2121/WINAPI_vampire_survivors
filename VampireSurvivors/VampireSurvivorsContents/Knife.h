@@ -1,6 +1,5 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-#include <vector>
 class Knife : public GameEngineActor
 {
 	friend class Player;

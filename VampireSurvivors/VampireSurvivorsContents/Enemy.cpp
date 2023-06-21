@@ -10,7 +10,9 @@
 #include "ContentsEnum.h"
 
 std::vector<GameEngineCollision*> Enemy::AllMonsterCollision;
+
 int Enemy::DeathCount = 0;
+
 Enemy::Enemy()
 {
 
@@ -74,7 +76,7 @@ void Enemy::Update(float _Delta)
 		CollisionCheck(_Delta);
 	}
 
-	if (hp < 0)
+	if (hp <= 0)
 	{
 		if (value < 1)
 		{
@@ -82,14 +84,16 @@ void Enemy::Update(float _Delta)
 			{
 				Renderer->ChangeAnimation("Enemy_Death_Right");
 			}
-			else if(dir.X < 0)
+			else if (dir.X < 0)
 			{
 				Renderer->ChangeAnimation("Enemy_Death_Left");
 			}
-			
+
 			PlayerUI::UI->Text_MonsterDeathCount->SetText(std::to_string(DeathCount), 20, "메이플스토리");
 
 			DropExp();
+
+			Collision->Off();
 
 			value++; // 위의 블록이 한번만 실행되게하는 변수
 		}
@@ -97,7 +101,7 @@ void Enemy::Update(float _Delta)
 		if (Renderer->IsAnimationEnd())
 		{
 			DeathCount += 1;
-			
+
 			Death();
 		}
 	}
@@ -125,13 +129,17 @@ void Enemy::CollisionCheck(float _Delta)
 {
 	if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion(), CollisionType::CirCle, CollisionType::CirCle))
 	{
-		AddPos(-dir * (speed - 1) * _Delta); //플레이어와 바깥쪽 콜리전과 충돌시 서로 밀어냄
+		AddPos(-dir * (speed - 1) * _Delta); 
 	}
+
+	//플레이어와 바깥쪽 콜리전과 충돌시 서로 밀어냄
 
 	if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion2(), CollisionType::CirCle, CollisionType::CirCle))
 	{
-		AddPos(-dir * 500 * _Delta); //플레이어의 안쪽 콜리전과 충돌시 서로 강하게 밀어냄
+		AddPos(-dir * 500 * _Delta); 
 	}
+
+	//플레이어의 안쪽 콜리전과 충돌시 서로 강하게 밀어냄
 
 	if (true == Collision->Collision(CollisionOrder::Monster, AllMonsterCollision, CollisionType::CirCle, CollisionType::CirCle))
 	{
@@ -146,7 +154,7 @@ void Enemy::CollisionCheck(float _Delta)
 
 		AllMonsterCollision.clear();
 	}
-	// 다른 몬스터와 충돌시 서로 밀어냄
+	//몬스터와 충돌시 서로 밀어냄
 }
 
 void Enemy::DropExp()
@@ -156,7 +164,7 @@ void Enemy::DropExp()
 	if (random <= ItemdropRate)
 	{
 		PlayLevel* level = static_cast<PlayLevel*>(GetLevel());
-		level->AddExp(GetPos()); 
+		level->AddExp(GetPos());
 	}
 	else
 	{

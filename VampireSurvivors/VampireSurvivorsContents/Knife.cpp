@@ -32,7 +32,7 @@ void Knife::Start()
 		Renderer = CreateRenderer(RenderOrder::Weapon);
 		Renderer->SetTexture("RKnife.bmp");
 
-		Collision = CreateCollision(CollisionOrder::Weapon);
+		Collision = CreateCollision(CollisionOrder::Weapon1);
 		Collision->SetCollisionScale(Scale);
 
 		Off();
@@ -69,9 +69,8 @@ void Knife::Update(float _Delta)
 
 	if (true == Collision->Collision(CollisionOrder::Monster, result, CollisionType::Rect, CollisionType::CirCle))
 	{
-	    Enemy* FistEnemy = static_cast<Enemy*>(result[0]->GetActor());
-		FistEnemy->ApplyDamage(500);
-		
+		Enemy* e = static_cast<Enemy*>(result[0]->GetActor());
+		e->ApplyDamage(50);
 		Off();
 	}
 }

@@ -28,9 +28,10 @@ enum class CollisionOrder
 {
 	BackGround,
 	Player,
+	Weapon1,
+	Weapon2,
 	Monster,
 	Exp,
-	Weapon,
 	PlayUI
 };
 

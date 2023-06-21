@@ -23,6 +23,7 @@ public:
 
 	void On() override;
 	void Off() override;
+	void SetItemPanel();
 
 private:
 
@@ -30,7 +31,7 @@ private:
 	class GameEngineRenderer* ItemPanel_1;
 	class GameEngineRenderer* ItemPanel_2;
 	class GameEngineRenderer* ItemPanel_3;
-	class GameEngineRenderer* ItemPanel_4;
+
 
 	class GameEngineCollision* Button1;
 	class GameEngineCollision* Button2;
@@ -38,6 +39,11 @@ private:
 	class GameEngineCollision* Button4;
 
 	class GameEngineCollision* Mouse;
+
+
+	
+
+
 
 	float4 Offset = { -545,-345 };
 

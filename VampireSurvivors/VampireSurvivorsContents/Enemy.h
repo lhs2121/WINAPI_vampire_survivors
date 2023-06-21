@@ -7,6 +7,7 @@ class Enemy : public GameEngineActor
 public:
 
 	static std::vector<GameEngineCollision*> AllMonsterCollision;
+	
 	static int DeathCount;
 	// constrcuter destructer
 	Enemy();
@@ -29,7 +30,7 @@ private:
 	class GameEngineRenderer* Renderer;
 	class GameEngineCollision* Collision;
 
-	float hp = 100;
+	float hp = 20;
 	int ItemdropRate = 80;
 	float speed;
 	float4 dir;

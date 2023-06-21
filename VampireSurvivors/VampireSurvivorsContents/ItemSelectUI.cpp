@@ -1,6 +1,8 @@
 #include "ItemSelectUI.h"
 #include "Player.h"
 #include "ContentsEnum.h"
+#include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEngineCore/ResourcesManager.h>
@@ -52,7 +54,7 @@ void ItemSelectUI::Start()
 
 void ItemSelectUI::Update(float _Delta)
 {
-	Mouse->SetCollisionPos(Player::GetMainPlayer()->GetPos() + GameEngineWindow::MainWindow.GetMousePos() + Offset);
+	Mouse->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + GameEngineWindow::MainWindow.GetMousePos());
 
 	if (true == Button1->CollisonCheck(Mouse, CollisionType::Rect, CollisionType::Rect) && Button1->IsUpdate())
 	{
@@ -71,11 +73,16 @@ void ItemSelectUI::On()
 	ItemSelectPanel->On();
 	ItemPanel_1->On();
 	Button1->On();
-	Button1->SetCollisionPos(Player::GetMainPlayer()->GetPos() + ItemPanel_1->GetRenderPos() + Offset);
+	Button1->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + ItemPanel_1->GetRenderPos());
 }
 void ItemSelectUI::Off()
 {
 	ItemSelectPanel->Off();
 	ItemPanel_1->Off();
 	Button1->Off();
+}
+
+void ItemSelectUI::SetItemPanel()
+{
+
 }

@@ -62,11 +62,13 @@ void PlayerUI::Start()
 		CoinMark->SetRenderPos({ 1076,37 });
 		
 	}
+
 	{
 		SlotPanel = CreateUIRenderer(RenderOrder::PlayUI);
 		SlotPanel->SetTexture("SlotPanel.bmp");
 		SlotPanel->SetRenderPos({ 100,58 });
 	}
+
 	{
 		ExpBar = CreateUIRenderer(RenderOrder::PlayUI);
 		ExpBar->SetTexture("ExpBar.bmp");

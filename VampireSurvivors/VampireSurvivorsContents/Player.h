@@ -54,32 +54,28 @@ private:
 	GameEngineCollision* Collision3;
 
 	class Knife* KnifeActor[4];
+	class MagicWand* MagicWandActor[1];
 
 	float4 KnifePos1;
-
 	float4 KnifePos2;
-
 	float4 PlayerDir;
-
 	float4 HpGaugeScale;
 
 	float MaxHp = 100;
 	float Hp = 100;
-
 	float speed = 100;
-
 	float Gold = 0;
-
 	float MaxExp = 50;
 	float Exp = 0;
-
 	int Level = 1;
 
 	bool OnKnifeFunc = false;
+	bool OnMWFunc = false;
 
 	void (Player::* WeaponFunc[6])(float _Delta);
 
 	void KnifeFunc(float _Delta);
+	void MagicWandFunc(float _Delta);
 
 	void CollisionWall(float _Delta);
 
