@@ -1,6 +1,13 @@
 #pragma once
 #include <VampireSurvivorsContents/PlayActor.h>
 
+enum class DirType
+{
+	Left,
+	Right
+};
+
+
 class Weapon;
 class GameEngineRenderer;
 class Player : public PlayActor
@@ -42,6 +49,11 @@ public:
 		return PlayerDir;
 	}
 
+	DirType GetDirType()
+	{
+		return dirtype;
+	}
+
 private:
 	static Player* MainPlayer;
 
@@ -56,6 +68,8 @@ private:
 
 	float4 PlayerDir;
 	float4 HpGaugeScale;
+
+	DirType dirtype;
 
 	float MaxHp = 100;
 	float Hp = 100;
@@ -72,4 +86,5 @@ private:
 	void Start() override;
 	void Update(float _Delta) override;
 };
+
 

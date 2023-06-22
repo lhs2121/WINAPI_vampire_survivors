@@ -14,22 +14,31 @@ public:
 	Projectile& operator=(const Projectile& _Other) = delete;
 	Projectile& operator=(Projectile&& _Other) noexcept = delete;
 
-	void Setting(float4 _dir, float4 _startPos, float _Speed, const std::string& _AnimationName,WeaponType _Type);
+	void SetType(WeaponType _Type);
 private:
 	class GameEngineRenderer* Renderer;
 	class GameEngineCollision* Collision;
 
+	bool IsReady = false;
+
+	float UpSpeed = 500;
+	float XSpeed = 200;
+	float YSpeed = 200;
+	float Angle;
 	float Speed = 200;
+
 	float4 dir;
-	float4 Angle;
 	float4 Scale;
 	WeaponType Type;
 
+	int HitCount = 0;
 	float DeathTime = 3;
 	float SumDeltaTime = 0;
 
 	void Knife_Attack(float _Delta);
 	void MagicWand_Attack(float _Delta);
+	void Axe_Attack(float _Delta);
+	void Runetracer_Attack(float _Delta);
 
 	void Start() override;
 	void Update(float _Delta) override;

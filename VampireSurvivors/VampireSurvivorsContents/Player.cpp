@@ -103,12 +103,14 @@ void Player::Update(float _Delta)
 		AddPos({ -1 * _Delta * speed , 0 });
 		Renderer->ChangeAnimation("LeftRun");
 		PlayerDir = float4::LEFT;
+		dirtype = DirType::Left;
 	}
 	if (GameEngineInput::IsPress('D'))
 	{
 		AddPos({ 1 * _Delta * speed , 0 });
 		Renderer->ChangeAnimation("RightRun");
 		PlayerDir = float4::RIGHT;
+		dirtype = DirType::Right;
 	}
 	if (GameEngineInput::IsPress('W') && GameEngineInput::IsPress('A'))
 	{

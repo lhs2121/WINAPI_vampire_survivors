@@ -38,6 +38,7 @@ enum class WeaponType
 {
 	Knife,
 	MagicWand,
-	Axe
+	Axe,
+	Runetracer
 
 };

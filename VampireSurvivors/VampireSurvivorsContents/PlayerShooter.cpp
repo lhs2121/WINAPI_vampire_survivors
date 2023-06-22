@@ -24,18 +24,9 @@ void PlayerShooter::Update(float _Delta)
 
 	ShootKnife(_Delta);
 
-	if (MagicWandCount > 0)
-	{
-		static float CoolTime_MagicWand;
-		CoolTime_MagicWand -= _Delta;
+	ShootMagicWand(_Delta);
 
-		if (CoolTime_MagicWand < 0)
-		{
-			CreateMagicWand();
-			CoolTime_MagicWand = 3;
-		}
-	}
-
+	ShootAxe(_Delta);
 }
 
 
@@ -53,7 +44,9 @@ void PlayerShooter::ShootKnife(float _Delta)
 
 	if (inter <= 0.0f)
 	{
-		CreateKnife();
+		Projectile* Knife = GetLevel()->CreateActor<Projectile>(UpdateOrder::Weapon);
+		Knife->SetType(WeaponType::Knife);
+
 		inter = 0.15f;
 		CreatedKnife += 1;
 
@@ -65,26 +58,47 @@ void PlayerShooter::ShootKnife(float _Delta)
 	}
 }
 
-void PlayerShooter::CreateKnife()
+void PlayerShooter::ShootMagicWand(float _Delta)
 {
-	Projectile* Knife = GetLevel()->CreateActor<Projectile>(UpdateOrder::Weapon);
-	Knife->Setting(Player::GetMainPlayer()->GetPlayerDir(), GetRandomFirePos(), 350, "Knife", WeaponType::Knife);
+	if (MagicWandCount > 0)
+	{
+		static float CoolTime_MagicWand;
+		CoolTime_MagicWand -= _Delta;
+
+		if (CoolTime_MagicWand < 0)
+		{
+			Projectile* MagicWand = GetLevel()->CreateActor<Projectile>(UpdateOrder::Weapon);
+			MagicWand->SetType(WeaponType::MagicWand);
+			CoolTime_MagicWand = 3;
+		}
+	}
 }
 
-void PlayerShooter::CreateMagicWand()
+void PlayerShooter::ShootAxe(float _Delta)
 {
-	if (Player::GetMainPlayer()->GetMonsterPlayerDir() == float4::ZERO)
+	if (AxeCount < 1)
 	{
 		return;
 	}
 
-	Projectile* MagicWand = GetLevel()->CreateActor<Projectile>(UpdateOrder::Weapon);
-	MagicWand->Setting(Player::GetMainPlayer()->GetMonsterPlayerDir(), FirePos[0], 200, "MagicWand", WeaponType::MagicWand);
-}
+	static float inter = 2;  // 도끼 생성 간격
+	static int CreatedAxe = 0;  // 만들어진 나이프 개수
 
-void PlayerShooter::CreateAxe()
-{
+	inter -= _Delta;
 
+	if (inter <= 0.0f)
+	{
+		Projectile* Axe = GetLevel()->CreateActor<Projectile>(UpdateOrder::Weapon);
+		Axe->SetType(WeaponType::Axe);
+		inter = 0.15f;
+		CreatedAxe += 1;
+
+		if (CreatedAxe == AxeCount)
+		{
+			inter = 2;
+			CreatedAxe = 0;
+		}
+	}
 }
 
 float4 PlayerShooter::GetRandomFirePos()

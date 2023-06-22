@@ -39,6 +39,7 @@ public:
 		return AllSprite.size();
 	}
 
+	void SetBaseTexture(const std::string& _BaseName);
 	void SetMaskTexture(const std::string& _MaskName);
 
 protected:
