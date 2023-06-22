@@ -52,7 +52,7 @@ void Exp::Update(float _Delta)
 		}
 	}
 
-	if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion3(), CollisionType::CirCle, CollisionType::CirCle))
+	if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion(), CollisionType::CirCle, CollisionType::CirCle))
 	{
 		Player::GetMainPlayer()->AddExp(ExpValue);
 		Death();

@@ -1,5 +1,4 @@
 #include "ItemSelectUI.h"
-#include "Player.h"
 #include "ContentsEnum.h"
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>

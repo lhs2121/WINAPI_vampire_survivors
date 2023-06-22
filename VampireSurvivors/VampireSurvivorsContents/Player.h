@@ -33,13 +33,14 @@ public:
 		return Collision2;
 	}
 
-	GameEngineCollision* GetCollsion3()
-	{
-		return Collision3;
-	}
 
 	void ApplyDamage(float _Damage);
 	void AddExp(float _Exp);
+	float4 GetMonsterPlayerDir();
+	float4 GetPlayerDir()
+	{
+		return PlayerDir;
+	}
 
 private:
 	static Player* MainPlayer;
@@ -51,13 +52,8 @@ private:
 
 	GameEngineCollision* Collision;
 	GameEngineCollision* Collision2;
-	GameEngineCollision* Collision3;
+	GameEngineCollision* Detector;
 
-	class Knife* KnifeActor[4];
-	class MagicWand* MagicWandActor[1];
-
-	float4 KnifePos1;
-	float4 KnifePos2;
 	float4 PlayerDir;
 	float4 HpGaugeScale;
 
@@ -69,18 +65,9 @@ private:
 	float Exp = 0;
 	int Level = 1;
 
-	bool OnKnifeFunc = false;
-	bool OnMWFunc = false;
-
-	void (Player::* WeaponFunc[6])(float _Delta);
-
-	void KnifeFunc(float _Delta);
-	void MagicWandFunc(float _Delta);
-
-	void CollisionWall(float _Delta);
 
 	void LevelUp();
-
+	
 	void LevelStart() override;
 	void Start() override;
 	void Update(float _Delta) override;

@@ -27,7 +27,6 @@ private:
 	GameEngineRenderer* Text_Level;
 	GameEngineRenderer* Text_MonsterDeathCount;
 	GameEngineRenderer* Text_Gold;
-	GameEngineRenderer* Text_Timer;
 
 	GameEngineRenderer* DeathMark;
 	GameEngineRenderer* CoinMark;

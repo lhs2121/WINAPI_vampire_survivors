@@ -3,21 +3,21 @@
 enum class UpdateOrder
 {
 	BackGround,
+	Weapon,
 	Player,
 	Monster,
 	Item,
-	Weapon,
 	PlayUI
 };
 
 enum class RenderOrder
 {
 	BackGround,
+	Exp,
 	UnderMonster,
 	Player,
 	UpperMonster,
 	Weapon,
-	Exp,
 	PlayUI,
 	Text
 };
@@ -28,9 +28,8 @@ enum class CollisionOrder
 {
 	BackGround,
 	Player,
-	Weapon1,
-	Weapon2,
 	Monster,
+	Weapon,
 	Exp,
 	PlayUI
 };

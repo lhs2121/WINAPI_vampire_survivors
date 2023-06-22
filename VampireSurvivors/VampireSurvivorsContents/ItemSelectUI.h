@@ -40,13 +40,6 @@ private:
 
 	class GameEngineCollision* Mouse;
 
-
-	
-
-
-
-	float4 Offset = { -545,-345 };
-
 	void Start() override;
 	void Update(float _Delta) override;
 	

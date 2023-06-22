@@ -47,19 +47,13 @@
     <ClCompile Include="IntroImage.cpp">
       <Filter>Actor\MenuScene</Filter>
     </ClCompile>
-    <ClCompile Include="Knife.h">
-      <Filter>Actor\PlayScene\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="Knife.cpp">
-      <Filter>Actor\PlayScene\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="MagicWand.cpp">
+    <ClCompile Include="Projectile.cpp">
       <Filter>Actor\PlayScene\Weapon</Filter>
     </ClCompile>
     <ClCompile Include="PlayActor.cpp">
       <Filter>Actor\PlayScene</Filter>
     </ClCompile>
-    <ClCompile Include="MagicWand.h">
+    <ClCompile Include="Projectile.h">
       <Filter>Actor\PlayScene\Weapon</Filter>
     </ClCompile>
     <ClCompile Include="Exp.cpp">
@@ -73,6 +67,9 @@
     </ClCompile>
     <ClCompile Include="PauseUI.cpp">
       <Filter>Actor\PlayScene\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerShooter.cpp">
+      <Filter>Actor\PlayScene\Weapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +125,9 @@
     </ClInclude>
     <ClInclude Include="PauseUI.h">
       <Filter>Actor\PlayScene\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerShooter.h">
+      <Filter>Actor\PlayScene\Weapon</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "Exp.h"
 #include "PlayerUI.h"
+#include "PlayerShooter.h"
 #include "ContentsEnum.h"
 #include "ItemSelectUI.h"
 #include <GameEngineBase/GameEngineTime.h>
@@ -51,6 +52,9 @@ void PlayLevel::Start()
 	CreateActor<PlayerUI>(UpdateOrder::PlayUI);
 
 	ItemSelectUIPtr = CreateActor<ItemSelectUI>(UpdateOrder::PlayUI);
+
+	CreateActor<PlayerShooter>(UpdateOrder::Player);
+
 }
 
 

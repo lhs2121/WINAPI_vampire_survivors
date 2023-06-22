@@ -141,18 +141,17 @@ void Enemy::CollisionCheck(float _Delta)
 
 	//플레이어의 안쪽 콜리전과 충돌시 서로 강하게 밀어냄
 
-	if (true == Collision->Collision(CollisionOrder::Monster, AllMonsterCollision, CollisionType::CirCle, CollisionType::CirCle))
+	std::vector<GameEngineCollision*> result;
+	if (true == Collision->Collision(CollisionOrder::Monster, result, CollisionType::CirCle, CollisionType::CirCle))
 	{
-		for (int i = 0; i < AllMonsterCollision.size(); i++)
+		for (int i = 0; i < result.size(); i++)
 		{
 			float4 dir;
-			dir = AllMonsterCollision[i]->GetActor()->GetPos() - GetPos();
+			dir = result[i]->GetActor()->GetPos() - GetPos();
 			dir.Normalize();
 
 			AddPos(-dir * speed * _Delta);
 		}
-
-		AllMonsterCollision.clear();
 	}
 	//몬스터와 충돌시 서로 밀어냄
 }

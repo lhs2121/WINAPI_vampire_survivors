@@ -176,11 +176,7 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ItemSelectUI.cpp" />
-    <ClCompile Include="MagicWand.h">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="Knife.h">
+    <ClCompile Include="Projectile.h">
       <SubType>
       </SubType>
     </ClCompile>
@@ -189,7 +185,7 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="MagicWand.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="PauseUI.cpp" />
     <ClCompile Include="PlayActor.cpp" />
     <ClCompile Include="Player.h">
@@ -219,8 +215,8 @@
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="CharactorSelectUI.cpp" />
     <ClCompile Include="IntroImage.cpp" />
-    <ClCompile Include="Knife.cpp" />
     <ClCompile Include="Exp.cpp" />
+    <ClCompile Include="PlayerShooter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
@@ -231,6 +227,7 @@
     <ClInclude Include="MenuLevel.h" />
     <ClInclude Include="PauseUI.h" />
     <ClInclude Include="PlayActor.h" />
+    <ClInclude Include="PlayerShooter.h" />
     <ClInclude Include="PlayLevel.h" />
     <ClInclude Include="Exp.h" />
     <ClInclude Include="PlayerUI.h" />

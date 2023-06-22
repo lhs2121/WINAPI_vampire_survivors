@@ -45,10 +45,6 @@ void PlayerUI::Start()
 		Text_Gold = CreateUIRenderer(RenderOrder::Text);
 		Text_Gold->SetText("0", 20, "메이플스토리");
 		Text_Gold->SetRenderPos({ 1045,24 });
-
-		Text_Timer = CreateUIRenderer(RenderOrder::Text);
-		Text_Timer->SetText("00 : 00", 30, "메이플스토리");
-		Text_Timer->SetRenderPos({ 515,33 });
 	}
 
 	{

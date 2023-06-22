@@ -1,9 +1,8 @@
 #include "Player.h"
-#include "ContentsEnum.h"
-#include "Knife.h"
 #include "PlayerUI.h"
 #include "PlayLevel.h"
-#include "MagicWand.h"
+#include "Enemy.h"
+#include "ContentsEnum.h"
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEngineCore/GameEngineActor.h>
 #include <GameEngineCore/GameEngineRenderer.h>
@@ -50,14 +49,11 @@ void Player::Start()
 	}
 
 	{
-		SetGroundTexture("Debugdummy1.bmp");
-	}
-
-	{
 		Renderer = CreateRenderer(RenderOrder::Player);
 		Renderer->CreateAnimation("RightRun", "RightRun.bmp", 0, 3, 0.1f, true);
 		Renderer->CreateAnimation("LeftRun", "LeftRun.bmp", 0, 3, 0.1f, true);
 		Renderer->ChangeAnimation("RightRun");
+
 		PlayerDir = float4::RIGHT;
 	}
 
@@ -83,17 +79,14 @@ void Player::Start()
 		Collision2->SetCollisionScale({ 15,20 });
 		Collision2->SetCollisionType(CollisionType::CirCle);
 
-		Collision3 = CreateCollision(CollisionOrder::Player);
-		Collision3->SetCollisionScale({ 5,5 });
-		Collision3->SetCollisionType(CollisionType::CirCle);
+		Detector = CreateCollision(CollisionOrder::Player);
+		Detector->SetCollisionScale({ 900,500 });
+		Detector->SetCollisionType(CollisionType::CirCle);
+
 	}
 }
 void Player::Update(float _Delta)
 {
-	if (GameEngineInput::IsDown('Q'))
-	{
-		ApplyDamage(20);
-	}
 
 	if (GameEngineInput::IsPress('W'))
 	{
@@ -118,14 +111,6 @@ void Player::Update(float _Delta)
 		PlayerDir = float4::RIGHT;
 	}
 
-	for (int i = 0; i < 5; i++)
-	{
-		if (WeaponFunc[i] != nullptr)
-		{
-			(this->*WeaponFunc[i])(_Delta);
-		}
-	}
-
 	if (Hp <= 0)
 	{
 		HpBar->Off();
@@ -133,30 +118,36 @@ void Player::Update(float _Delta)
 	}
 
 	LevelUp();
-	CollisionWall(_Delta);
+
 	CameraFocus();
+}
+
+float4 Player::GetMonsterPlayerDir()
+{
+	float4 dir;
+
+	std::vector<GameEngineCollision*> result;
+
+	if (true == Detector->Collision(CollisionOrder::Monster, result, CollisionType::CirCle, CollisionType::CirCle))
+	{
+		dir = result[0]->GetActor()->GetPos() - GetPos();
+
+		dir.Normalize();
+
+		return dir;
+	}
+	else
+	{
+		return float4::ZERO;
+	}
+	
 }
 
 void Player::LevelStart()
 {
 	MainPlayer = this;
 
-	{
-		KnifeActor[0] = GetLevel()->CreateActor<Knife>(UpdateOrder::Weapon);
-		KnifeActor[1] = GetLevel()->CreateActor<Knife>(UpdateOrder::Weapon);
-		MagicWandActor[0] = GetLevel()->CreateActor<MagicWand>(UpdateOrder::Weapon);
-	}
 
-	{
-		KnifeActor[0]->SetPos(KnifePos1);
-		KnifeActor[1]->SetPos(KnifePos2);
-		MagicWandActor[0]->SetPos(GetPos());
-	}
-	
-	{
-		WeaponFunc[0] = &Player::KnifeFunc;
-		WeaponFunc[1] = &Player::MagicWandFunc;
-	}
 }
 
 void Player::ApplyDamage(float _Damage)
@@ -166,63 +157,6 @@ void Player::ApplyDamage(float _Damage)
 	float Damage = (HpGaugeScale.X / MaxHp) * _Damage;
 	HpGauge->SetRenderScale(HpGauge->GetRenderScale() - float4{ Damage, 0 });
 	HpGauge->SetRenderPos(HpGauge->GetRenderPos() - float4(Damage / 2, 0));
-}
-void Player::KnifeFunc(float _Delta)
-{
-	static float sumdelta;
-	sumdelta += _Delta;
-
-	if (false == OnKnifeFunc)
-	{
-		Knife::Dir = PlayerDir;
-	}
-
-	KnifePos1 = GetPos();
-	KnifePos2 = GetPos() + float4{ -15,10 };
-
-	OnKnifeFunc = true;
-
-	if (sumdelta > 1)
-	{
-		if (false == KnifeActor[0]->IsUpdate())
-		{
-			KnifeActor[0]->On();
-			KnifeActor[1]->On();
-		}
-
-		KnifeActor[0]->SetPos(KnifePos1);
-		KnifeActor[1]->SetPos(KnifePos2);
-		OnKnifeFunc = false;
-		sumdelta = 0;
-	}
-
-}
-
-void Player::MagicWandFunc(float _Delta)
-{
-	static float sumdelta;
-	sumdelta += _Delta;
-
-	if (false == OnMWFunc)
-	{
-		MagicWand::Dir = -PlayerDir;
-		MagicWandActor[0]->SetAngle(PlayerDir.AngleDeg() + 180);
-	}
-
-	OnMWFunc = true;
-
-	if (sumdelta > 2)
-	{
-		if (false == MagicWandActor[0]->IsUpdate())
-		{
-			MagicWandActor[0]->On();
-		}
-
-		MagicWandActor[0]->SetPos(GetPos());
-		OnMWFunc = false;
-		sumdelta = 0;
-	}
-
 }
 
 void Player::AddExp(float _Exp)
@@ -250,13 +184,4 @@ void Player::LevelUp()
 
 	}
 
-}
-
-void Player::CollisionWall(float _Delta)
-{
-	/*unsigned int color = RGB(255, 255, 255);
-	if (color != GetGroundColor(RGB(255, 255, 255),float4(0,16)))
-	{
-		AddPos(-PlayerDir * speed * _Delta);
-	}*/
 }
