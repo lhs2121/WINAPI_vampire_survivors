@@ -165,6 +165,8 @@ void Projectile::MagicWand_Attack(float _Delta)
 
 void Projectile::Axe_Attack(float _Delta)
 {
+	static int AxeNumber;
+
 	if (IsReady == false)
 	{
 		if (Player::GetMainPlayer()->GetDirType() == DirType::Left)
@@ -182,10 +184,20 @@ void Projectile::Axe_Attack(float _Delta)
 
 		DeathTime = 5;
 
+		if (AxeNumber > 4)
+		{
+			AxeNumber = 0;
+		}
+
+		AxeNumber += 1;
+
+		XRangeRatio = AxeNumber;
+
 		IsReady = true;
 
 		return;
 	}
+
 
 	UpSpeed -= 1;
 	XSpeed -= 100 * _Delta;
@@ -202,8 +214,9 @@ void Projectile::Axe_Attack(float _Delta)
 
 	if (XSpeed > 0)
 	{
-		AddPos(dir * XSpeed * _Delta);
+		AddPos(dir * XSpeed * XRangeRatio * _Delta);
 	}
+
 	
 	AddPos(float4::DOWN * YSpeed * _Delta);
 

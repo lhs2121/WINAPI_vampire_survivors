@@ -30,7 +30,7 @@ private:
 
 	int KnifeCount = 2;
 	int MagicWandCount = 1;
-	int AxeCount = 1;
+	int AxeCount = 4;
 	int RunetracerCount = 0;
 
 	float4 GetRandomFirePos();

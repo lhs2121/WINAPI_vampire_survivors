@@ -21,8 +21,9 @@ private:
 
 	bool IsReady = false;
 
+	float XRangeRatio;
 	float UpSpeed = 500;
-	float XSpeed = 200;
+	float XSpeed = 100;
 	float YSpeed = 200;
 	float Angle;
 	float Speed = 200;
