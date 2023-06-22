@@ -43,6 +43,33 @@ void Projectile::Start()
 
 void Projectile::Update(float _Delta)
 {
+	if (Type == WeaponType::Knife)
+	{
+		Knife_Attack(_Delta);
+	}
+
+	if (Type == WeaponType::MagicWand)
+	{
+		MagicWand_Attack(_Delta);
+	}
+}
+
+void Projectile::Setting(float4 _dir, float4 _startPos, float _Speed, const std::string& _AnimationName, WeaponType _Type)
+{
+	On();
+	Renderer->On();
+	Collision->On();
+
+	Type = _Type;
+	dir = _dir;
+	SetPos(_startPos);
+	Speed = _Speed;
+	Renderer->SetAngle(dir.AngleDeg());
+	Renderer->ChangeAnimation(_AnimationName);
+}
+
+void Projectile::Knife_Attack(float _Delta)
+{
 	AddPos(dir * Speed * _Delta);
 
 	DeathTime += _Delta;
@@ -62,19 +89,26 @@ void Projectile::Update(float _Delta)
 	}
 	//몬스터와 충돌하면 삭제
 }
-
-void Projectile::Setting(float4 _dir, float4 _startPos, float _Speed, const std::string& _AnimationName)
+void Projectile::MagicWand_Attack(float _Delta)
 {
-	On();
-	Renderer->On();
-	Collision->On();
+	AddPos(dir * Speed * _Delta);
 
-	dir = _dir;
-	SetPos(_startPos);
-	Speed = _Speed;
-	Renderer->SetAngle(dir.AngleDeg());
-	Renderer->ChangeAnimation(_AnimationName);
+	DeathTime += _Delta;
+
+	if (SumDeltaTime > DeathTime)
+	{
+		Death();
+	}
+	//3초 지나면 삭제
+
+	std::vector<GameEngineCollision*> result;
+	if (true == Collision->Collision(CollisionOrder::Monster, result, CollisionType::Rect, CollisionType::CirCle))
+	{
+		Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
+		enemy->ApplyDamage(50);
+		Death();
+	}
+	//몬스터와 충돌하면 삭제
 }
-
 
 

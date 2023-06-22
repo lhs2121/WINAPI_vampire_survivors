@@ -110,6 +110,24 @@ void Player::Update(float _Delta)
 		Renderer->ChangeAnimation("RightRun");
 		PlayerDir = float4::RIGHT;
 	}
+	if (GameEngineInput::IsPress('W') && GameEngineInput::IsPress('A'))
+	{
+		PlayerDir = { -1,-1 };
+	}
+
+	if (GameEngineInput::IsPress('W') && GameEngineInput::IsPress('D'))
+	{
+		PlayerDir = { 1,-1 };
+	}
+	if (GameEngineInput::IsPress('S') && GameEngineInput::IsPress('A'))
+	{
+		PlayerDir = { -1,1 };
+	}
+
+	if (GameEngineInput::IsPress('S') && GameEngineInput::IsPress('D'))
+	{
+		PlayerDir = { 1,1 };
+	}
 
 	if (Hp <= 0)
 	{
@@ -140,7 +158,7 @@ float4 Player::GetMonsterPlayerDir()
 	{
 		return float4::ZERO;
 	}
-	
+
 }
 
 void Player::LevelStart()
@@ -175,7 +193,7 @@ void Player::LevelUp()
 		MaxExp += 50;
 		Level += 1;
 
-		
+
 		PlayerUI::UI->ExpGauge->SetRenderScale({ 0,16 });
 		PlayerUI::UI->Text_Level->SetText("LV" + std::to_string(Level), 20, "메이플스토리");
 

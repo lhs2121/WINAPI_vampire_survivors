@@ -25,14 +25,14 @@ private:
 
 	float Speed;
 	float4 Dir;
-	float4 FirePos;
-	float4 FirePos2;
-	float4 FirePos3;
-	float4 FirePos4;
+	float4 FirePos[4];
+
 	
 	int KnifeCount = 2;
 	int MagicWandCount = 1;
 	int AxeCount;
+
+	float4 GetRandomFirePos();
 
 	void ShootKnife(float _Delta);
 

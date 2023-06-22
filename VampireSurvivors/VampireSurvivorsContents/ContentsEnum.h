@@ -36,6 +36,8 @@ enum class CollisionOrder
 
 enum class WeaponType
 {
-	Projectile,
+	Knife,
+	MagicWand,
+	Axe
 
 };
