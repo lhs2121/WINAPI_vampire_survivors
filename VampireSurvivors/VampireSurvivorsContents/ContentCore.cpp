@@ -22,7 +22,7 @@ void ContentCore::Start()
 
 	GameEngineCore::CreateLevel<PlayLevel>("PlayLevel");
 
-	GameEngineCore::ChangeLevel("IntroLevel");
+	GameEngineCore::ChangeLevel("PlayLevel");
 
 }
 

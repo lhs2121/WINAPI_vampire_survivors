@@ -17,11 +17,6 @@ void PlayerShooter::Start()
 
 void PlayerShooter::Update(float _Delta)
 {
-	FirePos[0] = Player::GetMainPlayer()->GetPos();
-	FirePos[1] = FirePos[0] + float4(-15, 10);
-	FirePos[2] = FirePos[0] + float4(-15, -10);
-	FirePos[3] = FirePos[0] + float4(-5, -7);
-
 	ShootKnife(_Delta);
 
 	ShootMagicWand(_Delta);
@@ -47,7 +42,7 @@ void PlayerShooter::ShootKnife(float _Delta)
 		Projectile* Knife = GetLevel()->CreateActor<Projectile>(UpdateOrder::Weapon);
 		Knife->SetType(WeaponType::Knife);
 
-		inter = 0.15f;
+		inter = 0.2f;
 		CreatedKnife += 1;
 
 		if (CreatedKnife == KnifeCount)
@@ -60,16 +55,27 @@ void PlayerShooter::ShootKnife(float _Delta)
 
 void PlayerShooter::ShootMagicWand(float _Delta)
 {
-	if (MagicWandCount > 0)
+	if (MagicWandCount < 1)
 	{
-		static float CoolTime_MagicWand;
-		CoolTime_MagicWand -= _Delta;
+		return;
+	}
 
-		if (CoolTime_MagicWand < 0)
+	static float inter = 2;  // 도끼 생성 간격
+	static int CreatedMagicWand = 0;  // 만들어진 나이프 개수
+
+	inter -= _Delta;
+
+	if (inter <= 0.0f)
+	{
+		Projectile* MagicWand = GetLevel()->CreateActor<Projectile>(UpdateOrder::Weapon);
+		MagicWand->SetType(WeaponType::MagicWand);
+		inter = 0.15f;
+		CreatedMagicWand += 1;
+
+		if (CreatedMagicWand == MagicWandCount)
 		{
-			Projectile* MagicWand = GetLevel()->CreateActor<Projectile>(UpdateOrder::Weapon);
-			MagicWand->SetType(WeaponType::MagicWand);
-			CoolTime_MagicWand = 3;
+			inter = 2;
+			CreatedMagicWand = 0;
 		}
 	}
 }
@@ -81,8 +87,8 @@ void PlayerShooter::ShootAxe(float _Delta)
 		return;
 	}
 
-	static float inter = 2;  // 도끼 생성 간격
-	static int CreatedAxe = 0;  // 만들어진 나이프 개수
+	static float inter = 2;  
+	static int CreatedAxe = 0;  
 
 	inter -= _Delta;
 
@@ -101,9 +107,3 @@ void PlayerShooter::ShootAxe(float _Delta)
 	}
 }
 
-float4 PlayerShooter::GetRandomFirePos()
-{
-	int num = GameEngineRandom::MainRandom.RandomInt(0, 3);
-
-	return FirePos[num];
-}

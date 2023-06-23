@@ -24,9 +24,9 @@ private:
 	float XRangeRatio;
 	float UpSpeed = 500;
 	float XSpeed = 100;
-	float YSpeed = 200;
+	float YSpeed = 100;
 	float Angle;
-	float Speed = 200;
+	float Speed = 300;
 
 	float4 dir;
 	float4 Scale;

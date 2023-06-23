@@ -22,6 +22,7 @@ public:
 	void ApplyDamage(float _Damage)
 	{
 		hp -= _Damage;
+		showDamageOnMonster(_Damage);
 	}
 
 protected:
@@ -29,6 +30,8 @@ protected:
 private:
 	class GameEngineRenderer* Renderer;
 	class GameEngineCollision* Collision;
+	class GameEngineRenderer* Damage;
+	void showDamageOnMonster(float _Damage);
 
 	float hp = 20;
 	int ItemdropRate = 80;

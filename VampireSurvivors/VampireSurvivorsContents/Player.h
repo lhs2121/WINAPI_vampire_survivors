@@ -1,19 +1,17 @@
 #pragma once
 #include <VampireSurvivorsContents/PlayActor.h>
 
-enum class DirType
+enum class DirState
 {
 	Left,
 	Right
 };
-
 
 class Weapon;
 class GameEngineRenderer;
 class Player : public PlayActor
 {
 	friend class PlayerUI;
-
 public:
 
 	Player();
@@ -41,18 +39,23 @@ public:
 	}
 
 
-	void ApplyDamage(float _Damage);
-	void AddExp(float _Exp);
-	float4 GetMonsterPlayerDir();
 	float4 GetPlayerDir()
 	{
 		return PlayerDir;
 	}
 
-	DirType GetDirType()
+	float4 GetFirePos();
+
+	float4 GetMinDistance();
+
+	DirState GetPlayerDirState()
 	{
-		return dirtype;
-	}
+		return dirstate;
+	} 
+
+	void ApplyDamage(float _Damage);
+
+	void AddExp(float _Exp);
 
 private:
 	static Player* MainPlayer;
@@ -66,10 +69,11 @@ private:
 	GameEngineCollision* Collision2;
 	GameEngineCollision* Detector;
 
+	float4 FirePos[4];
 	float4 PlayerDir;
 	float4 HpGaugeScale;
 
-	DirType dirtype;
+	DirState dirstate;
 
 	float MaxHp = 100;
 	float Hp = 100;
@@ -81,7 +85,7 @@ private:
 
 
 	void LevelUp();
-	
+
 	void LevelStart() override;
 	void Start() override;
 	void Update(float _Delta) override;

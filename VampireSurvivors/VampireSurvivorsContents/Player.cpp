@@ -3,6 +3,7 @@
 #include "PlayLevel.h"
 #include "Enemy.h"
 #include "ContentsEnum.h"
+#include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEngineCore/GameEngineActor.h>
 #include <GameEngineCore/GameEngineRenderer.h>
@@ -13,6 +14,7 @@
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineCollision.h>
+#include <algorithm>
 
 Player* Player::MainPlayer = nullptr;
 
@@ -80,13 +82,17 @@ void Player::Start()
 		Collision2->SetCollisionType(CollisionType::CirCle);
 
 		Detector = CreateCollision(CollisionOrder::Player);
-		Detector->SetCollisionScale({ 900,500 });
+		Detector->SetCollisionScale({ 800,800 });
 		Detector->SetCollisionType(CollisionType::CirCle);
 
 	}
 }
 void Player::Update(float _Delta)
 {
+	FirePos[0] = GetPos();
+	FirePos[1] = GetPos() + float4(-15, -10);
+	FirePos[2] = GetPos() + float4(-15, 10);
+	FirePos[3] = GetPos() + float4(-10, 7);
 
 	if (GameEngineInput::IsPress('W'))
 	{
@@ -103,14 +109,14 @@ void Player::Update(float _Delta)
 		AddPos({ -1 * _Delta * speed , 0 });
 		Renderer->ChangeAnimation("LeftRun");
 		PlayerDir = float4::LEFT;
-		dirtype = DirType::Left;
+		dirstate = DirState::Left;
 	}
 	if (GameEngineInput::IsPress('D'))
 	{
 		AddPos({ 1 * _Delta * speed , 0 });
 		Renderer->ChangeAnimation("RightRun");
 		PlayerDir = float4::RIGHT;
-		dirtype = DirType::Right;
+		dirstate = DirState::Right;
 	}
 	if (GameEngineInput::IsPress('W') && GameEngineInput::IsPress('A'))
 	{
@@ -142,7 +148,7 @@ void Player::Update(float _Delta)
 	CameraFocus();
 }
 
-float4 Player::GetMonsterPlayerDir()
+float4 Player::GetMinDistance()
 {
 	float4 dir;
 
@@ -150,10 +156,29 @@ float4 Player::GetMonsterPlayerDir()
 
 	if (true == Detector->Collision(CollisionOrder::Monster, result, CollisionType::CirCle, CollisionType::CirCle))
 	{
-		dir = result[0]->GetActor()->GetPos() - GetPos();
+		std::vector<float> dirGroup;
+		dirGroup.reserve(100);
 
+		int index;
+
+		for (int i = 0; i < result.size(); i++)
+		{
+			float4 newdir = result[i]->GetActor()->GetPos() - GetPos();
+			dirGroup.push_back(newdir.Size());
+		}
+		//감지된 모든 적과의 거리를 dirGroup에 저장
+
+		std::vector<float>::iterator minElement = std::min_element(dirGroup.begin(), dirGroup.end());
+		//dirGroup에서 최솟값을 가진 요소의 반복자를 minElement에 할당
+
+		if (minElement != dirGroup.end()) 
+		{
+			index = std::distance(dirGroup.begin(), minElement);
+		}
+		//최솟값요소를 가리키는 반복자의 인덱스를 index에 할당
+
+		dir = result[index]->GetActor()->GetPos() - GetPos();
 		dir.Normalize();
-
 		return dir;
 	}
 	else
@@ -204,4 +229,19 @@ void Player::LevelUp()
 
 	}
 
+}
+
+float4 Player::GetFirePos()
+{
+	static int num = 0;
+	num += 1;
+
+	if (num > 3)
+	{
+		num = 0;
+	}
+
+	float4 retunpos = FirePos[num];
+
+	return FirePos[num];
 }

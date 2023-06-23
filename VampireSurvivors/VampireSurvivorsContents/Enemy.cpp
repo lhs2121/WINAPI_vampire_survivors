@@ -78,6 +78,8 @@ void Enemy::Update(float _Delta)
 
 	if (hp <= 0)
 	{
+		AddPos(-dir * 30 * _Delta);
+
 		if (value < 1)
 		{
 			if (dir.X > 0)
@@ -88,6 +90,7 @@ void Enemy::Update(float _Delta)
 			{
 				Renderer->ChangeAnimation("Enemy_Death_Left");
 			}
+
 
 			PlayerUI::UI->Text_MonsterDeathCount->SetText(std::to_string(DeathCount), 20, "메이플스토리");
 
@@ -171,4 +174,9 @@ void Enemy::DropExp()
 	}
 
 	// 80% 확률로 아이템 드랍
+}
+
+void Enemy::showDamageOnMonster(float _Damage)
+{
+
 }

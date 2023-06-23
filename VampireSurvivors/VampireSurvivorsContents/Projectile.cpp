@@ -93,7 +93,7 @@ void Projectile::Knife_Attack(float _Delta)
 	if (IsReady == false)
 	{
 		dir = Player::GetMainPlayer()->GetPlayerDir();
-		SetPos(Player::GetMainPlayer()->GetPos());
+		SetPos(Player::GetMainPlayer()->GetFirePos());
 		Renderer->SetAngle(dir.AngleDeg());
 		IsReady = true;
 
@@ -129,7 +129,7 @@ void Projectile::MagicWand_Attack(float _Delta)
 {
 	if (IsReady == false)
 	{
-		dir = Player::GetMainPlayer()->GetMonsterPlayerDir();
+		dir = Player::GetMainPlayer()->GetMinDistance();
 		SetPos(Player::GetMainPlayer()->GetPos());
 		Renderer->SetAngle(dir.AngleDeg());
 		IsReady = true;
@@ -169,11 +169,11 @@ void Projectile::Axe_Attack(float _Delta)
 
 	if (IsReady == false)
 	{
-		if (Player::GetMainPlayer()->GetDirType() == DirType::Left)
+		if (Player::GetMainPlayer()->GetPlayerDirState() == DirState::Left)
 		{
 			dir = float4::LEFT;
 		}
-		else
+		else if (Player::GetMainPlayer()->GetPlayerDirState() == DirState::Right)
 		{
 			dir = float4::RIGHT;
 		}
@@ -201,7 +201,7 @@ void Projectile::Axe_Attack(float _Delta)
 
 	UpSpeed -= 1;
 	XSpeed -= 100 * _Delta;
-	
+
 
 	if (UpSpeed > 0)
 	{
@@ -217,7 +217,7 @@ void Projectile::Axe_Attack(float _Delta)
 		AddPos(dir * XSpeed * XRangeRatio * _Delta);
 	}
 
-	
+
 	AddPos(float4::DOWN * YSpeed * _Delta);
 
 
@@ -240,9 +240,9 @@ void Projectile::Axe_Attack(float _Delta)
 		if (HitCount < 3)
 		{
 			Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
-			enemy->ApplyDamage(13 + GameEngineRandom::MainRandom.RandomInt(3,9));
+			enemy->ApplyDamage(13 + GameEngineRandom::MainRandom.RandomInt(3, 9));
 
-		}		
+		}
 		HitCount += 1;
 	}
 	//몬스터와 충돌
