@@ -43,12 +43,12 @@ void Exp::Update(float _Delta)
 		if (OutWardSpeed > 0)
 		{
 			AddPos(-dir * _Delta * OutWardSpeed);
-			OutWardSpeed -= 1;
+			OutWardSpeed -= 1 * 700 *_Delta;
 		}
 		else if (OutWardSpeed <= 0)
 		{
 			AddPos(dir * _Delta * InWardSpeed);
-			InWardSpeed += 1;
+			InWardSpeed += 1 * 700 * _Delta ;
 		}
 	}
 

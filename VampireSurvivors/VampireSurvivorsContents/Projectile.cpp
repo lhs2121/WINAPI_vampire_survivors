@@ -2,6 +2,8 @@
 #include "ContentsEnum.h"
 #include "Enemy.h"
 #include "Player.h"
+#include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/GameEngineSprite.h>
 #include <GameEngineCore/ResourcesManager.h>
@@ -48,6 +50,7 @@ void Projectile::Start()
 	Collision = CreateCollision(CollisionOrder::Weapon);
 	Collision->SetCollisionScale({ 30,30 });
 
+	Renderer->Off();
 }
 
 void Projectile::Update(float _Delta)
@@ -62,6 +65,9 @@ void Projectile::Update(float _Delta)
 		break;
 	case WeaponType::Axe:
 		Axe_Attack(_Delta);
+		break;
+	case WeaponType::Runetracer:
+		Runetracer_Attack(_Delta);
 		break;
 	default:
 		break;
@@ -83,6 +89,9 @@ void Projectile::SetType(WeaponType _Type)
 	case WeaponType::Axe:
 		Renderer->ChangeAnimation("Axe");
 		break;
+	case WeaponType::Runetracer:
+		Renderer->ChangeAnimation("Runetracer");
+		break;
 	default:
 		break;
 	}
@@ -95,6 +104,8 @@ void Projectile::Knife_Attack(float _Delta)
 		dir = Player::GetMainPlayer()->GetPlayerDir();
 		SetPos(Player::GetMainPlayer()->GetFirePos());
 		Renderer->SetAngle(dir.AngleDeg());
+		Renderer->On();
+		DeathTime = 3;
 		IsReady = true;
 
 		return;
@@ -111,19 +122,14 @@ void Projectile::Knife_Attack(float _Delta)
 	}
 	//몬스터와 충돌하면 삭제
 
-	DeathTime += _Delta;
+	DeathTime -= _Delta;
 
-	if (SumDeltaTime > DeathTime)
+	if (DeathTime <= 0)
 	{
 		Death();
 	}
 	//3초 지나면 삭제
-
-
 }
-
-
-
 
 void Projectile::MagicWand_Attack(float _Delta)
 {
@@ -132,8 +138,9 @@ void Projectile::MagicWand_Attack(float _Delta)
 		dir = Player::GetMainPlayer()->GetMinDistance();
 		SetPos(Player::GetMainPlayer()->GetPos());
 		Renderer->SetAngle(dir.AngleDeg());
+		Renderer->On();
 		IsReady = true;
-
+		DeathTime = 5;
 		return;
 	}
 
@@ -144,9 +151,9 @@ void Projectile::MagicWand_Attack(float _Delta)
 
 	AddPos(dir * Speed * _Delta);
 
-	DeathTime += _Delta;
+	DeathTime -= _Delta;
 
-	if (SumDeltaTime > DeathTime)
+	if (DeathTime <= 0)
 	{
 		Death();
 	}
@@ -181,7 +188,7 @@ void Projectile::Axe_Attack(float _Delta)
 		SetPos(Player::GetMainPlayer()->GetPos());
 
 		Renderer->SetAngle(dir.AngleDeg());
-
+		Renderer->On();
 		DeathTime = 5;
 
 		if (AxeNumber > 4)
@@ -199,7 +206,7 @@ void Projectile::Axe_Attack(float _Delta)
 	}
 
 
-	UpSpeed -= 1;
+	UpSpeed -= 500 * _Delta;
 	XSpeed -= 100 * _Delta;
 
 
@@ -209,7 +216,7 @@ void Projectile::Axe_Attack(float _Delta)
 	}
 	else
 	{
-		YSpeed += 0.5;
+		YSpeed += 500 * _Delta;
 	}
 
 	if (XSpeed > 0)
@@ -217,18 +224,14 @@ void Projectile::Axe_Attack(float _Delta)
 		AddPos(dir * XSpeed * XRangeRatio * _Delta);
 	}
 
-
 	AddPos(float4::DOWN * YSpeed * _Delta);
-
-
-
 
 	Angle += 250 * _Delta;
 	Renderer->SetAngle(Angle);
 	//회전
 
-	DeathTime += _Delta;
-	if (SumDeltaTime > DeathTime)
+	DeathTime -= _Delta;
+	if (DeathTime <= 0)
 	{
 		Death();
 	}
@@ -251,6 +254,47 @@ void Projectile::Axe_Attack(float _Delta)
 
 void Projectile::Runetracer_Attack(float _Delta)
 {
+	if (Player::GetMainPlayer()->GetMinDistance() == float4::ZERO)
+	{
+		Death();
+	}
+
+	if (IsReady == false)
+	{
+		dir = Player::GetMainPlayer()->GetMinDistance();
+		SetPos(Player::GetMainPlayer()->GetPos());
+		Renderer->SetAngle(dir.AngleDeg());
+		Renderer->On();
+		DeathTime = 5;
+		IsReady = true;
+
+		return;
+	}
+
+
+	AddPos(dir * 200 * _Delta);
+
+	if (GetPos().X > (GetLevel()->GetMainCamera()->GetPos().X + 1090)
+		|| GetPos().X < (GetLevel()->GetMainCamera()->GetPos().X)
+		|| GetPos().Y < (GetLevel()->GetMainCamera()->GetPos().Y)
+		|| GetPos().Y >(GetLevel()->GetMainCamera()->GetPos().Y) + 690)
+	{
+		dir = -dir;
+	}
+
+	std::vector<GameEngineCollision*> result;
+	if (Collision->Collision(CollisionOrder::Monster, result, CollisionType::CirCle, CollisionType::CirCle))
+	{
+		Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
+		enemy->ApplyDamage(13 + GameEngineRandom::MainRandom.RandomInt(3, 9));
+	}
+
+	DeathTime -= _Delta;
+
+	if (DeathTime <= 0)
+	{
+		Death();
+	}
 
 }
 

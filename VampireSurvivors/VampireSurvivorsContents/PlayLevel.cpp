@@ -71,6 +71,18 @@ void PlayLevel::Update(float _delta)
 		BackGroundPtr->SwitchRender();
 	}
 
+	if (GameEngineInput::IsPress('O'))
+	{
+		GameEngineWindow::MainWindow.AddDoubleBufferingCopyScaleRatio(-0.01f);
+	}
+	if (GameEngineInput::IsPress('P'))
+	{
+		GameEngineWindow::MainWindow.AddDoubleBufferingCopyScaleRatio(0.01f);
+	}
+	if (GameEngineInput::IsDown('Y'))
+	{
+		SpawnCheck = !SpawnCheck;
+	}
 
 	BackGroundPtr->BackGroundLoop(PlayerPtr);
 

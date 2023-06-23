@@ -27,13 +27,14 @@ private:
 	float4 Dir;
 
 	int KnifeCount = 0;
-	int MagicWandCount = 8;
+	int MagicWandCount = 0;
 	int AxeCount = 0;
 	int RunetracerCount = 0;
 
 	void ShootKnife(float _Delta);
 	void ShootMagicWand(float _Delta);
 	void ShootAxe(float _Delta);
+	void ShootRunetracer(float _Delta);
 
 
 	void Start() override;

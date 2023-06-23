@@ -1,5 +1,6 @@
 #include "ItemSelectUI.h"
 #include "ContentsEnum.h"
+#include "PlayLevel.h"
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineCollision.h>
@@ -60,7 +61,8 @@ void ItemSelectUI::Update(float _Delta)
 		if (GameEngineInput::IsDown(VK_LBUTTON))
 		{
 			GameEngineTime::MainTimer.SetAllTimeScale(1);
-
+			PlayLevel* lv = static_cast<PlayLevel*>(GetLevel());
+			lv->SpawnCheck = true;
 			Off();
 		}
 	}
