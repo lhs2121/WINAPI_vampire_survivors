@@ -90,9 +90,8 @@ void Player::Start()
 void Player::Update(float _Delta)
 {
 	FirePos[0] = GetPos();
-	FirePos[1] = GetPos() + float4(-15, -10);
-	FirePos[2] = GetPos() + float4(-15, 10);
-	FirePos[3] = GetPos() + float4(-10, 7);
+	FirePos[1] = GetPos() + float4(-15, -15);
+	FirePos[2] = GetPos() + float4(-15, 15);
 
 	if (GameEngineInput::IsPress('W'))
 	{
@@ -236,7 +235,7 @@ float4 Player::GetFirePos()
 	static int num = 0;
 	num += 1;
 
-	if (num > 3)
+	if (num > 2)
 	{
 		num = 0;
 	}

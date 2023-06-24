@@ -1,16 +1,17 @@
 #include "Projectile.h"
 #include "ContentsEnum.h"
+#include "PlayerShooter.h"
 #include "Enemy.h"
 #include "Player.h"
+#include "WeaponStats.h"
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/GameEngineSprite.h>
 #include <GameEngineCore/ResourcesManager.h>
-#include <GameEngineBase/GameEnginePath.h>
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineCollision.h>
-#include <GameEnginePlatform/GameEngineWindowTexture.h>
+
 
 void Projectile::Start()
 {
@@ -74,28 +75,6 @@ void Projectile::Update(float _Delta)
 	}
 }
 
-void Projectile::SetType(WeaponType _Type)
-{
-	Type = _Type;
-
-	switch (Type)
-	{
-	case WeaponType::Knife:
-		Renderer->ChangeAnimation("Knife");
-		break;
-	case WeaponType::MagicWand:
-		Renderer->ChangeAnimation("MagicWand");
-		break;
-	case WeaponType::Axe:
-		Renderer->ChangeAnimation("Axe");
-		break;
-	case WeaponType::Runetracer:
-		Renderer->ChangeAnimation("Runetracer");
-		break;
-	default:
-		break;
-	}
-}
 
 void Projectile::Knife_Attack(float _Delta)
 {
@@ -105,7 +84,6 @@ void Projectile::Knife_Attack(float _Delta)
 		SetPos(Player::GetMainPlayer()->GetFirePos());
 		Renderer->SetAngle(dir.AngleDeg());
 		Renderer->On();
-		DeathTime = 3;
 		IsReady = true;
 
 		return;
@@ -117,10 +95,9 @@ void Projectile::Knife_Attack(float _Delta)
 	if (true == Collision->Collision(CollisionOrder::Monster, result, CollisionType::Rect, CollisionType::CirCle))
 	{
 		Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
-		enemy->ApplyDamage(50);
+		enemy->ApplyDamage(Damage);
 		Death();
 	}
-	//몬스터와 충돌하면 삭제
 
 	DeathTime -= _Delta;
 
@@ -128,7 +105,6 @@ void Projectile::Knife_Attack(float _Delta)
 	{
 		Death();
 	}
-	//3초 지나면 삭제
 }
 
 void Projectile::MagicWand_Attack(float _Delta)
@@ -140,7 +116,6 @@ void Projectile::MagicWand_Attack(float _Delta)
 		Renderer->SetAngle(dir.AngleDeg());
 		Renderer->On();
 		IsReady = true;
-		DeathTime = 5;
 		return;
 	}
 
@@ -157,16 +132,14 @@ void Projectile::MagicWand_Attack(float _Delta)
 	{
 		Death();
 	}
-	//3초 지나면 삭제
 
 	std::vector<GameEngineCollision*> result;
-	if (true == Collision->Collision(CollisionOrder::Monster, result, CollisionType::Rect, CollisionType::CirCle))
+	if (true == Collision->Collision(CollisionOrder::Monster, result, CollisionType::CirCle, CollisionType::CirCle))
 	{
 		Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
-		enemy->ApplyDamage(50);
+		enemy->ApplyDamage(Damage);
 		Death();
 	}
-	//몬스터와 충돌하면 삭제
 }
 
 
@@ -189,19 +162,15 @@ void Projectile::Axe_Attack(float _Delta)
 
 		Renderer->SetAngle(dir.AngleDeg());
 		Renderer->On();
-		DeathTime = 5;
-
+		
 		if (AxeNumber > 4)
 		{
 			AxeNumber = 0;
 		}
 
 		AxeNumber += 1;
-
 		XRangeRatio = AxeNumber;
-
 		IsReady = true;
-
 		return;
 	}
 
@@ -216,7 +185,7 @@ void Projectile::Axe_Attack(float _Delta)
 	}
 	else
 	{
-		YSpeed += 500 * _Delta;
+		DownSpeed += 500 * _Delta;
 	}
 
 	if (XSpeed > 0)
@@ -224,7 +193,7 @@ void Projectile::Axe_Attack(float _Delta)
 		AddPos(dir * XSpeed * XRangeRatio * _Delta);
 	}
 
-	AddPos(float4::DOWN * YSpeed * _Delta);
+	AddPos(float4::DOWN * DownSpeed * _Delta);
 
 	Angle += 250 * _Delta;
 	Renderer->SetAngle(Angle);
@@ -238,12 +207,12 @@ void Projectile::Axe_Attack(float _Delta)
 	//일정시간 지나면 삭제
 
 	std::vector<GameEngineCollision*> result;
-	if (true == Collision->Collision(CollisionOrder::Monster, result, CollisionType::Rect, CollisionType::CirCle))
+	if (true == Collision->Collision(CollisionOrder::Monster, result, CollisionType::CirCle, CollisionType::CirCle))
 	{
 		if (HitCount < 3)
 		{
 			Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
-			enemy->ApplyDamage(13 + GameEngineRandom::MainRandom.RandomInt(3, 9));
+			enemy->ApplyDamage(Damage + GameEngineRandom::MainRandom.RandomInt(3, 9));
 
 		}
 		HitCount += 1;
@@ -265,9 +234,7 @@ void Projectile::Runetracer_Attack(float _Delta)
 		SetPos(Player::GetMainPlayer()->GetPos());
 		Renderer->SetAngle(dir.AngleDeg());
 		Renderer->On();
-		DeathTime = 5;
 		IsReady = true;
-
 		return;
 	}
 
@@ -286,7 +253,7 @@ void Projectile::Runetracer_Attack(float _Delta)
 	if (Collision->Collision(CollisionOrder::Monster, result, CollisionType::CirCle, CollisionType::CirCle))
 	{
 		Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
-		enemy->ApplyDamage(13 + GameEngineRandom::MainRandom.RandomInt(3, 9));
+		enemy->ApplyDamage(Damage + GameEngineRandom::MainRandom.RandomInt(3, 9));
 	}
 
 	DeathTime -= _Delta;
@@ -298,4 +265,51 @@ void Projectile::Runetracer_Attack(float _Delta)
 
 }
 
+void Projectile::Setting(WeaponType _Type)
+{
+	Type = _Type;
 
+	switch (Type)
+	{
+	case WeaponType::Knife:
+		Renderer->ChangeAnimation("Knife");
+		Speed = PlayerShooter::KnifeStats.getSpeed();
+		Damage = PlayerShooter::KnifeStats.getDamage();
+		DeathTime = PlayerShooter::KnifeStats.getDeathTime();
+		Scale = PlayerShooter::KnifeStats.getScale();
+		Collision->SetCollisionScale(Scale);
+		Collision->SetCollisionType(CollisionType::Rect);
+		break;
+	case WeaponType::MagicWand:
+		Renderer->ChangeAnimation("MagicWand");
+		Speed = PlayerShooter::MagicWandStats.getSpeed();
+		Damage = PlayerShooter::MagicWandStats.getDamage();
+		DeathTime = PlayerShooter::MagicWandStats.getDeathTime();
+		Scale = PlayerShooter::MagicWandStats.getScale();
+		Collision->SetCollisionScale(Scale);
+		Collision->SetCollisionType(CollisionType::CirCle);
+		break;
+	case WeaponType::Axe:
+		Renderer->ChangeAnimation("Axe");
+		Speed = PlayerShooter::AxeStats.getSpeed();
+		Damage = PlayerShooter::AxeStats.getDamage();
+		DeathTime = PlayerShooter::AxeStats.getDeathTime();
+		Scale = PlayerShooter::AxeStats.getScale();
+		Collision->SetCollisionScale(Scale);
+		Collision->SetCollisionType(CollisionType::CirCle);
+		break;
+	case WeaponType::Runetracer:
+		Renderer->ChangeAnimation("Runetracer");
+		Speed = PlayerShooter::RunetracerStats.getSpeed();
+		Damage = PlayerShooter::RunetracerStats.getDamage();
+		DeathTime = PlayerShooter::RunetracerStats.getDeathTime();
+		Scale = PlayerShooter::RunetracerStats.getScale();
+		Collision->SetCollisionScale(Scale);
+		Collision->SetCollisionType(CollisionType::CirCle);
+		break;
+	default:
+		break;
+	}
+
+	
+}

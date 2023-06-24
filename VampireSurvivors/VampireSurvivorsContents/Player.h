@@ -69,7 +69,7 @@ private:
 	GameEngineCollision* Collision2;
 	GameEngineCollision* Detector;
 
-	float4 FirePos[4];
+	float4 FirePos[3];
 	float4 PlayerDir;
 	float4 HpGaugeScale;
 

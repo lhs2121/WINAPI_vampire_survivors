@@ -2,6 +2,8 @@
 #include "ContentsEnum.h"
 #include "Player.h"
 #include "Projectile.h"
+#include "WeaponStats.h"
+#include <vector>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -10,49 +12,90 @@
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
+#include <GameEngineCore/GameEngineSprite.h>
+
+WeaponStats PlayerShooter::KnifeStats;
+WeaponStats PlayerShooter::MagicWandStats;
+WeaponStats PlayerShooter::AxeStats;
+WeaponStats PlayerShooter::RunetracerStats;
 
 void PlayerShooter::Start()
 {
+	WeaponStats::ALLSTATES.push_back(KnifeStats);
+	WeaponStats::ALLSTATES.push_back(MagicWandStats);
+	WeaponStats::ALLSTATES.push_back(AxeStats);
+	WeaponStats::ALLSTATES.push_back(RunetracerStats);
+
+
+	KnifeStats.setLevel(1);
+	KnifeStats.setCount(2);
+	KnifeStats.setSpeed(500);
+	KnifeStats.setCoolTime(2);
+	KnifeStats.setDamage(50);
+	KnifeStats.setDeathTime(5);
+	KnifeStats.setScale({ 31,6 });
+
+    MagicWandStats.setCount(0);
+    MagicWandStats.setSpeed(200);
+	MagicWandStats.setCoolTime(4);
+	MagicWandStats.setDamage(50);
+	MagicWandStats.setDeathTime(5);
+	MagicWandStats.setScale({ 7,7 });
+	
+    AxeStats.setCount(0);
+	AxeStats.setSpeed(300);
+	AxeStats.setCoolTime(4);
+	AxeStats.setDamage(50);
+	AxeStats.setDeathTime(5);
+	AxeStats.setScale({ 32,36 });
+
+    RunetracerStats.setCount(0);
+	RunetracerStats.setSpeed(300);
+	RunetracerStats.setCoolTime(4);
+	RunetracerStats.setDamage(50);
+	RunetracerStats.setDeathTime(5);
+	RunetracerStats.setScale({ 11,11 });
+
 
 }
-
 void PlayerShooter::Update(float _Delta)
 {
+
 	if (GameEngineInput::IsDown('1'))
 	{
-		KnifeCount += 1;
+		KnifeStats.addCount(1);
 	}
 	if (GameEngineInput::IsDown('2'))
 	{
-		MagicWandCount += 1;
+		MagicWandStats.addCount(1);
 	}
 	if (GameEngineInput::IsDown('3'))
 	{
-		AxeCount += 1;
+		AxeStats.addCount(1);
 	}
 	if (GameEngineInput::IsDown('4'))
 	{
-		RunetracerCount += 1;
+		RunetracerStats.addCount(1);
 	}
 
-	ShootKnife(_Delta);
+	CreateKnife(_Delta);
 
-	ShootMagicWand(_Delta);
+	CreateMagicWand(_Delta);
 
-	ShootAxe(_Delta);
+	CreateAxe(_Delta);
 
-	ShootRunetracer(_Delta);
+	CreateRunetracer(_Delta);
 }
 
 
-void PlayerShooter::ShootKnife(float _Delta)
+void PlayerShooter::CreateKnife(float _Delta)
 {
-	if (KnifeCount < 1)
+	if (KnifeStats.getCount() < 1)
 	{
 		return;
 	}
 
-	static float inter = 2;  // 나이프 생성 간격
+	static float inter = KnifeStats.getCoolTime();  // 나이프 생성 간격
 	static int CreatedKnife = 0;  // 만들어진 나이프 개수
 
 	inter -= _Delta;
@@ -60,27 +103,27 @@ void PlayerShooter::ShootKnife(float _Delta)
 	if (inter <= 0.0f)
 	{
 		Projectile* Knife = GetLevel()->CreateActor<Projectile>(UpdateOrder::Weapon);
-		Knife->SetType(WeaponType::Knife);
+		Knife->Setting(WeaponType::Knife);
 
-		inter = 0.2f;
+		inter = KnifeStats.getInterval();
 		CreatedKnife += 1;
 
-		if (CreatedKnife == KnifeCount)
+		if (CreatedKnife == KnifeStats.getCount())
 		{
-			inter = 2;
+			inter = KnifeStats.getCoolTime();
 			CreatedKnife = 0;
 		}
 	}
 }
 
-void PlayerShooter::ShootMagicWand(float _Delta)
+void PlayerShooter::CreateMagicWand(float _Delta)
 {
-	if (MagicWandCount < 1)
+	if (MagicWandStats.getCount() < 1)
 	{
 		return;
 	}
 
-	static float inter = 2;  // 도끼 생성 간격
+	static float inter = MagicWandStats.getCoolTime();  // 도끼 생성 간격
 	static int CreatedMagicWand = 0;  // 만들어진 나이프 개수
 
 	inter -= _Delta;
@@ -88,53 +131,53 @@ void PlayerShooter::ShootMagicWand(float _Delta)
 	if (inter <= 0.0f)
 	{
 		Projectile* MagicWand = GetLevel()->CreateActor<Projectile>(UpdateOrder::Weapon);
-		MagicWand->SetType(WeaponType::MagicWand);
-		inter = 0.15f;
+		MagicWand->Setting(WeaponType::MagicWand);
+		inter = MagicWandStats.getInterval();
 		CreatedMagicWand += 1;
 
-		if (CreatedMagicWand == MagicWandCount)
+		if (CreatedMagicWand == MagicWandStats.getCount())
 		{
-			inter = 2;
+			inter = MagicWandStats.getCoolTime();
 			CreatedMagicWand = 0;
 		}
 	}
 }
 
-void PlayerShooter::ShootAxe(float _Delta)
+void PlayerShooter::CreateAxe(float _Delta)
 {
-	if (AxeCount < 1)
+	if (AxeStats.getCount() < 1)
 	{
 		return;
 	}
 
-	static float inter = 2;  
-	static int CreatedAxe = 0;  
+	static float inter = AxeStats.getCoolTime();
+	static int CreatedAxe = 0;
 
 	inter -= _Delta;
 
 	if (inter <= 0.0f)
 	{
 		Projectile* Axe = GetLevel()->CreateActor<Projectile>(UpdateOrder::Weapon);
-		Axe->SetType(WeaponType::Axe);
-		inter = 0.15f;
+		Axe->Setting(WeaponType::Axe);
+		inter = AxeStats.getInterval();
 		CreatedAxe += 1;
 
-		if (CreatedAxe == AxeCount)
+		if (CreatedAxe == AxeStats.getCount())
 		{
-			inter = 2;
+			inter = AxeStats.getCoolTime();
 			CreatedAxe = 0;
 		}
 	}
 }
 
-void PlayerShooter::ShootRunetracer(float _Delta)
+void PlayerShooter::CreateRunetracer(float _Delta)
 {
-	if (RunetracerCount < 1)
+	if (RunetracerStats.getCount() < 1)
 	{
 		return;
 	}
 
-	static float inter = 2;
+	static float inter = RunetracerStats.getCoolTime();
 	static int CreatedRunetracer = 0;
 
 	inter -= _Delta;
@@ -142,16 +185,14 @@ void PlayerShooter::ShootRunetracer(float _Delta)
 	if (inter <= 0.0f)
 	{
 		Projectile* Runetracer = GetLevel()->CreateActor<Projectile>(UpdateOrder::Weapon);
-		Runetracer->SetType(WeaponType::Runetracer);
-		inter = 0.15f;
+		Runetracer->Setting(WeaponType::Runetracer);
+		inter = RunetracerStats.getInterval();
 		CreatedRunetracer += 1;
 
-		if (CreatedRunetracer == RunetracerCount)
+		if (CreatedRunetracer == RunetracerStats.getCount())
 		{
-			inter = 2;
+			inter = RunetracerStats.getCoolTime();
 			CreatedRunetracer = 0;
 		}
 	}
 }
-
-

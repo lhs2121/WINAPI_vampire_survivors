@@ -175,6 +175,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="WeaponStats.h">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ItemSelectUI.cpp" />
     <ClCompile Include="Projectile.h">
       <SubType>
@@ -217,6 +221,7 @@
     <ClCompile Include="IntroImage.cpp" />
     <ClCompile Include="Exp.cpp" />
     <ClCompile Include="PlayerShooter.cpp" />
+    <ClCompile Include="WeaponStats.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />

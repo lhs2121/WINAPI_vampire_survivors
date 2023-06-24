@@ -14,7 +14,8 @@ public:
 	Projectile& operator=(const Projectile& _Other) = delete;
 	Projectile& operator=(Projectile&& _Other) noexcept = delete;
 
-	void SetType(WeaponType _Type);
+	void Setting(WeaponType _Type);
+
 private:
 	class GameEngineRenderer* Renderer;
 	class GameEngineCollision* Collision;
@@ -22,19 +23,23 @@ private:
 	bool IsReady = false;
 
 	float XRangeRatio;
+
 	float UpSpeed = 500;
 	float XSpeed = 100;
-	float YSpeed = 100;
-	float Angle;
-	float Speed = 300;
+	float DownSpeed = 100;
 
+	float Angle;
 	float4 dir;
+
+	float Damage;
+	float Speed;
 	float4 Scale;
 	WeaponType Type;
 
 	int HitCount = 0;
 	float DeathTime = 3;
 	float SumDeltaTime = 0;
+
 
 	void Knife_Attack(float _Delta);
 	void MagicWand_Attack(float _Delta);

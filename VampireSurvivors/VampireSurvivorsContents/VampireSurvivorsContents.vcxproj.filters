@@ -71,6 +71,12 @@
     <ClCompile Include="PlayerShooter.cpp">
       <Filter>Actor\PlayScene\Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="WeaponStats.h">
+      <Filter>Actor\PlayScene\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponStats.cpp">
+      <Filter>Actor\PlayScene\Weapon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
