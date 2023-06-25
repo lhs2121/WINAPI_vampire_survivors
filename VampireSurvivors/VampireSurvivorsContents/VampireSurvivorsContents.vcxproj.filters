@@ -71,11 +71,17 @@
     <ClCompile Include="PlayerShooter.cpp">
       <Filter>Actor\PlayScene\Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="WeaponStats.cpp">
+      <Filter>Actor\PlayScene\Weapon</Filter>
+    </ClCompile>
     <ClCompile Include="WeaponStats.h">
       <Filter>Actor\PlayScene\Weapon</Filter>
     </ClCompile>
-    <ClCompile Include="WeaponStats.cpp">
-      <Filter>Actor\PlayScene\Weapon</Filter>
+    <ClCompile Include="ItemButton.h">
+      <Filter>Actor\PlayScene\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemButton.cpp">
+      <Filter>Actor\PlayScene\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

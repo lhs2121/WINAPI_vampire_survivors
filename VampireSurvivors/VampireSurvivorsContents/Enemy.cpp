@@ -30,11 +30,17 @@ void Enemy::Start()
 		path.SetCurrentPath();
 		path.MoveParentToExistsChild("Resources");
 		path.MoveChild("Resources\\PlayScene\\");
+		path.MoveChild("Enemy\\");
 
 		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Lenemy1.bmp"), 5, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Renemy1.bmp"), 5, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("LEnemy_death.bmp"), 8, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("REnemy_death.bmp"), 8, 1);
+
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Lenemy2.bmp"), 4, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Renemy2.bmp"), 4, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("LEnemy2_death.bmp"), 7, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("REnemy2_death.bmp"), 7, 1);
 	}
 
 	int random = GameEngineRandom::MainRandom.RandomInt(1, 2);
@@ -57,6 +63,11 @@ void Enemy::Start()
 	Renderer->CreateAnimation("Enemy_RightRun", "Renemy1.bmp", 0, 4, 0.1f, true);
 	Renderer->CreateAnimation("Enemy_Death_Left", "LEnemy_death.bmp", 0, 7, 0.1f, true);
 	Renderer->CreateAnimation("Enemy_Death_Right", "REnemy_death.bmp", 0, 7, 0.1f, true);
+
+	Renderer->CreateAnimation("Enemy2_LeftRun", "Lenemy2.bmp", 0, 3, 0.1f, true);
+	Renderer->CreateAnimation("Enemy2_RightRun", "Renemy2.bmp", 0, 3, 0.1f, true);
+	Renderer->CreateAnimation("Enemy2_Death_Left", "LEnemy2_death.bmp", 0, 6, 0.1f, true);
+	Renderer->CreateAnimation("Enemy2_Death_Right", "REnemy2_death.bmp", 0, 6, 0.1f, true);
 
 	Renderer->ChangeAnimation("Enemy_LeftRun");
 

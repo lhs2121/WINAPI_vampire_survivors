@@ -28,10 +28,9 @@ public:
 private:
 
 	class GameEngineRenderer* ItemSelectPanel;
-	class GameEngineRenderer* ItemPanel_1;
-	class GameEngineRenderer* ItemPanel_2;
-	class GameEngineRenderer* ItemPanel_3;
-
+	class ItemButton* ItemButton1 = nullptr;
+	class ItemButton* ItemButton2 = nullptr;
+	class ItemButton* ItemButton3 = nullptr;
 
 	class GameEngineCollision* Button1;
 	class GameEngineCollision* Button2;

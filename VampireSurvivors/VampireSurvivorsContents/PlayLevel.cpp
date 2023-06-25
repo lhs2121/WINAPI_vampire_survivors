@@ -51,9 +51,9 @@ void PlayLevel::Start()
 
 	CreateActor<PlayerUI>(UpdateOrder::PlayUI);
 
-	ItemSelectUIPtr = CreateActor<ItemSelectUI>(UpdateOrder::PlayUI);
-
 	CreateActor<PlayerShooter>(UpdateOrder::Player);
+
+	ItemSelectUIPtr = CreateActor<ItemSelectUI>(UpdateOrder::PlayUI);
 
 }
 

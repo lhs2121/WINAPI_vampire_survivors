@@ -1,31 +1,47 @@
 #pragma once
 #include <GameEngineBase/GameEngineMath.h>
-#include<vector>
+#include <vector>
+#include <map>
 
+enum class WeaponType;
 class WeaponStats
 {
 
 private:
 
-	int level = 0;
-	int Count = 0;
-	float speed = 100;
-	float damage = 50;
-	float deathTime = 5;
-	float coolTime = 5;
-	float interval = 0.15f;
-	float4 scale = { 0,0 };
+	int level;
+	int count;
+	float speed;
+	float damage;
+	float deathTime;
+	float coolTime;
+	float interval;
+	float4 scale;
 
 
 public:
+	static std::map<WeaponType,WeaponStats> AllStats;
 
-	static std::vector<WeaponStats> ALLSTATES;
+	static void AllStatsSetting();
 
+	void setStats(int _level, int _Count, float _speed, float _damage, float _deathTime, 
+	float _cooltime, float _interval, float4 _scale)
+	{
+		level = _level;
+		count = _Count;
+		speed = _speed;
+		damage = _damage;
+		deathTime = _deathTime;
+		coolTime = _cooltime;
+		interval = _interval;
+		scale = _scale;
+	}
+	
 	int getLevel() const { return level; }
 	void setLevel(float value) { level = value; }
 
-	int getCount() const { return Count; }
-	void setCount(float value) { Count = value; }
+	int getCount() const { return count; }
+	void setCount(float value) { count = value; }
 
 	float getDamage() const { return damage; }
 	void setDamage(float value) { damage = value; }
@@ -46,7 +62,7 @@ public:
 	void setScale(float4 value) { scale = value; }
 
 	void addLevel(int value) { level += value; }
-	void addCount(int value) { Count += value; }
+	void addCount(int value) { count += value; }
 	void addSpeed(float value) { speed += value; }
 	void addDamage(float value) { damage += value; }
 	void addDeathTime(float value) { deathTime += value; }

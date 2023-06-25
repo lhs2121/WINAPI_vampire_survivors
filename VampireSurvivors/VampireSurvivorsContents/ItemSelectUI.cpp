@@ -1,6 +1,7 @@
 #include "ItemSelectUI.h"
 #include "ContentsEnum.h"
 #include "PlayLevel.h"
+#include "ItemButton.h"
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineCollision.h>
@@ -23,7 +24,6 @@ void ItemSelectUI::Start()
 		path.MoveChild("Resources\\PlayScene\\");
 		path.MoveChild("UI\\");
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("ItemSelectPanel.bmp"));
-		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("ItemPanel.bmp"));
 
 	}
 
@@ -31,18 +31,11 @@ void ItemSelectUI::Start()
 		ItemSelectPanel = CreateUIRenderer(RenderOrder::PlayUI);
 		ItemSelectPanel->SetRenderPos({ 545,345 });
 		ItemSelectPanel->SetTexture("ItemSelectPanel.bmp");
+	}
 
-		ItemPanel_1 = CreateUIRenderer(RenderOrder::PlayUI);
-		ItemPanel_1->SetRenderPos({ 545,200 });
-		ItemPanel_1->SetTexture("ItemPanel.bmp");
-	}
 	{
-		float4 Scale = ResourcesManager::GetInst().FindTexture("ItemPanel.bmp")->GetScale();
 		Button1 = CreateCollision(CollisionOrder::PlayUI);
-		Button1->SetCollisionScale(Scale);
-		
-	}
-	{
+		Button1->SetCollisionScale({ 100,100 });
 		Mouse = CreateCollision(CollisionOrder::PlayUI);
 		Mouse->SetCollisionScale({ 50,50 });
 
@@ -60,6 +53,7 @@ void ItemSelectUI::Update(float _Delta)
 	{
 		if (GameEngineInput::IsDown(VK_LBUTTON))
 		{
+			ItemButton1->OnClick();
 			GameEngineTime::MainTimer.SetAllTimeScale(1);
 			PlayLevel* lv = static_cast<PlayLevel*>(GetLevel());
 			lv->SpawnCheck = true;
@@ -72,14 +66,25 @@ void ItemSelectUI::Update(float _Delta)
 void ItemSelectUI::On()
 {
 	ItemSelectPanel->On();
-	ItemPanel_1->On();
+
+	ItemButton1 = GetLevel()->CreateActor<ItemButton>(UpdateOrder::PlayUI);
+	ItemButton1->SetPos({ 545,345 });
+	ItemButton1->SetTexture();
+	ItemButton1->On();
+
 	Button1->On();
-	Button1->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + ItemPanel_1->GetRenderPos());
+	Button1->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + ItemButton1->GetPos());
 }
 void ItemSelectUI::Off()
 {
 	ItemSelectPanel->Off();
-	ItemPanel_1->Off();
+
+	if (ItemButton1 != nullptr)
+	{
+		ItemButton1->Off();
+	}
+
+
 	Button1->Off();
 }
 

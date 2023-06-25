@@ -272,41 +272,61 @@ void Projectile::Setting(WeaponType _Type)
 	switch (Type)
 	{
 	case WeaponType::Knife:
+
 		Renderer->ChangeAnimation("Knife");
-		Speed = PlayerShooter::KnifeStats.getSpeed();
-		Damage = PlayerShooter::KnifeStats.getDamage();
-		DeathTime = PlayerShooter::KnifeStats.getDeathTime();
-		Scale = PlayerShooter::KnifeStats.getScale();
+
+		Speed = WeaponStats::AllStats[WeaponType::Knife].getSpeed();
+		Damage = WeaponStats::AllStats[WeaponType::Knife].getDamage();
+		DeathTime = WeaponStats::AllStats[WeaponType::Knife].getDeathTime();
+		Scale = WeaponStats::AllStats[WeaponType::Knife].getScale();
+
 		Collision->SetCollisionScale(Scale);
 		Collision->SetCollisionType(CollisionType::Rect);
+
 		break;
+
 	case WeaponType::MagicWand:
+
 		Renderer->ChangeAnimation("MagicWand");
-		Speed = PlayerShooter::MagicWandStats.getSpeed();
-		Damage = PlayerShooter::MagicWandStats.getDamage();
-		DeathTime = PlayerShooter::MagicWandStats.getDeathTime();
-		Scale = PlayerShooter::MagicWandStats.getScale();
+
+		Speed = WeaponStats::AllStats[WeaponType::MagicWand].getSpeed();
+		Damage = WeaponStats::AllStats[WeaponType::MagicWand].getDamage();
+		DeathTime = WeaponStats::AllStats[WeaponType::MagicWand].getDeathTime();
+		Scale = WeaponStats::AllStats[WeaponType::MagicWand].getScale();
+
 		Collision->SetCollisionScale(Scale);
 		Collision->SetCollisionType(CollisionType::CirCle);
+
 		break;
+
 	case WeaponType::Axe:
+
 		Renderer->ChangeAnimation("Axe");
-		Speed = PlayerShooter::AxeStats.getSpeed();
-		Damage = PlayerShooter::AxeStats.getDamage();
-		DeathTime = PlayerShooter::AxeStats.getDeathTime();
-		Scale = PlayerShooter::AxeStats.getScale();
+
+		Speed = WeaponStats::AllStats[WeaponType::Axe].getSpeed();
+		Damage = WeaponStats::AllStats[WeaponType::Axe].getDamage();
+		DeathTime = WeaponStats::AllStats[WeaponType::Axe].getDeathTime();
+		Scale = WeaponStats::AllStats[WeaponType::Axe].getScale();
+
 		Collision->SetCollisionScale(Scale);
 		Collision->SetCollisionType(CollisionType::CirCle);
+
 		break;
+
 	case WeaponType::Runetracer:
+
 		Renderer->ChangeAnimation("Runetracer");
-		Speed = PlayerShooter::RunetracerStats.getSpeed();
-		Damage = PlayerShooter::RunetracerStats.getDamage();
-		DeathTime = PlayerShooter::RunetracerStats.getDeathTime();
-		Scale = PlayerShooter::RunetracerStats.getScale();
+
+		Speed = WeaponStats::AllStats[WeaponType::Runetracer].getSpeed();
+		Damage = WeaponStats::AllStats[WeaponType::Runetracer].getDamage();
+		DeathTime = WeaponStats::AllStats[WeaponType::Runetracer].getDeathTime();
+		Scale = WeaponStats::AllStats[WeaponType::Runetracer].getScale();
+
 		Collision->SetCollisionScale(Scale);
 		Collision->SetCollisionType(CollisionType::CirCle);
+
 		break;
+
 	default:
 		break;
 	}

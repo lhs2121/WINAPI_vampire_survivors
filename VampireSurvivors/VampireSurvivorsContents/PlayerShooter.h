@@ -19,23 +19,10 @@ public:
 	PlayerShooter& operator=(const PlayerShooter& _Other) = delete;
 	PlayerShooter& operator=(PlayerShooter&& _Other) noexcept = delete;
 
-	static int KnifeLevel;
-	static int MagicWandLevel;
-	static int AxeLevel;
-	static int RunetracerLevel;
-
-	static WeaponStats KnifeStats;
-	static WeaponStats MagicWandStats;
-	static WeaponStats AxeStats;
-	static WeaponStats RunetracerStats;
-
 protected:
 
 private:
-	void CreateKnife(float _Delta);
-	void CreateMagicWand(float _Delta);
-	void CreateAxe(float _Delta);
-	void CreateRunetracer(float _Delta);
+	void CreateProjectile(float _Delta, WeaponType _Type);
 
 	void Start() override;
 	void Update(float _Delta) override;
