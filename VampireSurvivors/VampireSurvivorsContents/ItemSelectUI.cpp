@@ -35,7 +35,14 @@ void ItemSelectUI::Start()
 
 	{
 		Button1 = CreateCollision(CollisionOrder::PlayUI);
-		Button1->SetCollisionScale({ 100,100 });
+		Button1->SetCollisionScale({ 388,166 });
+
+		Button2 = CreateCollision(CollisionOrder::PlayUI);
+		Button2->SetCollisionScale({ 388,166 });
+
+		Button3 = CreateCollision(CollisionOrder::PlayUI);
+		Button3->SetCollisionScale({ 388,166 });
+
 		Mouse = CreateCollision(CollisionOrder::PlayUI);
 		Mouse->SetCollisionScale({ 50,50 });
 
@@ -61,6 +68,30 @@ void ItemSelectUI::Update(float _Delta)
 		}
 	}
 
+	if (true == Button2->CollisonCheck(Mouse, CollisionType::Rect, CollisionType::Rect) && Button2->IsUpdate())
+	{
+		if (GameEngineInput::IsDown(VK_LBUTTON))
+		{
+			ItemButton2->OnClick();
+			GameEngineTime::MainTimer.SetAllTimeScale(1);
+			PlayLevel* lv = static_cast<PlayLevel*>(GetLevel());
+			lv->SpawnCheck = true;
+			Off();
+		}
+	}
+
+	if (true == Button3->CollisonCheck(Mouse, CollisionType::Rect, CollisionType::Rect) && Button3->IsUpdate())
+	{
+		if (GameEngineInput::IsDown(VK_LBUTTON))
+		{
+			ItemButton3->OnClick();
+			GameEngineTime::MainTimer.SetAllTimeScale(1);
+			PlayLevel* lv = static_cast<PlayLevel*>(GetLevel());
+			lv->SpawnCheck = true;
+			Off();
+		}
+	}
+
 }
 
 void ItemSelectUI::On()
@@ -68,12 +99,29 @@ void ItemSelectUI::On()
 	ItemSelectPanel->On();
 
 	ItemButton1 = GetLevel()->CreateActor<ItemButton>(UpdateOrder::PlayUI);
-	ItemButton1->SetPos({ 545,345 });
+	ItemButton1->SetPos({ 545,145 });
 	ItemButton1->SetTexture();
 	ItemButton1->On();
 
+	ItemButton2 = GetLevel()->CreateActor<ItemButton>(UpdateOrder::PlayUI);
+	ItemButton2->SetPos({ 545,345 });
+	ItemButton2->SetTexture();
+	ItemButton2->On();
+
+	ItemButton3 = GetLevel()->CreateActor<ItemButton>(UpdateOrder::PlayUI);
+	ItemButton3->SetPos({ 545,545 });
+	ItemButton3->SetTexture();
+	ItemButton3->On();
+
+
 	Button1->On();
 	Button1->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + ItemButton1->GetPos());
+
+	Button2->On();
+	Button2->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + ItemButton2->GetPos());
+
+	Button3->On();
+	Button3->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + ItemButton3->GetPos());
 }
 void ItemSelectUI::Off()
 {
@@ -84,8 +132,19 @@ void ItemSelectUI::Off()
 		ItemButton1->Off();
 	}
 
+	if (ItemButton2 != nullptr)
+	{
+		ItemButton2->Off();
+	}
+
+	if (ItemButton3 != nullptr)
+	{
+		ItemButton3->Off();
+	}
 
 	Button1->Off();
+	Button2->Off();
+	Button3->Off();
 }
 
 void ItemSelectUI::SetItemPanel()

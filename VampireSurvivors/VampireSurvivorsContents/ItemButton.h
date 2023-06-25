@@ -30,12 +30,25 @@ private:
 	class GameEngineRenderer* WeaponNameText;
 	class GameEngineRenderer* NewText;
 	class GameEngineRenderer* DetailText;
+	class GameEngineRenderer* DetailText2;
 
 	int Curlevel;
 	WeaponType CurType;
-	
+
+	int _Count = 0;
+	float _Speed = 0;
+	float _Damage = 0;
+	float _DeathTime = 0;
+	float _CoolTime = 0;
+	float _Interval = 0;
+	float4 _Scale = float4::ZERO;
+
 	void Start() override;
 	void Update(float _Delta) override;
+
+
+
+
 
 };
 

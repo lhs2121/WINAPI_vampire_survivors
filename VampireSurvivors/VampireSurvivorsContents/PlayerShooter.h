@@ -1,8 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-#include <vector>
 
-class WeaponStats;
 enum class WeaponType;
 class PlayerShooter : public GameEngineActor
 {
@@ -22,6 +20,8 @@ public:
 protected:
 
 private:
+
+	class GameEngineRenderer* cool;
 	void CreateProjectile(float _Delta, WeaponType _Type);
 
 	void Start() override;

@@ -12,15 +12,17 @@
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include <GameEngineCore/GameEngineSprite.h>
-#include <map>
+#include <sstream>
 
 void PlayerShooter::Start()
 {
 	WeaponStats::AllStatsSetting();
-	
+	cool = CreateUIRenderer(RenderOrder::Text);
+	cool->SetText("a", 20, "메이플스토리");
 }
 void PlayerShooter::Update(float _Delta)
 {
+	
 
 	if (GameEngineInput::IsDown('1'))
 	{
@@ -42,38 +44,37 @@ void PlayerShooter::Update(float _Delta)
 	for (int i = 0; i < WeaponStats::AllStats.size(); i++)
 	{
 		WeaponType type = static_cast<WeaponType>(i);
-		CreateProjectile(_Delta, type);
+		if (WeaponStats::AllStats[type].getLevel() > 0)
+		{
+			CreateProjectile(_Delta, type);
+		}
 		
 	}
-	
-	
+
 }
 
 void PlayerShooter::CreateProjectile(float _Delta, WeaponType _Type)
 {
 	WeaponStats stats = WeaponStats::AllStats[_Type];
-
-	if (stats.getCount() < 1)
-	{
-		return;
-	}
-
-	static float inter = stats.getCoolTime();
 	static int CreatedProjectile = 0; 
+	stats.addCoolTime(-_Delta);
 
-	inter -= _Delta;
+	
+	std::stringstream a;
+	a << stats.getCoolTime();
+	cool->SetText(a.str(), 20, "메이플스토리");
 
-	if (inter <= 0.0f)
+	if (stats.getCoolTime() <= 0)
 	{
 		Projectile* NewProjectile = GetLevel()->CreateActor<Projectile>(UpdateOrder::Weapon);
 		NewProjectile->Setting(_Type);
 
-		inter = stats.getInterval();
+		stats.setCoolTime(stats.getInterval());
 		CreatedProjectile += 1;
 
 		if (CreatedProjectile == stats.getCount())
 		{
-			inter = stats.getCoolTime();
+			stats.setCoolTime(5);
 			CreatedProjectile = 0;
 		}
 	}
