@@ -37,20 +37,19 @@ void BackGround::Start()
 	OffSetX = float4(Scale.X, 0);
 	OffSetY = float4(0, Scale.Y);
 
-	SetPos({ 1024,464 });
-
-	Renderer = CreateRenderer(RenderOrder::BackGround);
-	DebugRenderer = CreateRenderer(RenderOrder::BackGround);
-
-
-	Renderer->On();
-	DebugRenderer->Off();
-
-	for (int i = 0; i < 2; i++)
 	{
-		OtherRendererGroup[i] = CreateRenderer(RenderOrder::BackGround);
-		OtherRendererGroup[i]->SetTexture("dummy1.bmp");
+		Renderer = CreateRenderer(RenderOrder::BackGround);
+		DebugRenderer = CreateRenderer(RenderOrder::BackGround);
+
+		LeftRenderer = CreateRenderer(RenderOrder::BackGround);
+		LeftRenderer->SetTexture("dummy1.bmp");
+		LeftRenderer->SetRenderPos(Renderer->GetRenderPos() - OffSetX);
+
+		RightRenderer = CreateRenderer(RenderOrder::BackGround);
+		RightRenderer->SetTexture("dummy1.bmp");
+		RightRenderer->SetRenderPos(Renderer->GetRenderPos() + OffSetX);
 	}
+	
 
 	{
 		LeftWall = CreateCollision(CollisionOrder::BackGround);
@@ -60,24 +59,22 @@ void BackGround::Start()
 		RightWall = CreateCollision(CollisionOrder::BackGround);
 		RightWall->SetCollisionPos(OffSetX.Half());
 		RightWall->SetCollisionScale({ 10,OffSetY.Y });
-
 	}
 
-	OtherRendererGroup[0]->SetRenderPos(Renderer->GetRenderPos() - OffSetX);
-	OtherRendererGroup[1]->SetRenderPos(Renderer->GetRenderPos() + OffSetX);
+	SetPos({ 1024,464 });
+
+	Renderer->On();
+	DebugRenderer->Off();
 
 }
 
 void BackGround::Init(const std::string& _FileName, const std::string& _DebugFileName)
 {
 	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture(_FileName);
-	Scale = Texture->GetScale();
-	FileName = _FileName;
 	{
-		Renderer->SetTexture(FileName);
+		Renderer->SetTexture(_FileName);
 		DebugRenderer->SetTexture(_DebugFileName);
-		DebugRenderer->SetRenderScale(Scale);
-
+		DebugRenderer->SetRenderScale(Texture->GetScale());
 	}
 }
 
@@ -97,22 +94,22 @@ void BackGround::SwitchRender()
 }
 
 
-void BackGround::BackGroundLoop(Player* player)
+void BackGround::BackGroundLoop()
 {
 	GameEngineCollision* PlayerCol = Player::GetMainPlayer()->GetCollsion();
 
-	static bool oncolleft = false;
-	static bool oncolright = false;
+	static bool IsCheckingLeft = false; //지금 왼쪽벽과 충돌중인지 체크
+	static bool IsCheckingRight = false; //지금 오른쪽벽과 충돌중인지 체크
 
 	if (PlayerCol->CollisonCheck(LeftWall, CollisionType::CirCle, CollisionType::Rect))
 	{
-		if (oncolleft == false)
+		if (IsCheckingLeft == false)
 		{
 			MoveRendererLeft();
-			oncolleft = true;
+			IsCheckingLeft = true;
 		}
 	}
-	else if (true == oncolleft && false == PlayerCol->CollisonCheck(LeftWall, CollisionType::CirCle, CollisionType::Rect))
+	else if (true == IsCheckingLeft && false == PlayerCol->CollisonCheck(LeftWall, CollisionType::CirCle, CollisionType::Rect))
 	{
 
 		float4 playerpos = Player::GetMainPlayer()->GetPos();
@@ -128,54 +125,52 @@ void BackGround::BackGroundLoop(Player* player)
 			MoveRendererRight();
 		}
 
-		oncolleft = false;
+		IsCheckingLeft = false;
 	}
 
 	if (PlayerCol->CollisonCheck(RightWall, CollisionType::CirCle, CollisionType::Rect))
 	{
-		if (oncolright == false)
+		if (IsCheckingRight == false)
 		{
 			MoveRendererRight();
-			oncolright = true;
+			IsCheckingRight = true;
 		}
 	}
-	else if (true == oncolright && false == PlayerCol->CollisonCheck(RightWall, CollisionType::CirCle, CollisionType::Rect))
+	else if (true == IsCheckingRight && false == PlayerCol->CollisonCheck(RightWall, CollisionType::CirCle, CollisionType::Rect))
 	{
-
 		float4 playerpos = Player::GetMainPlayer()->GetPos();
 		float4 wallpos = GetPos() + RightWall->GetCollisionPos();
 		float4 dir = playerpos - wallpos;
 
-		if (dir.X < 0) //왼쪽벽에서 나왔는데 플레이어가 왼쪽에있다면
+		if (dir.X < 0) //오른쪽벽에서 나왔는데 플레이어가 왼쪽에있다면
 		{
 			MoveRendererLeft();
 		}
-		else if (dir.X > 0)//왼쪽벽에서 나왔는데 플레이어가 오른쪽에있다면
+		else if (dir.X > 0)//오른쪽벽에서 나왔는데 플레이어가 오른쪽에있다면
 		{
 			MoveCollisionRight();
 		}
 
-		oncolright = false;
+		IsCheckingRight = false;
 	}
-
-	
-
 }
 
 void BackGround::MoveRendererRight()
 {
 	Renderer->SetRenderPos(Renderer->GetRenderPos() + OffSetX);
 	DebugRenderer->SetRenderPos(Renderer->GetRenderPos());
-	OtherRendererGroup[0]->SetRenderPos(Renderer->GetRenderPos() - OffSetX);
-	OtherRendererGroup[1]->SetRenderPos(Renderer->GetRenderPos() + OffSetX);
+
+	LeftRenderer->SetRenderPos(Renderer->GetRenderPos() - OffSetX);
+	RightRenderer->SetRenderPos(Renderer->GetRenderPos() + OffSetX);
 }
 
 void BackGround::MoveRendererLeft()
 {
 	Renderer->SetRenderPos(Renderer->GetRenderPos() + (-OffSetX));
 	DebugRenderer->SetRenderPos(Renderer->GetRenderPos());
-	OtherRendererGroup[0]->SetRenderPos(Renderer->GetRenderPos() - OffSetX);
-	OtherRendererGroup[1]->SetRenderPos(Renderer->GetRenderPos() + OffSetX);
+
+	LeftRenderer->SetRenderPos(Renderer->GetRenderPos() - OffSetX);
+	RightRenderer->SetRenderPos(Renderer->GetRenderPos() + OffSetX);
 }
 
 void BackGround::MoveCollisionLeft()

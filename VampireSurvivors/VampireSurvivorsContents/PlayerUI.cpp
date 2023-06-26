@@ -5,6 +5,8 @@
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
+#include <sstream>
+#include <iomanip>
 
 PlayerUI* PlayerUI::UI = nullptr;
 
@@ -45,6 +47,10 @@ void PlayerUI::Start()
 		Text_Gold = CreateUIRenderer(RenderOrder::Text);
 		Text_Gold->SetText("0", 20, "메이플스토리");
 		Text_Gold->SetRenderPos({ 1045,24 });
+		
+		Text_Timer = CreateUIRenderer(RenderOrder::Text);
+		Text_Timer->SetText("00:00", 35, "메이플스토리");
+		Text_Timer->SetRenderPos({ 490,35 });
 	}
 
 	{
@@ -82,6 +88,18 @@ void PlayerUI::Start()
 
 void PlayerUI::Update(float _Delta)
 {
+	seconds += _Delta;
 
+	if (seconds > 59.5)
+	{
+		minutes++;
+		seconds = 0;
+	}
+
+    std::stringstream time;
+	time << std::setfill('0') << std::setw(2) << minutes << ":";
+	time << std::fixed << std::setprecision(0) << std::setfill('0') << std::setw(2) << seconds;
+
+	Text_Timer->SetText(time.str(), 35, "메이플스토리");
 }
 

@@ -1,19 +1,25 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 #include "PlayActor.h"
-#include <vector>
-// Ό³Έν :
+
+enum class EnemyType
+{
+	enemy1,
+	enemy2,
+	enemy3,
+
+};
+
 class Enemy : public PlayActor
 {
 public:
-
-	static std::vector<GameEngineCollision*> AllMonsterCollision;
+	static EnemyType CurSpawnEnemyType;
 	
 	static int DeathCount;
 	// constrcuter destructer
 	Enemy();
 	~Enemy();
-
+	 
 	// delete Function
 	Enemy(const Enemy& _Other) = delete;
 	Enemy(Enemy&& _Other) noexcept = delete;
@@ -23,21 +29,24 @@ public:
 	void ApplyDamage(float _Damage)
 	{
 		hp -= _Damage;
-		showDamageOnMonster(_Damage);
 	}
 
-protected:
-
 private:
+	EnemyType type;
 	class GameEngineRenderer* Renderer;
 	class GameEngineCollision* Collision;
 	class GameEngineRenderer* Damage;
-	void showDamageOnMonster(float _Damage);
 
 	float hp = 20;
 	int ItemdropRate = 80;
 	float speed;
 	float4 dir;
+
+	float Yspeed = 100;
+	float increasement = 1;
+	const float maxspeed = 100.0f;
+	const float minspeed = -100.0f;
+
 
 	bool move = true;
 	bool collisioncheck = true;
@@ -47,6 +56,7 @@ private:
 	void Update(float _Delta) override;
 
 	void Move(float _Delta);
+	void Move2(float _Delta);
 	void CollisionCheck(float _Delta);
 	void DropExp();
 	void WallCheck();

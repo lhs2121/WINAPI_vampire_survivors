@@ -64,7 +64,6 @@ void Player::Start()
 		PlayerDir = float4::RIGHT;
 	}
 
-
 	{
 		HpBar = CreateRenderer(RenderOrder::PlayUI);
 		HpBar->SetRenderPos({ 0,20 });

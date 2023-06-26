@@ -21,12 +21,16 @@ public:
 	PlayerUI& operator=(const PlayerUI& _Other) = delete;
 	PlayerUI& operator=(PlayerUI&& _Other) noexcept = delete;
 
+	float minutes = 0;
+	float seconds = 0;
+
 private:
 
 
 	GameEngineRenderer* Text_Level;
 	GameEngineRenderer* Text_MonsterDeathCount;
 	GameEngineRenderer* Text_Gold;
+	GameEngineRenderer* Text_Timer;
 
 	GameEngineRenderer* DeathMark;
 	GameEngineRenderer* CoinMark;

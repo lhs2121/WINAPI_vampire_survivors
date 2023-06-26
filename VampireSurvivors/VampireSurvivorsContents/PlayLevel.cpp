@@ -75,29 +75,25 @@ void PlayLevel::Update(float _delta)
 	{
 		GameEngineWindow::MainWindow.SetDoubleBufferingCopyScaleRatio(1);
 	}
+
 	if (GameEngineInput::IsPress('P'))
 	{
 		GameEngineWindow::MainWindow.AddDoubleBufferingCopyScaleRatio(0.001f);
 	}
-	if (GameEngineInput::IsDown('Y'))
-	{
-		SpawnCheck = !SpawnCheck;
-	}
 
-	BackGroundPtr->BackGroundLoop(PlayerPtr);
+
+	BackGroundPtr->BackGroundLoop();
 
 	if (SpawnCheck == true)
 	{
 		EnemySpawn(_delta);
 	}
-	
+
 }
 
 void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	GameEngineSound::SoundPlay("bgm_elrond_library.ogg");
-	//GameEngineWindow::MainWindow.AddDoubleBufferingCopyScaleRatio(0.5f);
-
 }
 void PlayLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
@@ -105,52 +101,36 @@ void PlayLevel::LevelEnd(GameEngineLevel* _NextLevel)
 }
 void PlayLevel::EnemySpawn(float _Delta)
 {
-	static float sumDelta;
-	sumDelta += _Delta;
-	if (sumDelta > 6)
+	static float Cooltime = 0;
+	Cooltime -= _Delta;
+
+	if (Cooltime < 0)
 	{
+		int num;
+		num = GameEngineRandom::MainRandom.RandomInt(5, 12);
+
+		Enemy* PrevEnemy = nullptr;
+		Enemy* PrevEnemy2 = nullptr;
+
+		for (int i = 0; i < num; i++)
 		{
-			int num;
-			num = GameEngineRandom::MainRandom.RandomInt(5, 12);
+			Enemy* NewEnemy = CreateActor<Enemy>(UpdateOrder::Monster);
+			Enemy* NewEnemy2 = CreateActor<Enemy>(UpdateOrder::Monster);
 
-			Enemy* prevEnemy = nullptr;
+			NewEnemy->SetPos({ float4(PlayerPtr->GetPos().X , 0) + float4(560,300) });
+			NewEnemy2->SetPos({ float4(PlayerPtr->GetPos().X , 0) + float4(-560,300) });
 
-			for (int i = 0; i < num; i++)
+			if (PrevEnemy != nullptr)
 			{
-				Enemy* NewEnemy = CreateActor<Enemy>(UpdateOrder::Monster);
-
-				NewEnemy->SetPos({ float4(PlayerPtr->GetPos().X , 0) + float4(560,300) });
-
-				if (prevEnemy != nullptr)
-				{
-					NewEnemy->SetPos(prevEnemy->GetPos() + float4(0, 50));
-				}
-
-				prevEnemy = NewEnemy;
+				NewEnemy->SetPos(PrevEnemy->GetPos() + float4(0, 50));
+				NewEnemy2->SetPos(PrevEnemy2->GetPos() + float4(0, 50));
 			}
-		}
-		{
-			int num;
-			num = GameEngineRandom::MainRandom.RandomInt(5, 12);
 
-			Enemy* prevEnemy = nullptr;
-
-			for (int i = 0; i < num; i++)
-			{
-				Enemy* NewEnemy = CreateActor<Enemy>(UpdateOrder::Monster);
-
-				NewEnemy->SetPos({ float4(PlayerPtr->GetPos().X , 0) + float4(-560,300) });
-
-				if (prevEnemy != nullptr)
-				{
-					NewEnemy->SetPos(prevEnemy->GetPos() + float4(0, 50));
-				}
-
-				prevEnemy = NewEnemy;
-			}
+			PrevEnemy = NewEnemy;
+			PrevEnemy2 = NewEnemy2;
 		}
 
-		sumDelta = 0;
+		Cooltime = 6;
 	}
 }
 
@@ -167,7 +147,6 @@ void PlayLevel::ShowItemSelectUI()
 	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Player, 0);
 	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Item, 0);
 	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Weapon, 0);
-
 
 	SpawnCheck = false;
 

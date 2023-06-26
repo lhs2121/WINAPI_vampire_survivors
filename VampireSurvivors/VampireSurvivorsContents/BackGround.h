@@ -16,27 +16,24 @@ public:
 
 	void Init(const std::string& _FileName, const std::string& _DebugFileName);
 	void SwitchRender();
-	void BackGroundLoop(class Player* player);
+	void BackGroundLoop();
 protected:
 
 private:
 
 	bool SwitchRenderValue = true;
+
 	class GameEngineRenderer* Renderer;
 	class GameEngineRenderer* DebugRenderer;
-	class GameEngineRenderer* OtherRendererGroup[2];
+	class GameEngineRenderer* LeftRenderer;
+	class GameEngineRenderer* RightRenderer;
 
-	std::string FileName;
 	float4 Scale;
 	float4 OffSetX;
 	float4 OffSetY;
 
 	GameEngineCollision* LeftWall;
 	GameEngineCollision* RightWall;
-
-	bool RightWallCheck;
-	bool LeftWallCheck;
-	bool OnCollision = false;
 
 	void MoveRendererLeft();
 	void MoveRendererRight();
