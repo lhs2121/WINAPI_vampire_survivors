@@ -112,17 +112,18 @@ void Projectile::MagicWand_Attack(float _Delta)
 	if (IsReady == false)
 	{
 		dir = Player::GetMainPlayer()->GetMinDistance();
+
 		SetPos(Player::GetMainPlayer()->GetPos());
 		Renderer->SetAngle(dir.AngleDeg());
 		Renderer->On();
 		IsReady = true;
+		if (dir == float4::ZERO)
+		{
+			Death();
+		}
 		return;
 	}
 
-	if (dir == float4::ZERO)
-	{
-		Death();
-	}
 
 	AddPos(dir * Speed * _Delta);
 
@@ -223,11 +224,6 @@ void Projectile::Axe_Attack(float _Delta)
 
 void Projectile::Runetracer_Attack(float _Delta)
 {
-	if (Player::GetMainPlayer()->GetMinDistance() == float4::ZERO)
-	{
-		Death();
-	}
-
 	if (IsReady == false)
 	{
 		dir = Player::GetMainPlayer()->GetMinDistance();
@@ -235,6 +231,10 @@ void Projectile::Runetracer_Attack(float _Delta)
 		Renderer->SetAngle(dir.AngleDeg());
 		Renderer->On();
 		IsReady = true;
+		if (Player::GetMainPlayer()->GetMinDistance() == float4::ZERO)
+		{
+			Death();
+		}
 		return;
 	}
 

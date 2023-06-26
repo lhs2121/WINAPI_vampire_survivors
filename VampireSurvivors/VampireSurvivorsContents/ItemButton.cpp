@@ -70,7 +70,7 @@ void ItemButton::SetTexture()
 		
 	}
 
-	if (AllSelecting)
+	if (true == AllSelecting)
 	{
 		Panel->SetTexture("null.bmp");
 		WeaponNameText->SetTexture("null.bmp");
@@ -80,7 +80,7 @@ void ItemButton::SetTexture()
 		return;
 	}
 
-	int num = GameEngineRandom::MainRandom.RandomInt(0, 3);
+	int num = GameEngineRandom::MainRandom.RandomInt(0, WeaponStats::AllStats.size() - 1);
 
 	CurType = static_cast<WeaponType>(num);
 	Curlevel = WeaponStats::AllStats[CurType].getLevel();

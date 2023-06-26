@@ -1,8 +1,9 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
+#include "PlayActor.h"
 #include <vector>
 // Ό³Έν :
-class Enemy : public GameEngineActor
+class Enemy : public PlayActor
 {
 public:
 
@@ -48,5 +49,7 @@ private:
 	void Move(float _Delta);
 	void CollisionCheck(float _Delta);
 	void DropExp();
+	void WallCheck();
+
 };
 

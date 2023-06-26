@@ -73,11 +73,11 @@ void PlayLevel::Update(float _delta)
 
 	if (GameEngineInput::IsPress('O'))
 	{
-		GameEngineWindow::MainWindow.AddDoubleBufferingCopyScaleRatio(-0.01f);
+		GameEngineWindow::MainWindow.SetDoubleBufferingCopyScaleRatio(1);
 	}
 	if (GameEngineInput::IsPress('P'))
 	{
-		GameEngineWindow::MainWindow.AddDoubleBufferingCopyScaleRatio(0.01f);
+		GameEngineWindow::MainWindow.AddDoubleBufferingCopyScaleRatio(0.001f);
 	}
 	if (GameEngineInput::IsDown('Y'))
 	{
@@ -98,48 +98,6 @@ void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)
 	GameEngineSound::SoundPlay("bgm_elrond_library.ogg");
 	//GameEngineWindow::MainWindow.AddDoubleBufferingCopyScaleRatio(0.5f);
 
-	{
-		int num;
-		num = GameEngineRandom::MainRandom.RandomInt(9, 15);
-
-		Enemy* prevEnemy = nullptr;
-
-		for (int i = 0; i < num; i++)
-		{
-			Enemy* NewEnemy = CreateActor<Enemy>(UpdateOrder::Monster);
-
-			NewEnemy->SetPos({ float4(PlayerPtr->GetPos().X , 0) + float4(500,-200) });
-
-			if (prevEnemy != nullptr)
-			{
-				NewEnemy->SetPos(prevEnemy->GetPos() + float4(0, 35));
-			}
-
-			prevEnemy = NewEnemy;
-		}
-	}
-	//처음 오른쪽 몬스터 스폰
-	{
-		int num;
-		num = GameEngineRandom::MainRandom.RandomInt(9, 15);
-
-		Enemy* prevEnemy = nullptr;
-
-		for (int i = 0; i < num; i++)
-		{
-			Enemy* NewEnemy = CreateActor<Enemy>(UpdateOrder::Monster);
-
-			NewEnemy->SetPos({ float4(PlayerPtr->GetPos().X , 0) + float4(-500,-200) });
-
-			if (prevEnemy != nullptr)
-			{
-				NewEnemy->SetPos(prevEnemy->GetPos() + float4(0, 35));
-			}
-
-			prevEnemy = NewEnemy;
-		}
-	}
-	//처음 왼쪽 몬스터 스폰
 }
 void PlayLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
@@ -161,11 +119,11 @@ void PlayLevel::EnemySpawn(float _Delta)
 			{
 				Enemy* NewEnemy = CreateActor<Enemy>(UpdateOrder::Monster);
 
-				NewEnemy->SetPos({ float4(PlayerPtr->GetPos().X , 0) + float4(500,-200) });
+				NewEnemy->SetPos({ float4(PlayerPtr->GetPos().X , 0) + float4(560,300) });
 
 				if (prevEnemy != nullptr)
 				{
-					NewEnemy->SetPos(prevEnemy->GetPos() + float4(0, 35));
+					NewEnemy->SetPos(prevEnemy->GetPos() + float4(0, 50));
 				}
 
 				prevEnemy = NewEnemy;
@@ -181,11 +139,11 @@ void PlayLevel::EnemySpawn(float _Delta)
 			{
 				Enemy* NewEnemy = CreateActor<Enemy>(UpdateOrder::Monster);
 
-				NewEnemy->SetPos({ float4(PlayerPtr->GetPos().X , 0) + float4(-500,-200) });
+				NewEnemy->SetPos({ float4(PlayerPtr->GetPos().X , 0) + float4(-560,300) });
 
 				if (prevEnemy != nullptr)
 				{
-					NewEnemy->SetPos(prevEnemy->GetPos() + float4(0, 35));
+					NewEnemy->SetPos(prevEnemy->GetPos() + float4(0, 50));
 				}
 
 				prevEnemy = NewEnemy;

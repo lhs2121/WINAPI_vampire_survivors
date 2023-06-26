@@ -76,6 +76,8 @@ void Enemy::Start()
 	Collision->SetCollisionScale({ 22,22 });
 	Collision->SetCollisionType(CollisionType::CirCle);
 
+	SetGroundTexture("Debugdummy1.bmp");
+
 }
 
 void Enemy::Update(float _Delta)
@@ -119,6 +121,8 @@ void Enemy::Update(float _Delta)
 			Death();
 		}
 	}
+
+	WallCheck();
 }
 
 void Enemy::Move(float _Delta)
@@ -189,5 +193,60 @@ void Enemy::DropExp()
 
 void Enemy::showDamageOnMonster(float _Damage)
 {
+
+}
+
+void Enemy::WallCheck()
+{
+
+	unsigned int Color = GetGroundColor(RGB(255, 255, 255), float4(0, 17));
+	if (RGB(255, 255, 255) != Color)
+	{
+		unsigned int CheckColor = GetGroundColor(RGB(255, 255, 255), float4(0, 17));
+
+		while (CheckColor != RGB(255, 255, 255))
+		{
+			CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+			AddPos(float4::UP);
+		}
+	}
+
+	unsigned int Color2 = GetGroundColor(RGB(255, 255, 255), float4(0, -17));
+	if (RGB(255, 255, 255) != Color2)
+	{
+		unsigned int CheckColor = GetGroundColor(RGB(255, 255, 255), float4(0, -17));
+
+		while (CheckColor != RGB(255, 255, 255))
+		{
+			CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+			AddPos(float4::DOWN);
+		}
+	}
+
+
+	unsigned int Color3 = GetGroundColor(RGB(255, 255, 255), float4(-18, 0));
+	if (RGB(255, 255, 255) != Color3)
+	{
+		unsigned int CheckColor = GetGroundColor(RGB(255, 255, 255), float4(-18, 0));
+
+		while (CheckColor != RGB(255, 255, 255))
+		{
+			CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+			AddPos(float4::RIGHT);
+		}
+	}
+
+
+	unsigned int Color4 = GetGroundColor(RGB(255, 255, 255), float4(18, 0));
+	if (RGB(255, 255, 255) != Color4)
+	{
+		unsigned int CheckColor = GetGroundColor(RGB(255, 255, 255), float4(18, 0));
+
+		while (CheckColor != RGB(255, 255, 255))
+		{
+			CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+			AddPos(float4::LEFT);
+		}
+	}
 
 }

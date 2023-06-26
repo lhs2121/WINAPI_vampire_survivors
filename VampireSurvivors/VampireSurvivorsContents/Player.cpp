@@ -30,7 +30,7 @@ Player::~Player()
 
 void Player::Start()
 {
-	SetPos({ 0,0 });
+	SetPos({ 1024,464 });
 
 	{
 		GameEnginePath FolderPath;
@@ -42,6 +42,8 @@ void Player::Start()
 
 		path.MoveChild("Player\\");
 
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("RightIdle.bmp"), 1, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("LeftIdle.bmp"), 1, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("RightRun.bmp"), 4, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("LeftRun.bmp"), 4, 1);
 
@@ -52,9 +54,12 @@ void Player::Start()
 
 	{
 		Renderer = CreateRenderer(RenderOrder::Player);
+		Renderer->CreateAnimation("RightIdle", "RightIdle.bmp", 0, 0, 0.1f, false);
+		Renderer->CreateAnimation("LeftIdle", "LeftIdle.bmp", 0, 0, 0.1f, false);
 		Renderer->CreateAnimation("RightRun", "RightRun.bmp", 0, 3, 0.1f, true);
 		Renderer->CreateAnimation("LeftRun", "LeftRun.bmp", 0, 3, 0.1f, true);
-		Renderer->ChangeAnimation("RightRun");
+
+		Renderer->ChangeAnimation("RightIdle");
 
 		PlayerDir = float4::RIGHT;
 	}
@@ -84,8 +89,10 @@ void Player::Start()
 		Detector = CreateCollision(CollisionOrder::Player);
 		Detector->SetCollisionScale({ 800,800 });
 		Detector->SetCollisionType(CollisionType::CirCle);
-
+		Detector->RenderOff();
 	}
+
+	SetGroundTexture("Debugdummy1.bmp");
 }
 void Player::Update(float _Delta)
 {
@@ -93,15 +100,46 @@ void Player::Update(float _Delta)
 	FirePos[1] = GetPos() + float4(-15, -15);
 	FirePos[2] = GetPos() + float4(-15, 15);
 
+	if (GameEngineInput::IsFree('W') && GameEngineInput::IsFree('A') && GameEngineInput::IsFree('S') && GameEngineInput::IsFree('D'))
+	{
+		if (dirstate == DirState::Left)
+		{
+			Renderer->ChangeAnimation("LeftIdle", 0, true);
+		}
+		else if (dirstate == DirState::Right)
+		{
+			Renderer->ChangeAnimation("RightIdle", 0, true);
+		}
+	}
+
 	if (GameEngineInput::IsPress('W'))
 	{
 		AddPos({ 0 , -1 * _Delta * speed });
 		PlayerDir = float4::UP;
+
+		if (dirstate == DirState::Left)
+		{
+			Renderer->ChangeAnimation("LeftRun");
+		}
+		else if (dirstate == DirState::Right)
+		{
+			Renderer->ChangeAnimation("RightRun");
+		}
 	}
 	if (GameEngineInput::IsPress('S'))
 	{
 		AddPos({ 0 , 1 * _Delta * speed });
 		PlayerDir = float4::DOWN;
+
+		if (dirstate == DirState::Left)
+		{
+			Renderer->ChangeAnimation("LeftRun");
+		}
+		else if (dirstate == DirState::Right)
+		{
+			Renderer->ChangeAnimation("RightRun");
+		}
+
 	}
 	if (GameEngineInput::IsPress('A'))
 	{
@@ -145,6 +183,8 @@ void Player::Update(float _Delta)
 	LevelUp();
 
 	CameraFocus();
+
+	WallCheck();
 }
 
 float4 Player::GetMinDistance()
@@ -170,7 +210,7 @@ float4 Player::GetMinDistance()
 		std::vector<float>::iterator minElement = std::min_element(dirGroup.begin(), dirGroup.end());
 		//dirGroup에서 최솟값을 가진 요소의 반복자를 minElement에 할당
 
-		if (minElement != dirGroup.end()) 
+		if (minElement != dirGroup.end())
 		{
 			index = std::distance(dirGroup.begin(), minElement);
 		}
@@ -243,4 +283,59 @@ float4 Player::GetFirePos()
 	float4 retunpos = FirePos[num];
 
 	return FirePos[num];
+}
+
+void Player::WallCheck()
+{
+
+	unsigned int Color = GetGroundColor(RGB(255, 255, 255), float4(0, 17));
+	if (RGB(255, 255, 255) != Color)
+	{
+		unsigned int CheckColor = GetGroundColor(RGB(255, 255, 255), float4(0, 17));
+
+		while (CheckColor != RGB(255, 255, 255))
+		{
+			CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+			AddPos(float4::UP);
+		}
+	}
+
+	unsigned int Color2 = GetGroundColor(RGB(255, 255, 255), float4(0, -17));
+	if (RGB(255, 255, 255) != Color2)
+	{
+		unsigned int CheckColor = GetGroundColor(RGB(255, 255, 255), float4(0, -17));
+
+		while (CheckColor != RGB(255, 255, 255))
+		{
+			CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+			AddPos(float4::DOWN);
+		}
+	}
+
+
+	unsigned int Color3 = GetGroundColor(RGB(255, 255, 255), float4(-18, 0));
+	if (RGB(255, 255, 255) != Color3)
+	{
+		unsigned int CheckColor = GetGroundColor(RGB(255, 255, 255), float4(-18, 0));
+
+		while (CheckColor != RGB(255, 255, 255))
+		{
+			CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+			AddPos(float4::RIGHT);
+		}
+	}
+
+
+	unsigned int Color4 = GetGroundColor(RGB(255, 255, 255), float4(18, 0));
+	if (RGB(255, 255, 255) != Color4)
+	{
+		unsigned int CheckColor = GetGroundColor(RGB(255, 255, 255), float4(18, 0));
+
+		while (CheckColor != RGB(255, 255, 255))
+		{
+			CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+			AddPos(float4::LEFT);
+		}
+	}
+
 }

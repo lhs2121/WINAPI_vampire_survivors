@@ -38,11 +38,12 @@ private:
 	bool LeftWallCheck;
 	bool OnCollision = false;
 
-	void MoveLeft();
-	void MoveRight();
-	void MoveOtherRenderer();
+	void MoveRendererLeft();
+	void MoveRendererRight();
+	void MoveCollisionLeft();
+	void MoveCollisionRight();
+	
 	void Start() override;
-	void Update(float _Delta) override;
 	
 };
 

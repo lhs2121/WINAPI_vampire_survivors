@@ -86,6 +86,7 @@ private:
 
 	void LevelUp();
 
+	void WallCheck();
 	void LevelStart() override;
 	void Start() override;
 	void Update(float _Delta) override;

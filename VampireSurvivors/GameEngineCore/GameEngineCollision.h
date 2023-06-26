@@ -175,6 +175,11 @@ public:
 		CollisionRenderValue = false;
 	}
 
+	void RenderOff()
+	{
+		CollisionRenderValue = false;
+	}
+
 	float4 GetCollisionPos()
 	{
 		return CollisionPos;

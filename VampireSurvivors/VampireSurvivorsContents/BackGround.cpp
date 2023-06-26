@@ -37,10 +37,11 @@ void BackGround::Start()
 	OffSetX = float4(Scale.X, 0);
 	OffSetY = float4(0, Scale.Y);
 
-	SetPos(float4::ZERO);
+	SetPos({ 1024,464 });
 
 	Renderer = CreateRenderer(RenderOrder::BackGround);
 	DebugRenderer = CreateRenderer(RenderOrder::BackGround);
+
 
 	Renderer->On();
 	DebugRenderer->Off();
@@ -54,20 +55,16 @@ void BackGround::Start()
 	{
 		LeftWall = CreateCollision(CollisionOrder::BackGround);
 		LeftWall->SetCollisionPos(-OffSetX.Half());
-		LeftWall->SetCollisionScale(OffSetY);
+		LeftWall->SetCollisionScale({ 10,OffSetY.Y });
 
 		RightWall = CreateCollision(CollisionOrder::BackGround);
 		RightWall->SetCollisionPos(OffSetX.Half());
-		RightWall->SetCollisionScale(OffSetY);
+		RightWall->SetCollisionScale({ 10,OffSetY.Y });
+
 	}
 
-	MoveOtherRenderer();
-}
-
-void BackGround::Update(float _Delta)
-{
-
-
+	OtherRendererGroup[0]->SetRenderPos(Renderer->GetRenderPos() - OffSetX);
+	OtherRendererGroup[1]->SetRenderPos(Renderer->GetRenderPos() + OffSetX);
 
 }
 
@@ -80,6 +77,7 @@ void BackGround::Init(const std::string& _FileName, const std::string& _DebugFil
 		Renderer->SetTexture(FileName);
 		DebugRenderer->SetTexture(_DebugFileName);
 		DebugRenderer->SetRenderScale(Scale);
+
 	}
 }
 
@@ -101,87 +99,92 @@ void BackGround::SwitchRender()
 
 void BackGround::BackGroundLoop(Player* player)
 {
-
 	GameEngineCollision* PlayerCol = Player::GetMainPlayer()->GetCollsion();
 
-	if (RightWall->CollisonCheck(PlayerCol, CollisionType::Rect, CollisionType::CirCle))//플레이어가 오른쪽벽에 닿았을때
-	{
-		if (OnCollision == false)
-		{
-			MoveRight();
+	static bool oncolleft = false;
+	static bool oncolright = false;
 
-			RightWallCheck = true;
-			LeftWallCheck = false;
-			OnCollision = true;
+	if (PlayerCol->CollisonCheck(LeftWall, CollisionType::CirCle, CollisionType::Rect))
+	{
+		if (oncolleft == false)
+		{
+			MoveRendererLeft();
+			oncolleft = true;
 		}
 	}
-
-	else if (LeftWall->CollisonCheck(PlayerCol, CollisionType::Rect, CollisionType::CirCle)) //플레이어가 왼쪽벽에 닿았을때
+	else if (true == oncolleft && false == PlayerCol->CollisonCheck(LeftWall, CollisionType::CirCle, CollisionType::Rect))
 	{
 
-		if (OnCollision == false)
-		{
-			MoveLeft();
+		float4 playerpos = Player::GetMainPlayer()->GetPos();
+		float4 wallpos = GetPos() + LeftWall->GetCollisionPos();
+		float4 dir = playerpos - wallpos;
 
-			LeftWallCheck = true;
-			RightWallCheck = false;
-			OnCollision = true;
+		if (dir.X < 0) //왼쪽벽에서 나왔는데 플레이어가 왼쪽에있다면
+		{
+			MoveCollisionLeft();
 		}
+		else if (dir.X > 0)//왼쪽벽에서 나왔는데 플레이어가 오른쪽에있다면
+		{
+			MoveRendererRight();
+		}
+
+		oncolleft = false;
 	}
 
-	else if (false == RightWall->CollisonCheck(PlayerCol, CollisionType::Rect, CollisionType::CirCle) &&
-		false == LeftWall->CollisonCheck(PlayerCol, CollisionType::Rect, CollisionType::CirCle) &&
-		true == OnCollision) //플레이어가 벽에서 벗어났을 때
+	if (PlayerCol->CollisonCheck(RightWall, CollisionType::CirCle, CollisionType::Rect))
 	{
-		if (true == RightWallCheck) //이전프레임 에서 오른쪽벽과 충돌하고 있었다면
+		if (oncolright == false)
 		{
-			float4 dir = Player::GetMainPlayer()->GetPos() - LeftWall->GetCollisionPos();
-
-			if (dir.X < 0)
-			{
-				MoveLeft();
-			}
+			MoveRendererRight();
+			oncolright = true;
 		}
-		else if (true == LeftWallCheck) //이전프레임 에서 왼벽과 충돌하고 있었다면
-		{
-			float4 dir = Player::GetMainPlayer()->GetPos() - RightWall->GetCollisionPos();
-
-			if (dir.X > 0)
-			{
-				MoveRight();
-			}
-		}
-
-		LeftWallCheck = false;
-		RightWallCheck = false;
-		OnCollision = false;
 	}
+	else if (true == oncolright && false == PlayerCol->CollisonCheck(RightWall, CollisionType::CirCle, CollisionType::Rect))
+	{
+
+		float4 playerpos = Player::GetMainPlayer()->GetPos();
+		float4 wallpos = GetPos() + RightWall->GetCollisionPos();
+		float4 dir = playerpos - wallpos;
+
+		if (dir.X < 0) //왼쪽벽에서 나왔는데 플레이어가 왼쪽에있다면
+		{
+			MoveRendererLeft();
+		}
+		else if (dir.X > 0)//왼쪽벽에서 나왔는데 플레이어가 오른쪽에있다면
+		{
+			MoveCollisionRight();
+		}
+
+		oncolright = false;
+	}
+
+	
+
 }
 
-void BackGround::MoveRight()
+void BackGround::MoveRendererRight()
 {
 	Renderer->SetRenderPos(Renderer->GetRenderPos() + OffSetX);
 	DebugRenderer->SetRenderPos(Renderer->GetRenderPos());
-
-	LeftWall->SetCollisionPos(LeftWall->GetCollisionPos() + OffSetX);
-	RightWall->SetCollisionPos(RightWall->GetCollisionPos() + OffSetX);
-	MoveOtherRenderer();
+	OtherRendererGroup[0]->SetRenderPos(Renderer->GetRenderPos() - OffSetX);
+	OtherRendererGroup[1]->SetRenderPos(Renderer->GetRenderPos() + OffSetX);
 }
 
-void BackGround::MoveLeft()
+void BackGround::MoveRendererLeft()
 {
 	Renderer->SetRenderPos(Renderer->GetRenderPos() + (-OffSetX));
 	DebugRenderer->SetRenderPos(Renderer->GetRenderPos());
-
-	LeftWall->SetCollisionPos(LeftWall->GetCollisionPos() + (-OffSetX));
-	RightWall->SetCollisionPos(RightWall->GetCollisionPos() + (-OffSetX));
-	MoveOtherRenderer();
+	OtherRendererGroup[0]->SetRenderPos(Renderer->GetRenderPos() - OffSetX);
+	OtherRendererGroup[1]->SetRenderPos(Renderer->GetRenderPos() + OffSetX);
 }
 
-void BackGround::MoveOtherRenderer()
+void BackGround::MoveCollisionLeft()
 {
-	OtherRendererGroup[0]->SetRenderPos(Renderer->GetRenderPos() + float4(-Scale.X, 0));
-	OtherRendererGroup[1]->SetRenderPos(Renderer->GetRenderPos() + float4(Scale.X, 0));
-
+	LeftWall->SetCollisionPos(LeftWall->GetCollisionPos() - OffSetX);
+	RightWall->SetCollisionPos(RightWall->GetCollisionPos() - OffSetX);
 }
-
+void BackGround::MoveCollisionRight()
+{
+	LeftWall->SetCollisionPos(LeftWall->GetCollisionPos() + OffSetX);
+	RightWall->SetCollisionPos(LeftWall->GetCollisionPos() + OffSetX);
+}
