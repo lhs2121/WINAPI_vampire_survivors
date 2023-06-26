@@ -4,7 +4,6 @@
 enum class WeaponType;
 class PlayerShooter : public GameEngineActor
 {
-	friend class Player;
 	friend class ItemSelectUI;
 
 public:
@@ -17,11 +16,7 @@ public:
 	PlayerShooter& operator=(const PlayerShooter& _Other) = delete;
 	PlayerShooter& operator=(PlayerShooter&& _Other) noexcept = delete;
 
-protected:
-
 private:
-
-	class GameEngineRenderer* cool;
 	void CreateProjectile(float _Delta, WeaponType _Type);
 
 	void Start() override;

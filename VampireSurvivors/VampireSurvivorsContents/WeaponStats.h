@@ -17,6 +17,7 @@ private:
 	float coolTime;
 	float interval;
 	float4 scale;
+	bool isSelecting = false;
 
 
 public:
@@ -60,6 +61,9 @@ public:
 
 	float4 getScale() const { return scale; }
 	void setScale(float4 value) { scale = value; }
+
+	bool getIsSelecting() const { return isSelecting; }
+	void setIsSelecting(bool _value) { isSelecting = _value; }
 
 	void addLevel(int value) { level += value; }
 	void addCount(int value) { count += value; }

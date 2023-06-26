@@ -57,6 +57,15 @@ void ItemButton::SetTexture()
 	CurType = static_cast<WeaponType>(num);
 	Curlevel = WeaponStats::AllStats[CurType].getLevel();
 
+	if (false == WeaponStats::AllStats[CurType].getIsSelecting())
+	{
+		WeaponStats::AllStats[CurType].setIsSelecting(true);
+	}
+	else
+	{
+		SetTexture();
+	}
+
 	switch (CurType)
 	{
 	case WeaponType::Knife:
@@ -293,6 +302,8 @@ void ItemButton::OnClick()
 
 void ItemButton::Off()
 {
+	WeaponStats::AllStats[CurType].setIsSelecting(false);
+
 	_Count = 0;
 	_Speed = 0;
 	_Damage = 0;

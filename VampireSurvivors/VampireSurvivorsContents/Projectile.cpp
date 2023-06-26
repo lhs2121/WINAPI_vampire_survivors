@@ -1,8 +1,8 @@
+#include "Player.h"
+#include "Enemy.h"
 #include "Projectile.h"
 #include "ContentsEnum.h"
 #include "PlayerShooter.h"
-#include "Enemy.h"
-#include "Player.h"
 #include "WeaponStats.h"
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>

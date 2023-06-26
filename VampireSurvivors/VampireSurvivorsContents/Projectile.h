@@ -1,6 +1,7 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-#include "ContentsEnum.h"
+
+enum class WeaponType;
 class Projectile : public GameEngineActor
 {
 
