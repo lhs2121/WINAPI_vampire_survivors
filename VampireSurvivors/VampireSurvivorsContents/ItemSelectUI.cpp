@@ -31,17 +31,26 @@ void ItemSelectUI::Start()
 		ItemSelectPanel = CreateUIRenderer(RenderOrder::PlayUI);
 		ItemSelectPanel->SetRenderPos({ 545,345 });
 		ItemSelectPanel->SetTexture("ItemSelectPanel.bmp");
+
+		Text = CreateUIRenderer(RenderOrder::Text);
+		Text->SetRenderPos({ 495,90 });
+		Text->SetText("레벨 업!", 35, "메이플스토리");
+
 	}
 
 	{
+		float4 scale = float4(388, 100);
 		Button1 = CreateCollision(CollisionOrder::PlayUI);
-		Button1->SetCollisionScale({ 388,166 });
+		Button1->SetCollisionScale(scale);
 
 		Button2 = CreateCollision(CollisionOrder::PlayUI);
-		Button2->SetCollisionScale({ 388,166 });
+		Button2->SetCollisionScale(scale);
 
 		Button3 = CreateCollision(CollisionOrder::PlayUI);
-		Button3->SetCollisionScale({ 388,166 });
+		Button3->SetCollisionScale(scale);
+
+		Button4 = CreateCollision(CollisionOrder::PlayUI);
+		Button4->SetCollisionScale(scale);
 
 		Mouse = CreateCollision(CollisionOrder::PlayUI);
 		Mouse->SetCollisionScale({ 50,50 });
@@ -92,41 +101,76 @@ void ItemSelectUI::Update(float _Delta)
 		}
 	}
 
+	if (true == Button4->CollisonCheck(Mouse, CollisionType::Rect, CollisionType::Rect) && Button4->IsUpdate())
+	{
+		if (GameEngineInput::IsDown(VK_LBUTTON))
+		{
+			ItemButton4->OnClick();
+			GameEngineTime::MainTimer.SetAllTimeScale(1);
+			PlayLevel* lv = static_cast<PlayLevel*>(GetLevel());
+			lv->SpawnCheck = true;
+			Off();
+		}
+	}
+
 }
 
 void ItemSelectUI::On()
 {
 	ItemSelectPanel->On();
+	Text->On();
 
-	ItemButton1 = GetLevel()->CreateActor<ItemButton>(UpdateOrder::PlayUI);
-	ItemButton1->SetPos({ 545,145 });
-	ItemButton1->SetTexture();
-	ItemButton1->On();
+	{
+		ItemButton1 = GetLevel()->CreateActor<ItemButton>(UpdateOrder::PlayUI);
+		ItemButton1->SetPos({ 545,210 });
+		ItemButton1->SetTexture();
+		ItemButton1->On();
 
-	ItemButton2 = GetLevel()->CreateActor<ItemButton>(UpdateOrder::PlayUI);
-	ItemButton2->SetPos({ 545,345 });
-	ItemButton2->SetTexture();
-	ItemButton2->On();
-
-	ItemButton3 = GetLevel()->CreateActor<ItemButton>(UpdateOrder::PlayUI);
-	ItemButton3->SetPos({ 545,545 });
-	ItemButton3->SetTexture();
-	ItemButton3->On();
+		Button1->On();
+		Button1->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + ItemButton1->GetPos());
+	}
 
 
-	Button1->On();
-	Button1->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + ItemButton1->GetPos());
+	{
+		ItemButton2 = GetLevel()->CreateActor<ItemButton>(UpdateOrder::PlayUI);
+		ItemButton2->SetPos({ 545,325 });
+		ItemButton2->SetTexture();
+		ItemButton2->On();
 
-	Button2->On();
-	Button2->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + ItemButton2->GetPos());
+		Button2->On();
+		Button2->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + ItemButton2->GetPos());
+	}
 
-	Button3->On();
-	Button3->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + ItemButton3->GetPos());
+
+	{
+		ItemButton3 = GetLevel()->CreateActor<ItemButton>(UpdateOrder::PlayUI);
+		ItemButton3->SetPos({ 545,440 });
+		ItemButton3->SetTexture();
+		ItemButton3->On();
+
+		Button3->On();
+		Button3->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + ItemButton3->GetPos());
+	}
+
+	{
+		if (true == IsLucky)
+		{
+			ItemButton4 = GetLevel()->CreateActor<ItemButton>(UpdateOrder::PlayUI);
+			ItemButton4->SetPos({ 545,555 });
+			ItemButton4->SetTexture();
+			ItemButton4->On();
+
+			Button4->On();
+			Button4->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + ItemButton3->GetPos());
+		}
+
+	}
+
 }
 void ItemSelectUI::Off()
 {
 	ItemSelectPanel->Off();
-
+	Text->Off();
 	if (ItemButton1 != nullptr)
 	{
 		ItemButton1->Off();
@@ -142,9 +186,15 @@ void ItemSelectUI::Off()
 		ItemButton3->Off();
 	}
 
+	if (ItemButton4 != nullptr)
+	{
+		ItemButton4->Off();
+	}
+
 	Button1->Off();
 	Button2->Off();
 	Button3->Off();
+	Button4->Off();
 }
 
 void ItemSelectUI::SetItemPanel()

@@ -7,7 +7,7 @@
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
-#include <sstream>
+#include <map>
 
 void ItemButton::Start()
 {
@@ -52,6 +52,34 @@ void ItemButton::Update(float _Delta)
 }
 void ItemButton::SetTexture()
 {
+
+	bool AllSelecting;
+
+	for (int i = 0; i < WeaponStats::AllStats.size(); i++)
+	{
+		WeaponType Type = static_cast<WeaponType>(i);
+		if (true == WeaponStats::AllStats[Type].getIsSelecting())
+		{
+			AllSelecting = true;
+		}
+		else
+		{
+			AllSelecting = false;
+			break;
+		}
+		
+	}
+
+	if (AllSelecting)
+	{
+		Panel->SetTexture("null.bmp");
+		WeaponNameText->SetTexture("null.bmp");
+		NewText->SetTexture("null.bmp");
+		DetailText->SetTexture("null.bmp");
+		DetailText2->SetTexture("null.bmp");
+		return;
+	}
+
 	int num = GameEngineRandom::MainRandom.RandomInt(0, 3);
 
 	CurType = static_cast<WeaponType>(num);
@@ -64,6 +92,7 @@ void ItemButton::SetTexture()
 	else
 	{
 		SetTexture();
+		return;
 	}
 
 	switch (CurType)
@@ -302,7 +331,11 @@ void ItemButton::OnClick()
 
 void ItemButton::Off()
 {
-	WeaponStats::AllStats[CurType].setIsSelecting(false);
+	if (WeaponStats::AllStats[CurType].getLevel() < 8)
+	{
+		WeaponStats::AllStats[CurType].setIsSelecting(false);
+	}
+	
 
 	_Count = 0;
 	_Speed = 0;

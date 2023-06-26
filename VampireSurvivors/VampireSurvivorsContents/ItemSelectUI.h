@@ -28,9 +28,12 @@ public:
 private:
 
 	class GameEngineRenderer* ItemSelectPanel;
+	class GameEngineRenderer* Text;
+
 	class ItemButton* ItemButton1 = nullptr;
 	class ItemButton* ItemButton2 = nullptr;
 	class ItemButton* ItemButton3 = nullptr;
+	class ItemButton* ItemButton4 = nullptr;
 
 	class GameEngineCollision* Button1;
 	class GameEngineCollision* Button2;
@@ -39,6 +42,7 @@ private:
 
 	class GameEngineCollision* Mouse;
 
+	bool IsLucky = false;
 	void Start() override;
 	void Update(float _Delta) override;
 	
