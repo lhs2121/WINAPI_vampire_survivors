@@ -8,6 +8,7 @@ class PlayerUI : public GameEngineActor
 	friend class Player;
 	friend class Enemy;
 public:
+
 	static PlayerUI* UI;
 
 public:
@@ -25,8 +26,6 @@ public:
 	float seconds = 0;
 
 private:
-
-
 	GameEngineRenderer* Text_Level;
 	GameEngineRenderer* Text_MonsterDeathCount;
 	GameEngineRenderer* Text_Gold;

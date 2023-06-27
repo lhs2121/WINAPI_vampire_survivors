@@ -1,18 +1,21 @@
 #pragma once
 #include <VampireSurvivorsContents/PlayActor.h>
-
+#include "WeaponStats.h"
+#include "ContentsEnum.h"
 enum class DirState
 {
 	Left,
 	Right
 };
 
-class Weapon;
+
 class GameEngineRenderer;
 class Player : public PlayActor
 {
 	friend class PlayerUI;
 public:
+	static std::vector<WeaponType> MyWeapon;
+	static std::vector<WeaponType> MyAccessory;
 
 	Player();
 	~Player();
@@ -38,7 +41,9 @@ public:
 		return Collision2;
 	}
 
-
+	
+	void AddWeapon(WeaponType _Type);
+	
 	float4 GetPlayerDir()
 	{
 		return PlayerDir;
@@ -73,7 +78,7 @@ private:
 	float4 PlayerDir;
 	float4 HpGaugeScale;
 
-	DirState dirstate;
+	DirState dirstate = DirState::Right;
 
 	float MaxHp = 100;
 	float Hp = 100;

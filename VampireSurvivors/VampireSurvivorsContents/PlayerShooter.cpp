@@ -5,9 +5,6 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineLevel.h>
 
-
-
-
 void PlayerShooter::Start()
 {
 	WeaponStats::AllStatsSetting();

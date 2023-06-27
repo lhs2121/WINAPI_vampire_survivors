@@ -2,6 +2,8 @@
 #include "ContentsEnum.h"
 #include "PlayerShooter.h"
 #include "WeaponStats.h"
+#include "Player.h"
+#include "ItemSelectUI.h"
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineRenderer.h>
@@ -319,6 +321,14 @@ void ItemButton::SetTexture()
 
 void ItemButton::OnClick()
 {
+	if (Curlevel == 0)
+	{
+		Player::GetMainPlayer()->AddWeapon(CurType);
+	}
+	else
+	{
+		ItemSelectUI::SelectUI->WeaponSlotUpgrade(CurType);
+	}
 	WeaponStats::AllStats[CurType].addLevel(1);
 	WeaponStats::AllStats[CurType].addCount(_Count);
 	WeaponStats::AllStats[CurType].addDamage(_Damage);

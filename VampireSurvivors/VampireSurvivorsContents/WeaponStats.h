@@ -18,15 +18,18 @@ private:
 	float interval;
 	float4 scale;
 	bool isSelecting = false;
-
+	std::string SlotTextureName;
+	int SlotNumber;
 
 public:
 	static std::map<WeaponType,WeaponStats> AllStats;
 
 	static void AllStatsSetting();
 
+	
+
 	void setStats(int _level, int _Count, float _speed, float _damage, float _deathTime, 
-	float _cooltime, float _interval, float4 _scale)
+	float _cooltime, float _interval, float4 _scale, const std::string& _name)
 	{
 		level = _level;
 		count = _Count;
@@ -36,6 +39,7 @@ public:
 		coolTime = _cooltime;
 		interval = _interval;
 		scale = _scale;
+		SlotTextureName = _name;
 	}
 	
 	int getLevel() const { return level; }
@@ -64,6 +68,11 @@ public:
 
 	bool getIsSelecting() const { return isSelecting; }
 	void setIsSelecting(bool _value) { isSelecting = _value; }
+
+	void setSlotNumber(int _value) { SlotNumber = _value; }
+	int getSlotNumber() const{ return SlotNumber; }
+
+	std::string getSlotTextureName() const { return SlotTextureName; };
 
 	void addLevel(int value) { level += value; }
 	void addCount(int value) { count += value; }

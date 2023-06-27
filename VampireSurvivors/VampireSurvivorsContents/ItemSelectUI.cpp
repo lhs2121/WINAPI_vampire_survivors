@@ -2,20 +2,24 @@
 #include "ContentsEnum.h"
 #include "PlayLevel.h"
 #include "ItemButton.h"
+#include "WeaponStats.h"
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEngineCore/ResourcesManager.h>
+#include <GameEngineCore/GameEngineSprite.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
 
+ItemSelectUI* ItemSelectUI::SelectUI = nullptr;
 
 void ItemSelectUI::Start()
 {
+	
 	if (false == ResourcesManager::GetInst().IsLoadTexture("ItemSelectPanel.bmp"))
 	{
 		GameEnginePath path;
@@ -24,6 +28,66 @@ void ItemSelectUI::Start()
 		path.MoveChild("Resources\\PlayScene\\");
 		path.MoveChild("UI\\");
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("ItemSelectPanel.bmp"));
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("PlayetStatsPanel.bmp"));
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("WeaponChecker.bmp"), 9, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("AccessoryChecker.bmp"), 6, 1);
+
+		path.MoveChild("ItemSlotImage\\");
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("knifeslot.bmp"));
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("wandslot.bmp"));
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("axeslot.bmp"));
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("runeslot.bmp"));
+
+	}
+
+	{
+		StatsPanel = CreateUIRenderer(RenderOrder::PlayUI);
+		StatsPanel->SetTexture("PlayetStatsPanel.bmp");
+		StatsPanel->SetRenderPos({ 110,300 });
+
+		float4 PrevPos = float4::ZERO;
+
+		for (int i = 0; i < 6; i++)
+		{
+			WeaponChecker[i] = CreateUIRenderer(RenderOrder::PlayUI);
+
+			if (PrevPos == float4::ZERO)
+			{
+				WeaponChecker[i]->SetRenderPos({ 30,80 });
+			}
+			else
+			{
+				WeaponChecker[i]->SetRenderPos(PrevPos+float4(30,0));
+			}
+			
+			WeaponChecker[i]->SetSprite("WeaponChecker.bmp", 0);
+			WeaponChecker[i]->SetRenderScale({ 24,24 });
+			WeaponChecker[i]->Off();
+
+			PrevPos = WeaponChecker[i]->GetRenderPos();
+		}
+
+		PrevPos = float4::ZERO;
+
+		for (int i = 0; i < 6; i++)
+		{
+			AccessoryChecker[i] = CreateUIRenderer(RenderOrder::PlayUI);
+
+			if (PrevPos == float4::ZERO)
+			{
+				AccessoryChecker[i]->SetRenderPos({ 30,145 });
+			}
+			else
+			{
+				AccessoryChecker[i]->SetRenderPos(PrevPos + float4(30, 0));
+			}
+
+			AccessoryChecker[i]->SetSprite("AccessoryChecker.bmp", 0);
+			AccessoryChecker[i]->SetRenderScale({ 24,24 });
+			AccessoryChecker[i]->Off();
+
+			PrevPos = AccessoryChecker[i]->GetRenderPos();
+		}
 
 	}
 
@@ -32,6 +96,7 @@ void ItemSelectUI::Start()
 		ItemSelectPanel->SetRenderPos({ 545,345 });
 		ItemSelectPanel->SetTexture("ItemSelectPanel.bmp");
 
+	
 		Text = CreateUIRenderer(RenderOrder::Text);
 		Text->SetRenderPos({ 495,90 });
 		Text->SetText("레벨 업!", 35, "메이플스토리");
@@ -60,6 +125,50 @@ void ItemSelectUI::Start()
 	Off();
 }
 
+void ItemSelectUI::CreateWeaponSlotRenderer(WeaponType _Type)
+{
+	if (WeaponNum == 5)
+	{
+		return;
+	}
+
+	static float4 prevpos = float4::ZERO;
+
+	WeaponRenderer[WeaponNum] = CreateUIRenderer(RenderOrder::PlayUI);
+
+	if (prevpos == float4::ZERO)
+	{
+		WeaponRenderer[WeaponNum]->SetRenderPos({ 30,50 });
+	}
+	else
+	{
+		WeaponRenderer[WeaponNum]->SetRenderPos(prevpos+float4(30,0));
+	}
+	
+	prevpos = WeaponRenderer[WeaponNum]->GetRenderPos();
+
+	WeaponRenderer[WeaponNum]->SetRenderScale({ 24,24 });
+	WeaponRenderer[WeaponNum]->SetTexture(WeaponStats::AllStats[_Type].getSlotTextureName());
+
+	WeaponStats::AllStats[_Type].setSlotNumber(WeaponNum);
+	WeaponNum += 1;
+
+}
+
+void ItemSelectUI::WeaponSlotUpgrade(WeaponType _Type)
+{
+	
+	int num = WeaponStats::AllStats[_Type].getSlotNumber();
+
+	if (WeaponUpgradeNum[num] == 8)
+	{
+		return;
+	}
+
+	WeaponChecker[num]->SetSprite("WeaponChecker.bmp", WeaponUpgradeNum[num] + 1);
+
+	WeaponUpgradeNum[num] += 1;
+}
 
 void ItemSelectUI::Update(float _Delta)
 {
@@ -118,7 +227,14 @@ void ItemSelectUI::Update(float _Delta)
 void ItemSelectUI::On()
 {
 	ItemSelectPanel->On();
+	StatsPanel->On();
 	Text->On();
+
+	for (int i = 0; i < 6; i++)
+	{
+		WeaponChecker[i]->On();
+		AccessoryChecker[i]->On();
+	}
 
 	{
 		ItemButton1 = GetLevel()->CreateActor<ItemButton>(UpdateOrder::PlayUI);
@@ -170,7 +286,16 @@ void ItemSelectUI::On()
 void ItemSelectUI::Off()
 {
 	ItemSelectPanel->Off();
+	StatsPanel->Off();
 	Text->Off();
+
+	for (int i = 0; i < 6; i++)
+	{
+		WeaponChecker[i]->Off();
+		AccessoryChecker[i]->Off();
+	}
+
+
 	if (ItemButton1 != nullptr)
 	{
 		ItemButton1->Off();
@@ -197,7 +322,3 @@ void ItemSelectUI::Off()
 	Button4->Off();
 }
 
-void ItemSelectUI::SetItemPanel()
-{
-
-}

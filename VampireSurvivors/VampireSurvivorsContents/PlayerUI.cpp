@@ -69,6 +69,7 @@ void PlayerUI::Start()
 		SlotPanel = CreateUIRenderer(RenderOrder::PlayUI);
 		SlotPanel->SetTexture("SlotPanel.bmp");
 		SlotPanel->SetRenderPos({ 100,58 });
+	
 	}
 
 	{
