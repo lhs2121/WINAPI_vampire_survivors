@@ -64,13 +64,13 @@ void Enemy::Start()
 
 	Renderer->CreateAnimation("Enemy_LeftRun", "Lenemy1.bmp", 0, 4, 0.1f, true);
 	Renderer->CreateAnimation("Enemy_RightRun", "Renemy1.bmp", 0, 4, 0.1f, true);
-	Renderer->CreateAnimation("Enemy_Death_Left", "LEnemy_death.bmp", 0, 7, 0.1f, true);
-	Renderer->CreateAnimation("Enemy_Death_Right", "REnemy_death.bmp", 0, 7, 0.1f, true);
+	Renderer->CreateAnimation("Enemy_Death_Left", "LEnemy_death.bmp", 0, 7, 0.1f, false);
+	Renderer->CreateAnimation("Enemy_Death_Right", "REnemy_death.bmp", 0, 7, 0.1f, false);
 
 	Renderer->CreateAnimation("Enemy2_LeftRun", "Lenemy2.bmp", 0, 3, 0.1f, true);
 	Renderer->CreateAnimation("Enemy2_RightRun", "Renemy2.bmp", 0, 3, 0.1f, true);
-	Renderer->CreateAnimation("Enemy2_Death_Left", "LEnemy2_death.bmp", 0, 6, 0.1f, true);
-	Renderer->CreateAnimation("Enemy2_Death_Right", "REnemy2_death.bmp", 0, 6, 0.1f, true);
+	Renderer->CreateAnimation("Enemy2_Death_Left", "LEnemy2_death.bmp", 0, 6, 0.1f, false);
+	Renderer->CreateAnimation("Enemy2_Death_Right", "REnemy2_death.bmp", 0, 6, 0.1f, false);
 
 	switch (type)
 	{
@@ -112,6 +112,7 @@ void Enemy::Update(float _Delta)
 		}
 
 		CollisionCheck(_Delta);
+		WallCheck();
 	}
 
 	if (hp <= 0)
@@ -167,7 +168,7 @@ void Enemy::Update(float _Delta)
 		}
 	}
 
-	WallCheck();
+	
 }
 
 void Enemy::Move(float _Delta)

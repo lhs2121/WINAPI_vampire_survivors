@@ -24,7 +24,7 @@ std::vector<WeaponType> Player::MyAccessory;
 
 Player::Player()
 {
-	
+
 }
 
 Player::~Player()
@@ -258,6 +258,10 @@ void Player::AddExp(float _Exp)
 	float expGaugeImage = (PlayerUI::UI->ExpGuageScale.X / Player::GetMainPlayer()->MaxExp) * _Exp;
 
 	PlayerUI::UI->ExpGauge->SetRenderScale(PlayerUI::UI->ExpGauge->GetRenderScale() + float4{ expGaugeImage, 0 });
+
+	PlayerUI::UI->ExpGauge->SetRenderPos({545,12});
+	float decrease = (PlayerUI::UI->ExpGuageScale.X - PlayerUI::UI->ExpGauge->GetRenderScale().X + expGaugeImage) / 2;
+	PlayerUI::UI->ExpGauge->SetRenderPos(PlayerUI::UI->ExpGauge->GetRenderPos() - float4(decrease, 0));
 }
 void Player::LevelUp()
 {
@@ -266,9 +270,8 @@ void Player::LevelUp()
 		Exp = 0;
 		MaxExp += 50;
 		Level += 1;
-
-
 		PlayerUI::UI->ExpGauge->SetRenderScale({ 0,16 });
+
 		PlayerUI::UI->Text_Level->SetText("LV" + std::to_string(Level), 20, "메이플스토리");
 
 		PlayLevel* level = static_cast<PlayLevel*>(GetLevel());

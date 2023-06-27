@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-
+#include <vector>
 
 class GameEngineRenderer;
 class ItemButton;
@@ -34,12 +34,18 @@ public:
 	void CreateWeaponSlotRenderer(WeaponType _Type);
 private:
 	int WeaponNum = 0;
+	int AccessoryNum = 0;
+
 	int WeaponUpgradeNum[6] = { 0 };
+
 	GameEngineRenderer* ItemSelectPanel;
 	GameEngineRenderer* Text;
 	GameEngineRenderer* StatsPanel;
+	GameEngineRenderer* TopAlpha;
+	GameEngineRenderer* BottomAlpha;
 
-	GameEngineRenderer* WeaponRenderer[4];
+
+	std::vector<GameEngineRenderer*> WeaponRenderer;
 	GameEngineRenderer* AccessoryRenderer[4];
 
 	GameEngineRenderer* WeaponChecker[6];

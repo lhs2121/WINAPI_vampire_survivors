@@ -40,6 +40,14 @@ void Projectile::Start()
 		GameEngineSprite* Sprite_Runetracer = ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Runetracer.bmp"), 1, 1);
 		Sprite_Runetracer->SetMaskTexture("Runetracer_Mask.bmp");
 
+		GameEngineSprite* Sprite_FireWand = ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("FireWand.bmp"), 1, 1);
+		Sprite_Runetracer->SetMaskTexture("FireWand.bmp");
+
+		GameEngineSprite* Sprite_Cross = ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Cross.bmp"), 1, 1);
+		Sprite_Runetracer->SetMaskTexture("Cross_Mask.bmp");
+
+		GameEngineSprite* Sprite_Whip = ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Whip.bmp"), 3, 1);
+		Sprite_Runetracer->SetMaskTexture("Whip_Mask.bmp");
 	}
 
 	Renderer = CreateRenderer(RenderOrder::Weapon);
@@ -47,6 +55,10 @@ void Projectile::Start()
 	Renderer->CreateAnimation("Knife", "Knife.bmp", 0, 0, 0.5f, false);
 	Renderer->CreateAnimation("Axe", "Axe.bmp", 0, 0, 0.5f, false);
 	Renderer->CreateAnimation("Runetracer", "Runetracer.bmp", 0, 0, 0.5f, false);
+	Renderer->CreateAnimation("FireWand", "FireWand.bmp", 0, 0, 0.5f, false);
+	Renderer->CreateAnimation("Cross_Mask", "Cross_Mask.bmp", 0, 0, 0.5f, false);
+	Renderer->CreateAnimation("Whip", "Whip.bmp", 0, 2, 0.5f, false);
+	
 
 	Collision = CreateCollision(CollisionOrder::Weapon);
 	Collision->SetCollisionScale({ 30,30 });
@@ -69,6 +81,15 @@ void Projectile::Update(float _Delta)
 		break;
 	case WeaponType::Runetracer:
 		Runetracer_Attack(_Delta);
+		break;
+	case WeaponType::FireWand:
+		FireWand_Attack(_Delta);
+		break;
+	case WeaponType::Cross:
+		Cross_Attack(_Delta);
+		break;
+	case WeaponType::Whip:
+		Whip_Attack(_Delta);
 		break;
 	default:
 		break;
@@ -265,6 +286,48 @@ void Projectile::Runetracer_Attack(float _Delta)
 
 }
 
+void Projectile::FireWand_Attack(float _Delta)
+{
+	if (IsReady == false)
+	{
+		dir = Player::GetMainPlayer()->GetMinDistance();
+
+		SetPos(Player::GetMainPlayer()->GetPos());
+		Renderer->SetAngle(dir.AngleDeg());
+		Renderer->On();
+		IsReady = true;
+		if (dir == float4::ZERO)
+		{
+			Death();
+		}
+		return;
+	}
+
+	AddPos(dir * Speed * _Delta);
+
+	DeathTime -= _Delta;
+
+	if (DeathTime <= 0)
+	{
+		Death();
+	}
+
+	std::vector<GameEngineCollision*> result;
+	if (true == Collision->Collision(CollisionOrder::Monster, result, CollisionType::CirCle, CollisionType::CirCle))
+	{
+		Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
+		enemy->ApplyDamage(Damage);
+		Death();
+	}
+}
+void Projectile::Cross_Attack(float _Delta)
+{
+
+}
+void Projectile::Whip_Attack(float _Delta)
+{
+
+}
 void Projectile::Setting(WeaponType _Type)
 {
 	Type = _Type;
@@ -327,6 +390,41 @@ void Projectile::Setting(WeaponType _Type)
 
 		break;
 
+	case WeaponType::FireWand:
+		Renderer->ChangeAnimation("FireWand");
+
+		Speed = WeaponStats::AllStats[WeaponType::FireWand].getSpeed();
+		Damage = WeaponStats::AllStats[WeaponType::FireWand].getDamage();
+		DeathTime = WeaponStats::AllStats[WeaponType::FireWand].getDeathTime();
+		Scale = WeaponStats::AllStats[WeaponType::FireWand].getScale();
+
+		Collision->SetCollisionScale(Scale);
+		Collision->SetCollisionType(CollisionType::CirCle);
+
+		break;
+
+	case WeaponType::Cross:
+		Renderer->ChangeAnimation("Cross");
+
+		Speed = WeaponStats::AllStats[WeaponType::Cross].getSpeed();
+		Damage = WeaponStats::AllStats[WeaponType::Cross].getDamage();
+		DeathTime = WeaponStats::AllStats[WeaponType::Cross].getDeathTime();
+		Scale = WeaponStats::AllStats[WeaponType::Cross].getScale();
+
+		Collision->SetCollisionScale(Scale);
+		Collision->SetCollisionType(CollisionType::CirCle);
+		break;
+	case WeaponType::Whip:
+		Renderer->ChangeAnimation("Whip");
+
+		Speed = WeaponStats::AllStats[WeaponType::Whip].getSpeed();
+		Damage = WeaponStats::AllStats[WeaponType::Whip].getDamage();
+		DeathTime = WeaponStats::AllStats[WeaponType::Whip].getDeathTime();
+		Scale = WeaponStats::AllStats[WeaponType::Whip].getScale();
+
+		Collision->SetCollisionScale(Scale);
+		Collision->SetCollisionType(CollisionType::CirCle);
+		break;
 	default:
 		break;
 	}

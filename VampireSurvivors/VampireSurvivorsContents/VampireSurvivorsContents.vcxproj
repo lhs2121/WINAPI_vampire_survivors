@@ -175,6 +175,14 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Timer.h">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ItemButton.h">
       <SubType>
       </SubType>

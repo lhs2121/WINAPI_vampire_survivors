@@ -11,23 +11,9 @@ void PlayerShooter::Start()
 }
 void PlayerShooter::Update(float _Delta)
 {
-	
-
 	if (GameEngineInput::IsDown('1'))
 	{
 		WeaponStats::AllStats[WeaponType::Knife].addCount(1);
-	}
-	if (GameEngineInput::IsDown('2'))
-	{
-		WeaponStats::AllStats[WeaponType::MagicWand].addCount(1);
-	}
-	if (GameEngineInput::IsDown('3'))
-	{
-		WeaponStats::AllStats[WeaponType::Axe].addCount(1);
-	}
-	if (GameEngineInput::IsDown('4'))
-	{
-		WeaponStats::AllStats[WeaponType::Runetracer].addCount(1);
 	}
 
 	for (int i = 0; i < WeaponStats::AllStats.size(); i++)

@@ -5,6 +5,7 @@
 #include "Exp.h"
 #include "PlayerUI.h"
 #include "PlayerShooter.h"
+#include "Timer.h"
 #include "ContentsEnum.h"
 #include "ItemSelectUI.h"
 #include <GameEngineBase/GameEngineTime.h>
@@ -54,6 +55,8 @@ void PlayLevel::Start()
 	CreateActor<PlayerShooter>(UpdateOrder::Player);
 
 	ItemSelectUIPtr = CreateActor<ItemSelectUI>(UpdateOrder::PlayUI);
+
+	CreateActor<Timer>(UpdateOrder::Timer);
 
 }
 
@@ -147,6 +150,7 @@ void PlayLevel::ShowItemSelectUI()
 	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Player, 0);
 	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Item, 0);
 	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Weapon, 0);
+	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Timer, 0);
 
 	SpawnCheck = false;
 

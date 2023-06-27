@@ -2,6 +2,7 @@
 
 enum class UpdateOrder
 {
+	Timer,
 	BackGround,
 	Weapon,
 	Player,
@@ -39,7 +40,10 @@ enum class WeaponType
 	Knife,
 	MagicWand,
 	Axe,
-	Runetracer
-
+	Runetracer,
+	FireWand,
+	Cross,
+	Whip
+	
 };
 

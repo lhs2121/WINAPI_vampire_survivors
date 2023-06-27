@@ -46,6 +46,9 @@ private:
 	void MagicWand_Attack(float _Delta);
 	void Axe_Attack(float _Delta);
 	void Runetracer_Attack(float _Delta);
+	void FireWand_Attack(float _Delta);
+	void Cross_Attack(float _Delta);
+	void Whip_Attack(float _Delta);
 
 	void Start() override;
 	void Update(float _Delta) override;
