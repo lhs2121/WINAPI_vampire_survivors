@@ -27,6 +27,9 @@ void Projectile::Start()
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("MagicWand_Mask.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("Axe_Mask.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("Runetracer_Mask.bmp"));
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("FireWand_Mask.bmp"));
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("Cross_Mask.bmp"));
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("Whip_Mask.bmp"));
 
 		GameEngineSprite* Sprite_Knife = ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Knife.bmp"), 1, 1);
 		Sprite_Knife->SetMaskTexture("Knife_Mask.bmp");
@@ -41,13 +44,13 @@ void Projectile::Start()
 		Sprite_Runetracer->SetMaskTexture("Runetracer_Mask.bmp");
 
 		GameEngineSprite* Sprite_FireWand = ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("FireWand.bmp"), 1, 1);
-		Sprite_Runetracer->SetMaskTexture("FireWand.bmp");
+		Sprite_FireWand->SetMaskTexture("FireWand_Mask.bmp");
 
 		GameEngineSprite* Sprite_Cross = ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Cross.bmp"), 1, 1);
-		Sprite_Runetracer->SetMaskTexture("Cross_Mask.bmp");
+		Sprite_Cross->SetMaskTexture("Cross_Mask.bmp");
 
 		GameEngineSprite* Sprite_Whip = ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Whip.bmp"), 3, 1);
-		Sprite_Runetracer->SetMaskTexture("Whip_Mask.bmp");
+		Sprite_Whip->SetMaskTexture("Whip_Mask.bmp");
 	}
 
 	Renderer = CreateRenderer(RenderOrder::Weapon);
@@ -56,7 +59,7 @@ void Projectile::Start()
 	Renderer->CreateAnimation("Axe", "Axe.bmp", 0, 0, 0.5f, false);
 	Renderer->CreateAnimation("Runetracer", "Runetracer.bmp", 0, 0, 0.5f, false);
 	Renderer->CreateAnimation("FireWand", "FireWand.bmp", 0, 0, 0.5f, false);
-	Renderer->CreateAnimation("Cross_Mask", "Cross_Mask.bmp", 0, 0, 0.5f, false);
+	Renderer->CreateAnimation("Cross", "Cross.bmp", 0, 0, 0.5f, false);
 	Renderer->CreateAnimation("Whip", "Whip.bmp", 0, 2, 0.5f, false);
 	
 
@@ -290,7 +293,18 @@ void Projectile::FireWand_Attack(float _Delta)
 {
 	if (IsReady == false)
 	{
-		dir = Player::GetMainPlayer()->GetMinDistance();
+		static float4 Prevdir = float4::ZERO;
+		if (Prevdir == float4::ZERO)
+		{
+			dir = Player::GetMainPlayer()->GetMinDistance();
+			Prevdir = dir;
+		}
+		else
+		{
+			
+			dir = Prevdir.GetRotationToDegZ(45);
+		}
+		
 
 		SetPos(Player::GetMainPlayer()->GetPos());
 		Renderer->SetAngle(dir.AngleDeg());
@@ -322,11 +336,71 @@ void Projectile::FireWand_Attack(float _Delta)
 }
 void Projectile::Cross_Attack(float _Delta)
 {
+	if (IsReady == false)
+	{
+		dir = Player::GetMainPlayer()->GetMinDistance();
 
+		SetPos(Player::GetMainPlayer()->GetPos());
+		Renderer->SetAngle(dir.AngleDeg());
+		Renderer->On();
+		IsReady = true;
+		if (dir == float4::ZERO)
+		{
+			Death();
+		}
+		return;
+	}
+
+	AddPos(dir * Speed * _Delta);
+
+	DeathTime -= _Delta;
+
+	if (DeathTime <= 0)
+	{
+		Death();
+	}
+
+	std::vector<GameEngineCollision*> result;
+	if (true == Collision->Collision(CollisionOrder::Monster, result, CollisionType::CirCle, CollisionType::CirCle))
+	{
+		Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
+		enemy->ApplyDamage(Damage);
+		Death();
+	}
 }
 void Projectile::Whip_Attack(float _Delta)
 {
+	if (IsReady == false)
+	{
+		dir = Player::GetMainPlayer()->GetMinDistance();
 
+		SetPos(Player::GetMainPlayer()->GetPos());
+		Renderer->SetAngle(dir.AngleDeg());
+		Renderer->On();
+		IsReady = true;
+		if (dir == float4::ZERO)
+		{
+			Death();
+		}
+		return;
+	}
+
+	AddPos(dir * Speed * _Delta);
+
+	DeathTime -= _Delta;
+
+	if (DeathTime <= 0)
+	{
+		Death();
+	}
+
+	std::vector<GameEngineCollision*> result;
+	if (true == Collision->Collision(CollisionOrder::Monster, result, CollisionType::CirCle, CollisionType::CirCle))
+	{
+		Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
+		enemy->ApplyDamage(Damage);
+		Death();
+	}
 }
 void Projectile::Setting(WeaponType _Type)
 {

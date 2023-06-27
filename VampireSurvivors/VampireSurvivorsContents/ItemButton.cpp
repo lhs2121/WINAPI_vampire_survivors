@@ -26,6 +26,8 @@ void ItemButton::Start()
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("ItemPanel_Axe.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("ItemPanel_Runetracer.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("ItemPanel_FireWand.bmp"));
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("ItemPanel_Cross.bmp"));
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("ItemPanel_Whip.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("null.bmp"));
 	}
 
@@ -42,6 +44,7 @@ void ItemButton::Start()
 	DetailText->SetRenderPos({ -185,0 });
 	DetailText2->SetRenderPos({ -185,25 });
 
+	Panel->SetTexture("null.bmp");
 	WeaponNameText->SetTexture("null.bmp");
 	NewText->SetTexture("null.bmp");
 	DetailText->SetTexture("null.bmp");
@@ -69,7 +72,7 @@ void ItemButton::SetTexture()
 			AllSelecting = false;
 			break;
 		}
-		
+
 	}
 
 	if (true == AllSelecting)
@@ -265,9 +268,9 @@ void ItemButton::SetTexture()
 			NewText->SetText("레벨:2", 20, "메이플스토리");
 
 			_Damage = 5;
-			_Speed = WeaponStats::AllStats[CurType].getSpeed() * 20/100;
+			_Speed = WeaponStats::AllStats[CurType].getSpeed() * 20 / 100;
 
-		
+
 			break;
 		case 2:
 			DetailText->SetText("기본 피해가 5 증가합니다.", 20, "메이플스토리");
@@ -314,6 +317,185 @@ void ItemButton::SetTexture()
 			break;
 		}
 		break;
+	case WeaponType::FireWand:
+		Panel->SetTexture("ItemPanel_FireWand.bmp");
+		WeaponNameText->SetText("불의 지팡이", 20, "메이플스토리");
+		switch (Curlevel)
+		{
+		case 0:
+			DetailText->SetText("무작위 방향으로 향해 발사되며 큰 피해를 줍니다.", 20, "메이플스토리");
+			NewText->SetText("신규!", 20, "메이플스토리");
+			break;
+		case 1:
+			DetailText->SetText("기본 피해가 10 증가합니다.", 20, "메이플스토리");
+			NewText->SetText("레벨:2", 20, "메이플스토리");
+
+			_Damage = 10;
+
+			break;
+		case 2:
+			DetailText->SetText("기본 피해가 10 증가합니다.", 20, "메이플스토리");
+			DetailText2->SetText("기본 속도가 20% 증가합니다.", 20, "메이플스토리");
+			NewText->SetText("레벨:3", 20, "메이플스토리");
+
+			_Damage = 10;
+			_Speed = WeaponStats::AllStats[CurType].getSpeed() * 20 / 100;
+
+			break;
+		case 3:
+			DetailText->SetText("기본 피해가 10 증가합니다.", 20, "메이플스토리");
+			DetailText2->SetText("기본 속도가 20% 증가합니다.", 20, "메이플스토리");
+			NewText->SetText("레벨:4", 20, "메이플스토리");
+
+			_Damage = 10;
+			_Speed = WeaponStats::AllStats[CurType].getSpeed() * 20 / 100;
+			break;
+		case 4:
+			DetailText->SetText("기본 피해가 10 증가합니다.", 20, "메이플스토리");
+			NewText->SetText("레벨:5", 20, "메이플스토리");
+
+			_Damage = 10;
+			break;
+		case 5:
+			DetailText->SetText("기본 피해가 10 증가합니다.", 20, "메이플스토리");
+			DetailText2->SetText("기본 속도가 20% 증가합니다.", 20, "메이플스토리");
+			NewText->SetText("레벨:6", 20, "메이플스토리");
+
+			_Damage = 10;
+			_Speed = WeaponStats::AllStats[CurType].getSpeed() * 20 / 100;
+			break;
+		case 6:
+			DetailText->SetText("기본 피해가 10 증가합니다.", 20, "메이플스토리");
+			NewText->SetText("레벨:7", 20, "메이플스토리");
+
+			_Damage = 10;
+		case 7:
+			DetailText->SetText("기본 피해가 10 증가합니다.", 20, "메이플스토리");
+			DetailText2->SetText("기본 속도가 20% 증가합니다.", 20, "메이플스토리");
+			NewText->SetText("레벨:8", 20, "메이플스토리");
+
+			_Damage = 10;
+			_Speed = WeaponStats::AllStats[CurType].getSpeed() * 20 / 100;
+			break;
+		default:
+			break;
+		}
+		break;
+	case WeaponType::Cross:
+		Panel->SetTexture("ItemPanel_Cross.bmp");
+		WeaponNameText->SetText("십자가", 20, "메이플스토리");
+		switch (Curlevel)
+		{
+		case 0:
+			DetailText->SetText("가장 가까운 적에게 날아가며 부메랑처럼 돌아옵니다.", 20, "메이플스토리");
+			NewText->SetText("신규!", 20, "메이플스토리");
+			break;
+		case 1:
+			DetailText->SetText("기본 피해가 10 증가합니다.", 20, "메이플스토리");
+			NewText->SetText("레벨:2", 20, "메이플스토리");
+
+			_Damage = 10;
+			break;
+		case 2:
+			DetailText->SetText("기본 속도가 20% 증가합니다.", 20, "메이플스토리");
+			DetailText2->SetText("기본 범위가 25% 증가합니다.", 20, "메이플스토리");
+			NewText->SetText("레벨:3", 20, "메이플스토리");
+
+			_Speed = WeaponStats::AllStats[CurType].getSpeed() * 20 / 100;
+			break;
+		case 3:
+			DetailText->SetText("기본 피해가 10 증가합니다.", 20, "메이플스토리");
+			NewText->SetText("레벨:4", 20, "메이플스토리");
+
+			_Damage = 10;
+			break;
+		case 4:
+			DetailText->SetText("기본 피해가 10 증가합니다.", 20, "메이플스토리");
+			NewText->SetText("레벨:5", 20, "메이플스토리");
+
+			_Damage = 10;
+			break;
+		case 5:
+			DetailText->SetText("기본 속도가 25% 증가합니다.", 20, "메이플스토리");
+			DetailText2->SetText("기본 범위가 10% 증가합니다.", 20, "메이플스토리");
+			NewText->SetText("레벨:6", 20, "메이플스토리");
+
+			_Speed = WeaponStats::AllStats[CurType].getSpeed() * 25 / 100;
+			break;
+		case 6:
+			DetailText->SetText("투사체를 1개 더 발사합니다.", 20, "메이플스토리");
+			NewText->SetText("레벨:7", 20, "메이플스토리");
+
+			_Count = 1;
+		case 7:
+			DetailText->SetText("기본 피해가 10 증가합니다.", 20, "메이플스토리");
+			NewText->SetText("레벨:8", 20, "메이플스토리");
+
+			_Damage = 10;
+			break;
+		default:
+			break;
+		}
+		break;
+	case WeaponType::Whip:
+		Panel->SetTexture("ItemPanel_Whip.bmp");
+		WeaponNameText->SetText("십자가", 20, "메이플스토리");
+		switch (Curlevel)
+		{
+		case 0:
+			DetailText->SetText("좌우로 적을 관통해 공격합니다.", 20, "메이플스토리");
+			NewText->SetText("신규!", 20, "메이플스토리");
+			break;
+		case 1:
+			DetailText->SetText("투사체를 1개 더 발사합니다.", 20, "메이플스토리");
+			NewText->SetText("레벨:2", 20, "메이플스토리");
+
+			_Count = 1;
+
+			break;
+		case 2:
+			DetailText->SetText("기본 피해가 5 증가합니다.", 20, "메이플스토리");
+			NewText->SetText("레벨:3", 20, "메이플스토리");
+
+			_Damage = 5;
+			break;
+		case 3:
+			DetailText->SetText("기본 피해가 5 증가합니다.", 20, "메이플스토리");
+			DetailText2->SetText("기본 범위가 10% 증가합니다.", 20, "메이플스토리");
+			NewText->SetText("레벨:4", 20, "메이플스토리");
+
+			_Damage = 5;
+			break;
+		case 4:
+			DetailText->SetText("기본 피해가 5 증가합니다.", 20, "메이플스토리");
+			NewText->SetText("레벨:5", 20, "메이플스토리");
+
+			_Damage = 5;
+			break;
+		case 5:
+			DetailText->SetText("기본 피해가 5 증가합니다.", 20, "메이플스토리");
+			DetailText2->SetText("기본 범위가 10% 증가합니다.", 20, "메이플스토리");
+			NewText->SetText("레벨:6", 20, "메이플스토리");
+
+			_Damage = 5;
+	
+			break;
+		case 6:
+			DetailText->SetText("기본 피해가 5 증가합니다.", 20, "메이플스토리");
+			NewText->SetText("레벨:7", 20, "메이플스토리");
+
+			_Damage = 5;
+		case 7:
+			DetailText->SetText("기본 피해가 5 증가합니다.", 20, "메이플스토리");
+			NewText->SetText("레벨:8", 20, "메이플스토리");
+
+			_Damage = 5;
+			break;
+
+		default:
+			break;
+		}
+		
 	default:
 		break;
 	}
@@ -336,7 +518,7 @@ void ItemButton::OnClick()
 	WeaponStats::AllStats[CurType].addDeathTime(_DeathTime);
 	WeaponStats::AllStats[CurType].addScale(_Scale);
 
-	
+
 }
 
 void ItemButton::Off()
@@ -345,7 +527,7 @@ void ItemButton::Off()
 	{
 		WeaponStats::AllStats[CurType].setIsSelecting(false);
 	}
-	
+
 
 	_Count = 0;
 	_Speed = 0;

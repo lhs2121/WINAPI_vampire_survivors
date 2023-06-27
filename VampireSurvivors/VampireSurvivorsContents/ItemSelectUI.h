@@ -46,7 +46,7 @@ private:
 
 
 	std::vector<GameEngineRenderer*> WeaponRenderer;
-	GameEngineRenderer* AccessoryRenderer[4];
+	std::vector<GameEngineRenderer*> AccessoryRenderer;
 
 	GameEngineRenderer* WeaponChecker[6];
 	GameEngineRenderer* AccessoryChecker[6];

@@ -33,8 +33,8 @@ void PlayerShooter::CreateProjectile(float _Delta, WeaponType _Type)
 	WeaponStats stats = WeaponStats::AllStats[_Type];
 	int num = static_cast<int>(_Type);
 
-	static int CreatedProjectile[4] = {0};
-	static float Cooltime[4] = {0};
+	static int CreatedProjectile[7] = {0};
+	static float Cooltime[7] = {0};
 
 	Cooltime[num] -= _Delta;
 
