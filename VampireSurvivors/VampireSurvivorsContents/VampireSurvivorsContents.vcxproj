@@ -184,11 +184,11 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="ItemButton.h">
+    <ClCompile Include="SelectBox.h">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="ItemButton.cpp">
+    <ClCompile Include="SelectBox.cpp">
       <SubType>
       </SubType>
     </ClCompile>

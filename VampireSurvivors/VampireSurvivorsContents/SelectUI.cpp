@@ -1,7 +1,7 @@
 #include "SelectUI.h"
 #include "ContentsEnum.h"
 #include "PlayLevel.h"
-#include "ItemButton.h"
+#include "SelectBox.h"
 #include "WeaponStats.h"
 #include "PlayerUI.h"
 #include "StatusUI.h"
@@ -63,17 +63,17 @@ void SelectUI::Start()
 		Mouse->SetCollisionScale({ 50,50 });
 	}
 	{
-		ItemButton1 = GetLevel()->CreateActor<ItemButton>(UpdateOrder::PlayUI);
-		ItemButton1->SetPos({ 545,210 });
+		SelectBox1 = GetLevel()->CreateActor<SelectBox>(UpdateOrder::PlayUI);
+		SelectBox1->SetPos({ 545,210 });
 
-		ItemButton2 = GetLevel()->CreateActor<ItemButton>(UpdateOrder::PlayUI);
-		ItemButton2->SetPos({ 545,325 });
+		SelectBox2 = GetLevel()->CreateActor<SelectBox>(UpdateOrder::PlayUI);
+		SelectBox2->SetPos({ 545,325 });
 
-		ItemButton3 = GetLevel()->CreateActor<ItemButton>(UpdateOrder::PlayUI);
-		ItemButton3->SetPos({ 545,440 });
+		SelectBox3 = GetLevel()->CreateActor<SelectBox>(UpdateOrder::PlayUI);
+		SelectBox3->SetPos({ 545,440 });
 
-		ItemButton4 = GetLevel()->CreateActor<ItemButton>(UpdateOrder::PlayUI);
-		ItemButton4->SetPos({ 545,555 });
+		SelectBox4 = GetLevel()->CreateActor<SelectBox>(UpdateOrder::PlayUI);
+		SelectBox4->SetPos({ 545,555 });
 	}
 
 
@@ -88,7 +88,7 @@ void SelectUI::Update(float _Delta)
 	{
 		if (GameEngineInput::IsDown(VK_LBUTTON))
 		{
-			ItemButton1->OnClick();
+			SelectBox1->OnClick();
 			GameEngineTime::MainTimer.SetAllTimeScale(1);
 			PlayLevel* lv = static_cast<PlayLevel*>(GetLevel());
 			lv->SpawnCheck = true;
@@ -100,7 +100,7 @@ void SelectUI::Update(float _Delta)
 	{
 		if (GameEngineInput::IsDown(VK_LBUTTON))
 		{
-			ItemButton2->OnClick();
+			SelectBox2->OnClick();
 			GameEngineTime::MainTimer.SetAllTimeScale(1);
 			PlayLevel* lv = static_cast<PlayLevel*>(GetLevel());
 			lv->SpawnCheck = true;
@@ -112,7 +112,7 @@ void SelectUI::Update(float _Delta)
 	{
 		if (GameEngineInput::IsDown(VK_LBUTTON))
 		{
-			ItemButton3->OnClick();
+			SelectBox3->OnClick();
 			GameEngineTime::MainTimer.SetAllTimeScale(1);
 			PlayLevel* lv = static_cast<PlayLevel*>(GetLevel());
 			lv->SpawnCheck = true;
@@ -124,7 +124,7 @@ void SelectUI::Update(float _Delta)
 	{
 		if (GameEngineInput::IsDown(VK_LBUTTON))
 		{
-			ItemButton4->OnClick();
+			SelectBox4->OnClick();
 			GameEngineTime::MainTimer.SetAllTimeScale(1);
 			PlayLevel* lv = static_cast<PlayLevel*>(GetLevel());
 			lv->SpawnCheck = true;
@@ -174,29 +174,29 @@ void SelectUI::ButtonSetting()
 		}
 	}
 
-	ItemButton1->SetWeaponEffect(type[0]);
-	ItemButton2->SetWeaponEffect(type[1]);
-	ItemButton3->SetWeaponEffect(type[2]);
+	SelectBox1->SetWeaponEffect(type[0]);
+	SelectBox2->SetWeaponEffect(type[1]);
+	SelectBox3->SetWeaponEffect(type[2]);
 
 	{
-		ItemButton1->On();
-		ItemButton2->On();
-		ItemButton3->On();
+		SelectBox1->On();
+		SelectBox2->On();
+		SelectBox3->On();
 
 		Collision1->On();
-		Collision1->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + ItemButton1->GetPos());
+		Collision1->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox1->GetPos());
 		Collision2->On();
-		Collision2->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + ItemButton2->GetPos());
+		Collision2->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox2->GetPos());
 		Collision3->On();
-		Collision3->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + ItemButton3->GetPos());
+		Collision3->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox3->GetPos());
 	}
 
 	if (true == IsLucky)
 	{
-		ItemButton4->SetWeaponEffect(type[2]);
-		ItemButton4->On();
+		SelectBox4->SetWeaponEffect(type[2]);
+		SelectBox4->On();
 		Collision4->On();
-		Collision4->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + ItemButton3->GetPos());
+		Collision4->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox3->GetPos());
 	}
 }
 
@@ -216,10 +216,10 @@ void SelectUI::Off()
 	Collision2->Off();
 	Collision3->Off();
 	Collision4->Off();
-	ItemButton1->Off();
-	ItemButton2->Off();
-	ItemButton3->Off();
-	ItemButton4->Off();
+	SelectBox1->Off();
+	SelectBox2->Off();
+	SelectBox3->Off();
+	SelectBox4->Off();
 	StatusUI::UI->Off();
 }
 

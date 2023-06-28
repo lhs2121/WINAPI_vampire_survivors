@@ -336,37 +336,73 @@ void Projectile::FireWand_Attack(float _Delta)
 }
 void Projectile::Cross_Attack(float _Delta)
 {
+	static int CrossNum;
+
 	if (IsReady == false)
 	{
-		dir = Player::GetMainPlayer()->GetMinDistance();
-
+		if (Player::GetMainPlayer()->GetPlayerDirState() == DirState::Left)
+		{
+			dir = float4::RIGHT;
+		}
+		else if (Player::GetMainPlayer()->GetPlayerDirState() == DirState::Right)
+		{
+			dir = float4::LEFT;
+		}
 		SetPos(Player::GetMainPlayer()->GetPos());
+
 		Renderer->SetAngle(dir.AngleDeg());
 		Renderer->On();
-		IsReady = true;
-		if (dir == float4::ZERO)
+
+		if (CrossNum > 2)
 		{
-			Death();
+			CrossNum = 0;
 		}
+
+		CrossNum += 1;
+		XRangeRatio = CrossNum;
+		IsReady = true;
 		return;
 	}
 
-	AddPos(dir * Speed * _Delta);
 
+	UpSpeed -= 1000 * _Delta;
+	Speed -= 800 * _Delta;
+
+	if (UpSpeed > 0)
+	{
+		AddPos(float4::UP * UpSpeed * _Delta);
+	}
+	else
+	{
+		DownSpeed += 300 * _Delta;
+	}
+
+	AddPos(dir * Speed * XRangeRatio * _Delta);
+	
+	AddPos(float4::DOWN * DownSpeed * _Delta);
+
+	Angle += 400 * _Delta;
+	Renderer->SetAngle(Angle);
+	//회전
 	DeathTime -= _Delta;
-
 	if (DeathTime <= 0)
 	{
 		Death();
 	}
+	//일정시간 지나면 삭제
 
 	std::vector<GameEngineCollision*> result;
 	if (true == Collision->Collision(CollisionOrder::Monster, result, CollisionType::CirCle, CollisionType::CirCle))
 	{
-		Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
-		enemy->ApplyDamage(Damage);
-		Death();
+		if (HitCount < 3)
+		{
+			Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
+			enemy->ApplyDamage(Damage + GameEngineRandom::MainRandom.RandomInt(3, 9));
+
+		}
+		HitCount += 1;
 	}
+	//몬스터와 충돌
 }
 void Projectile::Whip_Attack(float _Delta)
 {

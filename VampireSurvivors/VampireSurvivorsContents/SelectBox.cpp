@@ -1,4 +1,4 @@
-#include "ItemButton.h"
+#include "SelectBox.h"
 #include "ContentsEnum.h"
 #include "PlayerShooter.h"
 #include "WeaponStats.h"
@@ -12,7 +12,7 @@
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include <map>
 
-void ItemButton::Off()
+void SelectBox::Off()
 {
 	_Count = 0;
 	_Speed = 0;
@@ -30,7 +30,7 @@ void ItemButton::Off()
 	DetailText->Off();
 	DetailText2->Off();
 }
-void ItemButton::On()
+void SelectBox::On()
 {
 	Panel->On();
 	NewText->On();
@@ -39,7 +39,7 @@ void ItemButton::On()
 	DetailText2->On();
 }
 
-void ItemButton::Start()
+void SelectBox::Start()
 {
 	if (false == ResourcesManager::GetInst().IsLoadTexture("ItemPanel_Knife.bmp"))
 	{
@@ -78,7 +78,7 @@ void ItemButton::Start()
 
 }
 
-void ItemButton::SetWeaponEffect(WeaponType _Type)
+void SelectBox::SetWeaponEffect(WeaponType _Type)
 {
 	CurType = _Type;
 	Curlevel = WeaponStats::AllStats[CurType].getLevel();
@@ -450,7 +450,7 @@ void ItemButton::SetWeaponEffect(WeaponType _Type)
 	}
 }
 
-void ItemButton::OnClick()
+void SelectBox::OnClick()
 {
 	if (CurType == WeaponType::Null)
 	{

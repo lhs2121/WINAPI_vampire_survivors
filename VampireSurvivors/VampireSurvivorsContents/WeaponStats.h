@@ -42,10 +42,10 @@ public:
 	}
 	
 	int getLevel() const { return level; }
-	void setLevel(float value) { level = value; }
+	void setLevel(int value) { level = value; }
 
 	int getCount() const { return count; }
-	void setCount(float value) { count = value; }
+	void setCount(int value) { count = value; }
 
 	float getDamage() const { return damage; }
 	void setDamage(float value) { damage = value; }

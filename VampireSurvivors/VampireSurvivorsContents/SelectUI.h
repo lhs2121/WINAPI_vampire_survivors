@@ -3,7 +3,7 @@
 #include <vector>
 
 class GameEngineRenderer;
-class ItemButton;
+class SelectBox;
 class GameEngineCollision;
 enum class WeaponType;
 class SelectUI : public GameEngineActor
@@ -43,10 +43,10 @@ private:
 	GameEngineRenderer* ItemSelectPanel = nullptr;
 	GameEngineRenderer* Text_LevelUp = nullptr;
 
-	ItemButton* ItemButton1 = nullptr;
-	ItemButton* ItemButton2 = nullptr;
-	ItemButton* ItemButton3 = nullptr;
-	ItemButton* ItemButton4 = nullptr;
+	SelectBox* SelectBox1 = nullptr;
+	SelectBox* SelectBox2 = nullptr;
+	SelectBox* SelectBox3 = nullptr;
+	SelectBox* SelectBox4 = nullptr;
 
 	GameEngineCollision* Collision1 = nullptr;
 	GameEngineCollision* Collision2 = nullptr;

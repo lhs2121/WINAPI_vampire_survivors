@@ -2,15 +2,15 @@
 #include <GameEngineCore/GameEngineActor.h>
 #include <vector>
 enum class WeaponType;
-class ItemButton : public GameEngineActor
+class SelectBox : public GameEngineActor
 {
 public:
 	// constrcuter destructer
-	ItemButton()
+	SelectBox()
 	{
 
 	}
-	~ItemButton()
+	~SelectBox()
 	{
 
 	}
@@ -20,10 +20,10 @@ public:
 	void SetWeaponEffect(WeaponType _Type);
 	void OnClick();
 	
-	ItemButton(const ItemButton& _Other) = delete;
-	ItemButton(ItemButton&& _Other) noexcept = delete;
-	ItemButton& operator=(const ItemButton& _Other) = delete;
-	ItemButton& operator=(ItemButton&& _Other) noexcept = delete;
+	SelectBox(const SelectBox& _Other) = delete;
+	SelectBox(SelectBox&& _Other) noexcept = delete;
+	SelectBox& operator=(const SelectBox& _Other) = delete;
+	SelectBox& operator=(SelectBox&& _Other) noexcept = delete;
 
 private:
 	class GameEngineRenderer* Panel;

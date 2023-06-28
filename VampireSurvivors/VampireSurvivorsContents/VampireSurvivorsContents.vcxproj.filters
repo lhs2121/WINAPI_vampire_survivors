@@ -74,10 +74,10 @@
     <ClCompile Include="WeaponStats.h">
       <Filter>Actor\PlayScene\Weapon</Filter>
     </ClCompile>
-    <ClCompile Include="ItemButton.h">
+    <ClCompile Include="SelectBox.h">
       <Filter>Actor\PlayScene\UI</Filter>
     </ClCompile>
-    <ClCompile Include="ItemButton.cpp">
+    <ClCompile Include="SelectBox.cpp">
       <Filter>Actor\PlayScene\UI</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
@@ -89,7 +89,9 @@
     <ClCompile Include="StatusUI.cpp">
       <Filter>Actor\PlayScene\UI</Filter>
     </ClCompile>
-    <ClCompile Include="SelectUI.cpp" />
+    <ClCompile Include="SelectUI.cpp">
+      <Filter>Actor\PlayScene\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
@@ -148,6 +150,8 @@
     <ClInclude Include="StatusUI.h">
       <Filter>Actor\PlayScene\UI</Filter>
     </ClInclude>
-    <ClInclude Include="SelectUI.h" />
+    <ClInclude Include="SelectUI.h">
+      <Filter>Actor\PlayScene\UI</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

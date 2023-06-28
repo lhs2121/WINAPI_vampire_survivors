@@ -59,7 +59,7 @@ void Enemy::Start()
 	// 50%확률로 몬스터의 렌더위치를 플레이어의 위나 아래로 설정
 
 
-	speed = 60 + GameEngineRandom::MainRandom.RandomInt(1, 5);
+	speed = 60 + GameEngineRandom::MainRandom.RandomFloat(1, 5);
 	// 몬스터의 스피드를 서로 다르게 설정
 
 	Renderer->CreateAnimation("Enemy_LeftRun", "Lenemy1.bmp", 0, 4, 0.1f, true);
