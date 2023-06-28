@@ -297,11 +297,17 @@ void Projectile::FireWand_Attack(float _Delta)
 		if (Prevdir == float4::ZERO)
 		{
 			dir = Player::GetMainPlayer()->GetMinDistance();
+
+			if (dir == float4::ZERO)
+			{
+				Death();
+				return;
+			}
+
 			Prevdir = dir;
 		}
 		else
 		{
-			
 			dir = Prevdir.GetRotationToDegZ(45);
 		}
 		
@@ -310,10 +316,7 @@ void Projectile::FireWand_Attack(float _Delta)
 		Renderer->SetAngle(dir.AngleDeg());
 		Renderer->On();
 		IsReady = true;
-		if (dir == float4::ZERO)
-		{
-			Death();
-		}
+		
 		return;
 	}
 
@@ -408,16 +411,28 @@ void Projectile::Whip_Attack(float _Delta)
 {
 	if (IsReady == false)
 	{
-		dir = Player::GetMainPlayer()->GetMinDistance();
+		static float4 PrevDir = float4::ZERO;
+		if (Player::GetMainPlayer()->GetPlayerDirState() == DirState::Left)
+		{
+			dir = float4::LEFT;
+		}
+		else if (Player::GetMainPlayer()->GetPlayerDirState() == DirState::Right)
+		{
+			dir = float4::RIGHT;
+		}
 
+		if (PrevDir == float4::ZERO)
+		{
+			PrevDir = dir;
+		}
+		else
+		{
+			dir = -PrevDir;
+		}
 		SetPos(Player::GetMainPlayer()->GetPos());
 		Renderer->SetAngle(dir.AngleDeg());
 		Renderer->On();
 		IsReady = true;
-		if (dir == float4::ZERO)
-		{
-			Death();
-		}
 		return;
 	}
 

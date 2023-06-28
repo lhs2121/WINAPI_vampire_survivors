@@ -10,10 +10,12 @@
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
-#include <map>
+
 
 void SelectBox::Off()
 {
+	Curlevel = 0;
+	CurType = WeaponType::Null;
 	_Count = 0;
 	_Speed = 0;
 	_Damage = 0;
@@ -21,14 +23,13 @@ void SelectBox::Off()
 	_CoolTime = 0;
 	_Interval = 0;
 
-	Curlevel = 0;
-	CurType = WeaponType::Null;
-
 	Panel->Off();
 	NewText->Off();
 	WeaponNameText->Off();
 	DetailText->Off();
 	DetailText2->Off();
+
+
 }
 void SelectBox::On()
 {

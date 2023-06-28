@@ -178,8 +178,7 @@ void Player::Update(float _Delta)
 
 	if (GameEngineInput::IsDown('Z'))
 	{
-		static float exp1 = 50;
-		exp1 += 30;
+		float exp1 = MaxExp;
 		AddExp(exp1);
 	}
 	if (Hp <= 0)
