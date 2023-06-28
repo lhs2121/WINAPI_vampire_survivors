@@ -29,6 +29,6 @@ void WeaponStats::AllStatsSetting()
 	WeaponStats::AllStats[WeaponType::Runetracer].setStats(0, 1, 300, 50, 5, 5, 0.2f, 1, "runeslot.bmp");
 	WeaponStats::AllStats[WeaponType::FireWand].setStats(0, 3, 100, 50, 5, 4, 0.1f, 1, "firewandslot.bmp");
 	WeaponStats::AllStats[WeaponType::Cross].setStats(0, 2, 300, 50, 4, 3, 0.2f, 1, "crossslot.bmp");
-	WeaponStats::AllStats[WeaponType::Whip].setStats(0, 2, 10, 50, 0.5f, 3, 0.2f, 1, "whipslot.bmp");
+	WeaponStats::AllStats[WeaponType::Whip].setStats(0, 2, 50, 50, 0.5f, 3, 0.2f, 1, "whipslot.bmp");
 
 }

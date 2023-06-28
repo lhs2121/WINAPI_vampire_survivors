@@ -30,6 +30,7 @@ void Projectile::Start()
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("FireWand_Mask.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("Cross_Mask.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("Whip_Mask.bmp"));
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("LWhip_Mask.bmp"));
 
 		GameEngineSprite* Sprite_Knife = ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Knife.bmp"), 1, 1);
 		Sprite_Knife->SetMaskTexture("Knife_Mask.bmp");
@@ -51,6 +52,9 @@ void Projectile::Start()
 
 		GameEngineSprite* Sprite_Whip = ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Whip.bmp"), 3, 1);
 		Sprite_Whip->SetMaskTexture("Whip_Mask.bmp");
+
+		GameEngineSprite* Sprite_LWhip = ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("LWhip.bmp"), 3, 1);
+		Sprite_LWhip->SetMaskTexture("LWhip_Mask.bmp");
 	}
 
 	Renderer = CreateRenderer(RenderOrder::Weapon);
@@ -60,7 +64,8 @@ void Projectile::Start()
 	Renderer->CreateAnimation("Runetracer", "Runetracer.bmp", 0, 0, 0.5f, false);
 	Renderer->CreateAnimation("FireWand", "FireWand.bmp", 0, 0, 0.5f, false);
 	Renderer->CreateAnimation("Cross", "Cross.bmp", 0, 0, 0.5f, false);
-	Renderer->CreateAnimation("Whip", "Whip.bmp", 0, 2, 0.5f, false);
+	Renderer->CreateAnimation("Whip", "Whip.bmp", 0, 2, 0.1f, false);
+	Renderer->CreateAnimation("LWhip", "LWhip.bmp", 0, 2, 0.1f, false);
 	
 
 	Collision = CreateCollision(CollisionOrder::Weapon);
@@ -291,9 +296,10 @@ void Projectile::Runetracer_Attack(float _Delta)
 
 void Projectile::FireWand_Attack(float _Delta)
 {
+	static float4 Prevdir = float4::ZERO;;
+	static int num = 0;
 	if (IsReady == false)
 	{
-		static float4 Prevdir = float4::ZERO;
 		if (Prevdir == float4::ZERO)
 		{
 			dir = Player::GetMainPlayer()->GetMinDistance();
@@ -303,20 +309,24 @@ void Projectile::FireWand_Attack(float _Delta)
 				Death();
 				return;
 			}
-
 			Prevdir = dir;
 		}
 		else
 		{
-			dir = Prevdir.GetRotationToDegZ(45);
+			Prevdir = Prevdir.GetRotationToDegZ(10);
+			dir = Prevdir;
 		}
-		
 
+		if (num > 3)
+		{
+			Prevdir = float4::ZERO;
+			num = 0;
+		}
 		SetPos(Player::GetMainPlayer()->GetPos());
 		Renderer->SetAngle(dir.AngleDeg());
 		Renderer->On();
 		IsReady = true;
-		
+		num += 1;
 		return;
 	}
 
@@ -334,7 +344,7 @@ void Projectile::FireWand_Attack(float _Delta)
 	{
 		Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
 		enemy->ApplyDamage(Damage);
-		Death();
+		Damage -= 3;
 	}
 }
 void Projectile::Cross_Attack(float _Delta)
@@ -409,28 +419,23 @@ void Projectile::Cross_Attack(float _Delta)
 }
 void Projectile::Whip_Attack(float _Delta)
 {
+	static float4 PrevDir = float4::LEFT;
+
 	if (IsReady == false)
 	{
-		static float4 PrevDir = float4::ZERO;
-		if (Player::GetMainPlayer()->GetPlayerDirState() == DirState::Left)
-		{
-			dir = float4::LEFT;
-		}
-		else if (Player::GetMainPlayer()->GetPlayerDirState() == DirState::Right)
-		{
-			dir = float4::RIGHT;
-		}
+		PrevDir *= -1;
+		dir = PrevDir;
 
-		if (PrevDir == float4::ZERO)
+		if (dir.X < 0)
 		{
-			PrevDir = dir;
+			Renderer->ChangeAnimation("LWhip");
+			SetPos(Player::GetMainPlayer()->GetPos() + float4(10,0));
 		}
 		else
 		{
-			dir = -PrevDir;
+			Renderer->ChangeAnimation("Whip");
+			SetPos(Player::GetMainPlayer()->GetPos() + float4(-10, 0));
 		}
-		SetPos(Player::GetMainPlayer()->GetPos());
-		Renderer->SetAngle(dir.AngleDeg());
 		Renderer->On();
 		IsReady = true;
 		return;
@@ -446,11 +451,13 @@ void Projectile::Whip_Attack(float _Delta)
 	}
 
 	std::vector<GameEngineCollision*> result;
+
 	if (true == Collision->Collision(CollisionOrder::Monster, result, CollisionType::CirCle, CollisionType::CirCle))
 	{
 		Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
 		enemy->ApplyDamage(Damage);
-		Death();
+
+		Damage -= 5;
 	}
 }
 void Projectile::Setting(WeaponType _Type)
@@ -522,7 +529,7 @@ void Projectile::Setting(WeaponType _Type)
 		Speed = WeaponStats::AllStats[WeaponType::FireWand].getSpeed();
 		Damage = WeaponStats::AllStats[WeaponType::FireWand].getDamage();
 		DeathTime = WeaponStats::AllStats[WeaponType::FireWand].getDeathTime();
-		Scale = float4(30,30) * WeaponStats::AllStats[WeaponType::FireWand].getScaleRatio();
+		Scale = float4(40,40) * WeaponStats::AllStats[WeaponType::FireWand].getScaleRatio();
 
 		Collision->SetCollisionScale(Scale);
 		Collision->SetCollisionType(CollisionType::CirCle);
@@ -546,10 +553,10 @@ void Projectile::Setting(WeaponType _Type)
 		Speed = WeaponStats::AllStats[WeaponType::Whip].getSpeed();
 		Damage = WeaponStats::AllStats[WeaponType::Whip].getDamage();
 		DeathTime = WeaponStats::AllStats[WeaponType::Whip].getDeathTime();
-		Scale = float4(17,17) * WeaponStats::AllStats[WeaponType::Whip].getScaleRatio();
+		Scale = float4(147,29) * WeaponStats::AllStats[WeaponType::Whip].getScaleRatio();
 
 		Collision->SetCollisionScale(Scale);
-		Collision->SetCollisionType(CollisionType::CirCle);
+		Collision->SetCollisionType(CollisionType::Rect);
 		break;
 	default:
 		break;
