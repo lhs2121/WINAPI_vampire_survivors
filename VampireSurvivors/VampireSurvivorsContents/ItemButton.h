@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-
+#include <vector>
 enum class WeaponType;
 class ItemButton : public GameEngineActor
 {
@@ -14,18 +14,18 @@ public:
 	{
 
 	}
-	void SetTexture();
+
 	void On() override;
 	void Off() override;
+	void SetWeaponEffect(WeaponType _Type);
 	void OnClick();
-	// delete Function
+	
 	ItemButton(const ItemButton& _Other) = delete;
 	ItemButton(ItemButton&& _Other) noexcept = delete;
 	ItemButton& operator=(const ItemButton& _Other) = delete;
 	ItemButton& operator=(ItemButton&& _Other) noexcept = delete;
 
 private:
-
 	class GameEngineRenderer* Panel;
 	class GameEngineRenderer* WeaponNameText;
 	class GameEngineRenderer* NewText;
@@ -44,7 +44,6 @@ private:
 	float4 _Scale = float4::ZERO;
 
 	void Start() override;
-	void Update(float _Delta) override;
 
 
 

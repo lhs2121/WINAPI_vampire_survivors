@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "ContentsEnum.h"
 #include "ItemSelectUI.h"
+#include "StatusUI.h"
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEngineCore/GameEngineActor.h>
@@ -19,9 +20,6 @@
 
 Player* Player::MainPlayer = nullptr;
 
-std::vector<WeaponType> Player::MyWeapon;
-std::vector<WeaponType> Player::MyAccessory;
-
 Player::Player()
 {
 
@@ -31,14 +29,10 @@ Player::~Player()
 {
 
 }
-void Player::AddWeapon(WeaponType _Type)
-{
-	MyWeapon.push_back(_Type);
-	ItemSelectUI::SelectUI->CreateWeaponSlotRenderer(_Type);
-	ItemSelectUI::SelectUI->WeaponSlotUpgrade(_Type);
-}
+
 void Player::Start()
 {
+
 	SetPos({ 1024,464 });
 
 	{
@@ -182,6 +176,12 @@ void Player::Update(float _Delta)
 		PlayerDir = { 1,1 };
 	}
 
+	if (GameEngineInput::IsDown('Z'))
+	{
+		static float exp1 = 50;
+		exp1 += 30;
+		AddExp(exp1);
+	}
 	if (Hp <= 0)
 	{
 		HpBar->Off();
@@ -238,8 +238,6 @@ float4 Player::GetMinDistance()
 void Player::LevelStart()
 {
 	MainPlayer = this;
-
-	AddWeapon(WeaponType::Knife);
 }
 
 void Player::ApplyDamage(float _Damage)

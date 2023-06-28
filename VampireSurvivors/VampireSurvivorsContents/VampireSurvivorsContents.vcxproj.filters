@@ -89,6 +89,9 @@
     <ClCompile Include="Timer.h">
       <Filter>Actor\PlayScene\UI</Filter>
     </ClCompile>
+    <ClCompile Include="StatusUI.cpp">
+      <Filter>Actor\PlayScene\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
@@ -146,6 +149,9 @@
     </ClInclude>
     <ClInclude Include="PlayerShooter.h">
       <Filter>Actor\PlayScene\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="StatusUI.h">
+      <Filter>Actor\PlayScene\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

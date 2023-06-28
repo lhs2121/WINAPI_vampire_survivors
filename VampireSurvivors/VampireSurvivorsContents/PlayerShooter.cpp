@@ -7,7 +7,7 @@
 
 void PlayerShooter::Start()
 {
-	WeaponStats::AllStatsSetting();
+	
 }
 void PlayerShooter::Update(float _Delta)
 {

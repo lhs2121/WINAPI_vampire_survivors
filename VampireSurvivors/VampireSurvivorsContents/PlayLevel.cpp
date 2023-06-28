@@ -8,6 +8,7 @@
 #include "Timer.h"
 #include "ContentsEnum.h"
 #include "ItemSelectUI.h"
+#include "StatusUI.h"
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -43,6 +44,8 @@ void PlayLevel::Start()
 		GameEngineSound::SoundLoad(path.PlusFilePath("bgm_elrond_library.ogg"));
 
 	}
+
+	CreateActor<StatusUI>(UpdateOrder::PlayUI);
 
 	BackGroundPtr = CreateActor<BackGround>(UpdateOrder::BackGround);
 

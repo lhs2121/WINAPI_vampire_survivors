@@ -13,7 +13,7 @@ enum class EnemyType
 class Enemy : public PlayActor
 {
 public:
-	static EnemyType CurSpawnEnemyType;
+	static EnemyType CurSpawnEnemyType[2];
 	
 	static int DeathCount;
 	// constrcuter destructer

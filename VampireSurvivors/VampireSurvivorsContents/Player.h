@@ -14,8 +14,6 @@ class Player : public PlayActor
 {
 	friend class PlayerUI;
 public:
-	static std::vector<WeaponType> MyWeapon;
-	static std::vector<WeaponType> MyAccessory;
 
 	Player();
 	~Player();
@@ -40,9 +38,6 @@ public:
 	{
 		return Collision2;
 	}
-
-	
-	void AddWeapon(WeaponType _Type);
 	
 	float4 GetPlayerDir()
 	{

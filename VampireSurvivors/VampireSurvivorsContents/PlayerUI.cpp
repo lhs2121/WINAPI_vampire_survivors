@@ -31,7 +31,6 @@ void PlayerUI::Start()
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("ExpGauge.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("DeathMark.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("CoinMark.bmp"));
-		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("SlotPanel.bmp"));
 	}
 
 	{
@@ -46,29 +45,15 @@ void PlayerUI::Start()
 		Text_Gold = CreateUIRenderer(RenderOrder::Text);
 		Text_Gold->SetText("0", 20, "메이플스토리");
 		Text_Gold->SetRenderPos({ 1045,24 });
-		
-	}
 
-	{
 		DeathMark = CreateUIRenderer(RenderOrder::PlayUI);
 		DeathMark->SetTexture("DeathMark.bmp");
 		DeathMark->SetRenderPos({ 930,35 });
 
-		
 		CoinMark = CreateUIRenderer(RenderOrder::PlayUI);
 		CoinMark->SetTexture("CoinMark.bmp");
 		CoinMark->SetRenderPos({ 1076,37 });
-		
-	}
 
-	{
-		SlotPanel = CreateUIRenderer(RenderOrder::PlayUI);
-		SlotPanel->SetTexture("SlotPanel.bmp");
-		SlotPanel->SetRenderPos({ 100,58 });
-	
-	}
-
-	{
 		ExpBar = CreateUIRenderer(RenderOrder::PlayUI);
 		ExpBar->SetTexture("ExpBar.bmp");
 		ExpBar->SetRenderPos({ 545,12 });

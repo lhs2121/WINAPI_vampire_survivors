@@ -10,11 +10,11 @@ class ItemSelectUI : public GameEngineActor
 {
 public:
 
-	static ItemSelectUI* SelectUI;
+	static ItemSelectUI* UI;
 	// constrcuter destructer
 	ItemSelectUI()
 	{
-		SelectUI = this;
+		UI = this;
 	}
 	~ItemSelectUI()
 	{
@@ -30,40 +30,33 @@ public:
 	void On() override;
 	void Off() override;
 
-	void WeaponSlotUpgrade(WeaponType _Type);
-	void CreateWeaponSlotRenderer(WeaponType _Type);
+	
 private:
-	int WeaponNum = 0;
-	int AccessoryNum = 0;
 
-	int WeaponUpgradeNum[6] = { 0 };
+	void ButtonSetting();
+	void GetRandomint(int _min, int _max);
 
-	GameEngineRenderer* ItemSelectPanel;
-	GameEngineRenderer* Text;
-	GameEngineRenderer* StatsPanel;
-	GameEngineRenderer* TopAlpha;
-	GameEngineRenderer* BottomAlpha;
+	std::vector<int> numbers;
 
+	std::vector<WeaponType> RandomType;
 
-	std::vector<GameEngineRenderer*> WeaponRenderer;
-	std::vector<GameEngineRenderer*> AccessoryRenderer;
-
-	GameEngineRenderer* WeaponChecker[6];
-	GameEngineRenderer* AccessoryChecker[6];
+	GameEngineRenderer* ItemSelectPanel = nullptr;
+	GameEngineRenderer* Text_LevelUp = nullptr;
 
 	ItemButton* ItemButton1 = nullptr;
 	ItemButton* ItemButton2 = nullptr;
 	ItemButton* ItemButton3 = nullptr;
 	ItemButton* ItemButton4 = nullptr;
 
-	GameEngineCollision* Button1;
-	GameEngineCollision* Button2;
-	GameEngineCollision* Button3;
-	GameEngineCollision* Button4;
+	GameEngineCollision* Collision1 = nullptr;
+	GameEngineCollision* Collision2 = nullptr;
+	GameEngineCollision* Collision3 = nullptr;
+	GameEngineCollision* Collision4 = nullptr;
 
-	GameEngineCollision* Mouse;
+	GameEngineCollision* Mouse = nullptr;
 
 	bool IsLucky = false;
+
 	void Start() override;
 	void Update(float _Delta) override;
 	

@@ -43,7 +43,8 @@ enum class WeaponType
 	Runetracer,
 	FireWand,
 	Cross,
-	Whip
+	Whip,
+	Null
 	
 };
 

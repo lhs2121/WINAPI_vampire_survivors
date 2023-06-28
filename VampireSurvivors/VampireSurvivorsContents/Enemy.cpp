@@ -10,7 +10,7 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include "ContentsEnum.h"
 
-EnemyType Enemy::CurSpawnEnemyType = EnemyType::enemy2;
+EnemyType Enemy::CurSpawnEnemyType[2] = {EnemyType::enemy1 ,EnemyType::enemy2};
 
 int Enemy::DeathCount = 0;
 
@@ -25,8 +25,6 @@ Enemy::~Enemy()
 
 void Enemy::Start()
 {
-	type = CurSpawnEnemyType;
-	
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Lenemy1.bmp"))
 	{
 		GameEnginePath path;
@@ -50,10 +48,12 @@ void Enemy::Start()
 
 	if (random % 2 == 0)
 	{
+		type = CurSpawnEnemyType[0];
 		Renderer = CreateRenderer(RenderOrder::UnderMonster);
 	}
 	else
 	{
+		type = CurSpawnEnemyType[1];
 		Renderer = CreateRenderer(RenderOrder::UpperMonster);
 	}
 	// 50%확률로 몬스터의 렌더위치를 플레이어의 위나 아래로 설정

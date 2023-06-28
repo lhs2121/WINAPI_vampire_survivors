@@ -22,8 +22,6 @@ public:
 	PlayerUI& operator=(const PlayerUI& _Other) = delete;
 	PlayerUI& operator=(PlayerUI&& _Other) noexcept = delete;
 
-	GameEngineRenderer* SlotPanel;
-
 private:
 	GameEngineRenderer* Text_Level;
 	GameEngineRenderer* Text_MonsterDeathCount;
