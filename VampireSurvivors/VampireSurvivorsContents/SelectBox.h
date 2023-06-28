@@ -41,7 +41,7 @@ private:
 	float _DeathTime = 0;
 	float _CoolTime = 0;
 	float _Interval = 0;
-	float4 _Scale = float4::ZERO;
+	float _ScaleRatio = 0;
 
 	void Start() override;
 

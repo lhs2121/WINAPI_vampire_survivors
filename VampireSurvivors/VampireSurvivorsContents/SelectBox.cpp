@@ -97,6 +97,7 @@ void SelectBox::SetWeaponEffect(WeaponType _Type)
 		case 1:
 			DetailText->SetText("투사체를 1개 더 발사합니다.", 20, "메이플스토리");
 			NewText->SetText("레벨:2", 20, "메이플스토리");
+			_ScaleRatio = 3;
 			_Count = 1;
 			break;
 		case 2:
@@ -153,7 +154,7 @@ void SelectBox::SetWeaponEffect(WeaponType _Type)
 			DetailText->SetText("쿨타임이 0.2초 감소합니다", 20, "메이플스토리");
 			NewText->SetText("레벨:3", 20, "메이플스토리");
 
-			_CoolTime = -0.2;
+			_CoolTime = -0.2f;
 			break;
 		case 3:
 			DetailText->SetText("투사체를 1개 더 발사합니다.", 20, "메이플스토리");
@@ -268,7 +269,7 @@ void SelectBox::SetWeaponEffect(WeaponType _Type)
 			DetailText->SetText("기본 피해가 5 증가합니다.", 20, "메이플스토리");
 			DetailText2->SetText("효과 지속 시간이 0.3초 증가합니다.", 20, "메이플스토리");
 			_Damage = 5;
-			_DeathTime = 0.3;
+			_DeathTime = 0.3f;
 			NewText->SetText("레벨:6", 20, "메이플스토리");
 			break;
 		case 6:
@@ -459,11 +460,11 @@ void SelectBox::OnClick()
 
 	if (Curlevel == 0)
 	{
-		StatusUI::UI->AddNewWeapon(CurType);
+		StatusUI::UI->AddMyWeapon(CurType);
 	}
 	else
 	{
-		StatusUI::UI->WeaponSlotUpgrade(CurType);
+		StatusUI::UI->UpgradeWeaponSlot(CurType);
 	}
 
 
@@ -474,7 +475,7 @@ void SelectBox::OnClick()
 		WeaponStats::AllStats[CurType].addDamage(_Damage);
 		WeaponStats::AllStats[CurType].addSpeed(_Speed);
 		WeaponStats::AllStats[CurType].addDeathTime(_DeathTime);
-		WeaponStats::AllStats[CurType].addScale(_Scale);
+		WeaponStats::AllStats[CurType].addScaleRatio(_ScaleRatio);
 
 		if (WeaponStats::AllStats[CurType].getLevel() == 8)
 		{

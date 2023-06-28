@@ -18,9 +18,9 @@ public:
 
 	std::vector<WeaponType> MyWeapon;
 
-	void CreateWeaponSlotRenderer(WeaponType _Type);
-	void WeaponSlotUpgrade(WeaponType _Type);
-	void AddNewWeapon(WeaponType _Type);
+	void AddWeaponSlot(WeaponType _Type);
+	void UpgradeWeaponSlot(WeaponType _Type);
+	void AddMyWeapon(WeaponType _Type);
 
 	bool IsAllMax();
 	bool IsFullWeapon();

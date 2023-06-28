@@ -133,7 +133,7 @@ void SelectUI::Update(float _Delta)
 	}
 
 }
-void SelectUI::GetRandomint(int _min, int _max)
+void SelectUI::GetRandomNumbers(int _min, int _max)
 {
 	numbers.clear();
 
@@ -148,20 +148,20 @@ void SelectUI::GetRandomint(int _min, int _max)
 		}
 	}
 }
-void SelectUI::ButtonSetting()
+void SelectUI::RandomTypeSetting()
 {
 	WeaponType type[3] = { WeaponType::Null };
 
 	if (false == StatusUI::UI->IsFullWeapon())
 	{
-		GetRandomint(0, 6);
+		GetRandomNumbers(0, 6);
 		type[0] = static_cast<WeaponType>(numbers[0]);
 		type[1] = static_cast<WeaponType>(numbers[1]);
 		type[2] = static_cast<WeaponType>(numbers[2]);
 	}
 	else if (true == StatusUI::UI->IsFullWeapon())
 	{
-		GetRandomint(0, StatusUI::UI->MyWeapon.size() - 1);
+		GetRandomNumbers(0, static_cast<int>(StatusUI::UI->MyWeapon.size() - 1));
 
 		for (int i = 0; i < 3; i++)
 		{
@@ -174,30 +174,41 @@ void SelectUI::ButtonSetting()
 		}
 	}
 
-	SelectBox1->SetWeaponEffect(type[0]);
-	SelectBox2->SetWeaponEffect(type[1]);
-	SelectBox3->SetWeaponEffect(type[2]);
+	RandomType.push_back(type[0]);
+	RandomType.push_back(type[1]);
+	RandomType.push_back(type[2]);
+}
+void SelectUI::ButtonSetting()
+{
+	RandomTypeSetting();
 
-	{
-		SelectBox1->On();
-		SelectBox2->On();
-		SelectBox3->On();
+	SelectBox1->SetWeaponEffect(RandomType[0]);
+	SelectBox2->SetWeaponEffect(RandomType[1]);
+	SelectBox3->SetWeaponEffect(RandomType[2]);
 
-		Collision1->On();
-		Collision1->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox1->GetPos());
-		Collision2->On();
-		Collision2->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox2->GetPos());
-		Collision3->On();
-		Collision3->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox3->GetPos());
-	}
 
+	SelectBox1->On();
+	SelectBox2->On();
+	SelectBox3->On();
+
+	Collision1->On();
+	Collision2->On();
+	Collision3->On();
+
+	Collision1->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox1->GetPos());
+	Collision2->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox2->GetPos());
+	Collision3->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox3->GetPos());
+
+	RandomType.clear();
+	/*
 	if (true == IsLucky)
 	{
-		SelectBox4->SetWeaponEffect(type[2]);
+		SelectBox4->SetWeaponEffect(RandomType[0]);
 		SelectBox4->On();
 		Collision4->On();
 		Collision4->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox3->GetPos());
 	}
+	*/
 }
 
 void SelectUI::On()

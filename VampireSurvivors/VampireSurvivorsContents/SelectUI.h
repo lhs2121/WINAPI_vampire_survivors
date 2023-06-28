@@ -34,7 +34,9 @@ public:
 private:
 
 	void ButtonSetting();
-	void GetRandomint(int _min, int _max);
+	
+	void RandomTypeSetting();
+    void GetRandomNumbers(int _min, int _max);
 
 	std::vector<int> numbers;
 

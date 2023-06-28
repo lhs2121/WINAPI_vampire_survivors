@@ -152,11 +152,11 @@ void StatusUI::Start()
 		PrevPos = AccessoryChecker[i]->GetRenderPos();
 	}
 
-	AddNewWeapon(WeaponType::Knife);
+	AddMyWeapon(WeaponType::Knife);
 
 	Off();
 }
-void StatusUI::CreateWeaponSlotRenderer(WeaponType _Type)
+void StatusUI::AddWeaponSlot(WeaponType _Type)
 {
 	static float4 prevpos = float4::ZERO;
 
@@ -182,7 +182,7 @@ void StatusUI::CreateWeaponSlotRenderer(WeaponType _Type)
 
 }
 
-void StatusUI::WeaponSlotUpgrade(WeaponType _Type)
+void StatusUI::UpgradeWeaponSlot(WeaponType _Type)
 {
 
 	int num = WeaponStats::AllStats[_Type].getSlotNumber();
@@ -197,10 +197,10 @@ void StatusUI::WeaponSlotUpgrade(WeaponType _Type)
 	WeaponUpgradeNum[num] += 1;
 }
 
-void StatusUI::AddNewWeapon(WeaponType _Type)
+void StatusUI::AddMyWeapon(WeaponType _Type)
 {
 	WeaponStats::AllStats[_Type].isSelected = true;
 	MyWeapon.push_back(_Type);
-	CreateWeaponSlotRenderer(_Type);
-	WeaponSlotUpgrade(_Type);
+	AddWeaponSlot(_Type);
+	UpgradeWeaponSlot(_Type);
 }

@@ -23,12 +23,12 @@ void WeaponStats::AllStatsSetting()
 	WeaponStats::AllStats.insert(std::make_pair(WeaponType::Whip, WhipStats));
 
 
-	WeaponStats::AllStats[WeaponType::Knife].setStats(1, 2, 400, 50, 2, 2, 0.2f, { 31,6 }, "knifeslot.bmp");
-	WeaponStats::AllStats[WeaponType::MagicWand].setStats(0, 1, 200, 50, 3, 3, 0.5f, { 7,7 }, "wandslot.bmp");
-	WeaponStats::AllStats[WeaponType::Axe].setStats(0, 1, 200, 50, 5, 4, 0.2f, { 32,36 }, "axeslot.bmp");
-	WeaponStats::AllStats[WeaponType::Runetracer].setStats(0, 1, 300, 50, 5, 5, 0.2f, { 11,11 }, "runeslot.bmp");
-	WeaponStats::AllStats[WeaponType::FireWand].setStats(0, 3, 100, 50, 5, 4, 0.1f, { 15,15 }, "firewandslot.bmp");
-	WeaponStats::AllStats[WeaponType::Cross].setStats(0, 2, 300, 50, 4, 3, 0.2f, { 10,10 }, "crossslot.bmp");
-	WeaponStats::AllStats[WeaponType::Whip].setStats(0, 2, 10, 50, 3, 3, 0.2f, { 17,17 }, "whipslot.bmp");
+	WeaponStats::AllStats[WeaponType::Knife].setStats(1, 2, 400, 50, 2, 2, 0.2f, 1, "knifeslot.bmp");
+	WeaponStats::AllStats[WeaponType::MagicWand].setStats(0, 1, 200, 50, 3, 3, 0.5f, 1, "wandslot.bmp");
+	WeaponStats::AllStats[WeaponType::Axe].setStats(0, 1, 200, 50, 5, 4, 0.2f, 1, "axeslot.bmp");
+	WeaponStats::AllStats[WeaponType::Runetracer].setStats(0, 1, 300, 50, 5, 5, 0.2f, 1, "runeslot.bmp");
+	WeaponStats::AllStats[WeaponType::FireWand].setStats(0, 3, 100, 50, 5, 4, 0.1f, 1, "firewandslot.bmp");
+	WeaponStats::AllStats[WeaponType::Cross].setStats(0, 2, 300, 50, 4, 3, 0.2f, 1, "crossslot.bmp");
+	WeaponStats::AllStats[WeaponType::Whip].setStats(0, 2, 10, 50, 3, 3, 0.2f, 1, "whipslot.bmp");
 
 }

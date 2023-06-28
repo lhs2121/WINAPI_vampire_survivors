@@ -16,7 +16,7 @@ private:
 	float deathTime;
 	float coolTime;
 	float interval;
-	float4 scale;
+	float scaleRatio;
 	std::string SlotTextureName;
 	int SlotNumber;
 
@@ -25,10 +25,11 @@ public:
 
 	bool isSelected = false;
 	bool isMaxLevel = false;
+
 	static void AllStatsSetting();
 
 	void setStats(int _level, int _Count, float _speed, float _damage, float _deathTime, 
-	float _cooltime, float _interval, float4 _scale, const std::string& _name)
+	float _cooltime, float _interval, float _scaleRatio, const std::string& _name)
 	{
 		level = _level;
 		count = _Count;
@@ -37,7 +38,7 @@ public:
 		deathTime = _deathTime;
 		coolTime = _cooltime;
 		interval = _interval;
-		scale = _scale;
+		scaleRatio = _scaleRatio;
 		SlotTextureName = _name;
 	}
 	
@@ -62,8 +63,8 @@ public:
 	float getInterval() const { return interval; }
 	void setInterval(float value) { interval = value; }
 
-	float4 getScale() const { return scale; }
-	void setScale(float4 value) { scale = value; }
+	float getScaleRatio() const { return scaleRatio; }
+	void setScaleRatio(float value) { scaleRatio = value; }
 
 	void setSlotNumber(int _value) { SlotNumber = _value; }
 	int getSlotNumber() const{ return SlotNumber; }
@@ -77,7 +78,7 @@ public:
 	void addDeathTime(float value) { deathTime += value; }
 	void addCoolTime(float value) { coolTime += value; }
 	void addInterval(float value) { interval += value; }
-	void addScale(float4 value) { scale += value; }
+	void addScaleRatio(float value) { scaleRatio += value; }
 
 
 };
