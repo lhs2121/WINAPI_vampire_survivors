@@ -9,6 +9,7 @@
 #include "ContentsEnum.h"
 #include "SelectUI.h"
 #include "StatusUI.h"
+#include "CandleStick.h"
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -65,6 +66,7 @@ void PlayLevel::Start()
 
 	CreateActor<Timer>(UpdateOrder::Timer);
 
+	ItemSpawnerSpawn();
 }
 
 
@@ -108,6 +110,12 @@ void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)
 void PlayLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
 
+}
+
+void PlayLevel::ItemSpawnerSpawn()
+{
+	CreateActor<CandleStick>(UpdateOrder::Item)->SetPos(float4(1024, 464) + float4(0, 200));
+	CreateActor<CandleStick>(UpdateOrder::Item)->SetPos(float4(1024, 464) + float4(0, -200));
 }
 void PlayLevel::EnemySpawn(float _Delta)
 {

@@ -7,6 +7,11 @@
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
+#include <GameEnginePlatform/GameEngineInput.h>
+
+
+bool Exp::IsTakenExpBall = false;
+
 
 void Exp::Start()
 {
@@ -20,46 +25,48 @@ void Exp::Start()
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("Exp_Blue.bmp"));
 	}
 
-	Renderer = CreateRenderer(RenderOrder::Exp);
+	Renderer = CreateRenderer(RenderOrder::Item);
 	Renderer->SetTexture("Exp_Blue.bmp");
 
-	Collision = CreateCollision(CollisionOrder::Exp);
+	Collision = CreateCollision(CollisionOrder::Item);
 	Collision->SetCollisionType(CollisionType::CirCle);
-	Collision->SetCollisionScale(CollisionScale);
+	Collision->SetCollisionScale({50,50});
 }
 void Exp::Update(float _Delta)
 {
+	static float Cooltime = 7;
 
-	if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion(),CollisionType::CirCle,CollisionType::CirCle))
+	if (GameEngineInput::IsDown('N'))
 	{
-		isItemTaken = true;
+		Cooltime = 7;
+		IsTakenExpBall = true;
 	}
 
-	if (true == isItemTaken)
+	if (false == IsTakenExpBall)
 	{
-		float4 dir = Player::GetMainPlayer()->GetPos() - GetPos();
+		Move(_Delta);
+	}
+
+	if (true == IsTakenExpBall)
+	{
+		
+
+		dir = Player::GetMainPlayer()->GetPos() - GetPos();
 		dir.Normalize();
+		AddPos(dir * 300 * _Delta);
 
-		if (OutWardSpeed > 0)
+		Cooltime -= _Delta;
+
+		if (Cooltime < 0)
 		{
-			AddPos(-dir * _Delta * OutWardSpeed);
-			OutWardSpeed -= 1 * 700 *_Delta;
-		}
-		else if (OutWardSpeed <= 0)
-		{
-			AddPos(dir * _Delta * InWardSpeed);
-			InWardSpeed += 1 * 700 * _Delta ;
+			IsTakenExpBall = false;
 		}
 	}
 
-	if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion(), CollisionType::CirCle, CollisionType::CirCle))
-	{
-		Player::GetMainPlayer()->AddExp(ExpValue);
-		Death();
-	}
+	Eat();
 }
-
-void Exp::SetCollisionScale(float4 _Scale)
+void Exp::ItemEffect()
 {
-	Collision->SetCollisionScale(_Scale);
+	Player::GetMainPlayer()->AddExp(20);
 }
+

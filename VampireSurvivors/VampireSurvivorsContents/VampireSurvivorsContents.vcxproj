@@ -175,6 +175,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="CandleStick.h">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Expball.cpp" />
+    <ClCompile Include="Item.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="StatusUI.cpp" />
     <ClCompile Include="Timer.cpp">
       <SubType>
@@ -239,6 +248,7 @@
     <ClCompile Include="Exp.cpp" />
     <ClCompile Include="PlayerShooter.cpp" />
     <ClCompile Include="WeaponStats.cpp" />
+    <ClCompile Include="CandleStick.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
@@ -246,6 +256,8 @@
   <ItemGroup>
     <ClInclude Include="ContentsEnum.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Expball.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="MenuLevel.h" />
     <ClInclude Include="PauseUI.h" />
     <ClInclude Include="PlayActor.h" />

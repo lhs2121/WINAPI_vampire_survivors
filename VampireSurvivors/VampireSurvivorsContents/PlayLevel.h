@@ -43,6 +43,7 @@ private:
 	void Start() override;
 	void Update(float _delta) override;
 	void EnemySpawn(float _Delta);
+	void ItemSpawnerSpawn();
 
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void LevelEnd(GameEngineLevel* _NextLevel) override;

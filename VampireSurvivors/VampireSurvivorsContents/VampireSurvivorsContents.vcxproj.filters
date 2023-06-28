@@ -92,6 +92,18 @@
     <ClCompile Include="Player.h">
       <Filter>Actor\PlayScene\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Actor\PlayScene\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Expball.cpp">
+      <Filter>Actor\PlayScene\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="CandleStick.h">
+      <Filter>Actor\PlayScene\ItemSpawner</Filter>
+    </ClCompile>
+    <ClCompile Include="CandleStick.cpp">
+      <Filter>Actor\PlayScene\ItemSpawner</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
@@ -120,6 +132,9 @@
     </Filter>
     <Filter Include="Actor\PlayScene\Player">
       <UniqueIdentifier>{e0e44c79-ea94-4860-9f73-e1ad889c2d10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\PlayScene\ItemSpawner">
+      <UniqueIdentifier>{e9099f4d-83f9-4f4c-a5c0-d2ac8f702129}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +170,12 @@
     </ClInclude>
     <ClInclude Include="PlayActor.h">
       <Filter>Actor\PlayScene\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Actor\PlayScene\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Expball.h">
+      <Filter>Actor\PlayScene\Item</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
