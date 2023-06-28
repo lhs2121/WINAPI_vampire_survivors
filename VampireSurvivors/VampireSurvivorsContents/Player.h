@@ -42,8 +42,6 @@ public:
 
 	float4 GetMinDistance();
 
-	
-
 	void ApplyDamage(float _Damage);
 
 	void AddExp(float _Exp);
@@ -59,7 +57,6 @@ private:
 	static Player* MainPlayer;
 
 	GameEngineRenderer* Renderer;
-
 	GameEngineRenderer* HpBar;
 	GameEngineRenderer* HpGauge;
 
@@ -73,18 +70,17 @@ private:
 
 	DirState dirstate = DirState::Right;
 
+	int Level = 1;
 	float MaxHp = 100;
 	float Hp = 100;
 	float speed = 100;
 	float Gold = 0;
 	float MaxExp = 50;
 	float Exp = 0;
-	int Level = 1;
-
-
+	
 	void LevelUp();
-
 	void WallCheck();
+
 	void LevelStart() override;
 	void Start() override;
 	void Update(float _Delta) override;

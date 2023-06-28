@@ -24,7 +24,6 @@ SelectUI* SelectUI::UI = nullptr;
 
 void SelectUI::Start()
 {
-
 	if (false == ResourcesManager::GetInst().IsLoadTexture("ItemSelectPanel.bmp"))
 	{
 		GameEnginePath path;
@@ -56,12 +55,10 @@ void SelectUI::Start()
 		Collision3 = CreateCollision(CollisionOrder::PlayUI);
 		Collision3->SetCollisionScale(scale);
 
-		Collision4 = CreateCollision(CollisionOrder::PlayUI);
-		Collision4->SetCollisionScale(scale);
-
 		Mouse = CreateCollision(CollisionOrder::PlayUI);
 		Mouse->SetCollisionScale({ 50,50 });
 	}
+
 	{
 		SelectBox1 = GetLevel()->CreateActor<SelectBox>(UpdateOrder::PlayUI);
 		SelectBox1->SetPos({ 545,210 });
@@ -71,11 +68,7 @@ void SelectUI::Start()
 
 		SelectBox3 = GetLevel()->CreateActor<SelectBox>(UpdateOrder::PlayUI);
 		SelectBox3->SetPos({ 545,440 });
-
-		SelectBox4 = GetLevel()->CreateActor<SelectBox>(UpdateOrder::PlayUI);
-		SelectBox4->SetPos({ 545,555 });
 	}
-
 
 	Off();
 }
@@ -94,8 +87,8 @@ void SelectUI::Update(float _Delta)
 			Off();
 		}
 	}
-
-	if (true == Collision2->CollisonCheck(Mouse, CollisionType::Rect, CollisionType::Rect) && Collision2->IsUpdate())
+	//1번 버튼 눌렀을때
+	else if (true == Collision2->CollisonCheck(Mouse, CollisionType::Rect, CollisionType::Rect) && Collision2->IsUpdate())
 	{
 		if (GameEngineInput::IsDown(VK_LBUTTON))
 		{
@@ -105,8 +98,8 @@ void SelectUI::Update(float _Delta)
 			Off();
 		}
 	}
-
-	if (true == Collision3->CollisonCheck(Mouse, CollisionType::Rect, CollisionType::Rect) && Collision3->IsUpdate())
+	//2번 버튼 눌렀을때
+	else if (true == Collision3->CollisonCheck(Mouse, CollisionType::Rect, CollisionType::Rect) && Collision3->IsUpdate())
 	{
 		if (GameEngineInput::IsDown(VK_LBUTTON))
 		{
@@ -116,18 +109,7 @@ void SelectUI::Update(float _Delta)
 			Off();
 		}
 	}
-
-	if (true == Collision4->CollisonCheck(Mouse, CollisionType::Rect, CollisionType::Rect) && Collision4->IsUpdate())
-	{
-		if (GameEngineInput::IsDown(VK_LBUTTON))
-		{
-			SelectBox4->OnClick();
-
-			GameEngineTime::MainTimer.SetAllTimeScale(1);
-			PlayLevel::ChangeSpawnState();
-			Off();
-		}
-	}
+	//3번 버튼 눌렀을때
 
 }
 void SelectUI::GetRandomNumbers(int _min, int _max)
@@ -149,20 +131,21 @@ void SelectUI::RandomTypeSetting()
 {
 	WeaponType type[3] = { WeaponType::Null };
 
-	if (false == StatusUI::UI->IsFullWeapon())
+	if (false == StatusUI::UI->IsFullWeapon()) //얻은 무기가 6개 이하라면
 	{
-		GetRandomNumbers(0, 6);
+		GetRandomNumbers(0, 6); //0~6까지 중복제거한 정수 3개를 number에 저장
+
 		type[0] = static_cast<WeaponType>(numbers[0]);
 		type[1] = static_cast<WeaponType>(numbers[1]);
 		type[2] = static_cast<WeaponType>(numbers[2]);
 	}
-	else if (true == StatusUI::UI->IsFullWeapon())
+	else if (true == StatusUI::UI->IsFullWeapon())//얻은 무기가 6개라면
 	{
-		GetRandomNumbers(0, static_cast<int>(StatusUI::UI->MyWeapon.size() - 1));
+		GetRandomNumbers(0,5); //0~5까지 중복제거한 정수 3개를 number에 저장
 
 		for (int i = 0; i < 3; i++)
 		{
-			type[i] = StatusUI::UI->MyWeapon[numbers[i]];
+			type[i] = StatusUI::UI->MyWeapon[numbers[i]];  
 
 			if (WeaponStats::AllStats[type[i]].isMaxLevel)
 			{
@@ -182,7 +165,6 @@ void SelectUI::ButtonSetting()
 	SelectBox1->SetWeaponEffect(RandomType[0]);
 	SelectBox2->SetWeaponEffect(RandomType[1]);
 	SelectBox3->SetWeaponEffect(RandomType[2]);
-
 
 	SelectBox1->On();
 	SelectBox2->On();
@@ -220,14 +202,14 @@ void SelectUI::Off()
 {
 	ItemSelectPanel->Off();
 	Text_LevelUp->Off();
+
 	Collision1->Off();
 	Collision2->Off();
 	Collision3->Off();
-	Collision4->Off();
+
 	SelectBox1->Off();
 	SelectBox2->Off();
 	SelectBox3->Off();
-	SelectBox4->Off();
 	StatusUI::UI->Off();
 }
 

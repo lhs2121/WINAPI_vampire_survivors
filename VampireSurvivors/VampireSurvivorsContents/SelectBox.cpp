@@ -439,14 +439,12 @@ void SelectBox::SetWeaponEffect(WeaponType _Type)
 			break;
 		}
 		break;
-	case WeaponType::Null:
+	default:
 		Panel->SetTexture("null.bmp");
 		WeaponNameText->SetTexture("null.bmp");
 		NewText->SetTexture("null.bmp");
 		DetailText->SetTexture("null.bmp");
 		DetailText2->SetTexture("null.bmp");
-		break;
-	default:
 		break;
 	}
 }

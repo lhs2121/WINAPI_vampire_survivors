@@ -5,21 +5,14 @@ enum class WeaponType;
 class SelectBox : public GameEngineActor
 {
 public:
-	// constrcuter destructer
-	SelectBox()
-	{
-
-	}
-	~SelectBox()
-	{
-
-	}
-
 	void On() override;
 	void Off() override;
 	void SetWeaponEffect(WeaponType _Type);
 	void OnClick();
-	
+
+
+	SelectBox() {}
+	~SelectBox() {}
 	SelectBox(const SelectBox& _Other) = delete;
 	SelectBox(SelectBox&& _Other) noexcept = delete;
 	SelectBox& operator=(const SelectBox& _Other) = delete;

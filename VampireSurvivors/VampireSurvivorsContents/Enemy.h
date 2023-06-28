@@ -16,6 +16,7 @@ class Enemy : public PlayActor
 public:
 	static EnemyType CurSpawnEnemyType[2];
 	static int DeathCount;
+
 	static void ChangeEnemyType(EnemyType _type1, EnemyType _type2)
 	{
 		CurSpawnEnemyType[0] = _type1;
@@ -26,33 +27,35 @@ public:
 		hp -= _Damage;
 	}
 
-
 	Enemy() {};
 	~Enemy() {};
+
 	Enemy(const Enemy& _Other) = delete;
 	Enemy(Enemy&& _Other) noexcept = delete;
 	Enemy& operator=(const Enemy& _Other) = delete;
 	Enemy& operator=(Enemy&& _Other) noexcept = delete;
+
 private:
-	EnemyType type;
-	class GameEngineRenderer* Renderer;
-	class GameEngineCollision* Collision;
-	class GameEngineRenderer* Damage;
+	int value = 0;
+	int ItemdropRate = 80;
+
+	bool move = true;
+	bool collisioncheck = true;
+
+	const float maxspeed = 100.0f;
+	const float minspeed = -100.0f;
 
 	float hp = 20;
 	float speed;
 	float Yspeed = 100;
 	float increasement = 1;
 
-	const float maxspeed = 100.0f;
-	const float minspeed = -100.0f;
-
 	float4 dir;
-	int value = 0;
-	int ItemdropRate = 80;
+	EnemyType type;
 
-	bool move = true;
-	bool collisioncheck = true;
+	class GameEngineRenderer* Renderer;
+	class GameEngineCollision* Collision;
+	class GameEngineRenderer* Damage;
 
 	void Move(float _Delta);
 	void Move2(float _Delta);
