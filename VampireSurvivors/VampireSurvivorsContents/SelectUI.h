@@ -6,26 +6,26 @@ class GameEngineRenderer;
 class ItemButton;
 class GameEngineCollision;
 enum class WeaponType;
-class ItemSelectUI : public GameEngineActor
+class SelectUI : public GameEngineActor
 {
 public:
 
-	static ItemSelectUI* UI;
+	static SelectUI* UI;
 	// constrcuter destructer
-	ItemSelectUI()
+	SelectUI()
 	{
 		UI = this;
 	}
-	~ItemSelectUI()
+	~SelectUI()
 	{
 
 	}
 
 	// delete Function
-	ItemSelectUI(const ItemSelectUI& _Other) = delete;
-	ItemSelectUI(ItemSelectUI&& _Other) noexcept = delete;
-	ItemSelectUI& operator=(const ItemSelectUI& _Other) = delete;
-	ItemSelectUI& operator=(ItemSelectUI&& _Other) noexcept = delete;
+	SelectUI(const SelectUI& _Other) = delete;
+	SelectUI(SelectUI&& _Other) noexcept = delete;
+	SelectUI& operator=(const SelectUI& _Other) = delete;
+	SelectUI& operator=(SelectUI&& _Other) noexcept = delete;
 
 	void On() override;
 	void Off() override;

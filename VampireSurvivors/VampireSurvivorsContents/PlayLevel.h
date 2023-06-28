@@ -17,7 +17,7 @@ public:
 
 	void AddExp(float4 _Pos);
 
-	void ShowItemSelectUI();
+	void ShowSelectUI();
 
 	static bool SpawnCheck;
 
@@ -29,7 +29,7 @@ private:
 
 	class Player* PlayerPtr = nullptr;
 
-	class ItemSelectUI* ItemSelectUIPtr;
+	class SelectUI* SelectUIPtr;
 
 	std::vector<class Exp*> ExpGroup;
 

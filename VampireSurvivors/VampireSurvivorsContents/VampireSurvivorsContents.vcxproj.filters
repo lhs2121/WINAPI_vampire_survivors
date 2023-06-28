@@ -62,9 +62,6 @@
     <ClCompile Include="PlayerUI.cpp">
       <Filter>Actor\PlayScene\UI</Filter>
     </ClCompile>
-    <ClCompile Include="ItemSelectUI.cpp">
-      <Filter>Actor\PlayScene\UI</Filter>
-    </ClCompile>
     <ClCompile Include="PauseUI.cpp">
       <Filter>Actor\PlayScene\UI</Filter>
     </ClCompile>
@@ -92,6 +89,7 @@
     <ClCompile Include="StatusUI.cpp">
       <Filter>Actor\PlayScene\UI</Filter>
     </ClCompile>
+    <ClCompile Include="SelectUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
@@ -141,9 +139,6 @@
     <ClInclude Include="PlayerUI.h">
       <Filter>Actor\PlayScene\UI</Filter>
     </ClInclude>
-    <ClInclude Include="ItemSelectUI.h">
-      <Filter>Actor\PlayScene\UI</Filter>
-    </ClInclude>
     <ClInclude Include="PauseUI.h">
       <Filter>Actor\PlayScene\UI</Filter>
     </ClInclude>
@@ -153,5 +148,6 @@
     <ClInclude Include="StatusUI.h">
       <Filter>Actor\PlayScene\UI</Filter>
     </ClInclude>
+    <ClInclude Include="SelectUI.h" />
   </ItemGroup>
 </Project>

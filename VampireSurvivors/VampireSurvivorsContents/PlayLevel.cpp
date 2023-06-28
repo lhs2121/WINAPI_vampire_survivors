@@ -7,7 +7,7 @@
 #include "PlayerShooter.h"
 #include "Timer.h"
 #include "ContentsEnum.h"
-#include "ItemSelectUI.h"
+#include "SelectUI.h"
 #include "StatusUI.h"
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
@@ -57,7 +57,7 @@ void PlayLevel::Start()
 
 	CreateActor<PlayerShooter>(UpdateOrder::Player);
 
-	ItemSelectUIPtr = CreateActor<ItemSelectUI>(UpdateOrder::PlayUI);
+	SelectUIPtr = CreateActor<SelectUI>(UpdateOrder::PlayUI);
 
 	CreateActor<Timer>(UpdateOrder::Timer);
 
@@ -147,7 +147,7 @@ void PlayLevel::AddExp(float4 _Pos)
 	ExpGroup.push_back(NewExp);
 }
 
-void PlayLevel::ShowItemSelectUI()
+void PlayLevel::ShowSelectUI()
 {
 	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Monster, 0);
 	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Player, 0);
@@ -157,5 +157,5 @@ void PlayLevel::ShowItemSelectUI()
 
 	SpawnCheck = false;
 
-	ItemSelectUIPtr->On();
+	SelectUIPtr->On();
 }

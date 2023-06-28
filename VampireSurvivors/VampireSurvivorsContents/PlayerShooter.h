@@ -4,7 +4,7 @@
 enum class WeaponType;
 class PlayerShooter : public GameEngineActor
 {
-	friend class ItemSelectUI;
+	friend class SelectUI;
 
 public:
 

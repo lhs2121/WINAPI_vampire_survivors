@@ -196,7 +196,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="ItemSelectUI.cpp" />
+    <ClCompile Include="SelectUI.cpp" />
     <ClCompile Include="Projectile.h">
       <SubType>
       </SubType>
@@ -253,7 +253,7 @@
     <ClInclude Include="PlayLevel.h" />
     <ClInclude Include="Exp.h" />
     <ClInclude Include="PlayerUI.h" />
-    <ClInclude Include="ItemSelectUI.h" />
+    <ClInclude Include="SelectUI.h" />
     <ClInclude Include="StatusUI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

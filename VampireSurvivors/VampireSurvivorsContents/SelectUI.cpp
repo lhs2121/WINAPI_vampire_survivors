@@ -1,4 +1,4 @@
-#include "ItemSelectUI.h"
+#include "SelectUI.h"
 #include "ContentsEnum.h"
 #include "PlayLevel.h"
 #include "ItemButton.h"
@@ -20,9 +20,9 @@
 #include <random>
 #include <vector>
 
-ItemSelectUI* ItemSelectUI::UI = nullptr;
+SelectUI* SelectUI::UI = nullptr;
 
-void ItemSelectUI::Start()
+void SelectUI::Start()
 {
 
 	if (false == ResourcesManager::GetInst().IsLoadTexture("ItemSelectPanel.bmp"))
@@ -80,7 +80,7 @@ void ItemSelectUI::Start()
 	Off();
 }
 
-void ItemSelectUI::Update(float _Delta)
+void SelectUI::Update(float _Delta)
 {
 	Mouse->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + GameEngineWindow::MainWindow.GetMousePos());
 
@@ -133,7 +133,7 @@ void ItemSelectUI::Update(float _Delta)
 	}
 
 }
-void ItemSelectUI::GetRandomint(int _min, int _max)
+void SelectUI::GetRandomint(int _min, int _max)
 {
 	numbers.clear();
 
@@ -148,7 +148,7 @@ void ItemSelectUI::GetRandomint(int _min, int _max)
 		}
 	}
 }
-void ItemSelectUI::ButtonSetting()
+void SelectUI::ButtonSetting()
 {
 	WeaponType type[3] = { WeaponType::Null };
 
@@ -200,7 +200,7 @@ void ItemSelectUI::ButtonSetting()
 	}
 }
 
-void ItemSelectUI::On()
+void SelectUI::On()
 {
 	ItemSelectPanel->On();
 	Text_LevelUp->On();
@@ -208,7 +208,7 @@ void ItemSelectUI::On()
 	StatusUI::UI->On();
 }
 
-void ItemSelectUI::Off()
+void SelectUI::Off()
 {
 	ItemSelectPanel->Off();
 	Text_LevelUp->Off();
