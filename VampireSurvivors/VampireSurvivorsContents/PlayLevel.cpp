@@ -20,6 +20,10 @@
 
 bool PlayLevel::SpawnCheck = true;
 
+
+int PlayLevel::MinSpawnNum = 7;
+int PlayLevel::MaxSpawnNum = 15;
+
 PlayLevel::PlayLevel()
 {
 	ExpGroup.reserve(500);
@@ -113,7 +117,7 @@ void PlayLevel::EnemySpawn(float _Delta)
 	if (Cooltime < 0)
 	{
 		int num;
-		num = GameEngineRandom::MainRandom.RandomInt(5, 12);
+		num = GameEngineRandom::MainRandom.RandomInt(MinSpawnNum, MaxSpawnNum);
 
 		Enemy* PrevEnemy = nullptr;
 		Enemy* PrevEnemy2 = nullptr;

@@ -26,15 +26,6 @@
     <ClCompile Include="BackGround.cpp">
       <Filter>Actor\PlayScene</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Actor\PlayScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.h">
-      <Filter>Actor\PlayScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Actor\PlayScene</Filter>
-    </ClCompile>
     <ClCompile Include="CharactorSelectUI.h">
       <Filter>Actor\MenuScene</Filter>
     </ClCompile>
@@ -49,9 +40,6 @@
     </ClCompile>
     <ClCompile Include="Projectile.cpp">
       <Filter>Actor\PlayScene\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayActor.cpp">
-      <Filter>Actor\PlayScene</Filter>
     </ClCompile>
     <ClCompile Include="Projectile.h">
       <Filter>Actor\PlayScene\Weapon</Filter>
@@ -92,6 +80,18 @@
     <ClCompile Include="SelectUI.cpp">
       <Filter>Actor\PlayScene\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Actor\PlayScene\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayActor.cpp">
+      <Filter>Actor\PlayScene\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Actor\PlayScene\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.h">
+      <Filter>Actor\PlayScene\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
@@ -118,6 +118,9 @@
     <Filter Include="Actor\PlayScene\UI">
       <UniqueIdentifier>{524013c2-034d-45b4-9456-919209e9f0f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\PlayScene\Player">
+      <UniqueIdentifier>{e0e44c79-ea94-4860-9f73-e1ad889c2d10}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsEnum.h">
@@ -128,12 +131,6 @@
     </ClInclude>
     <ClInclude Include="PlayLevel.h">
       <Filter>Level</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Actor\PlayScene</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayActor.h">
-      <Filter>Actor\PlayScene</Filter>
     </ClInclude>
     <ClInclude Include="Exp.h">
       <Filter>Actor\PlayScene\Item</Filter>
@@ -152,6 +149,12 @@
     </ClInclude>
     <ClInclude Include="SelectUI.h">
       <Filter>Actor\PlayScene\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Actor\PlayScene\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayActor.h">
+      <Filter>Actor\PlayScene\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

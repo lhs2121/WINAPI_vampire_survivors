@@ -7,30 +7,32 @@ enum class EnemyType
 	enemy1,
 	enemy2,
 	enemy3,
-
+	enemy4,
+	Boss1
 };
 
 class Enemy : public PlayActor
 {
 public:
 	static EnemyType CurSpawnEnemyType[2];
-	
 	static int DeathCount;
-	// constrcuter destructer
-	Enemy();
-	~Enemy();
-	 
-	// delete Function
-	Enemy(const Enemy& _Other) = delete;
-	Enemy(Enemy&& _Other) noexcept = delete;
-	Enemy& operator=(const Enemy& _Other) = delete;
-	Enemy& operator=(Enemy&& _Other) noexcept = delete;
-
+	static void ChangeEnemyType(EnemyType _type1, EnemyType _type2)
+	{
+		CurSpawnEnemyType[0] = _type1;
+		CurSpawnEnemyType[0] = _type2;
+	}
 	void ApplyDamage(float _Damage)
 	{
 		hp -= _Damage;
 	}
 
+
+	Enemy() {};
+	~Enemy() {};
+	Enemy(const Enemy& _Other) = delete;
+	Enemy(Enemy&& _Other) noexcept = delete;
+	Enemy& operator=(const Enemy& _Other) = delete;
+	Enemy& operator=(Enemy&& _Other) noexcept = delete;
 private:
 	EnemyType type;
 	class GameEngineRenderer* Renderer;
@@ -38,22 +40,19 @@ private:
 	class GameEngineRenderer* Damage;
 
 	float hp = 20;
-	int ItemdropRate = 80;
 	float speed;
-	float4 dir;
-
 	float Yspeed = 100;
 	float increasement = 1;
+
 	const float maxspeed = 100.0f;
 	const float minspeed = -100.0f;
 
+	float4 dir;
+	int value = 0;
+	int ItemdropRate = 80;
 
 	bool move = true;
 	bool collisioncheck = true;
-	int value = 0;
-
-	void Start() override;
-	void Update(float _Delta) override;
 
 	void Move(float _Delta);
 	void Move2(float _Delta);
@@ -61,5 +60,7 @@ private:
 	void DropExp();
 	void WallCheck();
 
+	void Start() override;
+	void Update(float _Delta) override;
 };
 

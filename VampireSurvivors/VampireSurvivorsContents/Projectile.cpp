@@ -344,7 +344,7 @@ void Projectile::FireWand_Attack(float _Delta)
 	{
 		Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
 		enemy->ApplyDamage(Damage);
-		Damage -= 3;
+		Damage -= 1;
 	}
 }
 void Projectile::Cross_Attack(float _Delta)
@@ -456,8 +456,6 @@ void Projectile::Whip_Attack(float _Delta)
 	{
 		Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
 		enemy->ApplyDamage(Damage);
-
-		Damage -= 5;
 	}
 }
 void Projectile::Setting(WeaponType _Type)

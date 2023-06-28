@@ -90,8 +90,7 @@ void SelectUI::Update(float _Delta)
 		{
 			SelectBox1->OnClick();
 			GameEngineTime::MainTimer.SetAllTimeScale(1);
-			PlayLevel* lv = static_cast<PlayLevel*>(GetLevel());
-			lv->SpawnCheck = true;
+			PlayLevel::ChangeSpawnState();
 			Off();
 		}
 	}
@@ -102,8 +101,7 @@ void SelectUI::Update(float _Delta)
 		{
 			SelectBox2->OnClick();
 			GameEngineTime::MainTimer.SetAllTimeScale(1);
-			PlayLevel* lv = static_cast<PlayLevel*>(GetLevel());
-			lv->SpawnCheck = true;
+			PlayLevel::ChangeSpawnState();
 			Off();
 		}
 	}
@@ -114,8 +112,7 @@ void SelectUI::Update(float _Delta)
 		{
 			SelectBox3->OnClick();
 			GameEngineTime::MainTimer.SetAllTimeScale(1);
-			PlayLevel* lv = static_cast<PlayLevel*>(GetLevel());
-			lv->SpawnCheck = true;
+			PlayLevel::ChangeSpawnState();
 			Off();
 		}
 	}
@@ -125,9 +122,9 @@ void SelectUI::Update(float _Delta)
 		if (GameEngineInput::IsDown(VK_LBUTTON))
 		{
 			SelectBox4->OnClick();
+
 			GameEngineTime::MainTimer.SetAllTimeScale(1);
-			PlayLevel* lv = static_cast<PlayLevel*>(GetLevel());
-			lv->SpawnCheck = true;
+			PlayLevel::ChangeSpawnState();
 			Off();
 		}
 	}

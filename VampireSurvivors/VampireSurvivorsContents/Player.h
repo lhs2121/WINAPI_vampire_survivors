@@ -8,21 +8,10 @@ enum class DirState
 	Right
 };
 
-
 class GameEngineRenderer;
 class Player : public PlayActor
 {
-	friend class PlayerUI;
 public:
-
-	Player();
-	~Player();
-
-
-	Player(const Player& _Other) = delete;
-	Player(Player&& _Other) noexcept = delete;
-	Player& operator=(const Player& _Other) = delete;
-	Player& operator=(Player&& _Other) noexcept = delete;
 
 	static Player* GetMainPlayer()
 	{
@@ -44,18 +33,27 @@ public:
 		return PlayerDir;
 	}
 
+	DirState GetPlayerDirState()
+	{
+		return dirstate;
+	}
+
 	float4 GetFirePos();
 
 	float4 GetMinDistance();
 
-	DirState GetPlayerDirState()
-	{
-		return dirstate;
-	} 
+	
 
 	void ApplyDamage(float _Damage);
 
 	void AddExp(float _Exp);
+
+	Player();
+	~Player();
+	Player(const Player& _Other) = delete;
+	Player(Player&& _Other) noexcept = delete;
+	Player& operator=(const Player& _Other) = delete;
+	Player& operator=(Player&& _Other) noexcept = delete;
 
 private:
 	static Player* MainPlayer;

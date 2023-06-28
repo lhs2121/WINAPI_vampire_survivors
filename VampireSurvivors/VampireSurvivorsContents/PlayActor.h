@@ -23,9 +23,6 @@ public:
 
 	float4 ActorCameraPos();
 
-
-protected:
-
 private:
 	class GameEngineWindowTexture* GroundTexture = nullptr;
 };

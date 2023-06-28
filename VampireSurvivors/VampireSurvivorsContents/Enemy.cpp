@@ -10,22 +10,13 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include "ContentsEnum.h"
 
-EnemyType Enemy::CurSpawnEnemyType[2] = {EnemyType::enemy1 ,EnemyType::enemy2};
+EnemyType Enemy::CurSpawnEnemyType[2] = { EnemyType::enemy1 ,EnemyType::enemy2 };
 
 int Enemy::DeathCount = 0;
 
-Enemy::Enemy()
-{
-
-}
-Enemy::~Enemy()
-{
-
-}
-
 void Enemy::Start()
 {
-	if (false == ResourcesManager::GetInst().IsLoadTexture("Lenemy1.bmp"))
+	if (false == ResourcesManager::GetInst().IsLoadTexture("enemy1_left.bmp"))
 	{
 		GameEnginePath path;
 		path.SetCurrentPath();
@@ -33,20 +24,29 @@ void Enemy::Start()
 		path.MoveChild("Resources\\PlayScene\\");
 		path.MoveChild("Enemy\\");
 
-		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Lenemy1.bmp"), 5, 1);
-		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Renemy1.bmp"), 5, 1);
-		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("LEnemy_death.bmp"), 8, 1);
-		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("REnemy_death.bmp"), 8, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("enemy1_left.bmp"), 5, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("enemy1_right.bmp"), 5, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("enemy1_death_left.bmp"), 8, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("enemy1_death_right.bmp"), 8, 1);
 
-		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Lenemy2.bmp"), 4, 1);
-		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("Renemy2.bmp"), 4, 1);
-		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("LEnemy2_death.bmp"), 7, 1);
-		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("REnemy2_death.bmp"), 7, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("enemy2_left.bmp"), 4, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("enemy2_right.bmp"), 4, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("enemy2_death_left.bmp"), 7, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("enemy2_death_right.bmp"), 7, 1);
+
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("enemy3_left.bmp"), 3, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("enemy3_right.bmp"), 3, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("enemy3_death.bmp"), 5, 1);
+
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("enemy4_left.bmp"), 4, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("enemy4_right.bmp"), 4, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("enemy4_death_left.bmp"), 8, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("enemy4_death_right.bmp"), 8, 1);
 	}
 
-	int random = GameEngineRandom::MainRandom.RandomInt(1, 2);
+	int random = GameEngineRandom::MainRandom.RandomInt(1, 100);
 
-	if (random % 2 == 0)
+	if (random <= 80)
 	{
 		type = CurSpawnEnemyType[0];
 		Renderer = CreateRenderer(RenderOrder::UnderMonster);
@@ -59,31 +59,45 @@ void Enemy::Start()
 	// 50%확률로 몬스터의 렌더위치를 플레이어의 위나 아래로 설정
 
 
-	speed = 60 + GameEngineRandom::MainRandom.RandomFloat(1, 5);
+	speed = 70 + GameEngineRandom::MainRandom.RandomFloat(1, 5);
 	// 몬스터의 스피드를 서로 다르게 설정
 
-	Renderer->CreateAnimation("Enemy_LeftRun", "Lenemy1.bmp", 0, 4, 0.1f, true);
-	Renderer->CreateAnimation("Enemy_RightRun", "Renemy1.bmp", 0, 4, 0.1f, true);
-	Renderer->CreateAnimation("Enemy_Death_Left", "LEnemy_death.bmp", 0, 7, 0.1f, false);
-	Renderer->CreateAnimation("Enemy_Death_Right", "REnemy_death.bmp", 0, 7, 0.1f, false);
+	Renderer->CreateAnimation("Enemy1_Left", "enemy1_left.bmp", 0, 4, 0.1f, true);
+	Renderer->CreateAnimation("Enemy1_Right", "enemy1_right.bmp", 0, 4, 0.1f, true);
+	Renderer->CreateAnimation("Enemy1_Death_Left", "enemy1_death_left.bmp", 0, 7, 0.1f, false);
+	Renderer->CreateAnimation("Enemy1_Death_Right", "enemy1_death_right.bmp", 0, 7, 0.1f, false);
 
-	Renderer->CreateAnimation("Enemy2_LeftRun", "Lenemy2.bmp", 0, 3, 0.1f, true);
-	Renderer->CreateAnimation("Enemy2_RightRun", "Renemy2.bmp", 0, 3, 0.1f, true);
-	Renderer->CreateAnimation("Enemy2_Death_Left", "LEnemy2_death.bmp", 0, 6, 0.1f, false);
-	Renderer->CreateAnimation("Enemy2_Death_Right", "REnemy2_death.bmp", 0, 6, 0.1f, false);
+	Renderer->CreateAnimation("Enemy2_Left", "enemy2_left.bmp", 0, 3, 0.1f, true);
+	Renderer->CreateAnimation("Enemy2_Right", "enemy2_right.bmp", 0, 3, 0.1f, true);
+	Renderer->CreateAnimation("Enemy2_Death_Left", "enemy2_death_left.bmp", 0, 6, 0.1f, false);
+	Renderer->CreateAnimation("Enemy2_Death_Right", "enemy2_death_right.bmp", 0, 6, 0.1f, false);
+
+	Renderer->CreateAnimation("Enemy3_Left", "enemy3_left.bmp", 0, 2, 0.1f, true);
+	Renderer->CreateAnimation("Enemy3_Right", "enemy3_right.bmp", 0, 2, 0.1f, true);
+	Renderer->CreateAnimation("Enemy3_Death", "enemy3_death.bmp", 0, 4, 0.1f, false);
+
+	Renderer->CreateAnimation("Enemy4_Left", "enemy4_left.bmp", 0, 3, 0.1f, true);
+	Renderer->CreateAnimation("Enemy4_Right", "enemy4_right.bmp", 0, 3, 0.1f, true);
+	Renderer->CreateAnimation("Enemy4_Death_Left", "enemy4_death_left.bmp", 0, 7, 0.1f, false);
+	Renderer->CreateAnimation("Enemy4_Death_Right", "enemy4_death_right.bmp", 0, 7, 0.1f, false);
 
 	switch (type)
 	{
 	case EnemyType::enemy1:
-		Renderer->ChangeAnimation("Enemy_LeftRun");
+		Renderer->ChangeAnimation("Enemy1_Left");
 		break;
 	case EnemyType::enemy2:
-		Renderer->ChangeAnimation("Enemy2_LeftRun");
+		Renderer->ChangeAnimation("Enemy2_Left");
+		break;
+	case EnemyType::enemy3:
+		Renderer->ChangeAnimation("Enemy2_Left");
+		break;
+	case EnemyType::enemy4:
+		Renderer->ChangeAnimation("Enemy2_Left");
 		break;
 	default:
 		break;
 	}
-
 
 	Collision = CreateCollision(CollisionOrder::Monster);
 	Collision->SetCollisionPos({ 0,10 });
@@ -101,13 +115,11 @@ void Enemy::Update(float _Delta)
 	{
 		switch (type)
 		{
-		case EnemyType::enemy1:
-			Move(_Delta);
-			break;
 		case EnemyType::enemy2:
 			Move2(_Delta);
 			break;
 		default:
+			Move(_Delta);
 			break;
 		}
 
@@ -126,25 +138,37 @@ void Enemy::Update(float _Delta)
 				switch (type)
 				{
 				case EnemyType::enemy1:
-					Renderer->ChangeAnimation("Enemy_Death_Right");
+					Renderer->ChangeAnimation("Enemy1_Death_Right");
 					break;
 				case EnemyType::enemy2:
 					Renderer->ChangeAnimation("Enemy2_Death_Right");
 					break;
+				case EnemyType::enemy3:
+					Renderer->ChangeAnimation("Enemy3_Death");
+					break;
+				case EnemyType::enemy4:
+					Renderer->ChangeAnimation("Enemy4_Death_Right");
+					break;
 				default:
 					break;
 				}
-				
+
 			}
 			else if (dir.X < 0)
 			{
 				switch (type)
 				{
 				case EnemyType::enemy1:
-					Renderer->ChangeAnimation("Enemy_Death_Left");
+					Renderer->ChangeAnimation("Enemy1_Death_Left");
 					break;
 				case EnemyType::enemy2:
 					Renderer->ChangeAnimation("Enemy2_Death_Left");
+					break;
+				case EnemyType::enemy3:
+					Renderer->ChangeAnimation("Enemy3_Death");
+					break;
+				case EnemyType::enemy4:
+					Renderer->ChangeAnimation("Enemy4_Death_Left");
 					break;
 				default:
 					break;
@@ -168,7 +192,7 @@ void Enemy::Update(float _Delta)
 		}
 	}
 
-	
+
 }
 
 void Enemy::Move(float _Delta)
@@ -179,15 +203,39 @@ void Enemy::Move(float _Delta)
 
 	if (dir.X < 0)
 	{
-		Renderer->ChangeAnimation("Enemy_LeftRun");
+		switch (type)
+		{
+		case EnemyType::enemy1:
+			Renderer->ChangeAnimation("Enemy1_Left");
+			break;
+		case EnemyType::enemy3:
+			Renderer->ChangeAnimation("Enemy3_Left");
+			break;
+		case EnemyType::enemy4:
+			Renderer->ChangeAnimation("Enemy4_Left");
+			break;
+		default:
+			break;
+		}
 
 	}
 	else
 	{
-		Renderer->ChangeAnimation("Enemy_RightRun");
+		switch (type)
+		{
+		case EnemyType::enemy1:
+			Renderer->ChangeAnimation("Enemy1_Right");
+			break;
+		case EnemyType::enemy3:
+			Renderer->ChangeAnimation("Enemy3_Right");
+			break;
+		case EnemyType::enemy4:
+			Renderer->ChangeAnimation("Enemy4_Right");
+			break;
+		default:
+			break;
+		}
 	}
-
-
 	AddPos(dir * speed * _Delta);//플레이어 추적
 }
 
@@ -200,16 +248,14 @@ void Enemy::Move2(float _Delta)
 
 	if (dir.X < 0)
 	{
-		Renderer->ChangeAnimation("Enemy2_LeftRun");
+		Renderer->ChangeAnimation("Enemy2_Left");
 	}
 	else
 	{
-		Renderer->ChangeAnimation("Enemy2_RightRun");
+		Renderer->ChangeAnimation("Enemy2_Right");
 	}
 
-
 	AddPos(dir * speed * _Delta);//플레이어 추적
-	
 
 	Yspeed += increasement;
 	if (Yspeed > maxspeed || Yspeed < minspeed)
@@ -217,21 +263,22 @@ void Enemy::Move2(float _Delta)
 		increasement = -increasement;
 	}
 	AddPos(float4::UP * Yspeed * _Delta);
-	
-	
+
+
 }
+
 void Enemy::CollisionCheck(float _Delta)
 {
 	if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion(), CollisionType::CirCle, CollisionType::CirCle))
 	{
-		AddPos(-dir * (speed - 1) * _Delta); 
+		AddPos(-dir * (speed - 1) * _Delta);
 	}
 
 	//플레이어와 바깥쪽 콜리전과 충돌시 서로 밀어냄
 
 	if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion2(), CollisionType::CirCle, CollisionType::CirCle))
 	{
-		AddPos(-dir * 500 * _Delta); 
+		AddPos(-dir * 500 * _Delta);
 	}
 
 	//플레이어의 안쪽 콜리전과 충돌시 서로 강하게 밀어냄
@@ -267,7 +314,6 @@ void Enemy::DropExp()
 
 	// 80% 확률로 아이템 드랍
 }
-
 
 void Enemy::WallCheck()
 {

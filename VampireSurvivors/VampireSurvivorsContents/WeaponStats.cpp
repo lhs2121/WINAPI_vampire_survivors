@@ -13,7 +13,6 @@ void WeaponStats::AllStatsSetting()
 	WeaponStats CrossStats;
 	WeaponStats WhipStats;
 
-
 	WeaponStats::AllStats.insert(std::make_pair(WeaponType::Knife, KnifeStats));
 	WeaponStats::AllStats.insert(std::make_pair(WeaponType::MagicWand, MagicWandStats));
 	WeaponStats::AllStats.insert(std::make_pair(WeaponType::Axe, AxeStats));
@@ -21,7 +20,6 @@ void WeaponStats::AllStatsSetting()
 	WeaponStats::AllStats.insert(std::make_pair(WeaponType::FireWand, FireWandStats));
 	WeaponStats::AllStats.insert(std::make_pair(WeaponType::Cross, CrossStats));
 	WeaponStats::AllStats.insert(std::make_pair(WeaponType::Whip, WhipStats));
-
 
 	WeaponStats::AllStats[WeaponType::Knife].setStats(1, 2, 400, 50, 2, 2, 0.2f, 1, "knifeslot.bmp");
 	WeaponStats::AllStats[WeaponType::MagicWand].setStats(0, 1, 200, 50, 3, 3, 0.5f, 1, "wandslot.bmp");
