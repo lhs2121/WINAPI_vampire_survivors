@@ -97,7 +97,6 @@ void SelectBox::SetWeaponEffect(WeaponType _Type)
 		case 1:
 			DetailText->SetText("투사체를 1개 더 발사합니다.", 20, "메이플스토리");
 			NewText->SetText("레벨:2", 20, "메이플스토리");
-			_ScaleRatio = 3;
 			_Count = 1;
 			break;
 		case 2:
