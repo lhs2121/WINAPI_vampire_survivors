@@ -1,11 +1,13 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 #include <vector>
+#include <map>
 
 class GameEngineRenderer;
 class SelectBox;
 class GameEngineCollision;
 enum class WeaponType;
+enum class PassiveType;
 class SelectUI : public GameEngineActor
 {
 public:
@@ -24,8 +26,7 @@ public:
 
 private:
 
-	std::vector<int> numbers;
-	std::vector<WeaponType> RandomType;
+	std::map<WeaponType, PassiveType> RandomType;
 
 	SelectBox* SelectBox1 = nullptr;
 	SelectBox* SelectBox2 = nullptr;
@@ -42,7 +43,6 @@ private:
 
 	void ButtonSetting();
 	void RandomTypeSetting();
-	void GetRandomNumbers(int _min, int _max);
 
 	void Start() override;
 	void Update(float _Delta) override;

@@ -18,6 +18,7 @@ protected:
 	virtual void ItemEffect();
 	void Move(float _Delta);
 	void Eat();
+	void Update(float _Delta) override;
 	class GameEngineRenderer* Renderer;
 	class GameEngineCollision* Collision;
 	float4 dir;

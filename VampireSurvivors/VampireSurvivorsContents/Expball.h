@@ -15,7 +15,24 @@ public:
 
 private:
 	void Start() override;
-	void Update(float _Delta) override;
+	void ItemEffect() override;
+};
+
+class Chicken : public Item
+{
+public:
+
+	Chicken() {}
+	~Chicken() {}
+
+	Chicken(const Chicken& _Other) = delete;
+	Chicken(Chicken&& _Other) noexcept = delete;
+	Chicken& operator=(const Chicken& _Other) = delete;
+	Chicken& operator=(Chicken&& _Other) noexcept = delete;
+
+
+private:
+	void Start() override;
 	void ItemEffect() override;
 };
 

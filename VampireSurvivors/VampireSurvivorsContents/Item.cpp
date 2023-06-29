@@ -42,6 +42,11 @@ void Item::Eat()
 	}
 }
 
+void Item::Update(float _Delta)
+{
+	Move(_Delta);
+	Eat();
+}
 void Item::ItemEffect()
 {
 

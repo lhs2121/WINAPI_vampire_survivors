@@ -45,7 +45,19 @@ void SelectUI::Start()
 	}
 
 	{
-		float4 scale = float4(388, 100);
+		SelectBox1 = GetLevel()->CreateActor<SelectBox>(UpdateOrder::PlayUI);
+		SelectBox1->SetPos({ 545,210 });
+
+		SelectBox2 = GetLevel()->CreateActor<SelectBox>(UpdateOrder::PlayUI);
+		SelectBox2->SetPos({ 545,325 });
+
+		SelectBox3 = GetLevel()->CreateActor<SelectBox>(UpdateOrder::PlayUI);
+		SelectBox3->SetPos({ 545,440 });
+	}
+
+	{
+		float4 scale = float4(388, 110);
+
 		Collision1 = CreateCollision(CollisionOrder::PlayUI);
 		Collision1->SetCollisionScale(scale);
 
@@ -57,17 +69,6 @@ void SelectUI::Start()
 
 		Mouse = CreateCollision(CollisionOrder::PlayUI);
 		Mouse->SetCollisionScale({ 50,50 });
-	}
-
-	{
-		SelectBox1 = GetLevel()->CreateActor<SelectBox>(UpdateOrder::PlayUI);
-		SelectBox1->SetPos({ 545,210 });
-
-		SelectBox2 = GetLevel()->CreateActor<SelectBox>(UpdateOrder::PlayUI);
-		SelectBox2->SetPos({ 545,325 });
-
-		SelectBox3 = GetLevel()->CreateActor<SelectBox>(UpdateOrder::PlayUI);
-		SelectBox3->SetPos({ 545,440 });
 	}
 
 	Off();
@@ -112,59 +113,28 @@ void SelectUI::Update(float _Delta)
 	//3번 버튼 눌렀을때
 
 }
-void SelectUI::GetRandomNumbers(int _min, int _max)
-{
-	numbers.clear();
 
-	std::random_device rd;
-	std::mt19937 generator(rd());
-	std::uniform_int_distribution<int> distribution(_min, _max);
-
-	while (numbers.size() < 3) {
-		int random_num = distribution(generator);
-		if (std::find(numbers.begin(), numbers.end(), random_num) == numbers.end()) {
-			numbers.push_back(random_num);
-		}
-	}
-}
 void SelectUI::RandomTypeSetting()
 {
-	WeaponType type[3] = { WeaponType::Null };
-
-	if (false == StatusUI::UI->IsFullWeapon()) //얻은 무기가 6개 이하라면
+	if (true == StatusUI::UI->IsAllMax())
 	{
-		GetRandomNumbers(0, 6); //0~6까지 중복제거한 정수 3개를 number에 저장
-
-		type[0] = static_cast<WeaponType>(numbers[0]);
-		type[1] = static_cast<WeaponType>(numbers[1]);
-		type[2] = static_cast<WeaponType>(numbers[2]);
-	}
-	else if (true == StatusUI::UI->IsFullWeapon())//얻은 무기가 6개라면
-	{
-		GetRandomNumbers(0,5); //0~5까지 중복제거한 정수 3개를 number에 저장
-
-		for (int i = 0; i < 3; i++)
-		{
-			type[i] = StatusUI::UI->MyWeapon[numbers[i]];  
-
-			if (WeaponStats::AllStats[type[i]].isMaxLevel)
-			{
-				type[i] = WeaponType::Null;
-			}
-		}
+		return;
 	}
 
-	RandomType.push_back(type[0]);
-	RandomType.push_back(type[1]);
-	RandomType.push_back(type[2]);
+
+	//SelectBox1->SetEffect(RandomType[0], RandomType[1]);
+	//SelectBox2->SetEffect(type[1]);
+	//SelectBox3->SetEffect(type[2]);
 }
+
+
 void SelectUI::ButtonSetting()
 {
 	RandomTypeSetting();
 
-	SelectBox1->SetWeaponEffect(RandomType[0]);
-	SelectBox2->SetWeaponEffect(RandomType[1]);
-	SelectBox3->SetWeaponEffect(RandomType[2]);
+	Collision1->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox1->GetPos());
+	Collision2->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox2->GetPos());
+	Collision3->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox3->GetPos());
 
 	SelectBox1->On();
 	SelectBox2->On();
@@ -173,21 +143,6 @@ void SelectUI::ButtonSetting()
 	Collision1->On();
 	Collision2->On();
 	Collision3->On();
-
-	Collision1->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox1->GetPos());
-	Collision2->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox2->GetPos());
-	Collision3->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox3->GetPos());
-
-	RandomType.clear();
-	/*
-	if (true == IsLucky)
-	{
-		SelectBox4->SetWeaponEffect(RandomType[0]);
-		SelectBox4->On();
-		Collision4->On();
-		Collision4->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox3->GetPos());
-	}
-	*/
 }
 
 void SelectUI::On()

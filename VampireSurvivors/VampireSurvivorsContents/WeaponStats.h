@@ -4,6 +4,8 @@
 #include <map>
 
 enum class WeaponType;
+enum class PassiveType;
+class SelectBox;
 class WeaponStats
 {
 
@@ -21,15 +23,15 @@ private:
 	int SlotNumber;
 
 public:
-	static std::map<WeaponType,WeaponStats> AllStats;
+	static std::map<WeaponType, WeaponStats> AllStats;
 
 	bool isSelected = false;
 	bool isMaxLevel = false;
 
 	static void AllStatsSetting();
 
-	void setStats(int _level, int _Count, float _speed, float _damage, float _deathTime, 
-	float _cooltime, float _interval, float _scaleRatio, const std::string& _name)
+	void setStats(int _level, int _Count, float _speed, float _damage, float _deathTime,
+		float _cooltime, float _interval, float _scaleRatio, const std::string& _name)
 	{
 		level = _level;
 		count = _Count;
@@ -41,7 +43,7 @@ public:
 		scaleRatio = _scaleRatio;
 		SlotTextureName = _name;
 	}
-	
+
 	int getLevel() const { return level; }
 	void setLevel(int value) { level = value; }
 
@@ -66,8 +68,9 @@ public:
 	float getScaleRatio() const { return scaleRatio; }
 	void setScaleRatio(float value) { scaleRatio = value; }
 
+	int getSlotNumber() const { return SlotNumber; }
 	void setSlotNumber(int _value) { SlotNumber = _value; }
-	int getSlotNumber() const{ return SlotNumber; }
+	
 
 	std::string getSlotTextureName() const { return SlotTextureName; };
 
@@ -80,5 +83,69 @@ public:
 	void addInterval(float value) { interval += value; }
 	void addScaleRatio(float value) { scaleRatio += value; }
 
+
+};
+
+class PassvieFunction;
+class PassiveStats
+{
+
+private:
+
+	int level;
+	int SlotNumber;
+	std::string SlotTextureName;
+	
+
+public:
+	static std::map<PassiveType, PassiveStats> AllPassive;
+
+	bool isSelected = false;
+	bool isMaxLevel = false;
+	void (PassiveStats::* effectFunc)();
+	static void AllStatsSetting();
+
+	void setStats(int _level, const std::string& _name)
+	{
+		level = _level;
+		SlotTextureName = _name;
+	}
+
+	void SetEffect(void (PassiveStats::*function)())
+	{
+		effectFunc = function;
+	}
+
+	void eff()
+	{
+
+	}
+	std::string getSlotTextureName() const { return SlotTextureName; };
+	int getLevel() const { return level; }
+	void setLevel(int value) { level = value; }
+	int getSlotNumber() const { return SlotNumber; }
+	void setSlotNumber(int _value) { SlotNumber = _value; }
+	void addLevel(int value) { level += value; }
+
+
+	void Blackheart();
+
+	void Redheart();
+
+	void Book();
+
+	void Glove();
+
+	void Candle();
+
+	void Expball();
+
+	void Crown();
+
+	void Spinach();
+
+	void Wing();
+
+	void Clover();
 
 };

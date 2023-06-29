@@ -4,7 +4,7 @@
 enum class WeaponType;
 class Projectile : public GameEngineActor
 {
-
+	friend class PassvieFuntion;
 public:
 
 	Projectile() {}
@@ -16,6 +16,12 @@ public:
 	Projectile& operator=(Projectile&& _Other) noexcept = delete;
 
 	void Setting(WeaponType _Type);
+
+	static float PassvieDamage;
+	static float PassvieSpeed;
+	static float PassvieCooltime;
+	static float PassvieDeathtime;
+	static float PassvieScaleratio;
 
 private:
 	class GameEngineRenderer* Renderer;

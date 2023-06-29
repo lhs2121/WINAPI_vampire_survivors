@@ -12,6 +12,12 @@
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineCollision.h>
 
+static float PassvieDamage = 0;
+static float PassvieSpeed = 0;
+static float PassvieCooltime = 0;
+static float PassvieDeathtime = 0;
+static float PassvieScaleratio = 1;
+
 
 void Projectile::Start()
 {
@@ -560,5 +566,9 @@ void Projectile::Setting(WeaponType _Type)
 		break;
 	}
 
-	
+	Speed += PassvieSpeed;
+	Damage += PassvieDamage;
+	DeathTime += PassvieDeathtime;
+	Scale *= PassvieScaleratio;
+	Collision->SetCollisionScale(Scale);
 }

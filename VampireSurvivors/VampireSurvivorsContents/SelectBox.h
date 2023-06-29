@@ -1,16 +1,17 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 #include <vector>
-enum class WeaponType;
+#include "ContentsEnum.h"
 class SelectBox : public GameEngineActor
 {
 public:
 	void On() override;
 	void Off() override;
-	void SetWeaponEffect(WeaponType _Type);
+	void SetEffect(WeaponType _Type = WeaponType::Null, PassiveType _Type2 = PassiveType::Null);
 	void OnClick();
 
-
+	void SetWeaponEffect();
+	void SetPassiveEffect();
 	SelectBox() {}
 	~SelectBox() {}
 	SelectBox(const SelectBox& _Other) = delete;
@@ -25,8 +26,13 @@ private:
 	class GameEngineRenderer* DetailText;
 	class GameEngineRenderer* DetailText2;
 
-	int Curlevel;
-	WeaponType CurType;
+	int CurWeaponLevel;
+	WeaponType CurWeaponType;
+
+	int CurPassiveLevel;
+	PassiveType CurPassiveType;
+
+	bool IsWeaponButton = false;
 
 	int _Count = 0;
 	float _Speed = 0;

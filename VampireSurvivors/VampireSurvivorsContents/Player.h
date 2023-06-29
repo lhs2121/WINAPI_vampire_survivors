@@ -11,6 +11,7 @@ enum class DirState
 class GameEngineRenderer;
 class Player : public PlayActor
 {
+	friend class PassiveStats;
 public:
 
 	static Player* GetMainPlayer()
@@ -28,6 +29,10 @@ public:
 		return Collision2;
 	}
 	
+	void AddHP(float _HP)
+	{
+		Hp += _HP;
+	}
 	float4 GetPlayerDir()
 	{
 		return PlayerDir;
@@ -71,8 +76,8 @@ private:
 	DirState dirstate = DirState::Right;
 
 	int Level = 1;
-	float MaxHp = 100;
-	float Hp = 100;
+	float MaxHp = 150;
+	float Hp = 150;
 	float speed = 100;
 	float Gold = 0;
 	float MaxExp = 50;

@@ -9,6 +9,7 @@
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEngineBase/GameEngineRandom.h>
 
 
 void CandleStick::Start()
@@ -42,7 +43,19 @@ void CandleStick::Update(float _Delta)
 
 void CandleStick::DropItem()
 {
-	PlayLevel* level = static_cast<PlayLevel*>(GetLevel());
-	GameEngineActor* item = level->CreateActor<Expball>();
-	item->SetPos(GetPos());
+	int random = GameEngineRandom::MainRandom.RandomInt(1, 100);
+
+	if (random > 50)
+	{
+		PlayLevel* level = static_cast<PlayLevel*>(GetLevel());
+		GameEngineActor* item = level->CreateActor<Expball>();
+		item->SetPos(GetPos());
+	}
+	else if(random <= 50)
+	{
+		PlayLevel* level = static_cast<PlayLevel*>(GetLevel());
+		GameEngineActor* item = level->CreateActor<Chicken>();
+		item->SetPos(GetPos());
+	}
+	
 }

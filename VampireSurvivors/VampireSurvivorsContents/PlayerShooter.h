@@ -5,10 +5,12 @@ enum class WeaponType;
 class PlayerShooter : public GameEngineActor
 {
 	friend class SelectUI;
+	friend class Passivefunction;
 
 public:
+	PlayerShooter* Shooter = nullptr;
 
-	PlayerShooter() {}
+	PlayerShooter() { Shooter = this; }
 	~PlayerShooter() {}
 
 	PlayerShooter(const PlayerShooter& _Other) = delete;
@@ -16,7 +18,7 @@ public:
 	PlayerShooter& operator=(const PlayerShooter& _Other) = delete;
 	PlayerShooter& operator=(PlayerShooter&& _Other) noexcept = delete;
 
-private:
+private:;
 	void CreateProjectile(float _Delta, WeaponType _Type);
 
 	void Start() override;

@@ -30,13 +30,37 @@ void Expball::Start()
 	Collision->SetCollisionType(CollisionType::CirCle);
 	Collision->SetCollisionScale({ 50,50 });
 }
-void Expball::Update(float _Delta)
-{
-	Move(_Delta);
-	Eat();
-}
 void Expball::ItemEffect()
 {
 	Exp::IsTakenExpBall = true;
 }
+
+
+
+
+void Chicken::Start()
+{
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Chicken.bmp"))
+	{
+		GameEnginePath path;
+		path.SetCurrentPath();
+		path.MoveParentToExistsChild("Resources");
+		path.MoveChild("Resources\\PlayScene\\");
+		path.MoveChild("Item\\");
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("Chicken.bmp"));
+	}
+
+	Renderer = CreateRenderer(RenderOrder::Item);
+	Renderer->SetTexture("Chicken.bmp");
+
+	Collision = CreateCollision(CollisionOrder::Item);
+	Collision->SetCollisionType(CollisionType::CirCle);
+	Collision->SetCollisionScale({ 50,50 });
+}
+void Chicken::ItemEffect()
+{
+	Player::GetMainPlayer()->AddHP(35);
+}
+
+
 

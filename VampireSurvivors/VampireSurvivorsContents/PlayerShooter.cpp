@@ -54,4 +54,3 @@ void PlayerShooter::CreateProjectile(float _Delta, WeaponType _Type)
 	}
 }
 
-

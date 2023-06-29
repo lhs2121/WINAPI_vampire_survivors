@@ -71,6 +71,7 @@ bool StatusUI::IsFullWeapon()
 void StatusUI::Start()
 {
 	WeaponStats::AllStatsSetting();
+	PassiveStats::AllStatsSetting();
 
 	if (false == ResourcesManager::GetInst().IsLoadTexture("StatsPanel.bmp"))
 	{

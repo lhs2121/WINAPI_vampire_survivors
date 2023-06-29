@@ -45,6 +45,19 @@ enum class WeaponType
 	Cross,
 	Whip,
 	Null
-	
 };
 
+enum class PassiveType
+{
+	Blackheart,
+	Redheart,
+	Book,
+	Glove,
+	Candle,
+	Expball,
+	Crown,
+	Spinach,
+	Wing,
+	Clover,
+	Null
+};
