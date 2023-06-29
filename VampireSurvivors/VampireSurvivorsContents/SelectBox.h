@@ -2,6 +2,7 @@
 #include <GameEngineCore/GameEngineActor.h>
 #include <vector>
 #include "ContentsEnum.h"
+class PassiveStats;
 class SelectBox : public GameEngineActor
 {
 public:
@@ -33,6 +34,8 @@ private:
 	PassiveType CurPassiveType;
 
 	bool IsWeaponButton = false;
+	bool IsEmptyBox = false;
+
 
 	int _Count = 0;
 	float _Speed = 0;

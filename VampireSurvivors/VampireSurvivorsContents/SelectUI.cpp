@@ -19,6 +19,7 @@
 #include <GameEngineBase/GameEngineTime.h>
 #include <random>
 #include <vector>
+#include <algorithm>
 
 SelectUI* SelectUI::UI = nullptr;
 
@@ -116,21 +117,92 @@ void SelectUI::Update(float _Delta)
 
 void SelectUI::RandomTypeSetting()
 {
+	TempWGroup.push_back(WeaponType::Knife);
+	TempWGroup.push_back(WeaponType::MagicWand);
+	TempWGroup.push_back(WeaponType::Axe);
+	TempWGroup.push_back(WeaponType::Runetracer);
+	TempWGroup.push_back(WeaponType::Cross);
+	TempWGroup.push_back(WeaponType::Whip);
+	TempWGroup.push_back(WeaponType::FireWand);
+
+	RandomType[0] = std::make_pair(WeaponType::Null, PassiveType::Null);
+	RandomType[1] = std::make_pair(WeaponType::Null, PassiveType::Null);
+	RandomType[2] = std::make_pair(WeaponType::Null, PassiveType::Null);
+
 	if (true == StatusUI::UI->IsAllMax())
 	{
 		return;
 	}
-
-
-	//SelectBox1->SetEffect(RandomType[0], RandomType[1]);
-	//SelectBox2->SetEffect(type[1]);
-	//SelectBox3->SetEffect(type[2]);
+	else if (false == StatusUI::UI->IsFullWeapon())
+	{
+		RandomType[0].first = GetRandomType();
+		RandomType[1].first = GetRandomType();
+		RandomType[2].first = GetRandomType();
+	}
+	else if (true == StatusUI::UI->IsFullWeapon())
+	{
+		RandomType[0].first = GetRandomType2();
+		RandomType[1].first = GetRandomType2();
+		RandomType[2].first = GetRandomType2();
+	}
+	TempWGroup.clear();
 }
 
+WeaponType SelectUI::GetRandomType()
+{
+	if (TempWGroup.size() < 1)
+	{
+		return WeaponType::Null;
+    }
 
+	WeaponType type = getRandomElement(TempWGroup, 0, TempWGroup.size() -1);
+
+	if (WeaponStats::AllStats[type].isBoxed == true)
+	{
+		remove(TempWGroup, type);
+		type = GetRandomType();
+	}
+
+	WeaponStats::AllStats[type].isBoxed = true;
+
+	return type;
+}
+
+WeaponType SelectUI::GetRandomType2()
+{
+	if (TempWGroup.size() < 1)
+	{
+		return WeaponType::Null;
+	}
+
+	WeaponType type = getRandomElement(TempWGroup, 0, TempWGroup.size() - 1);
+
+	if (WeaponStats::AllStats[type].isBoxed == true || false == WeaponStats::AllStats[type].isSelected || true == WeaponStats::AllStats[type].isMaxLevel)
+	{
+		remove(TempWGroup, type);
+		type = GetRandomType2();
+	}
+
+	WeaponStats::AllStats[type].isBoxed = true;
+
+	return type;
+}
 void SelectUI::ButtonSetting()
 {
+	WeaponStats::AllStats[WeaponType::Knife].isBoxed = false;
+	WeaponStats::AllStats[WeaponType::MagicWand].isBoxed = false;
+	WeaponStats::AllStats[WeaponType::Axe].isBoxed = false;
+	WeaponStats::AllStats[WeaponType::Runetracer].isBoxed = false;
+	WeaponStats::AllStats[WeaponType::Cross].isBoxed = false;
+	WeaponStats::AllStats[WeaponType::Whip].isBoxed = false;
+	WeaponStats::AllStats[WeaponType::FireWand].isBoxed = false;
+	WeaponStats::AllStats[WeaponType::Null].isBoxed = false;
+
 	RandomTypeSetting();
+
+	SelectBox1->SetEffect(RandomType[0].first, RandomType[0].second);
+	SelectBox2->SetEffect(RandomType[1].first, RandomType[1].second);
+	SelectBox3->SetEffect(RandomType[2].first, RandomType[2].second);
 
 	Collision1->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox1->GetPos());
 	Collision2->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox2->GetPos());

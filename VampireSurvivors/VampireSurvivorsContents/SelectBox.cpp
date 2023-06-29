@@ -14,8 +14,11 @@
 
 void SelectBox::Off()
 {
+
 	CurWeaponLevel = 0;
 	CurWeaponType = WeaponType::Null;
+
+	IsEmptyBox = false;
 	_Count = 0;
 	_Speed = 0;
 	_Damage = 0;
@@ -101,6 +104,7 @@ void SelectBox::SetEffect(WeaponType _Type, PassiveType _Type2)
 
 	if (CurWeaponType == WeaponType::Null && CurPassiveType == PassiveType::Null)
 	{
+		IsEmptyBox = true;
 		Panel->SetTexture("null.bmp");
 		WeaponNameText->SetTexture("null.bmp");
 		NewText->SetTexture("null.bmp");
@@ -110,21 +114,25 @@ void SelectBox::SetEffect(WeaponType _Type, PassiveType _Type2)
 		return;
 	}
 
-	int num = GameEngineRandom::MainRandom.RandomInt(1, 2);
-
-	if (num == 1)
+	if (CurWeaponType != WeaponType::Null && CurPassiveType == PassiveType::Null)
 	{
+		IsWeaponButton = true;
 		SetWeaponEffect();
 	}
-	else if(num == 2)
+	else if (CurWeaponType == WeaponType::Null && CurPassiveType != PassiveType::Null)
 	{
+		IsWeaponButton = false;
+		SetPassiveEffect();
+	}
+	else if (CurWeaponType != WeaponType::Null && CurPassiveType != PassiveType::Null)
+	{
+		IsWeaponButton = false;
 		SetPassiveEffect();
 	}
 }
 
 void SelectBox::SetWeaponEffect()
 {
-	IsWeaponButton = true;
 	switch (CurWeaponType)
 	{
 	case WeaponType::Knife:
@@ -481,14 +489,12 @@ void SelectBox::SetWeaponEffect()
 		}
 		break;
 	default:
-		SetPassiveEffect();
 		break;
 	}
 }
 
 void SelectBox::SetPassiveEffect()
 {
-	IsWeaponButton = false;
 	switch (CurPassiveType)
 	{
 	case PassiveType::Blackheart:
@@ -842,14 +848,19 @@ void SelectBox::SetPassiveEffect()
 
 		break;
 	default:
-		SetWeaponEffect();
 		break;
 	}
 }
 void SelectBox::OnClick()
 {
+	if (true == IsEmptyBox)
+	{
+		return;
+	}
+
 	if (IsWeaponButton == true)
 	{
+
 		if (CurWeaponLevel == 0)
 		{
 			StatusUI::UI->AddMyWeapon(CurWeaponType);
@@ -876,7 +887,45 @@ void SelectBox::OnClick()
 	}
 	else
 	{
-		PassiveStats::AllPassive[CurPassiveType].effectFunc;
+
+		switch (CurPassiveType)
+		{
+		case PassiveType::Blackheart:
+			PassiveStats::Blackheart();
+			break;
+		case PassiveType::Redheart:
+			PassiveStats::Redheart();
+			break;
+		case PassiveType::Book:
+			PassiveStats::Book();
+			break;
+		case PassiveType::Glove:
+			PassiveStats::Glove();
+			break;
+		case PassiveType::Candle:
+			PassiveStats::Candle();
+			break;
+		case PassiveType::Expball:
+			PassiveStats::Expball();
+			break;
+		case PassiveType::Crown:
+			PassiveStats::Crown();
+			break;
+		case PassiveType::Spinach:
+			PassiveStats::Spinach();
+			break;
+		case PassiveType::Wing:
+			PassiveStats::Wing();
+			break;
+		case PassiveType::Clover:
+			PassiveStats::Clover();
+			break;
+		case PassiveType::Null:
+
+			break;
+		default:
+			break;
+		}
 	}
 }
 

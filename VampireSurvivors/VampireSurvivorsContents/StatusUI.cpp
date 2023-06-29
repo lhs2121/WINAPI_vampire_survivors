@@ -39,6 +39,11 @@ void StatusUI::Off()
 }
 bool StatusUI::IsAllMax()
 {
+	if (MyWeapon.size() < 6)
+	{
+		return false;
+	}
+
 	int maxCount = 0;
 	for (int i = 0; i < 6; i++)
 	{

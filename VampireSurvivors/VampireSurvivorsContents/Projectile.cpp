@@ -12,11 +12,11 @@
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineCollision.h>
 
-static float PassvieDamage = 0;
-static float PassvieSpeed = 0;
-static float PassvieCooltime = 0;
-static float PassvieDeathtime = 0;
-static float PassvieScaleratio = 1;
+float Projectile::PassvieDamage = 0;
+float Projectile::PassvieSpeed = 0;
+float Projectile::PassvieCooltime = 0;
+float Projectile::PassvieDeathtime = 0;
+float Projectile::PassvieScaleratio = 1;
 
 
 void Projectile::Start()

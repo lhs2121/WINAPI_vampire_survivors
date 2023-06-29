@@ -3,7 +3,7 @@
 #include "Player.h"
 
 std::map<WeaponType, WeaponStats> WeaponStats::AllStats;
-
+std::map<PassiveType, PassiveStats> PassiveStats::AllPassive;
 void WeaponStats::AllStatsSetting()
 {
 	WeaponStats KnifeStats;
@@ -37,39 +37,30 @@ void PassiveStats::AllStatsSetting()
 {
 	PassiveStats BlackheartStats;
 	BlackheartStats.setStats(0, "knifeslot.bmp");
-	BlackheartStats.SetEffect(Blackheart);
 
 	PassiveStats RedheartStats;
 	RedheartStats.setStats(0, "knifeslot.bmp");
-	RedheartStats.SetEffect(Redheart);
 
 	PassiveStats BookStats;
 	BookStats.setStats(0, "knifeslot.bmp");
-	RedheartStats.SetEffect(Book);
 
 	PassiveStats GloveStats;
 	GloveStats.setStats(0, "knifeslot.bmp");
-	GloveStats.SetEffect(Glove);
 
 	PassiveStats CandleStats;
 	CandleStats.setStats(0, "knifeslot.bmp");
-	CandleStats.SetEffect(Candle);
 
 	PassiveStats ExpballStats;
 	ExpballStats.setStats(0, "knifeslot.bmp");
-	ExpballStats.SetEffect(Expball);
 
 	PassiveStats SpinachStats;
 	SpinachStats.setStats(0, "knifeslot.bmp");
-	SpinachStats.SetEffect(Spinach);
 
 	PassiveStats WingStats;
 	WingStats.setStats(0, "knifeslot.bmp");
-	WingStats.SetEffect(Wing);
 
 	PassiveStats CloverStats;
 	CloverStats.setStats(0, "knifeslot.bmp");
-	CloverStats.SetEffect(Clover);
 
 	PassiveStats::AllPassive.insert(std::make_pair(PassiveType::Blackheart, BlackheartStats));
 	PassiveStats::AllPassive.insert(std::make_pair(PassiveType::Redheart, RedheartStats));
@@ -115,8 +106,9 @@ void PassiveStats::Spinach()
 }
 void PassiveStats::Wing()
 {
-	float Speed = Player::GetMainPlayer()->speed * (10 / 100);
-	Player::GetMainPlayer()->speed += Speed;
+	float value = 0;
+	value = (Player::GetMainPlayer()->speed) * 0.1f;
+	Player::GetMainPlayer()->speed += value;
 }
 void PassiveStats::Clover()
 {

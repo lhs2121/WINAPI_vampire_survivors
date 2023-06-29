@@ -2,6 +2,7 @@
 #include <GameEngineCore/GameEngineActor.h>
 #include <vector>
 #include <map>
+#include <random>
 
 class GameEngineRenderer;
 class SelectBox;
@@ -26,7 +27,38 @@ public:
 
 private:
 
-	std::map<WeaponType, PassiveType> RandomType;
+	std::pair<WeaponType, PassiveType> RandomType[3];
+	std::vector<WeaponType> TempWGroup;
+	std::vector<WeaponType> TempPGroup;
+
+	WeaponType GetRandomType();
+	WeaponType GetRandomType2();
+
+	WeaponType getRandomElement(const std::vector<WeaponType>& vec, int minValue, int maxValue)
+	{
+		// 난수 생성기 초기화
+		std::random_device rd;
+		std::mt19937 gen(rd());
+
+		// 요소의 인덱스를 랜덤하게 선택
+		std::uniform_int_distribution<std::size_t> dist(0, vec.size() - 1);
+		std::size_t index = dist(gen);
+
+		// 선택된 요소가 범위 내에 없을 경우 다시 선택
+		while (index < minValue || index > maxValue) {
+			index = dist(gen);
+		}
+
+		// 선택된 요소 반환
+		return vec[index];
+	}
+	void remove(std::vector<WeaponType>& vec, WeaponType type)
+	{
+		auto it = std::find(vec.begin(), vec.end(), type);
+		if (it != vec.end()) {
+			vec.erase(it);
+		}
+	}
 
 	SelectBox* SelectBox1 = nullptr;
 	SelectBox* SelectBox2 = nullptr;

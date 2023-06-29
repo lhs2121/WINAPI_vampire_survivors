@@ -27,6 +27,7 @@ public:
 
 	bool isSelected = false;
 	bool isMaxLevel = false;
+	bool isBoxed = false;
 
 	static void AllStatsSetting();
 
@@ -86,7 +87,6 @@ public:
 
 };
 
-class PassvieFunction;
 class PassiveStats
 {
 
@@ -95,14 +95,33 @@ private:
 	int level;
 	int SlotNumber;
 	std::string SlotTextureName;
-	
 
 public:
+	static void Blackheart();
+
+	static void Redheart();
+
+	static void Book();
+
+	static void Glove();
+
+	static void Candle();
+
+	static void Expball();
+
+	static void Crown();
+
+	static void Spinach();
+
+	static void Wing();
+
+	static void Clover();
+
 	static std::map<PassiveType, PassiveStats> AllPassive;
 
 	bool isSelected = false;
 	bool isMaxLevel = false;
-	void (PassiveStats::* effectFunc)();
+
 	static void AllStatsSetting();
 
 	void setStats(int _level, const std::string& _name)
@@ -111,41 +130,11 @@ public:
 		SlotTextureName = _name;
 	}
 
-	void SetEffect(void (PassiveStats::*function)())
-	{
-		effectFunc = function;
-	}
-
-	void eff()
-	{
-
-	}
 	std::string getSlotTextureName() const { return SlotTextureName; };
 	int getLevel() const { return level; }
 	void setLevel(int value) { level = value; }
 	int getSlotNumber() const { return SlotNumber; }
 	void setSlotNumber(int _value) { SlotNumber = _value; }
 	void addLevel(int value) { level += value; }
-
-
-	void Blackheart();
-
-	void Redheart();
-
-	void Book();
-
-	void Glove();
-
-	void Candle();
-
-	void Expball();
-
-	void Crown();
-
-	void Spinach();
-
-	void Wing();
-
-	void Clover();
 
 };
