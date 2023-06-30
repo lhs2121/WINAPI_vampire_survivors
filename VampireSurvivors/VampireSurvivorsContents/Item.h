@@ -16,8 +16,8 @@ public:
 
 protected:
 	virtual void ItemEffect();
+	virtual void Eat();
 	void Move(float _Delta);
-	void Eat();
 	void Update(float _Delta) override;
 	class GameEngineRenderer* Renderer;
 	class GameEngineCollision* Collision;

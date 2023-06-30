@@ -179,6 +179,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="DebugUI.cpp" />
     <ClCompile Include="Expball.cpp" />
     <ClCompile Include="Item.cpp">
       <SubType>
@@ -255,6 +256,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsEnum.h" />
+    <ClInclude Include="DebugUI.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Expball.h" />
     <ClInclude Include="Item.h" />

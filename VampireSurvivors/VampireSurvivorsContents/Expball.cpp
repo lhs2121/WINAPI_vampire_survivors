@@ -1,8 +1,6 @@
 #include "Expball.h"
-#include "Exp.h"
 #include "ContentsEnum.h"
 #include "Player.h"
-#include "PlayLevel.h"
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineBase/GameEnginePath.h>
@@ -10,6 +8,9 @@
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 
+
+float Expball::Cooltime = 5;
+bool Expball::IsEaten = false;
 
 void Expball::Start()
 {
@@ -29,10 +30,37 @@ void Expball::Start()
 	Collision = CreateCollision(CollisionOrder::Item);
 	Collision->SetCollisionType(CollisionType::CirCle);
 	Collision->SetCollisionScale({ 50,50 });
+
+	Cooltime = 5;
+}
+void Expball::Update(float _Delta)
+{
+	Move(_Delta);
+	Eat();
+
+	if (IsEaten == true)
+	{
+		Cooltime -= _Delta;
+
+		if (Cooltime < 0)
+		{
+			IsEaten = false;
+			Death();
+		}
+	}
+}
+void Expball::Eat()
+{
+	if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion2(), CollisionType::CirCle, CollisionType::CirCle))
+	{
+		Renderer->Off();
+		Collision->Off();
+		ItemEffect();
+	}
 }
 void Expball::ItemEffect()
 {
-	Exp::IsTakenExpBall = true;
+	IsEaten = true;
 }
 
 

@@ -10,6 +10,7 @@
 #include "SelectUI.h"
 #include "StatusUI.h"
 #include "CandleStick.h"
+#include "DebugUI.h"
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -65,6 +66,8 @@ void PlayLevel::Start()
 	SelectUIPtr = CreateActor<SelectUI>(UpdateOrder::PlayUI);
 
 	CreateActor<Timer>(UpdateOrder::Timer);
+
+	CreateActor<DebugUI>(UpdateOrder::Player);
 
 	ItemSpawnerSpawn();
 }

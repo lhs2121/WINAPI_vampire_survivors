@@ -12,10 +12,13 @@ public:
 	Expball& operator=(const Expball& _Other) = delete;
 	Expball& operator=(Expball&& _Other) noexcept = delete;
 
-
+	static float Cooltime;
+	static bool IsEaten;
 private:
 	void Start() override;
+	void Eat() override;
 	void ItemEffect() override;
+	void Update(float _Delta) override;
 };
 
 class Chicken : public Item

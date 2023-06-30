@@ -1,17 +1,12 @@
 #include "Exp.h"
+#include "Expball.h"
 #include "ContentsEnum.h"
 #include "Player.h"
-#include "PlayLevel.h"
-#include <GameEngineBase/GameEngineTime.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEngineCore/GameEngineCollision.h>
-#include <GameEnginePlatform/GameEngineWindowTexture.h>
-#include <GameEnginePlatform/GameEngineInput.h>
 
-
-bool Exp::IsTakenExpBall = false;
 
 void Exp::Start()
 {
@@ -30,27 +25,19 @@ void Exp::Start()
 
 	Collision = CreateCollision(CollisionOrder::Item);
 	Collision->SetCollisionType(CollisionType::CirCle);
-	Collision->SetCollisionScale({50,50});
+	Collision->SetCollisionScale({ 50,50 });
 }
 void Exp::Update(float _Delta)
 {
-	if (true == IsTakenExpBall)
-	{
-    	dir = Player::GetMainPlayer()->GetPos() - GetPos();
-		dir.Normalize();
-		AddPos(dir * 300 * _Delta);
-
-		expballtime -= GameEngineTime::MainTimer.GetDeltaTime();
-
-		if (expballtime < 0)
-		{
-			IsTakenExpBall = false;
-			expballtime = 5;
-		}
-	}
-	else if (false == IsTakenExpBall)
+	if (false == Expball::IsEaten)
 	{
 		Move(_Delta);
+	}
+	else if (true == Expball::IsEaten)
+	{
+		dir = Player::GetMainPlayer()->GetPos() - GetPos();
+		dir.Normalize();
+		AddPos(dir * 300 * _Delta);
 	}
 
 	Eat();
@@ -60,3 +47,11 @@ void Exp::ItemEffect()
 	Player::GetMainPlayer()->AddExp(20);
 }
 
+void Exp::Eat()
+{
+	if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion2(), CollisionType::CirCle, CollisionType::CirCle))
+	{
+		ItemEffect();
+		Death();
+	}
+}

@@ -104,6 +104,9 @@
     <ClCompile Include="CandleStick.cpp">
       <Filter>Actor\PlayScene\ItemSpawner</Filter>
     </ClCompile>
+    <ClCompile Include="DebugUI.cpp">
+      <Filter>Actor\PlayScene\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
@@ -176,6 +179,9 @@
     </ClInclude>
     <ClInclude Include="Expball.h">
       <Filter>Actor\PlayScene\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugUI.h">
+      <Filter>Actor\PlayScene\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
