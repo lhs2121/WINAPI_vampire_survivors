@@ -36,31 +36,34 @@ void WeaponStats::AllStatsSetting()
 void PassiveStats::AllStatsSetting()
 {
 	PassiveStats BlackheartStats;
-	BlackheartStats.setStats(0, "knifeslot.bmp");
+	BlackheartStats.setStats(0, "blackheartslot.bmp");
 
 	PassiveStats RedheartStats;
-	RedheartStats.setStats(0, "knifeslot.bmp");
+	RedheartStats.setStats(0, "redheartslot.bmp");
 
 	PassiveStats BookStats;
-	BookStats.setStats(0, "knifeslot.bmp");
+	BookStats.setStats(0, "bookslot.bmp");
 
 	PassiveStats GloveStats;
-	GloveStats.setStats(0, "knifeslot.bmp");
+	GloveStats.setStats(0, "gloveslot.bmp");
 
 	PassiveStats CandleStats;
-	CandleStats.setStats(0, "knifeslot.bmp");
+	CandleStats.setStats(0, "candleslot.bmp");
 
 	PassiveStats ExpballStats;
-	ExpballStats.setStats(0, "knifeslot.bmp");
+	ExpballStats.setStats(0, "expballslot.bmp");
+
+	PassiveStats CrownStats;
+	CrownStats.setStats(0, "crownslot.bmp");
 
 	PassiveStats SpinachStats;
-	SpinachStats.setStats(0, "knifeslot.bmp");
+	SpinachStats.setStats(0, "spinachslot.bmp");
 
 	PassiveStats WingStats;
-	WingStats.setStats(0, "knifeslot.bmp");
+	WingStats.setStats(0, "wingslot.bmp");
 
 	PassiveStats CloverStats;
-	CloverStats.setStats(0, "knifeslot.bmp");
+	CloverStats.setStats(0, "cloverslot.bmp");
 
 	PassiveStats::AllPassive.insert(std::make_pair(PassiveType::Blackheart, BlackheartStats));
 	PassiveStats::AllPassive.insert(std::make_pair(PassiveType::Redheart, RedheartStats));
@@ -68,6 +71,7 @@ void PassiveStats::AllStatsSetting()
 	PassiveStats::AllPassive.insert(std::make_pair(PassiveType::Glove, GloveStats));
 	PassiveStats::AllPassive.insert(std::make_pair(PassiveType::Candle, CandleStats));
 	PassiveStats::AllPassive.insert(std::make_pair(PassiveType::Expball, ExpballStats));
+	PassiveStats::AllPassive.insert(std::make_pair(PassiveType::Crown, CrownStats));
 	PassiveStats::AllPassive.insert(std::make_pair(PassiveType::Spinach, SpinachStats));
 	PassiveStats::AllPassive.insert(std::make_pair(PassiveType::Wing, WingStats));
 	PassiveStats::AllPassive.insert(std::make_pair(PassiveType::Clover, CloverStats));

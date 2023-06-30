@@ -119,6 +119,7 @@ public:
 
 	static std::map<PassiveType, PassiveStats> AllPassive;
 
+	bool isBoxed = false;
 	bool isSelected = false;
 	bool isMaxLevel = false;
 

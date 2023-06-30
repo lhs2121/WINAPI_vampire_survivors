@@ -20,6 +20,10 @@ void StatusUI::On()
 	{
 		WeaponChecker[i]->On();
 	}
+	for (int i = 0; i < MyPassive.size(); i++)
+	{
+		PassiveChecker[i]->On();
+	}
 
 }
 void StatusUI::Off()
@@ -34,7 +38,7 @@ void StatusUI::Off()
 	}
 	for (int i = 0; i < 6; i++)
 	{
-		AccessoryChecker[i]->Off();
+		PassiveChecker[i]->Off();
 	}
 }
 bool StatusUI::IsAllMax()
@@ -68,7 +72,40 @@ bool StatusUI::IsFullWeapon()
 	{
 		return true;
 	}
+	return false;
+}
 
+bool StatusUI::IsAllMax2()
+{
+	if (MyPassive.size() < 6)
+	{
+		return false;
+	}
+
+	int maxCount = 0;
+	for (int i = 0; i < 6; i++)
+	{
+		if (PassiveStats::AllPassive[MyPassive[i]].isMaxLevel == true)
+		{
+			maxCount += 1;
+		}
+	}
+
+	if (maxCount == 6)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+bool StatusUI::IsFullpassvie()
+{
+	if (MyPassive.size() >= 6)
+	{
+		return true;
+	}
 	return false;
 }
 
@@ -99,6 +136,19 @@ void StatusUI::Start()
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("firewandslot.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("crossslot.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("whipslot.bmp"));
+
+		path.MoveChild("passive\\");
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("blackheartslot.bmp"));
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("bookslot.bmp"));
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("candleslot.bmp"));
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("cloverslot.bmp"));
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("crownslot.bmp"));
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("expballslot.bmp"));
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("gloveslot.bmp"));
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("redheartslot.bmp"));
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("spinachslot.bmp"));
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("wingslot.bmp"));
+
 
 	}
 
@@ -141,21 +191,21 @@ void StatusUI::Start()
 
 	for (int i = 0; i < 6; i++)
 	{
-		AccessoryChecker[i] = CreateUIRenderer(RenderOrder::PlayUI);
+		PassiveChecker[i] = CreateUIRenderer(RenderOrder::PlayUI);
 
 		if (PrevPos == float4::ZERO)
 		{
-			AccessoryChecker[i]->SetRenderPos({ 30,145 });
+			PassiveChecker[i]->SetRenderPos({ 30,145 });
 		}
 		else
 		{
-			AccessoryChecker[i]->SetRenderPos(PrevPos + float4(30, 0));
+			PassiveChecker[i]->SetRenderPos(PrevPos + float4(30, 0));
 		}
 
-		AccessoryChecker[i]->SetSprite("AccessoryChecker.bmp", 0);
-		AccessoryChecker[i]->SetRenderScale({ 24,24 });
+		PassiveChecker[i]->SetSprite("AccessoryChecker.bmp", 0);
+		PassiveChecker[i]->SetRenderScale({ 24,24 });
 
-		PrevPos = AccessoryChecker[i]->GetRenderPos();
+		PrevPos = PassiveChecker[i]->GetRenderPos();
 	}
 
 	AddMyWeapon(WeaponType::Knife);
@@ -187,10 +237,8 @@ void StatusUI::AddWeaponSlot(WeaponType _Type)
 	WeaponIndex += 1;
 
 }
-
 void StatusUI::UpgradeWeaponSlot(WeaponType _Type)
 {
-
 	int num = WeaponStats::AllStats[_Type].getSlotNumber();
 
 	if (WeaponUpgradeNum[num] == 8)
@@ -209,4 +257,52 @@ void StatusUI::AddMyWeapon(WeaponType _Type)
 	MyWeapon.push_back(_Type);
 	AddWeaponSlot(_Type);
 	UpgradeWeaponSlot(_Type);
+}
+
+void StatusUI::AddPassiveSlot(PassiveType _Type)
+{
+	static float4 prevpos = float4::ZERO;
+
+	GameEngineRenderer* renderer = CreateUIRenderer(RenderOrder::PlayUI);
+
+	if (prevpos == float4::ZERO)
+	{
+		renderer->SetRenderPos({ 30,110 });
+	}
+	else
+	{
+		renderer->SetRenderPos(prevpos + float4(30, 0));
+	}
+
+	prevpos = renderer->GetRenderPos();
+
+	renderer->SetRenderScale({ 24,24 });
+	renderer->SetTexture(PassiveStats::AllPassive[_Type].getSlotTextureName());
+
+
+	PassiveStats::AllPassive[_Type].setSlotNumber(PassiveIndex);
+	PassiveIndex += 1;
+
+}
+void StatusUI::UpgradePassiveSlot(PassiveType _Type)
+{
+
+	int num = PassiveStats::AllPassive[_Type].getSlotNumber();
+
+	if (PassiveUpgradeNum[num] == 5)
+	{
+		return;
+	}
+
+	PassiveChecker[num]->SetSprite("AccessoryChecker.bmp", PassiveUpgradeNum[num] + 1);
+	PassiveChecker[num]->Off();
+	PassiveUpgradeNum[num] += 1;
+}
+
+void StatusUI::AddMyPassive(PassiveType _Type)
+{
+	PassiveStats::AllPassive[_Type].isSelected = true;
+	MyPassive.push_back(_Type);
+	AddPassiveSlot(_Type);
+	UpgradePassiveSlot(_Type);
 }

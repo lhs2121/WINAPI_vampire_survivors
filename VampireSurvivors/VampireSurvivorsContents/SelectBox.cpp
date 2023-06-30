@@ -102,6 +102,12 @@ void SelectBox::SetEffect(WeaponType _Type, PassiveType _Type2)
 	CurPassiveType = _Type2;
 	CurPassiveLevel = PassiveStats::AllPassive[CurPassiveType].getLevel();
 
+	Panel->SetTexture("null.bmp");
+	WeaponNameText->SetTexture("null.bmp");
+	NewText->SetTexture("null.bmp");
+	DetailText->SetTexture("null.bmp");
+	DetailText2->SetTexture("null.bmp");
+
 	if (CurWeaponType == WeaponType::Null && CurPassiveType == PassiveType::Null)
 	{
 		IsEmptyBox = true;
@@ -126,8 +132,19 @@ void SelectBox::SetEffect(WeaponType _Type, PassiveType _Type2)
 	}
 	else if (CurWeaponType != WeaponType::Null && CurPassiveType != PassiveType::Null)
 	{
-		IsWeaponButton = false;
-		SetPassiveEffect();
+		int num = GameEngineRandom::MainRandom.RandomInt(1, 2);
+
+		if (num == 1)
+		{
+			IsWeaponButton = false;
+			SetPassiveEffect();
+		}
+		else if (num == 2)
+		{
+			IsWeaponButton = true;
+			SetWeaponEffect();
+		}
+
 	}
 }
 
@@ -489,6 +506,12 @@ void SelectBox::SetWeaponEffect()
 		}
 		break;
 	default:
+
+		if (CurPassiveType != PassiveType::Null)
+		{
+			IsWeaponButton = false;
+			SetPassiveEffect();
+		}
 		break;
 	}
 }
@@ -503,30 +526,25 @@ void SelectBox::SetPassiveEffect()
 
 		switch (CurPassiveLevel)
 		{
-		case 0:NewText->SetText("신규!", 20, "메이플스토리");
-
+		case 0:
+			NewText->SetText("신규!", 20, "메이플스토리");
 			DetailText->SetText("최대 체력이 20% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 1:
-
+			NewText->SetText("레벨:2", 20, "메이플스토리");
 			DetailText->SetText("최대 체력이 20% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 2:
-
+			NewText->SetText("레벨:3", 20, "메이플스토리");
 			DetailText->SetText("최대 체력이 20% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 3:
-
+			NewText->SetText("레벨:4", 20, "메이플스토리");
 			DetailText->SetText("최대 체력이 20% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 4:
-
+			NewText->SetText("레벨:5", 20, "메이플스토리");
 			DetailText->SetText("최대 체력이 20% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		default:
 			break;
@@ -539,29 +557,25 @@ void SelectBox::SetPassiveEffect()
 
 		switch (CurPassiveLevel)
 		{
-		case 0:NewText->SetText("신규!", 20, "메이플스토리");
-
-			DetailText->SetText("", 20, "메이플스토리");
-
-		case 1:
-
+		case 0:
+			NewText->SetText("신규!", 20, "메이플스토리");
 			DetailText->SetText("초당 체력 회복량이 0.2 증가합니다.", 20, "메이플스토리");
-
+			break;
+		case 1:
+			NewText->SetText("레벨:2", 20, "메이플스토리");
+			DetailText->SetText("초당 체력 회복량이 0.2 증가합니다.", 20, "메이플스토리");
 			break;
 		case 2:
-
+			NewText->SetText("레벨:3", 20, "메이플스토리");
 			DetailText->SetText("초당 체력 회복량이 0.2 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 3:
-
+			NewText->SetText("레벨:4", 20, "메이플스토리");
 			DetailText->SetText("초당 체력 회복량이 0.2 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 4:
-
+			NewText->SetText("레벨:5", 20, "메이플스토리");
 			DetailText->SetText("초당 체력 회복량이 0.2 증가합니다.", 20, "메이플스토리");
-
 			break;
 		default:
 			break;
@@ -569,35 +583,30 @@ void SelectBox::SetPassiveEffect()
 
 		break;
 	case PassiveType::Book:
-		Panel->SetTexture("ItemPanel_Redheart.bmp");
+		Panel->SetTexture("ItemPanel_Book.bmp");
 		WeaponNameText->SetText("빈 고서", 20, "메이플스토리");
 
 		switch (CurPassiveLevel)
 		{
-		case 0:NewText->SetText("신규!", 20, "메이플스토리");
-
+		case 0:
+			NewText->SetText("신규!", 20, "메이플스토리");
 			DetailText->SetText("무기 쿨타임이 8% 감소합니다.", 20, "메이플스토리");
-
 			break;
 		case 1:
-
 			DetailText->SetText("[전체]쿨타임이 8.0% 감소합니다.", 20, "메이플스토리");
-
+			NewText->SetText("레벨:2", 20, "메이플스토리");
 			break;
 		case 2:
-
 			DetailText->SetText("[전체]쿨타임이 8.0% 감소합니다.", 20, "메이플스토리");
-
+			NewText->SetText("레벨:3", 20, "메이플스토리");
 			break;
 		case 3:
-
 			DetailText->SetText("[전체]쿨타임이 8.0% 감소합니다.", 20, "메이플스토리");
-
+			NewText->SetText("레벨:4", 20, "메이플스토리");
 			break;
 		case 4:
-
 			DetailText->SetText("[전체]쿨타임이 8.0% 감소합니다.", 20, "메이플스토리");
-
+			NewText->SetText("레벨:5", 20, "메이플스토리");
 			break;
 		default:
 			break;
@@ -605,35 +614,30 @@ void SelectBox::SetPassiveEffect()
 
 		break;
 	case PassiveType::Glove:
-		Panel->SetTexture("ItemPanel_Book.bmp");
+		Panel->SetTexture("ItemPanel_Glove.bmp");
 		WeaponNameText->SetText("팔 보호대", 20, "메이플스토리");
 
 		switch (CurPassiveLevel)
 		{
-		case 0:NewText->SetText("신규!", 20, "메이플스토리");
-
+		case 0:
+			NewText->SetText("신규!", 20, "메이플스토리");
 			DetailText->SetText("투사체 속도가 10% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 1:
-
+			NewText->SetText("레벨:2", 20, "메이플스토리");
 			DetailText->SetText("[전체]기본 속도가 10% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 2:
-
+			NewText->SetText("레벨:3", 20, "메이플스토리");
 			DetailText->SetText("[전체]기본 속도가 10% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 3:
-
+			NewText->SetText("레벨:4", 20, "메이플스토리");
 			DetailText->SetText("[전체]기본 속도가 10% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 4:
-
+			NewText->SetText("레벨:5", 20, "메이플스토리");
 			DetailText->SetText("[전체]기본 속도가 10% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		default:
 			break;
@@ -646,30 +650,25 @@ void SelectBox::SetPassiveEffect()
 
 		switch (CurPassiveLevel)
 		{
-		case 0:NewText->SetText("신규!", 20, "메이플스토리");
-
+		case 0:
+			NewText->SetText("신규!", 20, "메이플스토리");
 			DetailText->SetText("공격 범위가 10% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 1:
-
+			NewText->SetText("레벨:2", 20, "메이플스토리");
 			DetailText->SetText("[전체]기본 범위가 10% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 2:
-
+			NewText->SetText("레벨:3", 20, "메이플스토리");
 			DetailText->SetText("[전체]기본 범위가 10% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 3:
-
+			NewText->SetText("레벨:4", 20, "메이플스토리");
 			DetailText->SetText("[전체]기본 범위가 10% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 4:
-
+			NewText->SetText("레벨:5", 20, "메이플스토리");
 			DetailText->SetText("[전체]기본 범위가 10% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		default:
 			break;
@@ -682,30 +681,25 @@ void SelectBox::SetPassiveEffect()
 
 		switch (CurPassiveLevel)
 		{
-		case 0:NewText->SetText("신규!", 20, "메이플스토리");
-
+		case 0:
+			NewText->SetText("신규!", 20, "메이플스토리");
 			DetailText->SetText("더 멀리 있는 아이템을 획득합니다.", 20, "메이플스토리");
-
 			break;
 		case 1:
-
+			NewText->SetText("레벨:2", 20, "메이플스토리");
 			DetailText->SetText("아이템 획득 범위가 33% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 2:
-
+			NewText->SetText("레벨:3", 20, "메이플스토리");
 			DetailText->SetText("아이템 획득 범위가 25% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 3:
-
+			NewText->SetText("레벨:4", 20, "메이플스토리");
 			DetailText->SetText("아이템 획득 범위가 20% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 4:
-
+			NewText->SetText("레벨:5", 20, "메이플스토리");
 			DetailText->SetText("아이템 획득 범위가 33% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		default:
 			break;
@@ -718,27 +712,25 @@ void SelectBox::SetPassiveEffect()
 
 		switch (CurPassiveLevel)
 		{
-		case 0:NewText->SetText("신규!", 20, "메이플스토리");
-
-		case 1:
-
+		case 0:
+			NewText->SetText("신규!", 20, "메이플스토리");
 			DetailText->SetText("8% 추가 경험치를 획득합니다.", 20, "메이플스토리");
-
+			break;
+		case 1:
+			NewText->SetText("레벨:2", 20, "메이플스토리");
+			DetailText->SetText("8% 추가 경험치를 획득합니다.", 20, "메이플스토리");
 			break;
 		case 2:
-
+			NewText->SetText("레벨:3", 20, "메이플스토리");
 			DetailText->SetText("8% 추가 경험치를 획득합니다.", 20, "메이플스토리");
-
 			break;
 		case 3:
-
+			NewText->SetText("레벨:4", 20, "메이플스토리");
 			DetailText->SetText("8% 추가 경험치를 획득합니다.", 20, "메이플스토리");
-
 			break;
 		case 4:
-
+			NewText->SetText("레벨:5", 20, "메이플스토리");
 			DetailText->SetText("8% 추가 경험치를 획득합니다.", 20, "메이플스토리");
-
 			break;
 		default:
 			break;
@@ -751,27 +743,25 @@ void SelectBox::SetPassiveEffect()
 
 		switch (CurPassiveLevel)
 		{
-		case 0:NewText->SetText("신규!", 20, "메이플스토리");
+		case 0:
+			NewText->SetText("신규!", 20, "메이플스토리");
 			DetailText->SetText("피해량이 10% 증가합니다.", 20, "메이플스토리");
+			break;
 		case 1:
-
+			NewText->SetText("레벨:2", 20, "메이플스토리");
 			DetailText->SetText("[전체]기본 피해량이 10% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 2:
-
+			NewText->SetText("레벨:3", 20, "메이플스토리");
 			DetailText->SetText("[전체]기본 피해량이 10% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 3:
-
+			NewText->SetText("레벨:4", 20, "메이플스토리");
 			DetailText->SetText("[전체]기본 피해량이 10% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 4:
-
+			NewText->SetText("레벨:5", 20, "메이플스토리");
 			DetailText->SetText("[전체]기본 피해량이 10% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		default:
 			break;
@@ -784,27 +774,25 @@ void SelectBox::SetPassiveEffect()
 
 		switch (CurPassiveLevel)
 		{
-		case 0:NewText->SetText("신규!", 20, "메이플스토리");
+		case 0:
+			NewText->SetText("신규!", 20, "메이플스토리");
 			DetailText->SetText("이동 속도가 10% 증가합니다.", 20, "메이플스토리");
+			break;
 		case 1:
-
+			NewText->SetText("레벨:2", 20, "메이플스토리");
 			DetailText->SetText("이동 속도가 10% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 2:
-
+			NewText->SetText("레벨:3", 20, "메이플스토리");
 			DetailText->SetText("이동 속도가 10% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 3:
-
+			NewText->SetText("레벨:4", 20, "메이플스토리");
 			DetailText->SetText("이동 속도가 10% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 4:
-
+			NewText->SetText("레벨:5", 20, "메이플스토리");
 			DetailText->SetText("이동 속도가 10% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		default:
 			break;
@@ -817,30 +805,25 @@ void SelectBox::SetPassiveEffect()
 
 		switch (CurPassiveLevel)
 		{
-		case 0:NewText->SetText("신규!", 20, "메이플스토리");
-
+		case 0:
+			NewText->SetText("신규!", 20, "메이플스토리");
 			DetailText->SetText("행운이 10% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 1:
-
+			NewText->SetText("레벨:2", 20, "메이플스토리");
 			DetailText->SetText("행운이 깃들 확률이 10% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 2:
-
+			NewText->SetText("레벨:3", 20, "메이플스토리");
 			DetailText->SetText("행운이 깃들 확률이 10% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 3:
-
+			NewText->SetText("레벨:4", 20, "메이플스토리");
 			DetailText->SetText("행운이 깃들 확률이 10% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		case 4:
-
+			NewText->SetText("레벨:5", 20, "메이플스토리");
 			DetailText->SetText("행운이 깃들 확률이 10% 증가합니다.", 20, "메이플스토리");
-
 			break;
 		default:
 			break;
@@ -848,6 +831,12 @@ void SelectBox::SetPassiveEffect()
 
 		break;
 	default:
+
+		if (CurWeaponType != WeaponType::Null)
+		{
+			IsWeaponButton = true;
+			SetWeaponEffect();
+		}
 		break;
 	}
 }
@@ -887,7 +876,23 @@ void SelectBox::OnClick()
 	}
 	else
 	{
+		if (CurPassiveLevel == 0)
+		{
+			StatusUI::UI->AddMyPassive(CurPassiveType);
+		}
+		else
+		{
+			StatusUI::UI->UpgradePassiveSlot(CurPassiveType);
+		}
+		if (PassiveStats::AllPassive[CurPassiveType].isMaxLevel == false)
+		{
+			PassiveStats::AllPassive[CurPassiveType].addLevel(1);
 
+			if (PassiveStats::AllPassive[CurPassiveType].getLevel() == 5)
+			{
+				PassiveStats::AllPassive[CurPassiveType].isMaxLevel = true;
+			}
+		}
 		switch (CurPassiveType)
 		{
 		case PassiveType::Blackheart:

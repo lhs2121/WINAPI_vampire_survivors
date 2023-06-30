@@ -23,6 +23,30 @@
 
 SelectUI* SelectUI::UI = nullptr;
 
+void SelectUI::On()
+{
+	ItemSelectPanel->On();
+	Text_LevelUp->On();
+	ButtonSetting();
+	StatusUI::UI->On();
+}
+
+void SelectUI::Off()
+{
+	ItemSelectPanel->Off();
+	Text_LevelUp->Off();
+
+	Collision1->Off();
+	Collision2->Off();
+	Collision3->Off();
+
+	SelectBox1->Off();
+	SelectBox2->Off();
+	SelectBox3->Off();
+	StatusUI::UI->Off();
+}
+
+
 void SelectUI::Start()
 {
 	if (false == ResourcesManager::GetInst().IsLoadTexture("ItemSelectPanel.bmp"))
@@ -115,6 +139,56 @@ void SelectUI::Update(float _Delta)
 
 }
 
+void SelectUI::ButtonSetting()
+{
+	WeaponStats::AllStats[WeaponType::Knife].isBoxed = false;
+	WeaponStats::AllStats[WeaponType::MagicWand].isBoxed = false;
+	WeaponStats::AllStats[WeaponType::Axe].isBoxed = false;
+	WeaponStats::AllStats[WeaponType::Runetracer].isBoxed = false;
+	WeaponStats::AllStats[WeaponType::Cross].isBoxed = false;
+	WeaponStats::AllStats[WeaponType::Whip].isBoxed = false;
+	WeaponStats::AllStats[WeaponType::FireWand].isBoxed = false;
+	WeaponStats::AllStats[WeaponType::Null].isBoxed = false;
+
+	PassiveStats::AllPassive[PassiveType::Blackheart].isBoxed = false;
+	PassiveStats::AllPassive[PassiveType::Redheart].isBoxed = false;
+	PassiveStats::AllPassive[PassiveType::Candle].isBoxed = false;
+	PassiveStats::AllPassive[PassiveType::Clover].isBoxed = false;
+	PassiveStats::AllPassive[PassiveType::Crown].isBoxed = false;
+	PassiveStats::AllPassive[PassiveType::Spinach].isBoxed = false;
+	PassiveStats::AllPassive[PassiveType::Book].isBoxed = false;
+	PassiveStats::AllPassive[PassiveType::Expball ].isBoxed = false;
+	PassiveStats::AllPassive[PassiveType::Glove].isBoxed = false;
+	PassiveStats::AllPassive[PassiveType::Wing].isBoxed = false;
+
+
+	RandomType[0] = std::make_pair(WeaponType::Null, PassiveType::Null);
+	RandomType[1] = std::make_pair(WeaponType::Null, PassiveType::Null);
+	RandomType[2] = std::make_pair(WeaponType::Null, PassiveType::Null);
+
+	RandomTypeSetting();
+	RandomTypeSetting2();
+
+	SelectBox1->SetEffect(RandomType[0].first, RandomType[0].second);
+	SelectBox2->SetEffect(RandomType[1].first, RandomType[1].second);
+	SelectBox3->SetEffect(RandomType[2].first, RandomType[2].second);
+
+	Collision1->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox1->GetPos());
+	Collision2->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox2->GetPos());
+	Collision3->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox3->GetPos());
+
+	SelectBox1->On();
+	SelectBox2->On();
+	SelectBox3->On();
+
+	Collision1->On();
+	Collision2->On();
+	Collision3->On();
+
+	TempWGroup.clear();
+	TempPGroup.clear();
+}
+
 void SelectUI::RandomTypeSetting()
 {
 	TempWGroup.push_back(WeaponType::Knife);
@@ -124,10 +198,6 @@ void SelectUI::RandomTypeSetting()
 	TempWGroup.push_back(WeaponType::Cross);
 	TempWGroup.push_back(WeaponType::Whip);
 	TempWGroup.push_back(WeaponType::FireWand);
-
-	RandomType[0] = std::make_pair(WeaponType::Null, PassiveType::Null);
-	RandomType[1] = std::make_pair(WeaponType::Null, PassiveType::Null);
-	RandomType[2] = std::make_pair(WeaponType::Null, PassiveType::Null);
 
 	if (true == StatusUI::UI->IsAllMax())
 	{
@@ -145,17 +215,49 @@ void SelectUI::RandomTypeSetting()
 		RandomType[1].first = GetRandomType2();
 		RandomType[2].first = GetRandomType2();
 	}
-	TempWGroup.clear();
+
+	
+
 }
 
+void SelectUI::RandomTypeSetting2()
+{
+	TempPGroup.push_back(PassiveType::Blackheart);
+	TempPGroup.push_back(PassiveType::Redheart);
+	TempPGroup.push_back(PassiveType::Book);
+	TempPGroup.push_back(PassiveType::Glove);
+	TempPGroup.push_back(PassiveType::Candle);
+	TempPGroup.push_back(PassiveType::Expball);
+	TempPGroup.push_back(PassiveType::Crown);
+	TempPGroup.push_back(PassiveType::Spinach);
+	TempPGroup.push_back(PassiveType::Wing);
+	TempPGroup.push_back(PassiveType::Clover);
+
+	if (true == StatusUI::UI->IsAllMax2())
+	{
+		return;
+	}
+	else if (false == StatusUI::UI->IsFullpassvie())
+	{
+		RandomType[0].second = GetRandomType3();
+		RandomType[1].second = GetRandomType3();
+		RandomType[2].second = GetRandomType3();
+	}
+	else if (true == StatusUI::UI->IsFullpassvie())
+	{
+		RandomType[0].second = GetRandomType4();
+		RandomType[1].second = GetRandomType4();
+		RandomType[2].second = GetRandomType4();
+	}
+}
 WeaponType SelectUI::GetRandomType()
 {
 	if (TempWGroup.size() < 1)
 	{
 		return WeaponType::Null;
-    }
+	}
 
-	WeaponType type = getRandomElement(TempWGroup, 0, TempWGroup.size() -1);
+	WeaponType type = getRandomElement(TempWGroup, 0, TempWGroup.size() - 1);
 
 	if (WeaponStats::AllStats[type].isBoxed == true)
 	{
@@ -187,56 +289,41 @@ WeaponType SelectUI::GetRandomType2()
 
 	return type;
 }
-void SelectUI::ButtonSetting()
+PassiveType SelectUI::GetRandomType3()
 {
-	WeaponStats::AllStats[WeaponType::Knife].isBoxed = false;
-	WeaponStats::AllStats[WeaponType::MagicWand].isBoxed = false;
-	WeaponStats::AllStats[WeaponType::Axe].isBoxed = false;
-	WeaponStats::AllStats[WeaponType::Runetracer].isBoxed = false;
-	WeaponStats::AllStats[WeaponType::Cross].isBoxed = false;
-	WeaponStats::AllStats[WeaponType::Whip].isBoxed = false;
-	WeaponStats::AllStats[WeaponType::FireWand].isBoxed = false;
-	WeaponStats::AllStats[WeaponType::Null].isBoxed = false;
+	if (TempPGroup.size() < 1)
+	{
+		return PassiveType::Null;
+	}
 
-	RandomTypeSetting();
+	PassiveType type = getRandomElement2(TempPGroup, 0, TempPGroup.size() - 1);
 
-	SelectBox1->SetEffect(RandomType[0].first, RandomType[0].second);
-	SelectBox2->SetEffect(RandomType[1].first, RandomType[1].second);
-	SelectBox3->SetEffect(RandomType[2].first, RandomType[2].second);
+	if (PassiveStats::AllPassive[type].isBoxed == true)
+	{
+		remove2(TempPGroup, type);
+		type = GetRandomType3();
+	}
 
-	Collision1->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox1->GetPos());
-	Collision2->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox2->GetPos());
-	Collision3->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox3->GetPos());
+	PassiveStats::AllPassive[type].isBoxed = true;
 
-	SelectBox1->On();
-	SelectBox2->On();
-	SelectBox3->On();
-
-	Collision1->On();
-	Collision2->On();
-	Collision3->On();
+	return type;
 }
-
-void SelectUI::On()
+PassiveType SelectUI::GetRandomType4()
 {
-	ItemSelectPanel->On();
-	Text_LevelUp->On();
-	ButtonSetting();
-	StatusUI::UI->On();
+	if (TempPGroup.size() < 1)
+	{
+		return PassiveType::Null;
+	}
+
+	PassiveType type = getRandomElement2(TempPGroup, 0, TempPGroup.size() - 1);
+
+	if (PassiveStats::AllPassive[type].isBoxed == true || false == PassiveStats::AllPassive[type].isSelected || true == PassiveStats::AllPassive[type].isMaxLevel)
+	{
+		remove2(TempPGroup, type);
+		type = GetRandomType4();
+	}
+
+	PassiveStats::AllPassive[type].isBoxed = true;
+
+	return type;
 }
-
-void SelectUI::Off()
-{
-	ItemSelectPanel->Off();
-	Text_LevelUp->Off();
-
-	Collision1->Off();
-	Collision2->Off();
-	Collision3->Off();
-
-	SelectBox1->Off();
-	SelectBox2->Off();
-	SelectBox3->Off();
-	StatusUI::UI->Off();
-}
-
