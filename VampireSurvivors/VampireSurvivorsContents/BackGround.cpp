@@ -71,10 +71,12 @@ void BackGround::Start()
 void BackGround::Init(const std::string& _FileName, const std::string& _DebugFileName)
 {
 	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture(_FileName);
+
+	float4 scale = ResourcesManager::GetInst().FindTexture(_DebugFileName)->GetScale();
 	{
 		Renderer->SetTexture(_FileName);
 		DebugRenderer->SetTexture(_DebugFileName);
-		DebugRenderer->SetRenderScale(Texture->GetScale());
+		DebugRenderer->SetRenderScale(scale);
 	}
 }
 

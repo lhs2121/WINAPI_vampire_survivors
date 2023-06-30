@@ -72,7 +72,7 @@ void Projectile::Start()
 	Renderer->CreateAnimation("Cross", "Cross.bmp", 0, 0, 0.5f, false);
 	Renderer->CreateAnimation("Whip", "Whip.bmp", 0, 2, 0.1f, false);
 	Renderer->CreateAnimation("LWhip", "LWhip.bmp", 0, 2, 0.1f, false);
-	
+
 
 	Collision = CreateCollision(CollisionOrder::Weapon);
 	Collision->SetCollisionScale({ 30,30 });
@@ -198,7 +198,7 @@ void Projectile::Axe_Attack(float _Delta)
 
 		Renderer->SetAngle(dir.AngleDeg());
 		Renderer->On();
-		
+
 		if (AxeNumber > 4)
 		{
 			AxeNumber = 0;
@@ -245,15 +245,10 @@ void Projectile::Axe_Attack(float _Delta)
 	std::vector<GameEngineCollision*> result;
 	if (true == Collision->Collision(CollisionOrder::Monster, result, CollisionType::CirCle, CollisionType::CirCle))
 	{
-		if (HitCount < 3)
-		{
-			Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
-			enemy->ApplyDamage(Damage + GameEngineRandom::MainRandom.RandomInt(3, 9));
+		Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
+		enemy->ApplyDamage(Damage + GameEngineRandom::MainRandom.RandomInt(3, 9));
 
-		}
-		HitCount += 1;
 	}
-	//몬스터와 충돌
 }
 
 
@@ -397,7 +392,7 @@ void Projectile::Cross_Attack(float _Delta)
 	}
 
 	AddPos(dir * Speed * XRangeRatio * _Delta);
-	
+
 	AddPos(float4::DOWN * DownSpeed * _Delta);
 
 	Angle += 400 * _Delta;
@@ -435,7 +430,7 @@ void Projectile::Whip_Attack(float _Delta)
 		if (dir.X < 0)
 		{
 			Renderer->ChangeAnimation("LWhip");
-			SetPos(Player::GetMainPlayer()->GetPos() + float4(10,0));
+			SetPos(Player::GetMainPlayer()->GetPos() + float4(10, 0));
 		}
 		else
 		{
@@ -477,7 +472,7 @@ void Projectile::Setting(WeaponType _Type)
 		Speed = WeaponStats::AllStats[WeaponType::Knife].getSpeed();
 		Damage = WeaponStats::AllStats[WeaponType::Knife].getDamage();
 		DeathTime = WeaponStats::AllStats[WeaponType::Knife].getDeathTime();
-		Scale = float4(31,6) * WeaponStats::AllStats[WeaponType::Knife].getScaleRatio();
+		Scale = float4(31, 6) * WeaponStats::AllStats[WeaponType::Knife].getScaleRatio();
 
 		Renderer->SetRenderScale(Scale);
 		Collision->SetCollisionScale(Scale);
@@ -492,7 +487,7 @@ void Projectile::Setting(WeaponType _Type)
 		Speed = WeaponStats::AllStats[WeaponType::MagicWand].getSpeed();
 		Damage = WeaponStats::AllStats[WeaponType::MagicWand].getDamage();
 		DeathTime = WeaponStats::AllStats[WeaponType::MagicWand].getDeathTime();
-		Scale = float4(7,7) * WeaponStats::AllStats[WeaponType::MagicWand].getScaleRatio();
+		Scale = float4(7, 7) * WeaponStats::AllStats[WeaponType::MagicWand].getScaleRatio();
 
 		Collision->SetCollisionScale(Scale);
 		Collision->SetCollisionType(CollisionType::CirCle);
@@ -506,7 +501,7 @@ void Projectile::Setting(WeaponType _Type)
 		Speed = WeaponStats::AllStats[WeaponType::Axe].getSpeed();
 		Damage = WeaponStats::AllStats[WeaponType::Axe].getDamage();
 		DeathTime = WeaponStats::AllStats[WeaponType::Axe].getDeathTime();
-		Scale = float4(32,36) * WeaponStats::AllStats[WeaponType::Axe].getScaleRatio();
+		Scale = float4(32, 36) * WeaponStats::AllStats[WeaponType::Axe].getScaleRatio();
 
 		Collision->SetCollisionScale(Scale);
 		Collision->SetCollisionType(CollisionType::CirCle);
@@ -520,7 +515,7 @@ void Projectile::Setting(WeaponType _Type)
 		Speed = WeaponStats::AllStats[WeaponType::Runetracer].getSpeed();
 		Damage = WeaponStats::AllStats[WeaponType::Runetracer].getDamage();
 		DeathTime = WeaponStats::AllStats[WeaponType::Runetracer].getDeathTime();
-		Scale = float4(15,15) * WeaponStats::AllStats[WeaponType::Runetracer].getScaleRatio();
+		Scale = float4(15, 15) * WeaponStats::AllStats[WeaponType::Runetracer].getScaleRatio();
 
 		Collision->SetCollisionScale(Scale);
 		Collision->SetCollisionType(CollisionType::CirCle);
@@ -533,7 +528,7 @@ void Projectile::Setting(WeaponType _Type)
 		Speed = WeaponStats::AllStats[WeaponType::FireWand].getSpeed();
 		Damage = WeaponStats::AllStats[WeaponType::FireWand].getDamage();
 		DeathTime = WeaponStats::AllStats[WeaponType::FireWand].getDeathTime();
-		Scale = float4(40,40) * WeaponStats::AllStats[WeaponType::FireWand].getScaleRatio();
+		Scale = float4(40, 40) * WeaponStats::AllStats[WeaponType::FireWand].getScaleRatio();
 
 		Collision->SetCollisionScale(Scale);
 		Collision->SetCollisionType(CollisionType::CirCle);
@@ -546,7 +541,7 @@ void Projectile::Setting(WeaponType _Type)
 		Speed = WeaponStats::AllStats[WeaponType::Cross].getSpeed();
 		Damage = WeaponStats::AllStats[WeaponType::Cross].getDamage();
 		DeathTime = WeaponStats::AllStats[WeaponType::Cross].getDeathTime();
-		Scale = float4(10,10) * WeaponStats::AllStats[WeaponType::Cross].getScaleRatio();
+		Scale = float4(10, 10) * WeaponStats::AllStats[WeaponType::Cross].getScaleRatio();
 
 		Collision->SetCollisionScale(Scale);
 		Collision->SetCollisionType(CollisionType::CirCle);
@@ -557,7 +552,7 @@ void Projectile::Setting(WeaponType _Type)
 		Speed = WeaponStats::AllStats[WeaponType::Whip].getSpeed();
 		Damage = WeaponStats::AllStats[WeaponType::Whip].getDamage();
 		DeathTime = WeaponStats::AllStats[WeaponType::Whip].getDeathTime();
-		Scale = float4(147,29) * WeaponStats::AllStats[WeaponType::Whip].getScaleRatio();
+		Scale = float4(147, 29) * WeaponStats::AllStats[WeaponType::Whip].getScaleRatio();
 
 		Collision->SetCollisionScale(Scale);
 		Collision->SetCollisionType(CollisionType::Rect);

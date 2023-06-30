@@ -2,6 +2,7 @@
 #include "ContentsEnum.h"
 #include "Player.h"
 #include "PlayLevel.h"
+#include <GameEngineBase/GameEngineTime.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineBase/GameEnginePath.h>
@@ -11,7 +12,6 @@
 
 
 bool Exp::IsTakenExpBall = false;
-
 
 void Exp::Start()
 {
@@ -34,33 +34,23 @@ void Exp::Start()
 }
 void Exp::Update(float _Delta)
 {
-	static float Cooltime = 7;
-
-	if (GameEngineInput::IsDown('N'))
-	{
-		Cooltime = 7;
-		IsTakenExpBall = true;
-	}
-
-	if (false == IsTakenExpBall)
-	{
-		Move(_Delta);
-	}
-
 	if (true == IsTakenExpBall)
 	{
-		
-
-		dir = Player::GetMainPlayer()->GetPos() - GetPos();
+    	dir = Player::GetMainPlayer()->GetPos() - GetPos();
 		dir.Normalize();
 		AddPos(dir * 300 * _Delta);
 
-		Cooltime -= _Delta;
+		expballtime -= GameEngineTime::MainTimer.GetDeltaTime();
 
-		if (Cooltime < 0)
+		if (expballtime < 0)
 		{
 			IsTakenExpBall = false;
+			expballtime = 5;
 		}
+	}
+	else if (false == IsTakenExpBall)
+	{
+		Move(_Delta);
 	}
 
 	Eat();

@@ -12,7 +12,7 @@ public:
 	Exp& operator=(const Exp& _Other) = delete;
 	Exp& operator=(Exp&& _Other) noexcept = delete;
 
-
+	float expballtime = 5;
 private:
 	void Start() override;
 	void Update(float _Delta) override;

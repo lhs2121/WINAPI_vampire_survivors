@@ -78,7 +78,7 @@ private:
 	int Level = 1;
 	float MaxHp = 150;
 	float Hp = 150;
-	float speed = 1000;
+	float speed = 120;
 	float Gold = 0;
 	float MaxExp = 50;
 	float Exp = 0;

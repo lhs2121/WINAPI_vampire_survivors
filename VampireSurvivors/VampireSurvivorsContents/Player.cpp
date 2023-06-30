@@ -33,7 +33,7 @@ Player::~Player()
 void Player::Start()
 {
 
-	SetPos({ 1024,464 });
+	SetPos({ 2048,464 });
 
 	{
 		GameEnginePath FolderPath;

@@ -222,16 +222,9 @@ void SelectUI::RandomTypeSetting()
 
 void SelectUI::RandomTypeSetting2()
 {
-	TempPGroup.push_back(PassiveType::Blackheart);
-	TempPGroup.push_back(PassiveType::Redheart);
-	TempPGroup.push_back(PassiveType::Book);
-	TempPGroup.push_back(PassiveType::Glove);
-	TempPGroup.push_back(PassiveType::Candle);
-	TempPGroup.push_back(PassiveType::Expball);
-	TempPGroup.push_back(PassiveType::Crown);
-	TempPGroup.push_back(PassiveType::Spinach);
-	TempPGroup.push_back(PassiveType::Wing);
-	TempPGroup.push_back(PassiveType::Clover);
+	TempPGroup = { PassiveType::Blackheart, PassiveType::Redheart, PassiveType::Book, 
+		PassiveType::Glove, PassiveType::Candle, PassiveType::Expball, PassiveType::Crown, PassiveType::Spinach, 
+		PassiveType::Wing, PassiveType::Clover };
 
 	if (true == StatusUI::UI->IsAllMax2())
 	{
