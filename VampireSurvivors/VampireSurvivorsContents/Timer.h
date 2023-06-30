@@ -18,6 +18,12 @@ public:
 	float minutes = 0;
 	float seconds = 0;
 
+
+	bool Stage1;
+	bool Stage2;
+	bool Stage3;
+	bool Stage4;
+
 private:
 	class GameEngineRenderer* Text_Timer;
 	void Start() override;

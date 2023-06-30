@@ -34,10 +34,29 @@ void CandleStick::Start()
 }
 void CandleStick::Update(float _Delta)
 {
-	if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion(), CollisionType::CirCle, CollisionType::CirCle))
+	if (IsEaten == true)
 	{
-		DropItem();
-		Death();
+		Cooltime -= _Delta;
+	}
+	else
+	{
+		if (true == Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion(), CollisionType::CirCle, CollisionType::CirCle))
+		{
+			DropItem();
+			Renderer->Off();
+			Collision->Off();
+			IsEaten = true;
+		}
+	}
+
+	if (Cooltime <= 0)
+	{
+		float value = GameEngineRandom::MainRandom.RandomFloat(-30, 30);
+		SetPos(GetPos() + float4(value, 0));
+		IsEaten = false;
+		Cooltime = 20;
+		Renderer->On();
+		Collision->On();
 	}
 }
 

@@ -18,6 +18,9 @@ private:
 	class GameEngineRenderer* Renderer;
 	class GameEngineCollision* Collision;
 
+	float Cooltime = 20;
+	bool IsEaten = false;
+
 	void DropItem();
 	void Start() override;
 	void Update(float _Delta) override;

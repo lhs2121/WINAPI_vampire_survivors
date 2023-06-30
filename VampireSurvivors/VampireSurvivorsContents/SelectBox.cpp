@@ -36,11 +36,14 @@ void SelectBox::Off()
 }
 void SelectBox::On()
 {
-	Panel->On();
-	NewText->On();
-	WeaponNameText->On();
-	DetailText->On();
-	DetailText2->On();
+	if (IsEmptyBox == false)
+	{
+		Panel->On();
+		NewText->On();
+		WeaponNameText->On();
+		DetailText->On();
+		DetailText2->On();
+	}
 }
 
 void SelectBox::Start()
@@ -111,11 +114,6 @@ void SelectBox::SetEffect(WeaponType _Type, PassiveType _Type2)
 	if (CurWeaponType == WeaponType::Null && CurPassiveType == PassiveType::Null)
 	{
 		IsEmptyBox = true;
-		Panel->SetTexture("null.bmp");
-		WeaponNameText->SetTexture("null.bmp");
-		NewText->SetTexture("null.bmp");
-		DetailText->SetTexture("null.bmp");
-		DetailText2->SetTexture("null.bmp");
 
 		return;
 	}

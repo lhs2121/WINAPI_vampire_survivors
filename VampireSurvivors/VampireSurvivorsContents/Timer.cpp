@@ -30,8 +30,29 @@ void Timer::Update(float _Delta)
 
 	Text_Timer->SetText(time.str(), 35, "메이플스토리");
 
-	if (GameEngineInput::IsDown('K'))
+	static bool isExecuted1 = false;
+	static bool isExecuted2 = false;
+	static bool isExecuted3 = false;
+
+	if (false == isExecuted1 && minutes >= 2)
 	{
-		GameEngineTime::MainTimer.SetAllTimeScale(3);
+		Enemy::CurSpawnEnemyType[0] = EnemyType::enemy3;
+		Enemy::CurSpawnEnemyType[1] = EnemyType::enemy2;
+		isExecuted1 = true; // 코드 한번만 실행되게
 	}
+
+	if (false == isExecuted2 && minutes >= 4)
+	{
+		Enemy::CurSpawnEnemyType[0] = EnemyType::enemy1;
+		Enemy::CurSpawnEnemyType[1] = EnemyType::enemy3;
+		isExecuted2 = true; // 코드 한번만 실행되게
+	}
+
+	if (false == isExecuted3 && minutes >= 6)
+	{
+		Enemy::CurSpawnEnemyType[0] = EnemyType::enemy3;
+		Enemy::CurSpawnEnemyType[1] = EnemyType::enemy4;
+		isExecuted3 = true; // 코드 한번만 실행되게
+	}
+
 }

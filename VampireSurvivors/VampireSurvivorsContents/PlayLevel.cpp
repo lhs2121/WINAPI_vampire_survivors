@@ -114,8 +114,14 @@ void PlayLevel::LevelEnd(GameEngineLevel* _NextLevel)
 
 void PlayLevel::ItemSpawnerSpawn()
 {
-	CreateActor<CandleStick>(UpdateOrder::Item)->SetPos(float4(1024, 464) + float4(0, 200));
-	CreateActor<CandleStick>(UpdateOrder::Item)->SetPos(float4(1024, 464) + float4(0, -200));
+	for (int i = -5; i < 6; i++)
+	{
+		CreateActor<CandleStick>(UpdateOrder::Item)->SetPos(float4(524 * i, 464) + float4(0, 200));
+		CreateActor<CandleStick>(UpdateOrder::Item)->SetPos(float4(1024 * i, 464)+ float4(0, 200));
+		CreateActor<CandleStick>(UpdateOrder::Item)->SetPos(float4(524 * i, 464) + float4(0, -200));
+		CreateActor<CandleStick>(UpdateOrder::Item)->SetPos(float4(1024 * i, 464) + float4(0, -200));
+	}
+	
 }
 void PlayLevel::EnemySpawn(float _Delta)
 {

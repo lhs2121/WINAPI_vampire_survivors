@@ -130,6 +130,7 @@ LRESULT CALLBACK GameEngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wPara
 		IsWindowUpdate = false;
 		// PostQuitMessage(0);
 		break;
+
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
