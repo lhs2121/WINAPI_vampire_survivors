@@ -107,6 +107,9 @@
     <ClCompile Include="DebugUI.cpp">
       <Filter>Actor\PlayScene\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Actor\PlayScene\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
@@ -182,6 +185,9 @@
     </ClInclude>
     <ClInclude Include="DebugUI.h">
       <Filter>Actor\PlayScene\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Actor\PlayScene\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
