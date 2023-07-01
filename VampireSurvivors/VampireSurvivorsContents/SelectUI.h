@@ -29,8 +29,8 @@ private:
 
 	std::pair<WeaponType, PassiveType> RandomType[3];
 
-	std::vector<WeaponType> TempWGroup;
-	std::vector<PassiveType> TempPGroup;
+	std::vector<WeaponType> TempWeaponGroup;
+	std::vector<PassiveType> TempPassiveGroup;
 
 	WeaponType GetRandomType();
 	WeaponType GetRandomType2();

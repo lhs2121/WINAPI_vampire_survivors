@@ -1,10 +1,12 @@
 #include "PlayerUI.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "ContentsEnum.h"
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
+#include <sstream>
 
 
 PlayerUI* PlayerUI::UI = nullptr;
@@ -17,6 +19,17 @@ PlayerUI::PlayerUI()
 PlayerUI::~PlayerUI()
 {
 }
+
+void PlayerUI::AddGold(int _Gold)
+{
+	Gold += _Gold;
+
+	std::stringstream Goldstr;
+	Goldstr << Gold;
+
+	Text_Gold->SetText(Goldstr.str(), 20, "메이플스토리");
+}
+
 
 void PlayerUI::Start()
 {
@@ -70,6 +83,30 @@ void PlayerUI::Start()
 
 void PlayerUI::Update(float _Delta)
 {
-	
+	static bool isExecuted1 = false;
+	static bool isExecuted2 = false;
+	static bool isExecuted3 = false;
+	static bool isExecuted4 = false;
+
+	if (isExecuted1 == false && Enemy::DeathCount >= 10)
+	{
+		Text_MonsterDeathCount->SetRenderPos({ 895,24 });
+		isExecuted1 = true;
+	}
+	if (isExecuted2 == false && Enemy::DeathCount >= 100)
+	{
+		Text_MonsterDeathCount->SetRenderPos({ 885,24 });
+		isExecuted2 = true;
+	}
+	if (isExecuted3 == false && Enemy::DeathCount >= 1000)
+	{
+		Text_MonsterDeathCount->SetRenderPos({ 875,24 });
+		isExecuted3 = true;
+	}
+	if (isExecuted4 == false && Enemy::DeathCount >= 10000)
+	{
+		Text_MonsterDeathCount->SetRenderPos({ 865,24 });
+		isExecuted4 = true;
+	}
 }
 

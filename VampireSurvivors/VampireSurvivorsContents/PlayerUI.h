@@ -8,8 +8,9 @@ class PlayerUI : public GameEngineActor
 	friend class Player;
 	friend class Enemy;
 public:
-
 	static PlayerUI* UI;
+
+	void AddGold(int _Gold);
 
 public:
 
@@ -31,6 +32,8 @@ private:
 	GameEngineRenderer* ExpGauge;
 
 	float4 ExpGuageScale;
+
+	int Gold = 0;
 
 	void Start() override;
 	void Update(float _Delta) override;

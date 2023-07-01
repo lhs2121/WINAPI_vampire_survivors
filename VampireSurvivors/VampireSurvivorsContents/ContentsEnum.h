@@ -59,5 +59,7 @@ enum class PassiveType
 	Spinach,
 	Wing,
 	Clover,
+	Chicken,
+	Money,
 	Null
 };

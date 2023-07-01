@@ -157,7 +157,7 @@ void SelectUI::ButtonSetting()
 	PassiveStats::AllPassive[PassiveType::Crown].isBoxed = false;
 	PassiveStats::AllPassive[PassiveType::Spinach].isBoxed = false;
 	PassiveStats::AllPassive[PassiveType::Book].isBoxed = false;
-	PassiveStats::AllPassive[PassiveType::Expball ].isBoxed = false;
+	PassiveStats::AllPassive[PassiveType::Expball].isBoxed = false;
 	PassiveStats::AllPassive[PassiveType::Glove].isBoxed = false;
 	PassiveStats::AllPassive[PassiveType::Wing].isBoxed = false;
 
@@ -185,19 +185,14 @@ void SelectUI::ButtonSetting()
 	Collision2->On();
 	Collision3->On();
 
-	TempWGroup.clear();
-	TempPGroup.clear();
+	TempWeaponGroup.clear();
+	TempPassiveGroup.clear();
 }
 
 void SelectUI::RandomTypeSetting()
 {
-	TempWGroup.push_back(WeaponType::Knife);
-	TempWGroup.push_back(WeaponType::MagicWand);
-	TempWGroup.push_back(WeaponType::Axe);
-	TempWGroup.push_back(WeaponType::Runetracer);
-	TempWGroup.push_back(WeaponType::Cross);
-	TempWGroup.push_back(WeaponType::Whip);
-	TempWGroup.push_back(WeaponType::FireWand);
+	TempWeaponGroup = { WeaponType::Knife,WeaponType::MagicWand ,WeaponType::Axe ,WeaponType::Runetracer ,
+		WeaponType::FireWand,WeaponType::Cross ,WeaponType::Whip };
 
 	if (true == StatusUI::UI->IsAllMax())
 	{
@@ -215,15 +210,12 @@ void SelectUI::RandomTypeSetting()
 		RandomType[1].first = GetRandomType2();
 		RandomType[2].first = GetRandomType2();
 	}
-
-	
-
 }
 
 void SelectUI::RandomTypeSetting2()
 {
-	TempPGroup = { PassiveType::Blackheart, PassiveType::Redheart, PassiveType::Book, 
-		PassiveType::Glove, PassiveType::Candle, PassiveType::Expball, PassiveType::Crown, PassiveType::Spinach, 
+	TempPassiveGroup = { PassiveType::Blackheart, PassiveType::Redheart, PassiveType::Book,
+		PassiveType::Glove, PassiveType::Candle, PassiveType::Expball, PassiveType::Crown, PassiveType::Spinach,
 		PassiveType::Wing, PassiveType::Clover };
 
 	if (true == StatusUI::UI->IsAllMax2())
@@ -245,16 +237,16 @@ void SelectUI::RandomTypeSetting2()
 }
 WeaponType SelectUI::GetRandomType()
 {
-	if (TempWGroup.size() < 1)
+	if (TempWeaponGroup.size() < 1)
 	{
 		return WeaponType::Null;
 	}
 
-	WeaponType type = getRandomElement(TempWGroup, 0, TempWGroup.size() - 1);
+	WeaponType type = getRandomElement(TempWeaponGroup, 0, TempWeaponGroup.size() - 1);
 
 	if (WeaponStats::AllStats[type].isBoxed == true)
 	{
-		remove(TempWGroup, type);
+		remove(TempWeaponGroup, type);
 		type = GetRandomType();
 	}
 
@@ -265,16 +257,16 @@ WeaponType SelectUI::GetRandomType()
 
 WeaponType SelectUI::GetRandomType2()
 {
-	if (TempWGroup.size() < 1)
+	if (TempWeaponGroup.size() < 1)
 	{
 		return WeaponType::Null;
 	}
 
-	WeaponType type = getRandomElement(TempWGroup, 0, TempWGroup.size() - 1);
+	WeaponType type = getRandomElement(TempWeaponGroup, 0, TempWeaponGroup.size() - 1);
 
 	if (WeaponStats::AllStats[type].isBoxed == true || false == WeaponStats::AllStats[type].isSelected || true == WeaponStats::AllStats[type].isMaxLevel)
 	{
-		remove(TempWGroup, type);
+		remove(TempWeaponGroup, type);
 		type = GetRandomType2();
 	}
 
@@ -284,16 +276,16 @@ WeaponType SelectUI::GetRandomType2()
 }
 PassiveType SelectUI::GetRandomType3()
 {
-	if (TempPGroup.size() < 1)
+	if (TempPassiveGroup.size() < 1)
 	{
 		return PassiveType::Null;
 	}
 
-	PassiveType type = getRandomElement2(TempPGroup, 0, TempPGroup.size() - 1);
+	PassiveType type = getRandomElement2(TempPassiveGroup, 0, TempPassiveGroup.size() - 1);
 
 	if (PassiveStats::AllPassive[type].isBoxed == true)
 	{
-		remove2(TempPGroup, type);
+		remove2(TempPassiveGroup, type);
 		type = GetRandomType3();
 	}
 
@@ -303,16 +295,16 @@ PassiveType SelectUI::GetRandomType3()
 }
 PassiveType SelectUI::GetRandomType4()
 {
-	if (TempPGroup.size() < 1)
+	if (TempPassiveGroup.size() < 1)
 	{
 		return PassiveType::Null;
 	}
 
-	PassiveType type = getRandomElement2(TempPGroup, 0, TempPGroup.size() - 1);
+	PassiveType type = getRandomElement2(TempPassiveGroup, 0, TempPassiveGroup.size() - 1);
 
 	if (PassiveStats::AllPassive[type].isBoxed == true || false == PassiveStats::AllPassive[type].isSelected || true == PassiveStats::AllPassive[type].isMaxLevel)
 	{
-		remove2(TempPGroup, type);
+		remove2(TempPassiveGroup, type);
 		type = GetRandomType4();
 	}
 

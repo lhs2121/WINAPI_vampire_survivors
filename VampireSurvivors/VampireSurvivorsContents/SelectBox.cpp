@@ -5,12 +5,15 @@
 #include "Player.h"
 #include "SelectUI.h"
 #include "StatusUI.h"
+#include "PlayerUI.h"
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 
+bool SelectBox::IsChickenSelected;
+bool SelectBox::IsMoneySelected;
 
 void SelectBox::Off()
 {
@@ -18,7 +21,9 @@ void SelectBox::Off()
 	CurWeaponLevel = 0;
 	CurWeaponType = WeaponType::Null;
 
-	IsEmptyBox = false;
+	IsChickenSelected = false;
+	IsMoneySelected = false;
+	IsEmptyEffect = false;
 	_Count = 0;
 	_Speed = 0;
 	_Damage = 0;
@@ -36,14 +41,11 @@ void SelectBox::Off()
 }
 void SelectBox::On()
 {
-	if (IsEmptyBox == false)
-	{
-		Panel->On();
-		NewText->On();
-		WeaponNameText->On();
-		DetailText->On();
-		DetailText2->On();
-	}
+	Panel->On();
+	NewText->On();
+	WeaponNameText->On();
+	DetailText->On();
+	DetailText2->On();
 }
 
 void SelectBox::Start()
@@ -63,7 +65,10 @@ void SelectBox::Start()
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("ItemPanel_FireWand.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("ItemPanel_Cross.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("ItemPanel_Whip.bmp"));
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("ItemPanel_Money.bmp"));
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("ItemPanel_Chicken.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("null.bmp"));
+
 
 		path.MoveChild("Passive\\");
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("ItemPanel_Blackheart.bmp"));
@@ -88,13 +93,6 @@ void SelectBox::Start()
 	NewText->SetRenderPos({ 100,-50 });
 	DetailText->SetRenderPos({ -185,0 });
 	DetailText2->SetRenderPos({ -185,25 });
-
-	Panel->SetTexture("null.bmp");
-	WeaponNameText->SetTexture("null.bmp");
-	NewText->SetTexture("null.bmp");
-	DetailText->SetTexture("null.bmp");
-	DetailText2->SetTexture("null.bmp");
-
 }
 
 void SelectBox::SetEffect(WeaponType _Type, PassiveType _Type2)
@@ -113,9 +111,38 @@ void SelectBox::SetEffect(WeaponType _Type, PassiveType _Type2)
 
 	if (CurWeaponType == WeaponType::Null && CurPassiveType == PassiveType::Null)
 	{
-		IsEmptyBox = true;
+		if (IsChickenSelected == false && IsMoneySelected == false)
+		{
+			Panel->SetTexture("ItemPanel_Chicken.bmp");
+			WeaponNameText->SetText("치킨", 20, "메이플스토리");
+			NewText->SetText("");
+			DetailText->SetText("체력을 30 회복합니다", 20, "메이플스토리");
+			DetailText2->SetText("");
 
-		return;
+			CurPassiveType = PassiveType::Chicken;
+			IsChickenSelected = true;
+		}
+		else if (IsChickenSelected == true && IsMoneySelected == false)
+		{
+			Panel->SetTexture("ItemPanel_Money.bmp");
+			WeaponNameText->SetText("큰 동전 가방", 20, "메이플스토리");
+			NewText->SetText("");
+			DetailText->SetText("25골드를 추가합니다.", 20, "메이플스토리");
+			DetailText2->SetText("");
+
+			CurPassiveType = PassiveType::Money;
+			IsMoneySelected = true;
+		}
+		else if (IsChickenSelected == true && IsMoneySelected == true)
+		{
+			IsEmptyEffect = true;
+
+			Panel->SetTexture("null.bmp");
+			WeaponNameText->SetText("");
+			NewText->SetText("");
+			DetailText->SetText("");
+			DetailText2->SetText("");
+		}
 	}
 
 	if (CurWeaponType != WeaponType::Null && CurPassiveType == PassiveType::Null)
@@ -840,10 +867,22 @@ void SelectBox::SetPassiveEffect()
 }
 void SelectBox::OnClick()
 {
-	if (true == IsEmptyBox)
+	if (true == IsEmptyEffect)
 	{
 		return;
 	}
+
+	if (CurPassiveType == PassiveType::Chicken)
+	{
+		Player::GetMainPlayer()->AddHP(30);
+		return;
+	}
+	else if (CurPassiveType == PassiveType::Money)
+	{
+		PlayerUI::UI->AddGold(25);
+		return;
+	}
+
 
 	if (IsWeaponButton == true)
 	{

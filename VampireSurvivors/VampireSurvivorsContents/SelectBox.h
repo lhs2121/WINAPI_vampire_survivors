@@ -6,13 +6,17 @@ class PassiveStats;
 class SelectBox : public GameEngineActor
 {
 public:
-	void On() override;
-	void Off() override;
+	static bool IsChickenSelected;
+	static bool IsMoneySelected;
+
 	void SetEffect(WeaponType _Type = WeaponType::Null, PassiveType _Type2 = PassiveType::Null);
 	void OnClick();
-
 	void SetWeaponEffect();
 	void SetPassiveEffect();
+
+	void On() override;
+	void Off() override;
+
 	SelectBox() {}
 	~SelectBox() {}
 	SelectBox(const SelectBox& _Other) = delete;
@@ -21,21 +25,14 @@ public:
 	SelectBox& operator=(SelectBox&& _Other) noexcept = delete;
 
 private:
-	class GameEngineRenderer* Panel;
-	class GameEngineRenderer* WeaponNameText;
-	class GameEngineRenderer* NewText;
-	class GameEngineRenderer* DetailText;
-	class GameEngineRenderer* DetailText2;
-
 	int CurWeaponLevel;
-	WeaponType CurWeaponType;
-
 	int CurPassiveLevel;
+
+	WeaponType CurWeaponType;
 	PassiveType CurPassiveType;
 
 	bool IsWeaponButton = false;
-	bool IsEmptyBox = false;
-
+	bool IsEmptyEffect = false;
 
 	int _Count = 0;
 	float _Speed = 0;
@@ -45,11 +42,12 @@ private:
 	float _Interval = 0;
 	float _ScaleRatio = 0;
 
+	class GameEngineRenderer* Panel;
+	class GameEngineRenderer* WeaponNameText;
+	class GameEngineRenderer* NewText;
+	class GameEngineRenderer* DetailText;
+	class GameEngineRenderer* DetailText2;
+
 	void Start() override;
-
-
-
-
-
 };
 

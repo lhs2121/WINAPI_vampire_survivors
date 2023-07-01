@@ -10,7 +10,7 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include "ContentsEnum.h"
 
-EnemyType Enemy::CurSpawnEnemyType[2] = { EnemyType::enemy1 ,EnemyType::enemy2 };
+EnemyType Enemy::CurSpawnEnemyType[2] = { EnemyType::enemy1 ,EnemyType::enemy1 };
 
 int Enemy::DeathCount = 0;
 
@@ -175,8 +175,6 @@ void Enemy::Update(float _Delta)
 				}
 			}
 
-			PlayerUI::UI->Text_MonsterDeathCount->SetText(std::to_string(DeathCount), 20, "메이플스토리");
-
 			DropExp();
 
 			Collision->Off();
@@ -187,6 +185,8 @@ void Enemy::Update(float _Delta)
 		if (Renderer->IsAnimationEnd())
 		{
 			DeathCount += 1;
+
+			PlayerUI::UI->Text_MonsterDeathCount->SetText(std::to_string(DeathCount), 20, "메이플스토리");
 
 			Death();
 		}
