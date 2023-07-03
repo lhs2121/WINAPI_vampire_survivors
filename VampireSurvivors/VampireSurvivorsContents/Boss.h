@@ -26,5 +26,7 @@ private:
 
 	void Start();
 	void Update(float _Delta);
+	void Move();
+	void ColCheck();
 };
 

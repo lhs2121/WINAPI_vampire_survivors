@@ -110,6 +110,9 @@
     <ClCompile Include="Boss.cpp">
       <Filter>Actor\PlayScene\Player</Filter>
     </ClCompile>
+    <ClCompile Include="ItemBox.cpp">
+      <Filter>Actor\PlayScene\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
@@ -188,6 +191,9 @@
     </ClInclude>
     <ClInclude Include="Boss.h">
       <Filter>Actor\PlayScene\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBox.h">
+      <Filter>Actor\PlayScene\Item</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

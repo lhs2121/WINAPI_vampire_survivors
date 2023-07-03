@@ -21,7 +21,6 @@ void DebugUI::Start()
 
 void DebugUI::Update(float _Delta)
 {
-	value = Expball::Cooltime;
 	std::stringstream str;
 	str << value;
 
