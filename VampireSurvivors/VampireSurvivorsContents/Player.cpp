@@ -3,7 +3,7 @@
 #include "PlayLevel.h"
 #include "Enemy.h"
 #include "ContentsEnum.h"
-#include "SelectUI.h"
+#include "LevelUpUI.h"
 #include "StatusUI.h"
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineBase/GameEngineTime.h>
@@ -272,7 +272,7 @@ void Player::LevelUp()
 		PlayerUI::UI->Text_Level->SetText("LV" + std::to_string(Level), 20, "메이플스토리");
 
 		PlayLevel* level = static_cast<PlayLevel*>(GetLevel());
-		level->ShowSelectUI();
+		level->ShowLevelUpUI();
 
 	}
 

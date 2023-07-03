@@ -26,12 +26,6 @@
     <ClCompile Include="BackGround.cpp">
       <Filter>Actor\PlayScene</Filter>
     </ClCompile>
-    <ClCompile Include="CharactorSelectUI.h">
-      <Filter>Actor\MenuScene</Filter>
-    </ClCompile>
-    <ClCompile Include="CharactorSelectUI.cpp">
-      <Filter>Actor\MenuScene</Filter>
-    </ClCompile>
     <ClCompile Include="IntroImage.h">
       <Filter>Actor\MenuScene</Filter>
     </ClCompile>
@@ -77,9 +71,6 @@
     <ClCompile Include="StatusUI.cpp">
       <Filter>Actor\PlayScene\UI</Filter>
     </ClCompile>
-    <ClCompile Include="SelectUI.cpp">
-      <Filter>Actor\PlayScene\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Actor\PlayScene\Player</Filter>
     </ClCompile>
@@ -113,6 +104,9 @@
     <ClCompile Include="ItemBox.cpp">
       <Filter>Actor\PlayScene\Item</Filter>
     </ClCompile>
+    <ClCompile Include="CharactorSelectUI.h" />
+    <ClCompile Include="LevelUpUI.cpp" />
+    <ClCompile Include="CharactorSelectUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
@@ -171,9 +165,6 @@
     <ClInclude Include="StatusUI.h">
       <Filter>Actor\PlayScene\UI</Filter>
     </ClInclude>
-    <ClInclude Include="SelectUI.h">
-      <Filter>Actor\PlayScene\UI</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Actor\PlayScene\Player</Filter>
     </ClInclude>
@@ -195,5 +186,6 @@
     <ClInclude Include="ItemBox.h">
       <Filter>Actor\PlayScene\Item</Filter>
     </ClInclude>
+    <ClInclude Include="LevelUpUI.h" />
   </ItemGroup>
 </Project>

@@ -7,7 +7,7 @@
 #include "PlayerShooter.h"
 #include "Timer.h"
 #include "ContentsEnum.h"
-#include "SelectUI.h"
+#include "LevelUpUI.h"
 #include "StatusUI.h"
 #include "CandleStick.h"
 #include "DebugUI.h"
@@ -63,7 +63,7 @@ void PlayLevel::Start()
 
 	CreateActor<PlayerShooter>(UpdateOrder::Player);
 
-	SelectUIPtr = CreateActor<SelectUI>(UpdateOrder::PlayUI);
+	LevelUpUIPtr = CreateActor<LevelUpUI>(UpdateOrder::PlayUI);
 
 	CreateActor<Timer>(UpdateOrder::Timer);
 
@@ -119,10 +119,10 @@ void PlayLevel::ItemSpawnerSpawn()
 {
 	for (int i = -5; i < 6; i++)
 	{
-		CreateActor<CandleStick>(UpdateOrder::Item)->SetPos(float4(524 * i, 464) + float4(0, 200));
-		CreateActor<CandleStick>(UpdateOrder::Item)->SetPos(float4(1024 * i, 464)+ float4(0, 200));
-		CreateActor<CandleStick>(UpdateOrder::Item)->SetPos(float4(524 * i, 464) + float4(0, -200));
-		CreateActor<CandleStick>(UpdateOrder::Item)->SetPos(float4(1024 * i, 464) + float4(0, -200));
+		CreateActor<CandleStick>(UpdateOrder::Item)->SetPos(float4(524 * (float)i, 464) + float4(0, 200));
+		CreateActor<CandleStick>(UpdateOrder::Item)->SetPos(float4(1024 * (float)i, 464)+ float4(0, 200));
+		CreateActor<CandleStick>(UpdateOrder::Item)->SetPos(float4(524 * (float)i, 464) + float4(0, -200));
+		CreateActor<CandleStick>(UpdateOrder::Item)->SetPos(float4(1024 * (float)i, 464) + float4(0, -200));
 	}
 	
 }
@@ -168,15 +168,8 @@ void PlayLevel::AddExp(float4 _Pos)
 	ExpGroup.push_back(NewExp);
 }
 
-void PlayLevel::ShowSelectUI()
+void PlayLevel::ShowLevelUpUI()
 {
-	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Monster, 0);
-	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Player, 0);
-	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Item, 0);
-	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Weapon, 0);
-	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Timer, 0);
-
 	SpawnCheck = false;
-
-	SelectUIPtr->On();
+	LevelUpUIPtr->On();
 }

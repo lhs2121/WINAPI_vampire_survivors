@@ -9,21 +9,22 @@ class SelectBox;
 class GameEngineCollision;
 enum class WeaponType;
 enum class PassiveType;
-class SelectUI : public GameEngineActor
+class LevelUpUI : public GameEngineActor
 {
 public:
-	static SelectUI* UI;
+	static LevelUpUI* UI;
 
 	void On() override;
+	void OnBox();
 	void Off() override;
 
 
-	SelectUI(){UI = this;}
-	~SelectUI(){}
-	SelectUI(const SelectUI& _Other) = delete;
-	SelectUI(SelectUI&& _Other) noexcept = delete;
-	SelectUI& operator=(const SelectUI& _Other) = delete;
-	SelectUI& operator=(SelectUI&& _Other) noexcept = delete;
+	LevelUpUI(){UI = this;}
+	~LevelUpUI(){}
+	LevelUpUI(const LevelUpUI& _Other) = delete;
+	LevelUpUI(LevelUpUI&& _Other) noexcept = delete;
+	LevelUpUI& operator=(const LevelUpUI& _Other) = delete;
+	LevelUpUI& operator=(LevelUpUI&& _Other) noexcept = delete;
 
 private:
 
@@ -96,9 +97,18 @@ private:
 	GameEngineRenderer* ItemSelectPanel = nullptr;
 	GameEngineRenderer* Text_LevelUp = nullptr;
 
+	GameEngineRenderer* Box = nullptr;
+	GameEngineRenderer* WeaponOnPanel = nullptr;
+	GameEngineRenderer* Text_FoundBox = nullptr;
+	GameEngineRenderer* Button = nullptr;
+	GameEngineRenderer* Text_Button = nullptr;
+
 	GameEngineCollision* Collision1 = nullptr;
 	GameEngineCollision* Collision2 = nullptr;
 	GameEngineCollision* Collision3 = nullptr;
+
+	GameEngineCollision* Collision4 = nullptr;
+	GameEngineCollision* Collision5 = nullptr;
 	GameEngineCollision* Mouse = nullptr;
 
 	void ButtonSetting();

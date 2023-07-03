@@ -21,7 +21,7 @@ private:
 	class GameEngineRenderer* Renderer;
 	class GameEngineCollision* Collision;
 
-	float hp = 1000;
+	float hp = 10;
 	float4 dir;
 
 	void Start();

@@ -7,7 +7,7 @@ class PlayLevel : public GameEngineLevel
 public:
 
     void AddExp(float4 _Pos);
-	void ShowSelectUI();
+	void ShowLevelUpUI();
 	static void ChangeSpawnState()
 	{
 		SpawnCheck = !SpawnCheck;
@@ -34,7 +34,7 @@ private:
 
 	class BackGround* BackGroundPtr;
 	class Player* PlayerPtr = nullptr;
-	class SelectUI* SelectUIPtr;
+	class LevelUpUI* LevelUpUIPtr;
 
 	std::vector<class Exp*> ExpGroup;
 

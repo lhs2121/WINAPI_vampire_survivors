@@ -3,6 +3,8 @@
 #include "ContentsEnum.h"
 #include "Projectile.h"
 #include "DebugUI.h"
+#include "ItemBox.h"
+#include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
@@ -99,6 +101,7 @@ void Boss::Update(float _Delta)
 
 		if (Renderer->IsAnimation("Boss_death_Left") && Renderer->IsAnimationEnd())
 		{
+			GetLevel()->CreateActor<ItemBox>()->SetPos(GetPos());
 			Death();
 		}
 	}

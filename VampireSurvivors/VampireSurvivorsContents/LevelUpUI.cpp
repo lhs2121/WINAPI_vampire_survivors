@@ -1,4 +1,4 @@
-#include "SelectUI.h"
+#include "LevelUpUI.h"
 #include "ContentsEnum.h"
 #include "PlayLevel.h"
 #include "SelectBox.h"
@@ -21,17 +21,49 @@
 #include <vector>
 #include <algorithm>
 
-SelectUI* SelectUI::UI = nullptr;
+LevelUpUI* LevelUpUI::UI = nullptr;
 
-void SelectUI::On()
+void LevelUpUI::On()
 {
+	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Monster, 0);
+	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Player, 0);
+	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Item, 0);
+	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Weapon, 0);
+	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Timer, 0);
+
 	ItemSelectPanel->On();
 	Text_LevelUp->On();
+
+	SelectBox1->On();
+	SelectBox2->On();
+	SelectBox3->On();
+
+	Collision1->On();
+	Collision2->On();
+	Collision3->On();
+
 	ButtonSetting();
 	StatusUI::UI->On();
 }
 
-void SelectUI::Off()
+void LevelUpUI::OnBox()
+{
+	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Monster, 0);
+	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Player, 0);
+	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Item, 0);
+	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Weapon, 0);
+	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Timer, 0);
+
+	ItemSelectPanel->On();
+	Box->On();
+	Button->On();
+	Text_Button->On();
+
+	Collision4->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + Button->GetRenderPos());
+	Collision4->On();
+}
+
+void LevelUpUI::Off()
 {
 	ItemSelectPanel->Off();
 	Text_LevelUp->Off();
@@ -39,6 +71,12 @@ void SelectUI::Off()
 	Collision1->Off();
 	Collision2->Off();
 	Collision3->Off();
+	Collision4->Off();
+	Collision5->Off();
+
+	Box->Off();
+	Button->Off();
+	Text_Button->Off();
 
 	SelectBox1->Off();
 	SelectBox2->Off();
@@ -47,7 +85,7 @@ void SelectUI::Off()
 }
 
 
-void SelectUI::Start()
+void LevelUpUI::Start()
 {
 	if (false == ResourcesManager::GetInst().IsLoadTexture("ItemSelectPanel.bmp"))
 	{
@@ -57,6 +95,9 @@ void SelectUI::Start()
 		path.MoveChild("Resources\\PlayScene\\");
 		path.MoveChild("UI\\");
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("ItemSelectPanel.bmp"));
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("box_bounce.bmp"), 8, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("box_openup.bmp"), 1, 1);
+		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("button.bmp"));
 	}
 
 	{
@@ -81,6 +122,25 @@ void SelectUI::Start()
 	}
 
 	{
+		Box = CreateUIRenderer(RenderOrder::PlayUI);
+		Box->CreateAnimation("box_bounce", "box_bounce.bmp", 0, 7, 0.1f, true);
+		Box->CreateAnimation("box_openup", "box_openup.bmp");
+		Box->ChangeAnimation("box_bounce");
+		Box->SetRenderPos({ 545,435 });
+		Box->Off();
+
+		Button = CreateUIRenderer(RenderOrder::PlayUI);
+		Button->SetTexture("button.bmp");
+		Button->SetRenderPos(Box->GetRenderPos() + float4(0, 130));
+		Button->Off();
+
+		Text_Button = CreateUIRenderer(RenderOrder::Text);
+		Text_Button->SetText("열기", 40, "메이플스토리");
+		Text_Button->SetRenderPos(Button->GetRenderPos() + float4(-30,-20));
+		Text_Button->Off();
+	}
+
+	{
 		float4 scale = float4(388, 110);
 
 		Collision1 = CreateCollision(CollisionOrder::PlayUI);
@@ -92,6 +152,15 @@ void SelectUI::Start()
 		Collision3 = CreateCollision(CollisionOrder::PlayUI);
 		Collision3->SetCollisionScale(scale);
 
+		Collision4 = CreateCollision(CollisionOrder::PlayUI);
+		Collision4->SetCollisionScale({ 192,51 });
+		Collision4->Off();
+
+		Collision5 = CreateCollision(CollisionOrder::PlayUI);
+		Collision5->SetCollisionScale({ 192,51 });
+		Collision5->SetCollisionPos(Button->GetRenderPos());
+		Collision5->Off();
+
 		Mouse = CreateCollision(CollisionOrder::PlayUI);
 		Mouse->SetCollisionScale({ 50,50 });
 	}
@@ -99,10 +168,9 @@ void SelectUI::Start()
 	Off();
 }
 
-void SelectUI::Update(float _Delta)
+void LevelUpUI::Update(float _Delta)
 {
 	Mouse->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + GameEngineWindow::MainWindow.GetMousePos());
-
 	if (true == Collision1->CollisonCheck(Mouse, CollisionType::Rect, CollisionType::Rect) && Collision1->IsUpdate())
 	{
 		if (GameEngineInput::IsDown(VK_LBUTTON))
@@ -135,11 +203,31 @@ void SelectUI::Update(float _Delta)
 			Off();
 		}
 	}
+
+	if (true == Collision4->CollisonCheck(Mouse, CollisionType::Rect, CollisionType::Rect) && Collision4->IsUpdate())
+	{
+		if (GameEngineInput::IsDown(VK_LBUTTON))
+		{
+			Box->ChangeAnimation("box_openup");
+			Text_Button->SetText("닫기", 40, "메이플스토리");
+			Collision5->On();
+			Collision5->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + Button->GetRenderPos());
+			Collision4->Off();
+		}
+	}
+	else if (true == Collision5->CollisonCheck(Mouse, CollisionType::Rect, CollisionType::Rect) && Collision5->IsUpdate())
+	{
+		if (GameEngineInput::IsDown(VK_LBUTTON))
+		{
+			GameEngineTime::MainTimer.SetAllTimeScale(1);
+			Off();
+		}
+	}
 	//3번 버튼 눌렀을때
 
 }
 
-void SelectUI::ButtonSetting()
+void LevelUpUI::ButtonSetting()
 {
 	WeaponStats::AllStats[WeaponType::Knife].isBoxed = false;
 	WeaponStats::AllStats[WeaponType::MagicWand].isBoxed = false;
@@ -177,19 +265,11 @@ void SelectUI::ButtonSetting()
 	Collision2->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox2->GetPos());
 	Collision3->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + SelectBox3->GetPos());
 
-	SelectBox1->On();
-	SelectBox2->On();
-	SelectBox3->On();
-
-	Collision1->On();
-	Collision2->On();
-	Collision3->On();
-
 	TempWeaponGroup.clear();
 	TempPassiveGroup.clear();
 }
 
-void SelectUI::RandomTypeSetting()
+void LevelUpUI::RandomTypeSetting()
 {
 	TempWeaponGroup = { WeaponType::Knife,WeaponType::MagicWand ,WeaponType::Axe ,WeaponType::Runetracer ,
 		WeaponType::FireWand,WeaponType::Cross ,WeaponType::Whip };
@@ -212,7 +292,7 @@ void SelectUI::RandomTypeSetting()
 	}
 }
 
-void SelectUI::RandomTypeSetting2()
+void LevelUpUI::RandomTypeSetting2()
 {
 	TempPassiveGroup = { PassiveType::Blackheart, PassiveType::Redheart, PassiveType::Book,
 		PassiveType::Glove, PassiveType::Candle, PassiveType::Expball, PassiveType::Crown, PassiveType::Spinach,
@@ -235,7 +315,7 @@ void SelectUI::RandomTypeSetting2()
 		RandomType[2].second = GetRandomType4();
 	}
 }
-WeaponType SelectUI::GetRandomType()
+WeaponType LevelUpUI::GetRandomType()
 {
 	if (TempWeaponGroup.size() < 1)
 	{
@@ -255,7 +335,7 @@ WeaponType SelectUI::GetRandomType()
 	return type;
 }
 
-WeaponType SelectUI::GetRandomType2()
+WeaponType LevelUpUI::GetRandomType2()
 {
 	if (TempWeaponGroup.size() < 1)
 	{
@@ -274,7 +354,7 @@ WeaponType SelectUI::GetRandomType2()
 
 	return type;
 }
-PassiveType SelectUI::GetRandomType3()
+PassiveType LevelUpUI::GetRandomType3()
 {
 	if (TempPassiveGroup.size() < 1)
 	{
@@ -293,7 +373,7 @@ PassiveType SelectUI::GetRandomType3()
 
 	return type;
 }
-PassiveType SelectUI::GetRandomType4()
+PassiveType LevelUpUI::GetRandomType4()
 {
 	if (TempPassiveGroup.size() < 1)
 	{

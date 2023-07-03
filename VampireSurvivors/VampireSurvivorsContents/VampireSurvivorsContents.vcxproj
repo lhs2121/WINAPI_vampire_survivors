@@ -214,7 +214,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="SelectUI.cpp" />
+    <ClCompile Include="LevelUpUI.cpp" />
     <ClCompile Include="Projectile.h">
       <SubType>
       </SubType>
@@ -276,7 +276,7 @@
     <ClInclude Include="PlayLevel.h" />
     <ClInclude Include="Exp.h" />
     <ClInclude Include="PlayerUI.h" />
-    <ClInclude Include="SelectUI.h" />
+    <ClInclude Include="LevelUpUI.h" />
     <ClInclude Include="StatusUI.h" />
     <ClInclude Include="ItemBox.h" />
   </ItemGroup>
