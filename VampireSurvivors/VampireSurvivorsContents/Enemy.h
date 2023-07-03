@@ -45,7 +45,7 @@ private:
 	const float maxspeed = 100.0f;
 	const float minspeed = -100.0f;
 
-	float hp = 20;
+	float hp = 70;
 	float speed;
 	float Yspeed = 100;
 	float increasement = 1;

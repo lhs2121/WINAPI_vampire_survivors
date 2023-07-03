@@ -104,9 +104,15 @@
     <ClCompile Include="ItemBox.cpp">
       <Filter>Actor\PlayScene\Item</Filter>
     </ClCompile>
-    <ClCompile Include="CharactorSelectUI.h" />
-    <ClCompile Include="LevelUpUI.cpp" />
-    <ClCompile Include="CharactorSelectUI.cpp" />
+    <ClCompile Include="LevelUpUI.cpp">
+      <Filter>Actor\PlayScene\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CharactorSelectUI.h">
+      <Filter>Actor\MenuScene</Filter>
+    </ClCompile>
+    <ClCompile Include="CharactorSelectUI.cpp">
+      <Filter>Actor\MenuScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
@@ -186,6 +192,8 @@
     <ClInclude Include="ItemBox.h">
       <Filter>Actor\PlayScene\Item</Filter>
     </ClInclude>
-    <ClInclude Include="LevelUpUI.h" />
+    <ClInclude Include="LevelUpUI.h">
+      <Filter>Actor\PlayScene\UI</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

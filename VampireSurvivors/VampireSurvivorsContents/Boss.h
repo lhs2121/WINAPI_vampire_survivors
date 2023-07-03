@@ -23,6 +23,7 @@ private:
 
 	float hp = 10;
 	float4 dir;
+	int value;
 
 	void Start();
 	void Update(float _Delta);

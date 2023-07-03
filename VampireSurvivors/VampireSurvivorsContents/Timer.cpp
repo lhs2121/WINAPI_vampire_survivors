@@ -49,22 +49,33 @@ void Timer::Update(float _Delta)
 		isExecuted1 = true; // 코드 한번만 실행되게
 	}
 
-	if (false == isExecuted2 && minutes >= 3)
+	if (false == isExecuted2 && minutes >= 0 && seconds > 30)
 	{
+		GetLevel()->CreateActor<Boss>(UpdateOrder::Monster);
 		Enemy::CurSpawnEnemyType[0] = EnemyType::enemy3;
 		Enemy::CurSpawnEnemyType[1] = EnemyType::enemy2;
 		isExecuted2 = true; // 코드 한번만 실행되게
 	}
 
-	if (false == isExecuted3 && minutes >= 4)
+	if (false == isExecuted3 && minutes >= 1)
 	{
-		Enemy::CurSpawnEnemyType[0] = EnemyType::enemy3;
-		Enemy::CurSpawnEnemyType[1] = EnemyType::enemy4;
+		GetLevel()->CreateActor<Boss>(UpdateOrder::Monster);
+		Enemy::CurSpawnEnemyType[0] = EnemyType::enemy1;
+		Enemy::CurSpawnEnemyType[1] = EnemyType::enemy3;
 		isExecuted3 = true; // 코드 한번만 실행되게
 	}
 
-	if (false == isExecuted3 && minutes >= 5)
+	if (false == isExecuted3 && minutes >= 1 && seconds > 30)
 	{
+		GetLevel()->CreateActor<Boss>(UpdateOrder::Monster);
+		Enemy::CurSpawnEnemyType[0] = EnemyType::enemy3;
+		Enemy::CurSpawnEnemyType[1] = EnemyType::enemy4;
+		isExecuted4 = true; // 코드 한번만 실행되게
+	}
+
+	if (false == isExecuted3 && minutes >= 2)
+	{
+		GetLevel()->CreateActor<Boss>(UpdateOrder::Monster);
 		Enemy::CurSpawnEnemyType[0] = EnemyType::enemy4;
 		Enemy::CurSpawnEnemyType[1] = EnemyType::enemy4;
 		isExecuted4 = true; // 코드 한번만 실행되게

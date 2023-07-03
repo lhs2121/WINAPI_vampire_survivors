@@ -58,15 +58,21 @@ void LevelUpUI::OnBox()
 	Box->On();
 	Button->On();
 	Text_Button->On();
+	Text_FoundBox->On();
 
 	Collision4->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + Button->GetRenderPos());
 	Collision4->On();
+
+	Box->ChangeAnimation("box_bounce");
+	Text_Button->SetText("열기", 40, "메이플스토리");
 }
 
 void LevelUpUI::Off()
 {
 	ItemSelectPanel->Off();
 	Text_LevelUp->Off();
+	Text_FoundBox->Off();
+	WeaponInBox->Off();
 
 	Collision1->Off();
 	Collision2->Off();
@@ -138,6 +144,16 @@ void LevelUpUI::Start()
 		Text_Button->SetText("열기", 40, "메이플스토리");
 		Text_Button->SetRenderPos(Button->GetRenderPos() + float4(-30,-20));
 		Text_Button->Off();
+
+		Text_FoundBox = CreateUIRenderer(RenderOrder::Text);
+		Text_FoundBox->SetText("보물 발견!",40,"메이플스토리");
+		Text_FoundBox->SetRenderPos({ 475,100 });
+		Text_FoundBox->Off();
+
+		WeaponInBox = CreateUIRenderer(RenderOrder::PlayUI);
+		WeaponInBox->SetTexture("null.bmp");
+		WeaponInBox->SetRenderPos({ 545,300 });
+		WeaponInBox->Off();
 	}
 
 	{
@@ -208,11 +224,18 @@ void LevelUpUI::Update(float _Delta)
 	{
 		if (GameEngineInput::IsDown(VK_LBUTTON))
 		{
-			Box->ChangeAnimation("box_openup");
-			Text_Button->SetText("닫기", 40, "메이플스토리");
+			Collision4->Off();
 			Collision5->On();
 			Collision5->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + Button->GetRenderPos());
-			Collision4->Off();
+			
+			Box->ChangeAnimation("box_openup");
+
+			Text_Button->SetText("닫기", 40, "메이플스토리");
+			Text_FoundBox->Off();
+
+			WeaponInBox->SetTexture("axeslot.bmp");
+			WeaponInBox->On();
+			
 		}
 	}
 	else if (true == Collision5->CollisonCheck(Mouse, CollisionType::Rect, CollisionType::Rect) && Collision5->IsUpdate())

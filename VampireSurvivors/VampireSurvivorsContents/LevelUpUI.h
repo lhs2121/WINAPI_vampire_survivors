@@ -98,9 +98,9 @@ private:
 	GameEngineRenderer* Text_LevelUp = nullptr;
 
 	GameEngineRenderer* Box = nullptr;
-	GameEngineRenderer* WeaponOnPanel = nullptr;
-	GameEngineRenderer* Text_FoundBox = nullptr;
+	GameEngineRenderer* WeaponInBox = nullptr;
 	GameEngineRenderer* Button = nullptr;
+	GameEngineRenderer* Text_FoundBox = nullptr;
 	GameEngineRenderer* Text_Button = nullptr;
 
 	GameEngineCollision* Collision1 = nullptr;

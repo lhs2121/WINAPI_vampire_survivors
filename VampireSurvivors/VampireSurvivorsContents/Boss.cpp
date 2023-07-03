@@ -68,7 +68,7 @@ void Boss::Update(float _Delta)
 		{
 			AddPos(-dir * _Delta * 500);
 		}
-		
+
 		if (Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion(), CollisionType::CirCle, CollisionType::CirCle))
 		{
 			Player::GetMainPlayer()->ApplyDamage(20);
@@ -83,7 +83,6 @@ void Boss::Update(float _Delta)
 		}
 
 	}
-	static int value = 0;
 	if (hp <= 0)
 	{
 		if (value < 1)
@@ -99,7 +98,7 @@ void Boss::Update(float _Delta)
 			value += 1;
 		}
 
-		if (Renderer->IsAnimation("Boss_death_Left") && Renderer->IsAnimationEnd())
+		if ((true == Renderer->IsAnimation("Boss_death_Left") || true == Renderer->IsAnimation("Boss_death_Right")) && Renderer->IsAnimationEnd())
 		{
 			GetLevel()->CreateActor<ItemBox>()->SetPos(GetPos());
 			Death();
