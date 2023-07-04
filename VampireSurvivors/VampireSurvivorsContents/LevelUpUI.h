@@ -35,6 +35,7 @@ private:
 
 	WeaponType GetRandomType();
 	WeaponType GetRandomType2();
+	WeaponType GetRandomTypeBox();
 	PassiveType GetRandomType3();
 	PassiveType GetRandomType4();
 
@@ -98,10 +99,10 @@ private:
 	GameEngineRenderer* Text_LevelUp = nullptr;
 
 	GameEngineRenderer* Box = nullptr;
-	GameEngineRenderer* WeaponInBox = nullptr;
 	GameEngineRenderer* Button = nullptr;
 	GameEngineRenderer* Text_FoundBox = nullptr;
 	GameEngineRenderer* Text_Button = nullptr;
+	GameEngineRenderer* GoldMark = nullptr;
 
 	GameEngineCollision* Collision1 = nullptr;
 	GameEngineCollision* Collision2 = nullptr;

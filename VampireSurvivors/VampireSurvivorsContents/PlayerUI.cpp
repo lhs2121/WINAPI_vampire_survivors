@@ -6,6 +6,7 @@
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
+#include <GameEnginePlatform/GameEngineInput.h>
 #include <sstream>
 
 
@@ -22,12 +23,42 @@ PlayerUI::~PlayerUI()
 
 void PlayerUI::AddGold(int _Gold)
 {
+	static bool isExecuted0 = false;
+	static bool isExecuted1 = false;
+	static bool isExecuted2 = false;
+	static bool isExecuted3 = false;
+
 	Gold += _Gold;
 
 	std::stringstream Goldstr;
 	Goldstr << Gold;
 
 	Text_Gold->SetText(Goldstr.str(), 20, "메이플스토리");
+
+	if (false == isExecuted0 && Gold >= 10)
+	{
+		Text_Gold->SetRenderPos(Text_Gold->GetRenderPos() + float4(-10, 0));
+
+		isExecuted0 = true;
+	}
+	if (false == isExecuted1 && Gold >= 100)
+	{
+		Text_Gold->SetRenderPos(Text_Gold->GetRenderPos() + float4(-10, 0));
+
+		isExecuted1 = true;
+	}
+	if (false == isExecuted2 && Gold >= 1000)
+	{
+		Text_Gold->SetRenderPos(Text_Gold->GetRenderPos() + float4(-10, 0));
+
+		isExecuted2 = true;
+	}
+	if (false == isExecuted3 && Gold >= 10000)
+	{
+		Text_Gold->SetRenderPos(Text_Gold->GetRenderPos() + float4(-10, 0));
+
+		isExecuted3 = true;
+	}
 }
 
 
@@ -53,11 +84,11 @@ void PlayerUI::Start()
 
 		Text_MonsterDeathCount = CreateUIRenderer(RenderOrder::Text);
 		Text_MonsterDeathCount->SetText("0", 20, "메이플스토리");
-		Text_MonsterDeathCount->SetRenderPos({ 900,24 });
+		Text_MonsterDeathCount->SetRenderPos({ 900,27 });
 
 		Text_Gold = CreateUIRenderer(RenderOrder::Text);
 		Text_Gold->SetText("0", 20, "메이플스토리");
-		Text_Gold->SetRenderPos({ 1045,24 });
+		Text_Gold->SetRenderPos({ 1050,27 });
 
 		DeathMark = CreateUIRenderer(RenderOrder::PlayUI);
 		DeathMark->SetTexture("DeathMark.bmp");
@@ -107,6 +138,11 @@ void PlayerUI::Update(float _Delta)
 	{
 		Text_MonsterDeathCount->SetRenderPos({ 865,24 });
 		isExecuted4 = true;
+	}
+
+	if (GameEngineInput::IsDown('M'))
+	{
+		AddGold(50);
 	}
 }
 

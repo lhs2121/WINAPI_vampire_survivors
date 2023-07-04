@@ -8,6 +8,7 @@
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
+#include <GameEngineBase/GameEngineRandom.h>
 
 
 void Boss::Start()
@@ -37,11 +38,19 @@ void Boss::Start()
 	Renderer->ChangeAnimation("Boss_Left");
 
 	Collision = CreateCollision(CollisionOrder::Monster);
-	Collision->SetCollisionScale({ 20,20 });
+	Collision->SetCollisionScale({ 40,40 });
 	Collision->SetCollisionType(CollisionType::CirCle);
 
-	SetPos(float4(Player::GetMainPlayer()->GetPos().X, 454) + float4(550, 0));
+	int num = GameEngineRandom::MainRandom.RandomInt(0, 1);
 
+	if (num == 0)
+	{
+		SetPos(float4(Player::GetMainPlayer()->GetPos().X, 454) + float4(550 , GameEngineRandom::MainRandom.RandomFloat(-30,30)));
+	}
+	else
+	{
+		SetPos(float4(Player::GetMainPlayer()->GetPos().X, 454) + float4(-550, GameEngineRandom::MainRandom.RandomFloat(-30, 30)));
+	}
 }
 
 void Boss::Update(float _Delta)
@@ -72,6 +81,20 @@ void Boss::Update(float _Delta)
 		if (Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion(), CollisionType::CirCle, CollisionType::CirCle))
 		{
 			Player::GetMainPlayer()->ApplyDamage(20);
+		}
+
+
+		std::vector<GameEngineCollision*> otherenemy;
+		if (Collision->Collision(CollisionOrder::Monster ,otherenemy, CollisionType::CirCle, CollisionType::CirCle))
+		{
+			for (int i = 0; i < otherenemy.size(); i++)
+			{
+				float4 dir;
+				dir = otherenemy[i]->GetActor()->GetPos() - GetPos();
+				dir.Normalize();
+
+				AddPos(-dir * 500 * _Delta);
+			}
 		}
 
 		std::vector<GameEngineCollision*> result;

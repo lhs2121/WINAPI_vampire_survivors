@@ -126,14 +126,6 @@ void Projectile::Knife_Attack(float _Delta)
 
 	AddPos(dir * Speed * _Delta);
 
-	std::vector<GameEngineCollision*> result;
-	if (true == Collision->Collision(CollisionOrder::Monster, result, CollisionType::Rect, CollisionType::CirCle))
-	{
-		Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
-		enemy->ApplyDamage(Damage);
-		Death();
-	}
-
 	DeathTime -= _Delta;
 
 	if (DeathTime <= 0)
@@ -166,14 +158,6 @@ void Projectile::MagicWand_Attack(float _Delta)
 
 	if (DeathTime <= 0)
 	{
-		Death();
-	}
-
-	std::vector<GameEngineCollision*> result;
-	if (true == Collision->Collision(CollisionOrder::Monster, result, CollisionType::CirCle, CollisionType::CirCle))
-	{
-		Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
-		enemy->ApplyDamage(Damage);
 		Death();
 	}
 }
@@ -242,13 +226,6 @@ void Projectile::Axe_Attack(float _Delta)
 	}
 	//일정시간 지나면 삭제
 
-	std::vector<GameEngineCollision*> result;
-	if (true == Collision->Collision(CollisionOrder::Monster, result, CollisionType::CirCle, CollisionType::CirCle))
-	{
-		Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
-		enemy->ApplyDamage(Damage + GameEngineRandom::MainRandom.RandomInt(3, 9));
-
-	}
 }
 
 
@@ -277,13 +254,6 @@ void Projectile::Runetracer_Attack(float _Delta)
 		|| GetPos().Y >(GetLevel()->GetMainCamera()->GetPos().Y) + 690)
 	{
 		dir = -dir;
-	}
-
-	std::vector<GameEngineCollision*> result;
-	if (Collision->Collision(CollisionOrder::Monster, result, CollisionType::CirCle, CollisionType::CirCle))
-	{
-		Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
-		enemy->ApplyDamage(Damage + GameEngineRandom::MainRandom.RandomInt(3, 9));
 	}
 
 	DeathTime -= _Delta;
@@ -339,14 +309,6 @@ void Projectile::FireWand_Attack(float _Delta)
 	{
 		Death();
 	}
-
-	std::vector<GameEngineCollision*> result;
-	if (true == Collision->Collision(CollisionOrder::Monster, result, CollisionType::CirCle, CollisionType::CirCle))
-	{
-		Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
-		enemy->ApplyDamage(Damage);
-		Damage -= 1;
-	}
 }
 void Projectile::Cross_Attack(float _Delta)
 {
@@ -396,27 +358,15 @@ void Projectile::Cross_Attack(float _Delta)
 	AddPos(float4::DOWN * DownSpeed * _Delta);
 
 	Angle += 400 * _Delta;
+
 	Renderer->SetAngle(Angle);
-	//회전
+
 	DeathTime -= _Delta;
 	if (DeathTime <= 0)
 	{
 		Death();
 	}
-	//일정시간 지나면 삭제
 
-	std::vector<GameEngineCollision*> result;
-	if (true == Collision->Collision(CollisionOrder::Monster, result, CollisionType::CirCle, CollisionType::CirCle))
-	{
-		if (HitCount < 3)
-		{
-			Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
-			enemy->ApplyDamage(Damage + GameEngineRandom::MainRandom.RandomInt(3, 9));
-
-		}
-		HitCount += 1;
-	}
-	//몬스터와 충돌
 }
 void Projectile::Whip_Attack(float _Delta)
 {
@@ -449,14 +399,6 @@ void Projectile::Whip_Attack(float _Delta)
 	if (DeathTime <= 0)
 	{
 		Death();
-	}
-
-	std::vector<GameEngineCollision*> result;
-
-	if (true == Collision->Collision(CollisionOrder::Monster, result, CollisionType::CirCle, CollisionType::CirCle))
-	{
-		Enemy* enemy = static_cast<Enemy*>(result[0]->GetActor());
-		enemy->ApplyDamage(Damage);
 	}
 }
 void Projectile::Setting(WeaponType _Type)

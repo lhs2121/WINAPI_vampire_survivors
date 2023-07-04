@@ -295,7 +295,12 @@ void Enemy::CollisionCheck(float _Delta)
 			AddPos(-dir * speed * _Delta);
 		}
 	}
-	//몬스터와 충돌시 서로 밀어냄
+
+	std::vector<GameEngineCollision*> WeaponGruop;
+	if (true == Collision->Collision(CollisionOrder::Weapon, WeaponGruop, CollisionType::CirCle, CollisionType::CirCle))
+	{
+		ApplyDamage(50);
+	}
 }
 
 void Enemy::DropExp()

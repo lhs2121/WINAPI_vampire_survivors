@@ -20,6 +20,7 @@
 #include <random>
 #include <vector>
 #include <algorithm>
+#include <sstream>
 
 LevelUpUI* LevelUpUI::UI = nullptr;
 
@@ -55,9 +56,13 @@ void LevelUpUI::OnBox()
 	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Timer, 0);
 
 	ItemSelectPanel->On();
+	ItemSelectPanel->SetTexture("ItemSelectPanel.bmp");
 	Box->On();
 	Button->On();
 	Text_Button->On();
+
+	Text_FoundBox->SetText("보물 발견!", 40, "메이플스토리");
+	Text_FoundBox->SetRenderPos({ 475,100 });
 	Text_FoundBox->On();
 
 	Collision4->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + Button->GetRenderPos());
@@ -72,7 +77,6 @@ void LevelUpUI::Off()
 	ItemSelectPanel->Off();
 	Text_LevelUp->Off();
 	Text_FoundBox->Off();
-	WeaponInBox->Off();
 
 	Collision1->Off();
 	Collision2->Off();
@@ -83,6 +87,8 @@ void LevelUpUI::Off()
 	Box->Off();
 	Button->Off();
 	Text_Button->Off();
+
+	GoldMark->Off();
 
 	SelectBox1->Off();
 	SelectBox2->Off();
@@ -100,7 +106,9 @@ void LevelUpUI::Start()
 		path.MoveParentToExistsChild("Resources");
 		path.MoveChild("Resources\\PlayScene\\");
 		path.MoveChild("UI\\");
+		
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("ItemSelectPanel.bmp"));
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("LevelUpPanel.bmp"), 7, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("box_bounce.bmp"), 8, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("box_openup.bmp"), 1, 1);
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("button.bmp"));
@@ -150,10 +158,10 @@ void LevelUpUI::Start()
 		Text_FoundBox->SetRenderPos({ 475,100 });
 		Text_FoundBox->Off();
 
-		WeaponInBox = CreateUIRenderer(RenderOrder::PlayUI);
-		WeaponInBox->SetTexture("null.bmp");
-		WeaponInBox->SetRenderPos({ 545,300 });
-		WeaponInBox->Off();
+		GoldMark = CreateUIRenderer(RenderOrder::Text);
+		GoldMark->SetTexture("CoinMark.bmp");
+		GoldMark->Off();
+
 	}
 
 	{
@@ -231,11 +239,46 @@ void LevelUpUI::Update(float _Delta)
 			Box->ChangeAnimation("box_openup");
 
 			Text_Button->SetText("닫기", 40, "메이플스토리");
-			Text_FoundBox->Off();
 
-			WeaponInBox->SetTexture("axeslot.bmp");
-			WeaponInBox->On();
-			
+			int gold = GameEngineRandom::MainRandom.RandomInt(100, 300);
+			PlayerUI::UI->AddGold(gold);
+
+			std::stringstream text;
+			text << gold;
+			Text_FoundBox->SetText(text.str(), 40, "메이플스토리");
+			Text_FoundBox->SetRenderPos(Text_FoundBox->GetRenderPos() + float4(30, 0));
+			GoldMark->SetRenderPos(Text_FoundBox->GetRenderPos() + float4(80, 20));
+			GoldMark->On();
+
+			WeaponType Type = GetRandomTypeBox();
+			switch (Type)
+			{
+			case WeaponType::Knife:
+				ItemSelectPanel->SetSprite("LevelUpPanel.bmp", 0);
+				break;
+			case WeaponType::MagicWand:
+				ItemSelectPanel->SetSprite("LevelUpPanel.bmp", 1);
+				break;
+			case WeaponType::Axe:
+				ItemSelectPanel->SetSprite("LevelUpPanel.bmp", 2);
+				break;
+			case WeaponType::Runetracer:
+				ItemSelectPanel->SetSprite("LevelUpPanel.bmp", 3);
+				break;
+			case WeaponType::FireWand:
+				ItemSelectPanel->SetSprite("LevelUpPanel.bmp", 4);
+				break;
+			case WeaponType::Cross:
+				ItemSelectPanel->SetSprite("LevelUpPanel.bmp", 5);
+				break;
+			case WeaponType::Whip:
+				ItemSelectPanel->SetSprite("LevelUpPanel.bmp", 6);
+				break;
+			case WeaponType::Null:
+				break;
+			default:
+				break;
+			}
 		}
 	}
 	else if (true == Collision5->CollisonCheck(Mouse, CollisionType::Rect, CollisionType::Rect) && Collision5->IsUpdate())
@@ -338,6 +381,7 @@ void LevelUpUI::RandomTypeSetting2()
 		RandomType[2].second = GetRandomType4();
 	}
 }
+
 WeaponType LevelUpUI::GetRandomType()
 {
 	if (TempWeaponGroup.size() < 1)
@@ -412,6 +456,29 @@ PassiveType LevelUpUI::GetRandomType4()
 	}
 
 	PassiveStats::AllPassive[type].isBoxed = true;
+
+	return type;
+}
+
+WeaponType LevelUpUI::GetRandomTypeBox()
+{
+	std::vector<WeaponType> temp = { WeaponType::Knife,WeaponType::MagicWand ,WeaponType::Axe ,WeaponType::Runetracer ,
+		WeaponType::FireWand,WeaponType::Cross ,WeaponType::Whip };
+
+	if (temp.size() < 1)
+	{
+		return WeaponType::Null;
+	}
+
+	WeaponType type = getRandomElement(temp, 0, temp.size() - 1);
+
+	if (false == WeaponStats::AllStats[type].isSelected || true == WeaponStats::AllStats[type].isMaxLevel)
+	{
+		remove(temp, type);
+		type = GetRandomTypeBox();
+	}
+
+	temp.clear();
 
 	return type;
 }
