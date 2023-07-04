@@ -5,6 +5,7 @@
 #include "ContentsEnum.h"
 #include "LevelUpUI.h"
 #include "StatusUI.h"
+#include "GameOverUI.h"
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEngineCore/GameEngineActor.h>
@@ -189,6 +190,8 @@ void Player::Update(float _Delta)
 		GameEngineTime::MainTimer.SetAllTimeScale(0);
 		HpBar->Off();
 		HpGauge->Off();
+
+		GameOverUI::UI->On();
 	}
 
 

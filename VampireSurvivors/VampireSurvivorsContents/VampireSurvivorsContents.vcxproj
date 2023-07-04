@@ -185,6 +185,7 @@
     </ClCompile>
     <ClCompile Include="DebugUI.cpp" />
     <ClCompile Include="Expball.cpp" />
+    <ClCompile Include="GameOverUI.cpp" />
     <ClCompile Include="Item.cpp">
       <SubType>
       </SubType>
@@ -268,6 +269,7 @@
     <ClInclude Include="DebugUI.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Expball.h" />
+    <ClInclude Include="GameOverUI.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MenuLevel.h" />
     <ClInclude Include="PauseUI.h" />

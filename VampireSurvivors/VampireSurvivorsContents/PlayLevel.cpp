@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "Exp.h"
 #include "PlayerUI.h"
+#include "GameOverUI.h"
 #include "PlayerShooter.h"
 #include "Timer.h"
 #include "ContentsEnum.h"
@@ -53,6 +54,8 @@ void PlayLevel::Start()
 
 	CreateActor<StatusUI>(UpdateOrder::PlayUI);
 
+	CreateActor<GameOverUI>(UpdateOrder::PlayUI);
+
 	BackGroundPtr = CreateActor<BackGround>(UpdateOrder::BackGround);
 
 	BackGroundPtr->Init("dummy1.bmp", "Debugdummy1.bmp");
@@ -67,7 +70,9 @@ void PlayLevel::Start()
 
 	CreateActor<Timer>(UpdateOrder::Timer);
 
-	CreateActor<DebugUI>(UpdateOrder::Player);
+	CreateActor<DebugUI>(UpdateOrder::PlayUI);
+
+
 
 	ItemSpawnerSpawn();
 }
@@ -108,11 +113,11 @@ void PlayLevel::Update(float _delta)
 
 void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	GameEngineSound::SoundPlay("bgm_elrond_library.ogg");
+	PlayBGM = GameEngineSound::SoundPlay("bgm_elrond_library.ogg");
 }
 void PlayLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
-
+	PlayBGM.Stop();
 }
 
 void PlayLevel::ItemSpawnerSpawn()
@@ -120,11 +125,11 @@ void PlayLevel::ItemSpawnerSpawn()
 	for (int i = -5; i < 6; i++)
 	{
 		CreateActor<CandleStick>(UpdateOrder::Item)->SetPos(float4(524 * (float)i, 464) + float4(0, 200));
-		CreateActor<CandleStick>(UpdateOrder::Item)->SetPos(float4(1024 * (float)i, 464)+ float4(0, 200));
+		CreateActor<CandleStick>(UpdateOrder::Item)->SetPos(float4(1024 * (float)i, 464) + float4(0, 200));
 		CreateActor<CandleStick>(UpdateOrder::Item)->SetPos(float4(524 * (float)i, 464) + float4(0, -200));
 		CreateActor<CandleStick>(UpdateOrder::Item)->SetPos(float4(1024 * (float)i, 464) + float4(0, -200));
 	}
-	
+
 }
 void PlayLevel::EnemySpawn(float _Delta)
 {

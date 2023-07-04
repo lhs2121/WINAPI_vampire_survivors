@@ -113,6 +113,9 @@
     <ClCompile Include="CharactorSelectUI.cpp">
       <Filter>Actor\MenuScene</Filter>
     </ClCompile>
+    <ClCompile Include="GameOverUI.cpp">
+      <Filter>Actor\PlayScene\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
@@ -193,6 +196,9 @@
       <Filter>Actor\PlayScene\Item</Filter>
     </ClInclude>
     <ClInclude Include="LevelUpUI.h">
+      <Filter>Actor\PlayScene\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverUI.h">
       <Filter>Actor\PlayScene\UI</Filter>
     </ClInclude>
   </ItemGroup>
