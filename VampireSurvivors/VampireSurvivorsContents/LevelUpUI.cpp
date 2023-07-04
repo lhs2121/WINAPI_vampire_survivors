@@ -255,24 +255,31 @@ void LevelUpUI::Update(float _Delta)
 			{
 			case WeaponType::Knife:
 				ItemSelectPanel->SetSprite("LevelUpPanel.bmp", 0);
+				StatusUI::UI->UpgradeWeaponSlot(WeaponType::Knife);
 				break;
 			case WeaponType::MagicWand:
 				ItemSelectPanel->SetSprite("LevelUpPanel.bmp", 1);
+				StatusUI::UI->UpgradeWeaponSlot(WeaponType::MagicWand);
 				break;
 			case WeaponType::Axe:
 				ItemSelectPanel->SetSprite("LevelUpPanel.bmp", 2);
+				StatusUI::UI->UpgradeWeaponSlot(WeaponType::Axe);
 				break;
 			case WeaponType::Runetracer:
 				ItemSelectPanel->SetSprite("LevelUpPanel.bmp", 3);
+				StatusUI::UI->UpgradeWeaponSlot(WeaponType::Runetracer);
 				break;
 			case WeaponType::FireWand:
 				ItemSelectPanel->SetSprite("LevelUpPanel.bmp", 4);
+				StatusUI::UI->UpgradeWeaponSlot(WeaponType::FireWand);
 				break;
 			case WeaponType::Cross:
 				ItemSelectPanel->SetSprite("LevelUpPanel.bmp", 5);
+				StatusUI::UI->UpgradeWeaponSlot(WeaponType::Cross);
 				break;
 			case WeaponType::Whip:
 				ItemSelectPanel->SetSprite("LevelUpPanel.bmp", 6);
+				StatusUI::UI->UpgradeWeaponSlot(WeaponType::Whip);
 				break;
 			case WeaponType::Null:
 				break;

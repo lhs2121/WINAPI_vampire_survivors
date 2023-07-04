@@ -78,12 +78,6 @@ void Boss::Update(float _Delta)
 			AddPos(-dir * _Delta * 500);
 		}
 
-		if (Collision->CollisonCheck(Player::GetMainPlayer()->GetCollsion(), CollisionType::CirCle, CollisionType::CirCle))
-		{
-			Player::GetMainPlayer()->ApplyDamage(20);
-		}
-
-
 		std::vector<GameEngineCollision*> otherenemy;
 		if (Collision->Collision(CollisionOrder::Monster ,otherenemy, CollisionType::CirCle, CollisionType::CirCle))
 		{

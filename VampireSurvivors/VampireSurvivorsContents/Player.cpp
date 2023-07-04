@@ -101,90 +101,108 @@ void Player::Update(float _Delta)
 	FirePos[0] = GetPos();
 	FirePos[1] = GetPos() + float4(-15, -15);
 	FirePos[2] = GetPos() + float4(-15, 15);
-
-	if (GameEngineInput::IsFree('W') && GameEngineInput::IsFree('A') && GameEngineInput::IsFree('S') && GameEngineInput::IsFree('D'))
+	if (Hp > 0)
 	{
-		if (dirstate == DirState::Left)
+		if (GameEngineInput::IsFree('W') && GameEngineInput::IsFree('A') && GameEngineInput::IsFree('S') && GameEngineInput::IsFree('D'))
 		{
-			Renderer->ChangeAnimation("LeftIdle", 0, true);
+			if (dirstate == DirState::Left)
+			{
+				Renderer->ChangeAnimation("LeftIdle", 0, true);
+			}
+			else if (dirstate == DirState::Right)
+			{
+				Renderer->ChangeAnimation("RightIdle", 0, true);
+			}
 		}
-		else if (dirstate == DirState::Right)
+
+		if (GameEngineInput::IsPress('W'))
 		{
-			Renderer->ChangeAnimation("RightIdle", 0, true);
+			AddPos({ 0 , -1 * _Delta * speed });
+			PlayerDir = float4::UP;
+
+			if (dirstate == DirState::Left)
+			{
+				Renderer->ChangeAnimation("LeftRun");
+			}
+			else if (dirstate == DirState::Right)
+			{
+				Renderer->ChangeAnimation("RightRun");
+			}
 		}
-	}
-
-	if (GameEngineInput::IsPress('W'))
-	{
-		AddPos({ 0 , -1 * _Delta * speed });
-		PlayerDir = float4::UP;
-
-		if (dirstate == DirState::Left)
+		if (GameEngineInput::IsPress('S'))
 		{
+			AddPos({ 0 , 1 * _Delta * speed });
+			PlayerDir = float4::DOWN;
+
+			if (dirstate == DirState::Left)
+			{
+				Renderer->ChangeAnimation("LeftRun");
+			}
+			else if (dirstate == DirState::Right)
+			{
+				Renderer->ChangeAnimation("RightRun");
+			}
+
+		}
+		if (GameEngineInput::IsPress('A'))
+		{
+			AddPos({ -1 * _Delta * speed , 0 });
 			Renderer->ChangeAnimation("LeftRun");
+			PlayerDir = float4::LEFT;
+			dirstate = DirState::Left;
 		}
-		else if (dirstate == DirState::Right)
+		if (GameEngineInput::IsPress('D'))
 		{
+			AddPos({ 1 * _Delta * speed , 0 });
 			Renderer->ChangeAnimation("RightRun");
+			PlayerDir = float4::RIGHT;
+			dirstate = DirState::Right;
 		}
-	}
-	if (GameEngineInput::IsPress('S'))
-	{
-		AddPos({ 0 , 1 * _Delta * speed });
-		PlayerDir = float4::DOWN;
-
-		if (dirstate == DirState::Left)
+		if (GameEngineInput::IsPress('W') && GameEngineInput::IsPress('A'))
 		{
-			Renderer->ChangeAnimation("LeftRun");
+			PlayerDir = { -1,-1 };
 		}
-		else if (dirstate == DirState::Right)
+
+		if (GameEngineInput::IsPress('W') && GameEngineInput::IsPress('D'))
 		{
-			Renderer->ChangeAnimation("RightRun");
+			PlayerDir = { 1,-1 };
+		}
+		if (GameEngineInput::IsPress('S') && GameEngineInput::IsPress('A'))
+		{
+			PlayerDir = { -1,1 };
 		}
 
-	}
-	if (GameEngineInput::IsPress('A'))
-	{
-		AddPos({ -1 * _Delta * speed , 0 });
-		Renderer->ChangeAnimation("LeftRun");
-		PlayerDir = float4::LEFT;
-		dirstate = DirState::Left;
-	}
-	if (GameEngineInput::IsPress('D'))
-	{
-		AddPos({ 1 * _Delta * speed , 0 });
-		Renderer->ChangeAnimation("RightRun");
-		PlayerDir = float4::RIGHT;
-		dirstate = DirState::Right;
-	}
-	if (GameEngineInput::IsPress('W') && GameEngineInput::IsPress('A'))
-	{
-		PlayerDir = { -1,-1 };
+		if (GameEngineInput::IsPress('S') && GameEngineInput::IsPress('D'))
+		{
+			PlayerDir = { 1,1 };
+		}
+
+		if (GameEngineInput::IsDown('Z'))
+		{
+			float exp1 = MaxExp;
+			AddExp(exp1);
+		}
 	}
 
-	if (GameEngineInput::IsPress('W') && GameEngineInput::IsPress('D'))
-	{
-		PlayerDir = { 1,-1 };
-	}
-	if (GameEngineInput::IsPress('S') && GameEngineInput::IsPress('A'))
-	{
-		PlayerDir = { -1,1 };
-	}
-
-	if (GameEngineInput::IsPress('S') && GameEngineInput::IsPress('D'))
-	{
-		PlayerDir = { 1,1 };
-	}
-
-	if (GameEngineInput::IsDown('Z'))
-	{
-		float exp1 = MaxExp;
-		AddExp(exp1);
-	}
 	if (Hp <= 0)
 	{
+		GameEngineTime::MainTimer.SetAllTimeScale(0);
 		HpBar->Off();
 		HpGauge->Off();
+	}
+
+
+	Damaged_Cooltime -= _Delta;
+
+	
+	std::vector<GameEngineCollision*> result;
+	if (true == Collision->Collision(CollisionOrder::Monster, result, CollisionType::CirCle, CollisionType::CirCle))
+	{
+		if (Damaged_Cooltime < 0)
+		{
+			ApplyDamage(20);
+			Damaged_Cooltime = 1;
+		}
 	}
 
 	LevelUp();
@@ -193,6 +211,7 @@ void Player::Update(float _Delta)
 
 	WallCheck();
 }
+
 
 float4 Player::GetMinDistance()
 {
