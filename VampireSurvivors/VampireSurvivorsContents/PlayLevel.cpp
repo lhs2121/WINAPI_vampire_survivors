@@ -13,6 +13,7 @@
 #include "CandleStick.h"
 #include "DebugUI.h"
 #include "PauseUI.h"
+#include "Mouse.h"
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -53,6 +54,9 @@ void PlayLevel::Start()
 
 	}
 
+
+	CreateActor<Mouse>(UpdateOrder::PlayUI);
+
 	CreateActor<StatusUI>(UpdateOrder::PlayUI);
 
 	CreateActor<GameOverUI>(UpdateOrder::PlayUI);
@@ -74,7 +78,6 @@ void PlayLevel::Start()
 	CreateActor<DebugUI>(UpdateOrder::PlayUI);
 
 	PauseUIPtr = CreateActor<PauseUI>(UpdateOrder::PlayUI);
-
 
 
 	ItemSpawnerSpawn();

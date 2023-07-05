@@ -74,8 +74,8 @@ private:
 	DirState dirstate = DirState::Right;
 
 	int Level = 1;
-	float MaxHp = 150;
-	float Hp = 150;
+	float MaxHp = 300;
+	float Hp = 300;
 	float speed = 120;
 	float Gold = 0;
 	float MaxExp = 50;

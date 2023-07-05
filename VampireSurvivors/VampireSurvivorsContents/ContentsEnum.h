@@ -32,7 +32,8 @@ enum class CollisionOrder
 	Monster,
 	Weapon,
 	Item,
-	PlayUI
+	PlayUI,
+	Mouse
 };
 
 enum class WeaponType

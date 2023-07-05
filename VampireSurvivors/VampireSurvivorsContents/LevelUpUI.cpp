@@ -5,6 +5,7 @@
 #include "WeaponStats.h"
 #include "PlayerUI.h"
 #include "StatusUI.h"
+#include "Mouse.h"
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineCollision.h>
@@ -183,10 +184,7 @@ void LevelUpUI::Start()
 		Collision5 = CreateCollision(CollisionOrder::PlayUI);
 		Collision5->SetCollisionScale({ 192,51 });
 		Collision5->SetCollisionPos(Button->GetRenderPos());
-		Collision5->Off();
-
-		Mouse = CreateCollision(CollisionOrder::PlayUI);
-		Mouse->SetCollisionScale({ 50,50 });
+		Collision5->Off();;
 	}
 
 	Off();
@@ -194,8 +192,7 @@ void LevelUpUI::Start()
 
 void LevelUpUI::Update(float _Delta)
 {
-	Mouse->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + GameEngineWindow::MainWindow.GetMousePos());
-	if (true == Collision1->CollisonCheck(Mouse, CollisionType::Rect, CollisionType::Rect) && Collision1->IsUpdate())
+	if (true == Collision1->CollisonCheck(Mouse::UI->GetMouseCol(), CollisionType::Rect, CollisionType::Rect) && Collision1->IsUpdate())
 	{
 		if (GameEngineInput::IsDown(VK_LBUTTON))
 		{
@@ -206,7 +203,7 @@ void LevelUpUI::Update(float _Delta)
 		}
 	}
 	//1번 버튼 눌렀을때
-	else if (true == Collision2->CollisonCheck(Mouse, CollisionType::Rect, CollisionType::Rect) && Collision2->IsUpdate())
+	else if (true == Collision2->CollisonCheck(Mouse::UI->GetMouseCol(), CollisionType::Rect, CollisionType::Rect) && Collision2->IsUpdate())
 	{
 		if (GameEngineInput::IsDown(VK_LBUTTON))
 		{
@@ -217,7 +214,7 @@ void LevelUpUI::Update(float _Delta)
 		}
 	}
 	//2번 버튼 눌렀을때
-	else if (true == Collision3->CollisonCheck(Mouse, CollisionType::Rect, CollisionType::Rect) && Collision3->IsUpdate())
+	else if (true == Collision3->CollisonCheck(Mouse::UI->GetMouseCol(), CollisionType::Rect, CollisionType::Rect) && Collision3->IsUpdate())
 	{
 		if (GameEngineInput::IsDown(VK_LBUTTON))
 		{
@@ -228,7 +225,7 @@ void LevelUpUI::Update(float _Delta)
 		}
 	}
 
-	if (true == Collision4->CollisonCheck(Mouse, CollisionType::Rect, CollisionType::Rect) && Collision4->IsUpdate())
+	if (true == Collision4->CollisonCheck(Mouse::UI->GetMouseCol(), CollisionType::Rect, CollisionType::Rect) && Collision4->IsUpdate())
 	{
 		if (GameEngineInput::IsDown(VK_LBUTTON))
 		{
@@ -288,7 +285,7 @@ void LevelUpUI::Update(float _Delta)
 			}
 		}
 	}
-	else if (true == Collision5->CollisonCheck(Mouse, CollisionType::Rect, CollisionType::Rect) && Collision5->IsUpdate())
+	else if (true == Collision5->CollisonCheck(Mouse::UI->GetMouseCol(), CollisionType::Rect, CollisionType::Rect) && Collision5->IsUpdate())
 	{
 		if (GameEngineInput::IsDown(VK_LBUTTON))
 		{

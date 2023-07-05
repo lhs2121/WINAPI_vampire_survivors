@@ -119,6 +119,9 @@
     <ClCompile Include="FinalBoss.cpp">
       <Filter>Actor\PlayScene\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>Actor\PlayScene\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
@@ -206,6 +209,9 @@
     </ClInclude>
     <ClInclude Include="FinalBoss.h">
       <Filter>Actor\PlayScene\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>Actor\PlayScene\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

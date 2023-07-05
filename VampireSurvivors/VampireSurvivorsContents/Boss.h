@@ -21,13 +21,12 @@ private:
 	class GameEngineRenderer* Renderer;
 	class GameEngineCollision* Collision;
 
-	float hp = 10;
+	float hp = 1000;
 	float4 dir;
+	float Damaged_Cooltime = 1;
 	int value;
 
 	void Start();
 	void Update(float _Delta);
-	void Move();
-	void ColCheck();
 };
 

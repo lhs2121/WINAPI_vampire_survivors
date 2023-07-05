@@ -88,14 +88,20 @@ void Boss::Update(float _Delta)
 			}
 		}
 
-		std::vector<GameEngineCollision*> result;
+		Damaged_Cooltime -= _Delta;
 
-		if (Collision->Collision(CollisionOrder::Weapon, result, CollisionType::CirCle, CollisionType::CirCle))
+		if (Damaged_Cooltime <= 0)
 		{
-			AddPos(-dir * _Delta * 100);
-			hp -= 1;
-		}
+			std::vector<GameEngineCollision*> result;
 
+			if (Collision->Collision(CollisionOrder::Weapon, result, CollisionType::CirCle, CollisionType::CirCle))
+			{
+				AddPos(-dir * _Delta * 150);
+				hp -= 100;
+
+				Damaged_Cooltime = 1;
+			}
+		}
 	}
 	if (hp <= 0)
 	{

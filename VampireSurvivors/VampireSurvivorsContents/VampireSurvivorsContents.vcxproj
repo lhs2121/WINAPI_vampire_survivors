@@ -194,6 +194,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="StatusUI.cpp" />
     <ClCompile Include="Timer.cpp">
       <SubType>
@@ -273,6 +277,7 @@
     <ClInclude Include="GameOverUI.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MenuLevel.h" />
+    <ClInclude Include="Mouse.h" />
     <ClInclude Include="PauseUI.h" />
     <ClInclude Include="PlayActor.h" />
     <ClInclude Include="PlayerShooter.h" />

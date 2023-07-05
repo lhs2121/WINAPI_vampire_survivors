@@ -110,7 +110,6 @@ private:
 
 	GameEngineCollision* Collision4 = nullptr;
 	GameEngineCollision* Collision5 = nullptr;
-	GameEngineCollision* Mouse = nullptr;
 
 	void ButtonSetting();
 	void RandomTypeSetting();

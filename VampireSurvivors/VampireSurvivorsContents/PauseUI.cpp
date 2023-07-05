@@ -1,5 +1,6 @@
 #include "PauseUI.h"
 #include "ContentsEnum.h"
+#include "Mouse.h"
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEngineCore/ResourcesManager.h>
@@ -76,6 +77,8 @@ void PauseUI::On()
 }
 void PauseUI::Off()
 {
+	GameEngineTime::MainTimer.SetAllTimeScale(1);
+
 	BackGround->Off();
 	Option->Off();
 	Continue->Off();
@@ -85,5 +88,8 @@ void PauseUI::Off()
 
 void PauseUI::Update(float _Delta)
 {
-
+	if(true == Button2->CollisonCheck(Mouse::UI->GetMouseCol(), CollisionType::Rect, CollisionType::Rect))
+	{
+		Off();
+	}
 }
