@@ -60,7 +60,9 @@ void PlayLevel::Start()
 		GameEngineSound::SoundLoad(path.PlusFilePath("sfx_bumper3.ogg"));
 		GameEngineSound::SoundLoad(path.PlusFilePath("sxf_loss.ogg"));
 		GameEngineSound::SoundLoad(path.PlusFilePath("sfx_gameOver.ogg"));
-
+		GameEngineSound::SoundLoad(path.PlusFilePath("sfx_treasure_found.ogg"));
+		GameEngineSound::SoundLoad(path.PlusFilePath("sfx_sounds_pause7_out.ogg"));
+		GameEngineSound::SoundLoad(path.PlusFilePath("sfx_sounds_pause7_in.ogg"));	
 	}
 
 

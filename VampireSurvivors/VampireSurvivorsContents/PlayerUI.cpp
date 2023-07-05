@@ -80,7 +80,7 @@ void PlayerUI::Start()
 	{
 		Text_Level = CreateUIRenderer(RenderOrder::Text);
 		Text_Level->SetText("LV1", 20, "메이플스토리");
-		Text_Level->SetRenderPos({ 1055,4 });
+		Text_Level->SetRenderPos({ 1048,4 });
 
 		Text_MonsterDeathCount = CreateUIRenderer(RenderOrder::Text);
 		Text_MonsterDeathCount->SetText("0", 20, "메이플스토리");

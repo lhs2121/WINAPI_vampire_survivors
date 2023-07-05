@@ -13,7 +13,6 @@ void StatusUI::On()
 {
 	StatsPanel->On();
 	TopAlpha->On();
-	BottomAlpha->On();
 
 	
 	for (int i = 0; i < MyWeapon.size();  i++)
@@ -30,7 +29,6 @@ void StatusUI::Off()
 {
 	StatsPanel->Off();
 	TopAlpha->Off();
-	BottomAlpha->Off();
 
 	for (int i = 0; i < 6; i++)
 	{
@@ -154,17 +152,12 @@ void StatusUI::Start()
 
 	StatsPanel = CreateUIRenderer(RenderOrder::PlayUI);
 	StatsPanel->SetTexture("StatsPanel.bmp");
-	StatsPanel->SetRenderPos({ 110,300 });
+	StatsPanel->SetRenderPos({ 110,95 });
 
 	TopAlpha = CreateUIRenderer(RenderOrder::PlayUI);
 	TopAlpha->SetTexture("TopAlpha.bmp");
 	TopAlpha->SetAlpha(90);
 	TopAlpha->SetRenderPos({ 110,95 });
-
-	BottomAlpha = CreateUIRenderer(RenderOrder::PlayUI);
-	BottomAlpha->SetTexture("BottomAlpha.bmp");
-	BottomAlpha->SetAlpha(90);
-	BottomAlpha->SetRenderPos({ 110,365 });
 
 	float4 PrevPos = float4::ZERO;
 

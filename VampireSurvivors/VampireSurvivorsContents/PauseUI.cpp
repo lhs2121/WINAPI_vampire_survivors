@@ -12,6 +12,7 @@
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 PauseUI* PauseUI::UI = nullptr;
 
@@ -56,6 +57,8 @@ void PauseUI::Start()
 
 void PauseUI::On()
 {
+	GameEngineSound::SoundPlay("sfx_sounds_pause7_in.ogg");
+
 	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Monster, 0);
 	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Player, 0);
 	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Item, 0);
@@ -97,6 +100,7 @@ void PauseUI::Update(float _Delta)
 	{
 		if (GameEngineInput::IsDown(VK_LBUTTON))
 		{
+			GameEngineSound::SoundPlay("sfx_sounds_pause7_out.ogg");
 			Off();
 		}
 	}

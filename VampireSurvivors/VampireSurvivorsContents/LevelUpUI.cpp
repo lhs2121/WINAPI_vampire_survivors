@@ -52,6 +52,8 @@ void LevelUpUI::On()
 
 void LevelUpUI::OnBox()
 {
+	GameEngineSound::SoundPlay("sfx_treasure_found.ogg");
+	
 	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Monster, 0);
 	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Player, 0);
 	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Item, 0);
@@ -77,6 +79,7 @@ void LevelUpUI::OnBox()
 
 void LevelUpUI::Off()
 {
+
 	ItemSelectPanel->Off();
 	Text_LevelUp->Off();
 	Text_FoundBox->Off();

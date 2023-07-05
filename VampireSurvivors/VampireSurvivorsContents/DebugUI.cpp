@@ -15,14 +15,12 @@ void DebugUI::Start()
 	Renderer = CreateUIRenderer(RenderOrder::Text);
 	Renderer->SetText("a", 50, "메이플스토리");
 	Renderer->SetRenderPos({10,100});
+	Renderer->Off();
 
 }
 
 
 void DebugUI::Update(float _Delta)
 {
-	std::stringstream str;
-	str << value;
 
-	Renderer->SetText(str.str(), 20, "메이플스토리");
 }

@@ -11,6 +11,7 @@
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 bool SelectBox::IsChickenSelected;
 bool SelectBox::IsMoneySelected;
@@ -867,6 +868,8 @@ void SelectBox::SetPassiveEffect()
 }
 void SelectBox::OnClick()
 {
+	GameEngineSound::SoundPlay("sfx_sounds_pause7_in.ogg");
+
 	if (true == IsEmptyEffect)
 	{
 		return;

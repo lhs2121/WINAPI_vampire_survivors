@@ -40,7 +40,6 @@ private:
 
 	GameEngineRenderer* StatsPanel;
 	GameEngineRenderer* TopAlpha;
-	GameEngineRenderer* BottomAlpha;
 
 	GameEngineRenderer* WeaponChecker[6];
 	GameEngineRenderer* PassiveChecker[6];
