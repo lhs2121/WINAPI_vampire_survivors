@@ -6,6 +6,7 @@
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEngineCore/GameEngineCollision.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 
 void Exp::Start()
@@ -44,6 +45,8 @@ void Exp::Update(float _Delta)
 }
 void Exp::ItemEffect()
 {
+	GameEngineSound::SoundPlay("sfx_gem.ogg");
+	
 	Player::GetMainPlayer()->AddExp(20);
 }
 

@@ -81,7 +81,7 @@ private:
 	float MaxExp = 50;
 	float Exp = 0;
 	
-	float Damaged_Cooltime = 1;
+	float Damaged_Cooltime = 0.5f;
 	void LevelUp();
 	void WallCheck();
 

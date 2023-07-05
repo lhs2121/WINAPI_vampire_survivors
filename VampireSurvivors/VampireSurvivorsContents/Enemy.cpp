@@ -8,6 +8,7 @@
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 #include "ContentsEnum.h"
 
 EnemyType Enemy::CurSpawnEnemyType[2] = { EnemyType::enemy1 ,EnemyType::enemy1 };
@@ -59,7 +60,7 @@ void Enemy::Start()
 	// 50%확률로 몬스터의 렌더위치를 플레이어의 위나 아래로 설정
 
 
-	speed = 70 + GameEngineRandom::MainRandom.RandomFloat(1, 5);
+	speed = 50 + GameEngineRandom::MainRandom.RandomFloat(1, 5);
 	// 몬스터의 스피드를 서로 다르게 설정
 
 	Renderer->CreateAnimation("Enemy1_Left", "enemy1_left.bmp", 0, 4, 0.1f, true);
@@ -296,11 +297,19 @@ void Enemy::CollisionCheck(float _Delta)
 		}
 	}
 
-	std::vector<GameEngineCollision*> WeaponGruop;
-	if (true == Collision->Collision(CollisionOrder::Weapon, WeaponGruop, CollisionType::CirCle, CollisionType::CirCle))
+	Damaged_Cooltime -= _Delta;
+
+	if (Damaged_Cooltime < 0)
 	{
-		ApplyDamage(50);
+		std::vector<GameEngineCollision*> WeaponGruop;
+		if (true == Collision->Collision(CollisionOrder::Weapon, WeaponGruop, CollisionType::CirCle, CollisionType::CirCle))
+		{
+			GameEngineSound::SoundPlay("sfx_enemyHit.ogg");
+			ApplyDamage(20);
+			Damaged_Cooltime = 0.1f;
+		}
 	}
+	
 }
 
 void Enemy::DropExp()

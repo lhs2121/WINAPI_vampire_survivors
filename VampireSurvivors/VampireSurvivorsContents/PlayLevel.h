@@ -20,6 +20,7 @@ public:
 		MaxSpawnNum = _max;
 	}
 
+	void StopBGM();
 	static bool SpawnCheck;
 	static int MinSpawnNum;
 	static int MaxSpawnNum;

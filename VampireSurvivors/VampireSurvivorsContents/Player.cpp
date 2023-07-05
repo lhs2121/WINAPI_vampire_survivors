@@ -185,13 +185,15 @@ void Player::Update(float _Delta)
 		}
 	}
 
-	if (Hp <= 0)
+	static bool death = false;
+	if (false == death && Hp <= 0)
 	{
 		GameEngineTime::MainTimer.SetAllTimeScale(0);
 		HpBar->Off();
 		HpGauge->Off();
 
 		GameOverUI::UI->On();
+		death = true;
 	}
 
 
@@ -203,7 +205,19 @@ void Player::Update(float _Delta)
 	{
 		if (Damaged_Cooltime < 0)
 		{
+			GameEngineSound::SoundPlay("sfx_bumper3.ogg");
+			GameEngineSound::SoundPlay("sxf_loss.ogg");
 			ApplyDamage(10);
+			Damaged_Cooltime = 0.5f;
+		}
+	}
+
+	std::vector<GameEngineCollision*> boss;
+	if (true == Collision->Collision(CollisionOrder::Boss, boss, CollisionType::CirCle, CollisionType::CirCle))
+	{
+		if (Damaged_Cooltime < 0)
+		{
+			ApplyDamage(50);
 			Damaged_Cooltime = 1;
 		}
 	}
@@ -246,7 +260,7 @@ float4 Player::GetMinDistance()
 		std::vector<float> dirGroup;
 		dirGroup.reserve(100);
 
-		int index;
+		int index = 0;
 
 		for (int i = 0; i < result.size(); i++)
 		{

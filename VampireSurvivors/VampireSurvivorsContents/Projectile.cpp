@@ -4,6 +4,7 @@
 #include "ContentsEnum.h"
 #include "PlayerShooter.h"
 #include "WeaponStats.h"
+#include <GameEnginePlatform/GameEngineSound.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineRenderer.h>
@@ -120,13 +121,21 @@ void Projectile::Knife_Attack(float _Delta)
 		Renderer->SetAngle(dir.AngleDeg());
 		Renderer->On();
 		IsReady = true;
-
+		GameEngineSound::SoundPlay("sfx_projectile.ogg");
 		return;
+	}
+
+	std::vector<GameEngineCollision*> result;
+	if (Collision->Collision(CollisionOrder::Monster, result,CollisionType::CirCle,CollisionType::CirCle))
+	{
+		Death();
 	}
 
 	AddPos(dir * Speed * _Delta);
 
 	DeathTime -= _Delta;
+
+
 
 	if (DeathTime <= 0)
 	{
@@ -148,6 +157,7 @@ void Projectile::MagicWand_Attack(float _Delta)
 		{
 			Death();
 		}
+		GameEngineSound::SoundPlay("sfx_projectile_magic.ogg");
 		return;
 	}
 
@@ -191,6 +201,7 @@ void Projectile::Axe_Attack(float _Delta)
 		AxeNumber += 1;
 		XRangeRatio = AxeNumber;
 		IsReady = true;
+		GameEngineSound::SoundPlay("sfx_projectile.ogg");
 		return;
 	}
 
@@ -242,6 +253,7 @@ void Projectile::Runetracer_Attack(float _Delta)
 		{
 			Death();
 		}
+		GameEngineSound::SoundPlay("sfx_projectile_magic.ogg");
 		return;
 	}
 
@@ -298,6 +310,7 @@ void Projectile::FireWand_Attack(float _Delta)
 		Renderer->On();
 		IsReady = true;
 		num += 1;
+		GameEngineSound::SoundPlay("sfx_projectile_magic2.ogg");
 		return;
 	}
 
@@ -337,6 +350,7 @@ void Projectile::Cross_Attack(float _Delta)
 		CrossNum += 1;
 		XRangeRatio = CrossNum * 0.5f;
 		IsReady = true;
+		GameEngineSound::SoundPlay("sfx_projectile.ogg");
 		return;
 	}
 
@@ -388,6 +402,7 @@ void Projectile::Whip_Attack(float _Delta)
 			SetPos(Player::GetMainPlayer()->GetPos() + float4(-10, 0));
 		}
 		Renderer->On();
+		GameEngineSound::SoundPlay("sfx_projectile.ogg");
 		IsReady = true;
 		return;
 	}

@@ -7,6 +7,7 @@
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 
 float Expball::Cooltime = 5;
@@ -87,7 +88,8 @@ void Chicken::Start()
 }
 void Chicken::ItemEffect()
 {
-	Player::GetMainPlayer()->AddHP(30);
+	GameEngineSound::SoundPlay("sfx_gem.ogg");
+	Player::GetMainPlayer()->AddHP(50);
 }
 
 

@@ -50,6 +50,7 @@ private:
 	float Yspeed = 100;
 	float increasement = 1;
 
+	float Damaged_Cooltime = 0.1f;
 	float4 dir;
 	EnemyType type;
 

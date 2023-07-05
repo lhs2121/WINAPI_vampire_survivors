@@ -25,7 +25,6 @@
 
 bool PlayLevel::SpawnCheck = true;
 
-
 int PlayLevel::MinSpawnNum = 7;
 int PlayLevel::MaxSpawnNum = 15;
 
@@ -51,6 +50,16 @@ void PlayLevel::Start()
 		path.MoveChild("Resources\\Sound\\");
 
 		GameEngineSound::SoundLoad(path.PlusFilePath("bgm_elrond_library.ogg"));
+		GameEngineSound::SoundLoad(path.PlusFilePath("sfx_projectile.ogg"));
+		GameEngineSound::SoundLoad(path.PlusFilePath("sfx_projectile_magic.ogg"));
+		GameEngineSound::SoundLoad(path.PlusFilePath("sfx_projectile_magic2.ogg"));
+		GameEngineSound::SoundLoad(path.PlusFilePath("sfx_morph.ogg"));
+		GameEngineSound::SoundLoad(path.PlusFilePath("sfx_enemyHit.ogg"));
+		GameEngineSound::SoundLoad(path.PlusFilePath("sfx_gem.ogg"));
+		GameEngineSound::SoundLoad(path.PlusFilePath("sfx_levelup.ogg"));
+		GameEngineSound::SoundLoad(path.PlusFilePath("sfx_bumper3.ogg"));
+		GameEngineSound::SoundLoad(path.PlusFilePath("sxf_loss.ogg"));
+		GameEngineSound::SoundLoad(path.PlusFilePath("sfx_gameOver.ogg"));
 
 	}
 
@@ -118,16 +127,19 @@ void PlayLevel::Update(float _delta)
 	{
 		EnemySpawn(_delta);
 	}
-
 }
 
+void PlayLevel::StopBGM()
+{
+	PlayBGM.Stop();
+}
 void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayBGM = GameEngineSound::SoundPlay("bgm_elrond_library.ogg");
 }
 void PlayLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
-	PlayBGM.Stop();
+
 }
 
 void PlayLevel::ItemSpawnerSpawn()

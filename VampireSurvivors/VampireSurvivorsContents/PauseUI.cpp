@@ -1,6 +1,7 @@
 #include "PauseUI.h"
 #include "ContentsEnum.h"
 #include "Mouse.h"
+#include "StatusUI.h"
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEngineCore/ResourcesManager.h>
@@ -29,7 +30,7 @@ void PauseUI::Start()
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("ContinueButton.bmp"));
 	}
 
-	BackGround = CreateUIRenderer(RenderOrder::PlayUI);
+	BackGround = CreateUIRenderer(RenderOrder::Weapon);
 	BackGround->SetRenderPos({ 545,345 });
 	BackGround->SetTexture("PauseBG.bmp");
 	BackGround->SetAlpha(90);
@@ -44,10 +45,10 @@ void PauseUI::Start()
 	Continue->SetTexture("ContinueButton.bmp");
 
 	Button1 = CreateCollision(CollisionOrder::PlayUI);
-	Button1->SetCollisionScale({ 215,74 });
+	Button1->SetCollisionScale({ 192,51 });
 
 	Button2 = CreateCollision(CollisionOrder::PlayUI);
-	Button2->SetCollisionScale({ 215,74 });
+	Button2->SetCollisionScale({ 192,51 });
 
 	Off();
 
@@ -72,8 +73,10 @@ void PauseUI::On()
 	Button1->On();
 
 	float4 pos2 = GetLevel()->GetMainCamera()->GetPos() + Continue->GetRenderPos();
-	Button2->SetCollisionPos(pos);
+	Button2->SetCollisionPos(pos2);
 	Button2->On();
+
+	StatusUI::UI->On();
 }
 void PauseUI::Off()
 {
@@ -84,12 +87,17 @@ void PauseUI::Off()
 	Continue->Off();
 	Button1->Off();
 	Button2->Off();
+
+	StatusUI::UI->Off();
 }
 
 void PauseUI::Update(float _Delta)
 {
 	if(true == Button2->CollisonCheck(Mouse::UI->GetMouseCol(), CollisionType::Rect, CollisionType::Rect))
 	{
-		Off();
+		if (GameEngineInput::IsDown(VK_LBUTTON))
+		{
+			Off();
+		}
 	}
 }

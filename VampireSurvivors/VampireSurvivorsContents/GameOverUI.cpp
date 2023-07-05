@@ -3,12 +3,14 @@
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEngineCore/ResourcesManager.h>
+#include "PlayLevel.h"
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 GameOverUI* GameOverUI::UI = nullptr;
 
@@ -53,6 +55,11 @@ void GameOverUI::Start()
 
 void GameOverUI::On()
 {
+	PlayLevel* lv = static_cast<PlayLevel*>(GetLevel());
+	lv->StopBGM();
+	GameEngineSound::SoundPlay("sfx_gameOver.ogg");
+	
+	GameEngineObject::On();
 	BackGround->On();
 	GameOver->On();
 	QuitButton->On();
@@ -64,6 +71,7 @@ void GameOverUI::On()
 }
 void GameOverUI::Off()
 {
+	GameEngineObject::Off();
 	BackGround->Off();
 	GameOver->Off();
 	QuitButton->Off();

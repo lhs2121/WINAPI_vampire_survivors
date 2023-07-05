@@ -17,6 +17,7 @@
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include <random>
 #include <vector>
@@ -27,6 +28,7 @@ LevelUpUI* LevelUpUI::UI = nullptr;
 
 void LevelUpUI::On()
 {
+	GameEngineSound::SoundPlay("sfx_levelup.ogg");
 	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Monster, 0);
 	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Player, 0);
 	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Item, 0);
@@ -279,6 +281,8 @@ void LevelUpUI::Update(float _Delta)
 				StatusUI::UI->UpgradeWeaponSlot(WeaponType::Whip);
 				break;
 			case WeaponType::Null:
+				GameEngineTime::MainTimer.SetAllTimeScale(1);
+				Off();
 				break;
 			default:
 				break;
@@ -466,6 +470,10 @@ PassiveType LevelUpUI::GetRandomType4()
 
 WeaponType LevelUpUI::GetRandomTypeBox()
 {
+	if (true == StatusUI::UI->IsAllMax())
+	{
+		return WeaponType::Null;
+	}
 	std::vector<WeaponType> temp = { WeaponType::Knife,WeaponType::MagicWand ,WeaponType::Axe ,WeaponType::Runetracer ,
 		WeaponType::FireWand,WeaponType::Cross ,WeaponType::Whip };
 

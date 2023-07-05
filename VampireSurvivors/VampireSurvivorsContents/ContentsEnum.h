@@ -30,6 +30,7 @@ enum class CollisionOrder
 	BackGround,
 	Player,
 	Monster,
+	Boss,
 	Weapon,
 	Item,
 	PlayUI,

@@ -36,7 +36,7 @@ void Boss::Start()
 
 	Renderer->ChangeAnimation("Boss_Left");
 
-	Collision = CreateCollision(CollisionOrder::Monster);
+	Collision = CreateCollision(CollisionOrder::Boss);
 	Collision->SetCollisionScale({ 40,40 });
 	Collision->SetCollisionType(CollisionType::CirCle);
 
@@ -96,7 +96,7 @@ void Boss::Update(float _Delta)
 
 			if (Collision->Collision(CollisionOrder::Weapon, result, CollisionType::CirCle, CollisionType::CirCle))
 			{
-				AddPos(-dir * _Delta * 150);
+				AddPos(-dir * _Delta * 1000);
 				hp -= 100;
 
 				Damaged_Cooltime = 1;
