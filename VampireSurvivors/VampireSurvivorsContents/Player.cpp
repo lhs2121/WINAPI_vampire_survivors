@@ -274,7 +274,7 @@ float4 Player::GetMinDistance()
 
 		if (minElement != dirGroup.end())
 		{
-			index = std::distance(dirGroup.begin(), minElement);
+			index = static_cast<int>(std::distance(dirGroup.begin(), minElement));
 		}
 		//최솟값요소를 가리키는 반복자의 인덱스를 index에 할당
 

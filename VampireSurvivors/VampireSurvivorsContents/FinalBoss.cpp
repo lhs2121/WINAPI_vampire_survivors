@@ -57,6 +57,6 @@ void FinalBoss::Update(float _Delta)
 		Renderer->ChangeAnimation("FinalBoss_Left");
 	}
 
-	AddPos(dir * _Delta * 200);
+	AddPos(dir * _Delta * 300);
 
 }

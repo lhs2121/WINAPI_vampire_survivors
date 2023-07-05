@@ -400,7 +400,7 @@ WeaponType LevelUpUI::GetRandomType()
 		return WeaponType::Null;
 	}
 
-	WeaponType type = getRandomElement(TempWeaponGroup, 0, TempWeaponGroup.size() - 1);
+	WeaponType type = getRandomElement(TempWeaponGroup, 0, static_cast<int>(TempWeaponGroup.size() - 1));
 
 	if (WeaponStats::AllStats[type].isBoxed == true)
 	{
@@ -420,7 +420,7 @@ WeaponType LevelUpUI::GetRandomType2()
 		return WeaponType::Null;
 	}
 
-	WeaponType type = getRandomElement(TempWeaponGroup, 0, TempWeaponGroup.size() - 1);
+	WeaponType type = getRandomElement(TempWeaponGroup, 0, static_cast<int>(TempWeaponGroup.size() - 1));
 
 	if (WeaponStats::AllStats[type].isBoxed == true || false == WeaponStats::AllStats[type].isSelected || true == WeaponStats::AllStats[type].isMaxLevel)
 	{
@@ -439,7 +439,7 @@ PassiveType LevelUpUI::GetRandomType3()
 		return PassiveType::Null;
 	}
 
-	PassiveType type = getRandomElement2(TempPassiveGroup, 0, TempPassiveGroup.size() - 1);
+	PassiveType type = getRandomElement2(TempPassiveGroup, 0, static_cast<int>(TempPassiveGroup.size() - 1));
 
 	if (PassiveStats::AllPassive[type].isBoxed == true)
 	{
@@ -458,7 +458,7 @@ PassiveType LevelUpUI::GetRandomType4()
 		return PassiveType::Null;
 	}
 
-	PassiveType type = getRandomElement2(TempPassiveGroup, 0, TempPassiveGroup.size() - 1);
+	PassiveType type = getRandomElement2(TempPassiveGroup, 0, static_cast<int>(TempPassiveGroup.size() - 1));
 
 	if (PassiveStats::AllPassive[type].isBoxed == true || false == PassiveStats::AllPassive[type].isSelected || true == PassiveStats::AllPassive[type].isMaxLevel)
 	{
@@ -485,7 +485,7 @@ WeaponType LevelUpUI::GetRandomTypeBox()
 		return WeaponType::Null;
 	}
 
-	WeaponType type = getRandomElement(temp, 0, temp.size() - 1);
+	WeaponType type = getRandomElement(temp, 0, static_cast<int>(temp.size() - 1));
 
 	if (false == WeaponStats::AllStats[type].isSelected || true == WeaponStats::AllStats[type].isMaxLevel)
 	{

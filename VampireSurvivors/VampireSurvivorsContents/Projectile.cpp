@@ -162,6 +162,12 @@ void Projectile::MagicWand_Attack(float _Delta)
 	}
 
 
+	std::vector<GameEngineCollision*> result;
+	if (Collision->Collision(CollisionOrder::Monster, result, CollisionType::CirCle, CollisionType::CirCle))
+	{
+		Death();
+	}
+
 	AddPos(dir * Speed * _Delta);
 
 	DeathTime -= _Delta;
@@ -199,7 +205,7 @@ void Projectile::Axe_Attack(float _Delta)
 		}
 
 		AxeNumber += 1;
-		XRangeRatio = AxeNumber;
+		XRangeRatio = static_cast<float>(AxeNumber);
 		IsReady = true;
 		GameEngineSound::SoundPlay("sfx_projectile.ogg");
 		return;
