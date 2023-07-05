@@ -7,6 +7,7 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineCore.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 CharactorSelectUI::CharactorSelectUI()
 {
@@ -99,6 +100,7 @@ void CharactorSelectUI::Update(float _Delta)
 	{
 		if (GameEngineInput::IsDown(VK_LBUTTON))
 		{
+			GameEngineSound::SoundPlay("sfx_sounds_pause7_in.ogg");
 			SelectPanel->On();
 			CharactorButton1->On();
 			CharactorCol->On();
@@ -109,6 +111,7 @@ void CharactorSelectUI::Update(float _Delta)
 	{
 		if (GameEngineInput::IsDown(VK_LBUTTON))
 		{
+			GameEngineSound::SoundPlay("sfx_sounds_pause7_in.ogg");
 			GameEngineCore::ChangeLevel("PlayLevel");
 		}
 	}

@@ -1,7 +1,6 @@
 #include "IntroLevel.h"
 #include "IntroImage.h"
 #include "PressAnyKey.h"
-
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEngineCore/GameEngineActor.h>
@@ -56,6 +55,7 @@ void IntroLevel::Update(float _Delta)
 {
 	if (true == GameEngineInput::IsDown(VK_RETURN))
 	{
+		GameEngineSound::SoundPlay("sfx_sounds_pause7_in.ogg");
 		GameEngineCore::ChangeLevel("MenuLevel");
 	} 
 }
