@@ -87,7 +87,7 @@ void Chicken::Start()
 }
 void Chicken::ItemEffect()
 {
-	Player::GetMainPlayer()->AddHP(35);
+	Player::GetMainPlayer()->AddHP(30);
 }
 
 

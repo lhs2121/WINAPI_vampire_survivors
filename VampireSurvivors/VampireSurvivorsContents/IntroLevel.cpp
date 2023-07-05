@@ -3,6 +3,7 @@
 #include "PressAnyKey.h"
 
 #include <GameEngineCore/ResourcesManager.h>
+#include <GameEngineBase/GameEngineTime.h>
 #include <GameEngineCore/GameEngineActor.h>
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEnginePlatform/GameEngineInput.h>
@@ -61,5 +62,6 @@ void IntroLevel::Update(float _Delta)
 
 void IntroLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
+	GameEngineTime::MainTimer.SetAllTimeScale(1);
 	GameEngineSound::SoundPlay("sfx_titleIntro.ogg");
 }

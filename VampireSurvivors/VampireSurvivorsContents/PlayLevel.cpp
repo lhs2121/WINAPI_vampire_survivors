@@ -12,6 +12,7 @@
 #include "StatusUI.h"
 #include "CandleStick.h"
 #include "DebugUI.h"
+#include "PauseUI.h"
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -72,6 +73,8 @@ void PlayLevel::Start()
 
 	CreateActor<DebugUI>(UpdateOrder::PlayUI);
 
+	PauseUIPtr = CreateActor<PauseUI>(UpdateOrder::PlayUI);
+
 
 
 	ItemSpawnerSpawn();
@@ -101,6 +104,10 @@ void PlayLevel::Update(float _delta)
 		GameEngineWindow::MainWindow.AddDoubleBufferingCopyScaleRatio(0.001f);
 	}
 
+	if (GameEngineInput::IsDown(VK_ESCAPE))
+	{
+		PauseUIPtr->On();
+	}
 
 	BackGroundPtr->BackGroundLoop();
 

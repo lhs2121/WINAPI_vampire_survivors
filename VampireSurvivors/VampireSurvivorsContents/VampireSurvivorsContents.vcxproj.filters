@@ -116,6 +116,9 @@
     <ClCompile Include="GameOverUI.cpp">
       <Filter>Actor\PlayScene\UI</Filter>
     </ClCompile>
+    <ClCompile Include="FinalBoss.cpp">
+      <Filter>Actor\PlayScene\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
@@ -200,6 +203,9 @@
     </ClInclude>
     <ClInclude Include="GameOverUI.h">
       <Filter>Actor\PlayScene\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="FinalBoss.h">
+      <Filter>Actor\PlayScene\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

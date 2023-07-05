@@ -2,6 +2,7 @@
 #include "ContentsEnum.h"
 #include "Enemy.h"
 #include "Boss.h"
+#include "FinalBoss.h"
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEngineCore/GameEngineRenderer.h>
@@ -39,14 +40,10 @@ void Timer::Update(float _Delta)
 
 	if (GameEngineInput::IsDown('K'))
 	{
-		GameEngineTime::MainTimer.SetAllTimeScale(10);
+		GameEngineTime::MainTimer.SetAllTimeScale(5);
 	}
 	if (false == isExecuted1 && minutes >= 0)
 	{
-		GetLevel()->CreateActor<Boss>(UpdateOrder::Monster);
-		GetLevel()->CreateActor<Boss>(UpdateOrder::Monster);
-		GetLevel()->CreateActor<Boss>(UpdateOrder::Monster);
-		GetLevel()->CreateActor<Boss>(UpdateOrder::Monster);
 		Enemy::CurSpawnEnemyType[0] = EnemyType::enemy1;
 		Enemy::CurSpawnEnemyType[1] = EnemyType::enemy2;
 		isExecuted1 = true; // 코드 한번만 실행되게
@@ -78,7 +75,7 @@ void Timer::Update(float _Delta)
 
 	if (false == isExecuted3 && minutes >= 2)
 	{
-		GetLevel()->CreateActor<Boss>(UpdateOrder::Monster);
+		GetLevel()->CreateActor<FinalBoss>(UpdateOrder::Monster);
 		Enemy::CurSpawnEnemyType[0] = EnemyType::enemy4;
 		Enemy::CurSpawnEnemyType[1] = EnemyType::enemy4;
 		isExecuted4 = true; // 코드 한번만 실행되게

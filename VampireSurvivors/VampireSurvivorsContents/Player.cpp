@@ -203,7 +203,7 @@ void Player::Update(float _Delta)
 	{
 		if (Damaged_Cooltime < 0)
 		{
-			ApplyDamage(20);
+			ApplyDamage(10);
 			Damaged_Cooltime = 1;
 		}
 	}
@@ -215,7 +215,26 @@ void Player::Update(float _Delta)
 	WallCheck();
 }
 
+void Player::AddHP(float _HP)
+{
+	float hp2 = MaxHp - Hp;
 
+	Hp += _HP;
+
+	if (Hp > MaxHp)
+	{
+		Hp = MaxHp;
+		float value = (HpGaugeScale.X / MaxHp) * hp2;
+		HpGauge->SetRenderScale(HpGauge->GetRenderScale() + float4{ value, 0 });
+		HpGauge->SetRenderPos(HpGauge->GetRenderPos() + float4(value / 2, 0));
+	}
+	else
+	{
+		float value = (HpGaugeScale.X / MaxHp) * _HP;
+		HpGauge->SetRenderScale(HpGauge->GetRenderScale() + float4{ value, 0 });
+		HpGauge->SetRenderPos(HpGauge->GetRenderPos() + float4(value / 2, 0));
+	}
+}
 float4 Player::GetMinDistance()
 {
 	float4 dir;

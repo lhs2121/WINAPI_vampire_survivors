@@ -259,6 +259,7 @@
     <ClCompile Include="PlayerShooter.cpp" />
     <ClCompile Include="WeaponStats.cpp" />
     <ClCompile Include="CandleStick.cpp" />
+    <ClCompile Include="FinalBoss.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ContentCore.h" />
@@ -281,6 +282,7 @@
     <ClInclude Include="LevelUpUI.h" />
     <ClInclude Include="StatusUI.h" />
     <ClInclude Include="ItemBox.h" />
+    <ClInclude Include="FinalBoss.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

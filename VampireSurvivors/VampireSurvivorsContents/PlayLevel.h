@@ -37,6 +37,7 @@ private:
 	class BackGround* BackGroundPtr;
 	class Player* PlayerPtr = nullptr;
 	class LevelUpUI* LevelUpUIPtr;
+	class PauseUI* PauseUIPtr;
 
 	std::vector<class Exp*> ExpGroup;
 

@@ -29,10 +29,8 @@ public:
 		return Collision2;
 	}
 	
-	void AddHP(float _HP)
-	{
-		Hp += _HP;
-	}
+	void AddHP(float _HP);
+
 	float4 GetPlayerDir()
 	{
 		return PlayerDir;

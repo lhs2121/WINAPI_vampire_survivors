@@ -2,7 +2,6 @@
 #include "Player.h"
 #include "ContentsEnum.h"
 #include "Projectile.h"
-#include "DebugUI.h"
 #include "ItemBox.h"
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCollision.h>
@@ -55,8 +54,6 @@ void Boss::Start()
 
 void Boss::Update(float _Delta)
 {
-	DebugUI::UI->value = hp;
-
 	if (hp > 0)
 	{
 		dir = Player::GetMainPlayer()->GetPos() - GetPos();
