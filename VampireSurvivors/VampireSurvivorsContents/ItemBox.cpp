@@ -19,10 +19,17 @@ void ItemBox::Start()
 		path.MoveChild("Resources\\PlayScene\\");
 		path.MoveChild("Item\\");
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("Box.bmp"));
+		ResourcesManager::GetInst().CreateSpriteSheet(path.PlusFilePath("BoxFocusCursor.bmp"), 6, 1);
 	}
 
 	Renderer = CreateRenderer(RenderOrder::Item);
 	Renderer->SetTexture("Box.bmp");
+
+	Cursor = CreateRenderer(RenderOrder::Item);
+	Cursor->CreateAnimation("BoxCursor", "BoxFocusCursor.bmp", 0, 5, 0.1f, true);
+	Cursor->ChangeAnimation("BoxCursor");
+	Cursor->SetRenderScale({ 40,40 });
+	Cursor->SetRenderPos(float4(0, -35));
 
 	Collision = CreateCollision(CollisionOrder::Item);
 	Collision->SetCollisionType(CollisionType::CirCle);

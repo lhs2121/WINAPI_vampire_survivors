@@ -19,6 +19,7 @@ public:
 private:
 
 	class GameEngineRenderer* Renderer;
+	class GameEngineRenderer* Cursor;
 	class GameEngineCollision* Collision;
 
 	void Start() override;
