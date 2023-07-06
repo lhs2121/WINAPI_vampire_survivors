@@ -21,9 +21,9 @@ private:
 	class GameEngineRenderer* Renderer;
 	class GameEngineCollision* Collision;
 
-	float hp = 1;
+	float hp = 1000;
 	float4 dir;
-	float Damaged_Cooltime = 1;
+	float Damaged_Cooltime = 0.3f;
 	int value;
 
 	void Start();

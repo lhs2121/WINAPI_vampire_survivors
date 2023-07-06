@@ -3,6 +3,7 @@
 #include "ContentsEnum.h"
 #include "Projectile.h"
 #include "ItemBox.h"
+#include <GameEnginePlatform/GameEngineSound.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineRenderer.h>
@@ -83,10 +84,10 @@ void Boss::Update(float _Delta)
 
 			if (Collision->Collision(CollisionOrder::Weapon, result, CollisionType::CirCle, CollisionType::CirCle))
 			{
-				AddPos(-dir * _Delta * 1000);
-				hp -= 100;
-
-				Damaged_Cooltime = 1;
+				GameEngineSound::SoundPlay("sfx_enemyHit.ogg");
+				AddPos(-dir * _Delta * 3000);
+				hp -= 50;
+				Damaged_Cooltime = 0.3f;
 			}
 		}
 	}
