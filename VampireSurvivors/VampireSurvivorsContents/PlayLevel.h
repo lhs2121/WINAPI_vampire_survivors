@@ -3,9 +3,14 @@
 #include <GameEnginePlatform/GameEngineSound.h>
 #include <vector>
 
+enum class CharacterType;
 class PlayLevel : public GameEngineLevel
 {
 public:
+	static CharacterType CurCharacter;
+	static bool SpawnCheck;
+	static int MinSpawnNum;
+	static int MaxSpawnNum;
 
     void AddExp(float4 _Pos);
 	void ShowLevelUpUI();
@@ -21,9 +26,6 @@ public:
 	}
 
 	void StopBGM();
-	static bool SpawnCheck;
-	static int MinSpawnNum;
-	static int MaxSpawnNum;
 
 	PlayLevel();
 	~PlayLevel();

@@ -1,5 +1,6 @@
 #include "CharactorSelectUI.h"
 #include "ContentsEnum.h"
+#include "PlayLevel.h"
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include <GameEngineCore/ResourcesManager.h>
@@ -33,12 +34,11 @@ void CharactorSelectUI::Start()
 
 		SelectPanel = CreateRenderer(2);
 		CharactorButton1 = CreateRenderer(3);
+		CharactorButton2 = CreateRenderer(3);
 
 		LFocusCursor = CreateRenderer(1);
 		LFocusCursor->CreateAnimation("LFocusCursor", "LFocusCursor.bmp", 0, 5);
 		LFocusCursor->ChangeAnimation("LFocusCursor");
-
-
 
 		RFocusCursor = CreateRenderer(1);
 		RFocusCursor->CreateAnimation("RFocusCursor", "RFocusCursor.bmp", 0, 5);
@@ -54,6 +54,7 @@ void CharactorSelectUI::Start()
 
 		SelectPanel->SetRenderPos({ 0,40 });
 		CharactorButton1->SetRenderPos({ -190,-100 });
+		CharactorButton2->SetRenderPos(CharactorButton1->GetRenderPos() + float4(120,0));
 
 		LFocusCursor->SetRenderPos(StartButton->GetRenderPos() + float4(-115, 0));
 		LFocusCursor->SetScaleRatio(2);
@@ -70,11 +71,14 @@ void CharactorSelectUI::Start()
 
 		SelectPanel->SetTexture("SelectPanel.bmp");
 		CharactorButton1->SetTexture("Zenaro.bmp");
+		CharactorButton2->SetTexture("Imelda.bmp");
+
 	}
 
 	{
 		SelectPanel->Off();
 		CharactorButton1->Off();
+		CharactorButton2->Off();
 	}
 
 	{
@@ -86,6 +90,11 @@ void CharactorSelectUI::Start()
 		CharactorCol->SetCollisionPos(CharactorButton1->GetRenderPos());
 		CharactorCol->SetCollisionScale(ResourcesManager::GetInst().FindTexture("Zenaro.bmp")->GetScale());
 		CharactorCol->Off();
+
+		CharactorCol2 = CreateCollision(0);
+		CharactorCol2->SetCollisionPos(CharactorButton2->GetRenderPos());
+		CharactorCol2->SetCollisionScale(ResourcesManager::GetInst().FindTexture("Imelda.bmp")->GetScale());
+		CharactorCol2->Off();
 
 		Mouse = CreateCollision(0);
 		Mouse->SetCollisionScale({ 5,5 });
@@ -103,7 +112,9 @@ void CharactorSelectUI::Update(float _Delta)
 			GameEngineSound::SoundPlay("sfx_sounds_pause7_in.ogg");
 			SelectPanel->On();
 			CharactorButton1->On();
+			CharactorButton2->On();
 			CharactorCol->On();
+			CharactorCol2->On();
 		}
 	}
 	
@@ -112,6 +123,17 @@ void CharactorSelectUI::Update(float _Delta)
 		if (GameEngineInput::IsDown(VK_LBUTTON))
 		{
 			GameEngineSound::SoundPlay("sfx_sounds_pause7_in.ogg");
+			PlayLevel::CurCharacter = CharacterType::Zenaro;
+			GameEngineCore::ChangeLevel("PlayLevel");
+		}
+	}
+
+	if (true == CharactorCol2->CollisonCheck(Mouse, CollisionType::Rect, CollisionType::Rect) && true == SelectPanel->IsUpdate())
+	{
+		if (GameEngineInput::IsDown(VK_LBUTTON))
+		{
+			GameEngineSound::SoundPlay("sfx_sounds_pause7_in.ogg");
+			PlayLevel::CurCharacter = CharacterType::Imelda;
 			GameEngineCore::ChangeLevel("PlayLevel");
 		}
 	}

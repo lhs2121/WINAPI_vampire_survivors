@@ -89,7 +89,7 @@ void Chicken::Start()
 void Chicken::ItemEffect()
 {
 	GameEngineSound::SoundPlay("sfx_gem.ogg");
-	Player::GetMainPlayer()->AddHP(50);
+	Player::GetMainPlayer()->AddHP(70);
 }
 
 

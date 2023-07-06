@@ -1,5 +1,6 @@
 #include "StatusUI.h"
 #include "Player.h"
+#include "PlayLevel.h"
 #include "ContentsEnum.h"
 #include "WeaponStats.h"
 #include <vector>
@@ -195,8 +196,6 @@ void StatusUI::Start()
 
 		PrevPos = PassiveUpgrade[i]->GetRenderPos();
 	}
-
-	UpdateWeapon(WeaponType::Knife);
 
 	Off();
 }

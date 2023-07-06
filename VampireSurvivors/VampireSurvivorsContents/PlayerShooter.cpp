@@ -11,11 +11,6 @@ void PlayerShooter::Start()
 }
 void PlayerShooter::Update(float _Delta)
 {
-	if (GameEngineInput::IsDown('1'))
-	{
-		WeaponStats::AllStats[WeaponType::Knife].addCount(1);
-	}
-
 	for (int i = 0; i < WeaponStats::AllStats.size(); i++)
 	{
 		WeaponType type = static_cast<WeaponType>(i);
@@ -23,9 +18,7 @@ void PlayerShooter::Update(float _Delta)
 		{
 			CreateProjectile(_Delta, type);
 		}
-		
 	}
-
 }
 
 void PlayerShooter::CreateProjectile(float _Delta, WeaponType _Type)

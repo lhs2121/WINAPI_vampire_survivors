@@ -32,6 +32,7 @@ private:
 
 	GameEngineRenderer* SelectPanel;
 	GameEngineRenderer* CharactorButton1;
+	GameEngineRenderer* CharactorButton2;
 	
 	GameEngineRenderer* LFocusCursor;
 	GameEngineRenderer* RFocusCursor;
@@ -39,6 +40,7 @@ private:
 	GameEngineCollision* Mouse;
 	GameEngineCollision* StartCol;
 	GameEngineCollision* CharactorCol;
+	GameEngineCollision* CharactorCol2;
 
 	float4 MouseOffset = { -545,-345 };
 };

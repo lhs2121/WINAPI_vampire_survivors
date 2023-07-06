@@ -1,5 +1,11 @@
 #pragma once
 
+enum class CharacterType
+{
+	Zenaro,
+	Imelda
+};
+
 enum class UpdateOrder
 {
 	Timer,
@@ -28,10 +34,10 @@ enum class RenderOrder
 enum class CollisionOrder
 {
 	BackGround,
-	Player,
+	Player, 
+	Weapon,
 	Monster,
 	Boss,
-	Weapon,
 	Item,
 	PlayUI,
 	Mouse

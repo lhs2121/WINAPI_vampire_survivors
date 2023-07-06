@@ -3,6 +3,7 @@
 #include "Enemy.h"
 #include "Boss.h"
 #include "FinalBoss.h"
+#include "PlayLevel.h"
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEngineCore/GameEngineRenderer.h>
@@ -48,6 +49,8 @@ void Timer::Update(float _Delta)
 	{
 		Enemy::CurSpawnEnemyType[0] = EnemyType::enemy1;
 		Enemy::CurSpawnEnemyType[1] = EnemyType::enemy2;
+
+		PlayLevel::SetSpawnNum(3, 5);
 		isExecuted1 = true; // 코드 한번만 실행되게
 	}
 
@@ -55,6 +58,8 @@ void Timer::Update(float _Delta)
 	{
 		Enemy::CurSpawnEnemyType[0] = EnemyType::enemy3;
 		Enemy::CurSpawnEnemyType[1] = EnemyType::enemy2;
+
+		PlayLevel::SetSpawnNum(5, 7);
 		isExecuted2 = true; // 코드 한번만 실행되게
 	}
 
@@ -62,6 +67,8 @@ void Timer::Update(float _Delta)
 	{
 		Enemy::CurSpawnEnemyType[0] = EnemyType::enemy1;
 		Enemy::CurSpawnEnemyType[1] = EnemyType::enemy3;
+
+		PlayLevel::SetSpawnNum(7, 10);
 		isExecuted3 = true; // 코드 한번만 실행되게
 	}
 
@@ -70,6 +77,8 @@ void Timer::Update(float _Delta)
 		GetLevel()->CreateActor<Boss>(UpdateOrder::Monster);
 		Enemy::CurSpawnEnemyType[0] = EnemyType::enemy3;
 		Enemy::CurSpawnEnemyType[1] = EnemyType::enemy4;
+
+		PlayLevel::SetSpawnNum(10, 15);
 		isExecuted4 = true; // 코드 한번만 실행되게
 	}
 

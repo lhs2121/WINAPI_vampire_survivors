@@ -2,6 +2,7 @@
 #include "ContentsEnum.h"
 #include "Mouse.h"
 #include "StatusUI.h"
+#include "PlayLevel.h"
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEngineCore/ResourcesManager.h>
@@ -65,6 +66,11 @@ void PauseUI::On()
 	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Weapon, 0);
 	GameEngineTime::MainTimer.SetTimeScale(UpdateOrder::Timer, 0);
 
+	if (PlayLevel::SpawnCheck == true)
+	{
+		PlayLevel::ChangeSpawnState();
+	}
+
 	BackGround->On();
 	Option->On();
 	Continue->On();
@@ -83,8 +89,11 @@ void PauseUI::On()
 }
 void PauseUI::Off()
 {
+	if (PlayLevel::SpawnCheck == false)
+	{
+		PlayLevel::ChangeSpawnState();
+	}
 	GameEngineTime::MainTimer.SetAllTimeScale(1);
-
 	BackGround->Off();
 	Option->Off();
 	Continue->Off();

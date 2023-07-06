@@ -8,6 +8,8 @@
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEnginePlatform/GameEngineSound.h>
 
+float4 Exp::Scale = {40,40};
+float Exp::expValue = 20;
 
 void Exp::Start()
 {
@@ -26,7 +28,7 @@ void Exp::Start()
 
 	Collision = CreateCollision(CollisionOrder::Item);
 	Collision->SetCollisionType(CollisionType::CirCle);
-	Collision->SetCollisionScale({ 50,50 });
+	Collision->SetCollisionScale(Scale);
 }
 void Exp::Update(float _Delta)
 {
@@ -47,7 +49,7 @@ void Exp::ItemEffect()
 {
 	GameEngineSound::SoundPlay("sfx_gem.ogg");
 	
-	Player::GetMainPlayer()->AddExp(20);
+	Player::GetMainPlayer()->AddExp(expValue);
 }
 
 void Exp::Eat()

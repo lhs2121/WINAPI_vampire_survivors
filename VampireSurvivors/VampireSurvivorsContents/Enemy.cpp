@@ -178,8 +178,6 @@ void Enemy::Update(float _Delta)
 
 			DropExp();
 
-			Collision->Off();
-
 			value++; // 위의 블록이 한번만 실행되게하는 변수
 		}
 

@@ -1,6 +1,8 @@
 #include "WeaponStats.h"
 #include "ContentsEnum.h"
+#include "Projectile.h"
 #include "Player.h"
+#include "Exp.h"
 
 std::map<WeaponType, WeaponStats> WeaponStats::AllStats;
 std::map<PassiveType, PassiveStats> PassiveStats::AllPassive;
@@ -22,7 +24,7 @@ void WeaponStats::AllStatsSetting()
 	WeaponStats::AllStats.insert(std::make_pair(WeaponType::Cross, CrossStats));
 	WeaponStats::AllStats.insert(std::make_pair(WeaponType::Whip, WhipStats));
 
-	WeaponStats::AllStats[WeaponType::Knife].setStats(1, 2, 400, 50, 2, 2, 0.2f, 1, "knifeslot.bmp");
+	WeaponStats::AllStats[WeaponType::Knife].setStats(0, 2, 400, 50, 2, 2, 0.2f, 1, "knifeslot.bmp");
 	WeaponStats::AllStats[WeaponType::MagicWand].setStats(0, 1, 200, 50, 3, 3, 0.5f, 1, "wandslot.bmp");
 	WeaponStats::AllStats[WeaponType::Axe].setStats(0, 1, 200, 50, 5, 4, 0.2f, 1, "axeslot.bmp");
 	WeaponStats::AllStats[WeaponType::Runetracer].setStats(0, 1, 300, 50, 5, 5, 0.2f, 1, "runeslot.bmp");
@@ -96,14 +98,21 @@ void PassiveStats::Book()
 }
 void PassiveStats::Glove()
 {
-
+	Projectile::PassvieSpeed += 50;
 }
 void PassiveStats::Candle()
-{}
+{
+
+}
 void PassiveStats::Expball()
-{}
+{
+	Exp::Scale += float4(10, 10);
+}
 void PassiveStats::Crown()
-{}
+{
+	float value = (Exp::expValue) * 0.08f;
+	Exp::expValue += value;
+}
 void PassiveStats::Spinach()
 {
 

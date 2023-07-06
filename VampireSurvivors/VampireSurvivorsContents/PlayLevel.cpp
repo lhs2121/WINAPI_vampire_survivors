@@ -24,9 +24,9 @@
 #include <GameEngineBase/GameEngineRandom.h>
 
 bool PlayLevel::SpawnCheck = true;
-
-int PlayLevel::MinSpawnNum = 7;
-int PlayLevel::MaxSpawnNum = 15;
+CharacterType PlayLevel::CurCharacter;
+int PlayLevel::MinSpawnNum = 3;
+int PlayLevel::MaxSpawnNum = 5;
 
 PlayLevel::PlayLevel()
 {
@@ -62,7 +62,7 @@ void PlayLevel::Start()
 		GameEngineSound::SoundLoad(path.PlusFilePath("sfx_gameOver.ogg"));
 		GameEngineSound::SoundLoad(path.PlusFilePath("sfx_treasure_found.ogg"));
 		GameEngineSound::SoundLoad(path.PlusFilePath("sfx_sounds_pause7_out.ogg"));
-		GameEngineSound::SoundLoad(path.PlusFilePath("sfx_sounds_pause7_in.ogg"));	
+		GameEngineSound::SoundLoad(path.PlusFilePath("sfx_sounds_pause7_in.ogg"));
 	}
 
 
@@ -138,6 +138,15 @@ void PlayLevel::StopBGM()
 void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	PlayBGM = GameEngineSound::SoundPlay("bgm_elrond_library.ogg");
+
+	if (CurCharacter == CharacterType::Zenaro)
+	{
+		StatusUI::UI->UpdateWeapon(WeaponType::Knife);
+	}
+	else if (CurCharacter == CharacterType::Imelda)
+	{
+		StatusUI::UI->UpdateWeapon(WeaponType::MagicWand);
+	}
 }
 void PlayLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
@@ -153,7 +162,6 @@ void PlayLevel::ItemSpawnerSpawn()
 		CreateActor<CandleStick>(UpdateOrder::Item)->SetPos(float4(524 * (float)i, 464) + float4(0, -200));
 		CreateActor<CandleStick>(UpdateOrder::Item)->SetPos(float4(1024 * (float)i, 464) + float4(0, -200));
 	}
-
 }
 void PlayLevel::EnemySpawn(float _Delta)
 {

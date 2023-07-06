@@ -3,6 +3,8 @@
 class Exp : public Item
 {
 public:
+	static float4 Scale;
+	static float expValue;
 	Exp() {}
 	~Exp() {}
 

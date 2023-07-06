@@ -84,7 +84,7 @@ void Boss::Update(float _Delta)
 				dir = otherenemy[i]->GetActor()->GetPos() - GetPos();
 				dir.Normalize();
 
-				AddPos(-dir * 500 * _Delta);
+				AddPos(-dir * 300 * _Delta);
 			}
 		}
 
