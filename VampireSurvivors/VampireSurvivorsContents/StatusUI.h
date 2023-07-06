@@ -13,19 +13,14 @@ public:
 	std::vector<WeaponType> MyWeapon;
 	std::vector<PassiveType> MyPassive;
 
-	void AddWeaponSlot(WeaponType _Type);
-	void UpgradeWeaponSlot(WeaponType _Type);
-	void AddMyWeapon(WeaponType _Type);
+	void UpdateWeapon(WeaponType _Type);
+	void UpdatePassive(PassiveType _Type);
 
-	void AddPassiveSlot(PassiveType _Type);
-	void UpgradePassiveSlot(PassiveType _Type);
-	void AddMyPassive(PassiveType _Type);
-
-	bool IsAllMax();
+	bool IsAllMaxWeapon();
 	bool IsFullWeapon();
 
-	bool IsAllMax2();
-	bool IsFullpassvie();
+	bool IsAllMaxPassvie();
+	bool IsFullPassvie();
 
 	void On() override;
 	void Off() override;
@@ -38,20 +33,14 @@ public:
 	StatusUI& operator=(StatusUI&& _Other) noexcept = delete;
 private:
 
-	GameEngineRenderer* StatsPanel;
-	GameEngineRenderer* TopAlpha;
+	GameEngineRenderer* Panel;
+	GameEngineRenderer* Alpha;
 
-	GameEngineRenderer* WeaponChecker[6];
-	GameEngineRenderer* PassiveChecker[6];
+	std::vector<GameEngineRenderer*> WeaponSlot;
+	std::vector<GameEngineRenderer*> PassiveSlot;
 
-	std::vector<GameEngineRenderer*> WeaponRenderer;
-	std::vector<GameEngineRenderer*> PassiveRenderer;
-
-	int WeaponIndex = 0;
-	int PassiveIndex = 0;
-	int WeaponUpgradeNum[6] = { 0 };
-	int PassiveUpgradeNum[6] = { 0 };
-
+	GameEngineRenderer* WeaponUpgrade[6];
+	GameEngineRenderer* PassiveUpgrade[6];
 	void Start() override;
 
 };

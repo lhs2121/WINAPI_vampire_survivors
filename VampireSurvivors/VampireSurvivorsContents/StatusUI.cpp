@@ -11,43 +11,40 @@ StatusUI* StatusUI::UI = nullptr;
 
 void StatusUI::On()
 {
-	StatsPanel->On();
-	TopAlpha->On();
+	Panel->On();
+	Alpha->On();
 
-	
-	for (int i = 0; i < MyWeapon.size();  i++)
+
+	for (int i = 0; i < MyWeapon.size(); i++)
 	{
-		WeaponChecker[i]->On();
+		WeaponUpgrade[i]->On();
 	}
 	for (int i = 0; i < MyPassive.size(); i++)
 	{
-		PassiveChecker[i]->On();
+		PassiveUpgrade[i]->On();
 	}
 
 }
 void StatusUI::Off()
 {
-	StatsPanel->Off();
-	TopAlpha->Off();
+	Panel->Off();
+	Alpha->Off();
 
 	for (int i = 0; i < 6; i++)
 	{
-		WeaponChecker[i]->Off();
-	}
-	for (int i = 0; i < 6; i++)
-	{
-		PassiveChecker[i]->Off();
+		WeaponUpgrade[i]->Off();
+		PassiveUpgrade[i]->Off();
 	}
 }
-bool StatusUI::IsAllMax()
+bool StatusUI::IsAllMaxWeapon()
 {
-	if (MyWeapon.size() < 6)
+	if (false == IsFullWeapon())
 	{
 		return false;
 	}
 
 	int maxCount = 0;
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < MyWeapon.size() - 1; i++)
 	{
 		if (WeaponStats::AllStats[MyWeapon[i]].isMaxLevel == true)
 		{
@@ -55,7 +52,7 @@ bool StatusUI::IsAllMax()
 		}
 	}
 
-	if (maxCount == 6)
+	if (maxCount == MyWeapon.size())
 	{
 		return true;
 	}
@@ -73,15 +70,15 @@ bool StatusUI::IsFullWeapon()
 	return false;
 }
 
-bool StatusUI::IsAllMax2()
+bool StatusUI::IsAllMaxPassvie()
 {
-	if (MyPassive.size() < 6)
+	if (false == IsFullPassvie())
 	{
 		return false;
 	}
 
 	int maxCount = 0;
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < MyPassive.size() - 1; i++)
 	{
 		if (PassiveStats::AllPassive[MyPassive[i]].isMaxLevel == true)
 		{
@@ -89,7 +86,7 @@ bool StatusUI::IsAllMax2()
 		}
 	}
 
-	if (maxCount == 6)
+	if (maxCount == MyPassive.size())
 	{
 		return true;
 	}
@@ -98,7 +95,7 @@ bool StatusUI::IsAllMax2()
 		return false;
 	}
 }
-bool StatusUI::IsFullpassvie()
+bool StatusUI::IsFullPassvie()
 {
 	if (MyPassive.size() >= 6)
 	{
@@ -146,156 +143,145 @@ void StatusUI::Start()
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("redheartslot.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("spinachslot.bmp"));
 		ResourcesManager::GetInst().TextureLoad(path.PlusFilePath("wingslot.bmp"));
-
-
 	}
 
-	StatsPanel = CreateUIRenderer(RenderOrder::PlayUI);
-	StatsPanel->SetTexture("StatsPanel.bmp");
-	StatsPanel->SetRenderPos({ 110,95 });
+	Panel = CreateUIRenderer(RenderOrder::PlayUI);
+	Panel->SetTexture("StatsPanel.bmp");
+	Panel->SetRenderPos({ 110,95 });
 
-	TopAlpha = CreateUIRenderer(RenderOrder::PlayUI);
-	TopAlpha->SetTexture("TopAlpha.bmp");
-	TopAlpha->SetAlpha(90);
-	TopAlpha->SetRenderPos({ 110,95 });
+	Alpha = CreateUIRenderer(RenderOrder::PlayUI);
+	Alpha->SetTexture("TopAlpha.bmp");
+	Alpha->SetAlpha(90);
+	Alpha->SetRenderPos({ 110,95 });
 
 	float4 PrevPos = float4::ZERO;
 
 	for (int i = 0; i < 6; i++)
 	{
-		WeaponChecker[i] = CreateUIRenderer(RenderOrder::PlayUI);
+		WeaponUpgrade[i] = CreateUIRenderer(RenderOrder::PlayUI);
 
 		if (PrevPos == float4::ZERO)
 		{
-			WeaponChecker[i]->SetRenderPos({ 30,80 });
+			WeaponUpgrade[i]->SetRenderPos({ 30,80 });
 		}
 		else
 		{
-			WeaponChecker[i]->SetRenderPos(PrevPos + float4(30, 0));
+			WeaponUpgrade[i]->SetRenderPos(PrevPos + float4(30, 0));
 		}
 
-		WeaponChecker[i]->SetSprite("WeaponChecker.bmp", 0);
-		WeaponChecker[i]->SetRenderScale({ 24,24 });
+		WeaponUpgrade[i]->SetSprite("WeaponChecker.bmp", 0);
+		WeaponUpgrade[i]->SetRenderScale({ 24,24 });
 
-		PrevPos = WeaponChecker[i]->GetRenderPos();
+		PrevPos = WeaponUpgrade[i]->GetRenderPos();
 	}
 
 	PrevPos = float4::ZERO;
 
 	for (int i = 0; i < 6; i++)
 	{
-		PassiveChecker[i] = CreateUIRenderer(RenderOrder::PlayUI);
+		PassiveUpgrade[i] = CreateUIRenderer(RenderOrder::PlayUI);
 
 		if (PrevPos == float4::ZERO)
 		{
-			PassiveChecker[i]->SetRenderPos({ 30,145 });
+			PassiveUpgrade[i]->SetRenderPos({ 30,145 });
 		}
 		else
 		{
-			PassiveChecker[i]->SetRenderPos(PrevPos + float4(30, 0));
+			PassiveUpgrade[i]->SetRenderPos(PrevPos + float4(30, 0));
 		}
 
-		PassiveChecker[i]->SetSprite("AccessoryChecker.bmp", 0);
-		PassiveChecker[i]->SetRenderScale({ 24,24 });
+		PassiveUpgrade[i]->SetSprite("AccessoryChecker.bmp", 0);
+		PassiveUpgrade[i]->SetRenderScale({ 24,24 });
 
-		PrevPos = PassiveChecker[i]->GetRenderPos();
+		PrevPos = PassiveUpgrade[i]->GetRenderPos();
 	}
 
-	AddMyWeapon(WeaponType::Knife);
+	UpdateWeapon(WeaponType::Knife);
 
 	Off();
 }
-void StatusUI::AddWeaponSlot(WeaponType _Type)
+
+void StatusUI::UpdateWeapon(WeaponType _Type)
 {
-	static float4 prevpos = float4::ZERO;
-
-	GameEngineRenderer* renderer = CreateUIRenderer(RenderOrder::PlayUI);
-
-	if (prevpos == float4::ZERO)
+	if (false == WeaponStats::AllStats[_Type].isMaxLevel)
 	{
-		renderer->SetRenderPos({ 30,50 });
+		WeaponStats::AllStats[_Type].addLevel(1);
+		if (8 == WeaponStats::AllStats[_Type].getLevel())
+		{
+			WeaponStats::AllStats[_Type].isMaxLevel = true;
+		}
 	}
-	else
+	//무기 레벨업 로직
+
+	for (int i = 0; i < MyWeapon.size(); i++)
 	{
-		renderer->SetRenderPos(prevpos + float4(30, 0));
+		if (MyWeapon[i] == _Type)
+		{
+			int level = WeaponStats::AllStats[_Type].getLevel();
+			WeaponUpgrade[i]->SetSprite("WeaponChecker.bmp", level);
+			WeaponUpgrade[i]->Off();
+			return;
+		}
 	}
+	//무기 업그레이드렌더러 설정
 
-	prevpos = renderer->GetRenderPos();
-
-	renderer->SetRenderScale({ 24,24 });
-	renderer->SetTexture(WeaponStats::AllStats[_Type].getSlotTextureName());
-
-
-	WeaponStats::AllStats[_Type].setSlotNumber(WeaponIndex);
-	WeaponIndex += 1;
-
-}
-void StatusUI::UpgradeWeaponSlot(WeaponType _Type)
-{
-	int num = WeaponStats::AllStats[_Type].getSlotNumber();
-
-	if (WeaponUpgradeNum[num] == 8)
-	{
-		return;
-	}
-
-	WeaponChecker[num]->SetSprite("WeaponChecker.bmp", WeaponUpgradeNum[num] + 1);
-	WeaponChecker[num]->Off();
-	WeaponUpgradeNum[num] += 1;
-}
-
-void StatusUI::AddMyWeapon(WeaponType _Type)
-{
-	WeaponStats::AllStats[_Type].isSelected = true;
 	MyWeapon.push_back(_Type);
-	AddWeaponSlot(_Type);
-	UpgradeWeaponSlot(_Type);
-}
+	WeaponStats::AllStats[_Type].isSelected = true;
+	//MyWeapon에 pushback
 
-void StatusUI::AddPassiveSlot(PassiveType _Type)
-{
 	static float4 prevpos = float4::ZERO;
-
-	GameEngineRenderer* renderer = CreateUIRenderer(RenderOrder::PlayUI);
-
+	GameEngineRenderer* NewWeaponSlot = CreateUIRenderer(RenderOrder::PlayUI);
 	if (prevpos == float4::ZERO)
 	{
-		renderer->SetRenderPos({ 30,110 });
+		NewWeaponSlot->SetRenderPos({ 30,50 });
 	}
 	else
 	{
-		renderer->SetRenderPos(prevpos + float4(30, 0));
+		NewWeaponSlot->SetRenderPos(prevpos + float4(30, 0));
 	}
-
-	prevpos = renderer->GetRenderPos();
-
-	renderer->SetRenderScale({ 24,24 });
-	renderer->SetTexture(PassiveStats::AllPassive[_Type].getSlotTextureName());
-
-
-	PassiveStats::AllPassive[_Type].setSlotNumber(PassiveIndex);
-	PassiveIndex += 1;
-
+	prevpos = NewWeaponSlot->GetRenderPos();
+	NewWeaponSlot->SetRenderScale({ 24,24 });
+	NewWeaponSlot->SetTexture(WeaponStats::AllStats[_Type].getSlotTextureName());
+	//무기 슬롯렌더러 설정
 }
-void StatusUI::UpgradePassiveSlot(PassiveType _Type)
+
+void StatusUI::UpdatePassive(PassiveType _Type)
 {
-
-	int num = PassiveStats::AllPassive[_Type].getSlotNumber();
-
-	if (PassiveUpgradeNum[num] == 5)
+	if (false == PassiveStats::AllPassive[_Type].isMaxLevel)
 	{
-		return;
+		PassiveStats::AllPassive[_Type].addLevel(1);
+		if (5 == PassiveStats::AllPassive[_Type].getLevel())
+		{
+			PassiveStats::AllPassive[_Type].isMaxLevel = true;
+		}
 	}
 
-	PassiveChecker[num]->SetSprite("AccessoryChecker.bmp", PassiveUpgradeNum[num] + 1);
-	PassiveChecker[num]->Off();
-	PassiveUpgradeNum[num] += 1;
-}
+	for (int i = 0; i < MyPassive.size(); i++)
+	{
+		if (MyPassive[i] == _Type)
+		{
+			int level = PassiveStats::AllPassive[_Type].getLevel();
+			PassiveUpgrade[i]->SetSprite("AccessoryChecker.bmp", level);
+			PassiveUpgrade[i]->Off();
+			return;
+		}
+	}
 
-void StatusUI::AddMyPassive(PassiveType _Type)
-{
-	PassiveStats::AllPassive[_Type].isSelected = true;
 	MyPassive.push_back(_Type);
-	AddPassiveSlot(_Type);
-	UpgradePassiveSlot(_Type);
+	PassiveStats::AllPassive[_Type].isSelected = true;
+
+	static float4 prevpos = float4::ZERO;
+	GameEngineRenderer* NewPassiveSlot = CreateUIRenderer(RenderOrder::PlayUI);
+	if (prevpos == float4::ZERO)
+	{
+		NewPassiveSlot->SetRenderPos({ 30,110 });
+	}
+	else
+	{
+		NewPassiveSlot->SetRenderPos(prevpos + float4(30, 0));
+	}
+	prevpos = NewPassiveSlot->GetRenderPos();
+	NewPassiveSlot->SetRenderScale({ 24,24 });
+	NewPassiveSlot->SetTexture(PassiveStats::AllPassive[_Type].getSlotTextureName());
+
 }

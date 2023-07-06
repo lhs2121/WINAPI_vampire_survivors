@@ -257,31 +257,31 @@ void LevelUpUI::Update(float _Delta)
 			{
 			case WeaponType::Knife:
 				ItemSelectPanel->SetSprite("LevelUpPanel.bmp", 0);
-				StatusUI::UI->UpgradeWeaponSlot(WeaponType::Knife);
+				StatusUI::UI->UpdateWeapon(WeaponType::Knife);
 				break;
 			case WeaponType::MagicWand:
 				ItemSelectPanel->SetSprite("LevelUpPanel.bmp", 1);
-				StatusUI::UI->UpgradeWeaponSlot(WeaponType::MagicWand);
+				StatusUI::UI->UpdateWeapon(WeaponType::MagicWand);
 				break;
 			case WeaponType::Axe:
 				ItemSelectPanel->SetSprite("LevelUpPanel.bmp", 2);
-				StatusUI::UI->UpgradeWeaponSlot(WeaponType::Axe);
+				StatusUI::UI->UpdateWeapon(WeaponType::Axe);
 				break;
 			case WeaponType::Runetracer:
 				ItemSelectPanel->SetSprite("LevelUpPanel.bmp", 3);
-				StatusUI::UI->UpgradeWeaponSlot(WeaponType::Runetracer);
+				StatusUI::UI->UpdateWeapon(WeaponType::Runetracer);
 				break;
 			case WeaponType::FireWand:
 				ItemSelectPanel->SetSprite("LevelUpPanel.bmp", 4);
-				StatusUI::UI->UpgradeWeaponSlot(WeaponType::FireWand);
+				StatusUI::UI->UpdateWeapon(WeaponType::FireWand);
 				break;
 			case WeaponType::Cross:
 				ItemSelectPanel->SetSprite("LevelUpPanel.bmp", 5);
-				StatusUI::UI->UpgradeWeaponSlot(WeaponType::Cross);
+				StatusUI::UI->UpdateWeapon(WeaponType::Cross);
 				break;
 			case WeaponType::Whip:
 				ItemSelectPanel->SetSprite("LevelUpPanel.bmp", 6);
-				StatusUI::UI->UpgradeWeaponSlot(WeaponType::Whip);
+				StatusUI::UI->UpdateWeapon(WeaponType::Whip);
 				break;
 			case WeaponType::Null:
 				GameEngineTime::MainTimer.SetAllTimeScale(1);
@@ -351,7 +351,7 @@ void LevelUpUI::RandomTypeSetting()
 	TempWeaponGroup = { WeaponType::Knife,WeaponType::MagicWand ,WeaponType::Axe ,WeaponType::Runetracer ,
 		WeaponType::FireWand,WeaponType::Cross ,WeaponType::Whip };
 
-	if (true == StatusUI::UI->IsAllMax())
+	if (true == StatusUI::UI->IsAllMaxWeapon())
 	{
 		return;
 	}
@@ -375,17 +375,17 @@ void LevelUpUI::RandomTypeSetting2()
 		PassiveType::Glove, PassiveType::Candle, PassiveType::Expball, PassiveType::Crown, PassiveType::Spinach,
 		PassiveType::Wing, PassiveType::Clover };
 
-	if (true == StatusUI::UI->IsAllMax2())
+	if (true == StatusUI::UI->IsAllMaxPassvie())
 	{
 		return;
 	}
-	else if (false == StatusUI::UI->IsFullpassvie())
+	else if (false == StatusUI::UI->IsFullPassvie())
 	{
 		RandomType[0].second = GetRandomType3();
 		RandomType[1].second = GetRandomType3();
 		RandomType[2].second = GetRandomType3();
 	}
-	else if (true == StatusUI::UI->IsFullpassvie())
+	else if (true == StatusUI::UI->IsFullPassvie())
 	{
 		RandomType[0].second = GetRandomType4();
 		RandomType[1].second = GetRandomType4();
@@ -473,7 +473,7 @@ PassiveType LevelUpUI::GetRandomType4()
 
 WeaponType LevelUpUI::GetRandomTypeBox()
 {
-	if (true == StatusUI::UI->IsAllMax())
+	if (true == StatusUI::UI->IsAllMaxWeapon())
 	{
 		return WeaponType::Null;
 	}

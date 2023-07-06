@@ -889,50 +889,12 @@ void SelectBox::OnClick()
 
 	if (IsWeaponButton == true)
 	{
-
-		if (CurWeaponLevel == 0)
-		{
-			StatusUI::UI->AddMyWeapon(CurWeaponType);
-		}
-		else
-		{
-			StatusUI::UI->UpgradeWeaponSlot(CurWeaponType);
-		}
-
-		if (WeaponStats::AllStats[CurWeaponType].isMaxLevel == false)
-		{
-			WeaponStats::AllStats[CurWeaponType].addLevel(1);
-			WeaponStats::AllStats[CurWeaponType].addCount(_Count);
-			WeaponStats::AllStats[CurWeaponType].addDamage(_Damage);
-			WeaponStats::AllStats[CurWeaponType].addSpeed(_Speed);
-			WeaponStats::AllStats[CurWeaponType].addDeathTime(_DeathTime);
-			WeaponStats::AllStats[CurWeaponType].addScaleRatio(_ScaleRatio);
-
-			if (WeaponStats::AllStats[CurWeaponType].getLevel() == 8)
-			{
-				WeaponStats::AllStats[CurWeaponType].isMaxLevel = true;
-			}
-		}
+		StatusUI::UI->UpdateWeapon(CurWeaponType);
 	}
 	else
 	{
-		if (CurPassiveLevel == 0)
-		{
-			StatusUI::UI->AddMyPassive(CurPassiveType);
-		}
-		else
-		{
-			StatusUI::UI->UpgradePassiveSlot(CurPassiveType);
-		}
-		if (PassiveStats::AllPassive[CurPassiveType].isMaxLevel == false)
-		{
-			PassiveStats::AllPassive[CurPassiveType].addLevel(1);
-
-			if (PassiveStats::AllPassive[CurPassiveType].getLevel() == 5)
-			{
-				PassiveStats::AllPassive[CurPassiveType].isMaxLevel = true;
-			}
-		}
+		StatusUI::UI->UpdatePassive(CurPassiveType);
+		 
 		switch (CurPassiveType)
 		{
 		case PassiveType::Blackheart:
@@ -966,7 +928,6 @@ void SelectBox::OnClick()
 			PassiveStats::Clover();
 			break;
 		case PassiveType::Null:
-
 			break;
 		default:
 			break;
