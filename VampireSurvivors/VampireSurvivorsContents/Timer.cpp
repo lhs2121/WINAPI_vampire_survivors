@@ -39,6 +39,7 @@ void Timer::Update(float _Delta)
 	static bool isExecuted3 = false;
 	static bool isExecuted4 = false;
 	static bool isExecuted5 = false;
+	static bool isExecuted6 = false;
 
 
 	if (GameEngineInput::IsDown('K'))
@@ -50,7 +51,7 @@ void Timer::Update(float _Delta)
 		Enemy::CurSpawnEnemyType[0] = EnemyType::enemy1;
 		Enemy::CurSpawnEnemyType[1] = EnemyType::enemy2;
 
-		PlayLevel::SetSpawnNum(3, 5);
+		PlayLevel::SetSpawnNum(5, 7, 6);
 		isExecuted1 = true; // 코드 한번만 실행되게
 	}
 
@@ -59,7 +60,7 @@ void Timer::Update(float _Delta)
 		Enemy::CurSpawnEnemyType[0] = EnemyType::enemy3;
 		Enemy::CurSpawnEnemyType[1] = EnemyType::enemy2;
 
-		PlayLevel::SetSpawnNum(5, 7);
+		PlayLevel::SetSpawnNum(7, 9, 5);
 		isExecuted2 = true; // 코드 한번만 실행되게
 	}
 
@@ -68,7 +69,7 @@ void Timer::Update(float _Delta)
 		Enemy::CurSpawnEnemyType[0] = EnemyType::enemy1;
 		Enemy::CurSpawnEnemyType[1] = EnemyType::enemy3;
 
-		PlayLevel::SetSpawnNum(7, 10);
+		PlayLevel::SetSpawnNum(9, 11, 4);
 		isExecuted3 = true; // 코드 한번만 실행되게
 	}
 
@@ -78,17 +79,25 @@ void Timer::Update(float _Delta)
 		Enemy::CurSpawnEnemyType[0] = EnemyType::enemy3;
 		Enemy::CurSpawnEnemyType[1] = EnemyType::enemy4;
 
-		PlayLevel::SetSpawnNum(10, 15);
+		PlayLevel::SetSpawnNum(11, 15, 3.5f);
 		isExecuted4 = true; // 코드 한번만 실행되게
 	}
 
 
 	if (false == isExecuted5 && minutes >= 2 && seconds > 30)
 	{
+		GetLevel()->CreateActor<Boss>(UpdateOrder::Monster);
+		Enemy::CurSpawnEnemyType[0] = EnemyType::enemy4;
+		Enemy::CurSpawnEnemyType[1] = EnemyType::enemy4;
+		isExecuted5 = true; // 코드 한번만 실행되게
+	}
+
+	if (false == isExecuted6 && minutes >= 3)
+	{
 		GetLevel()->CreateActor<FinalBoss>(UpdateOrder::Monster);
 		Enemy::CurSpawnEnemyType[0] = EnemyType::enemy4;
-		Enemy::CurSpawnEnemyType[1] = EnemyType::enemy3;
-		isExecuted5 = true; // 코드 한번만 실행되게
+		Enemy::CurSpawnEnemyType[1] = EnemyType::enemy4;
+		isExecuted6 = true; // 코드 한번만 실행되게
 	}
 
 }

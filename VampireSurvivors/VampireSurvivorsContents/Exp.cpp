@@ -9,7 +9,7 @@
 #include <GameEnginePlatform/GameEngineSound.h>
 
 float4 Exp::Scale = {40,40};
-float Exp::expValue = 20;
+float Exp::expValue = 50;
 
 void Exp::Start()
 {

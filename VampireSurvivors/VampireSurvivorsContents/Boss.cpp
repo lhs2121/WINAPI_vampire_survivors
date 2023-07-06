@@ -75,19 +75,6 @@ void Boss::Update(float _Delta)
 			AddPos(-dir * _Delta * 500);
 		}
 
-		std::vector<GameEngineCollision*> otherenemy;
-		if (Collision->Collision(CollisionOrder::Monster ,otherenemy, CollisionType::CirCle, CollisionType::CirCle))
-		{
-			for (int i = 0; i < otherenemy.size(); i++)
-			{
-				float4 dir;
-				dir = otherenemy[i]->GetActor()->GetPos() - GetPos();
-				dir.Normalize();
-
-				AddPos(-dir * 300 * _Delta);
-			}
-		}
-
 		Damaged_Cooltime -= _Delta;
 
 		if (Damaged_Cooltime <= 0)

@@ -11,6 +11,7 @@ public:
 	static bool SpawnCheck;
 	static int MinSpawnNum;
 	static int MaxSpawnNum;
+	static float SpawnCooltime;
 
     void AddExp(float4 _Pos);
 	void ShowLevelUpUI();
@@ -19,10 +20,11 @@ public:
 		SpawnCheck = !SpawnCheck;
 	}
 
-	static void SetSpawnNum(int _min,int _max)
+	static void SetSpawnNum(int _min,int _max,float _Cooltime)
 	{
 		MinSpawnNum = _min;
 		MaxSpawnNum = _max;
+		SpawnCooltime = _Cooltime;
 	}
 
 	void StopBGM();

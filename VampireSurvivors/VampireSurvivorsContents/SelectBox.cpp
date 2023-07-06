@@ -25,6 +25,7 @@ void SelectBox::Off()
 	IsChickenSelected = false;
 	IsMoneySelected = false;
 	IsEmptyEffect = false;
+
 	_Count = 0;
 	_Speed = 0;
 	_Damage = 0;
@@ -47,6 +48,80 @@ void SelectBox::On()
 	WeaponNameText->On();
 	DetailText->On();
 	DetailText2->On();
+}
+
+void SelectBox::OnClick()
+{
+	GameEngineSound::SoundPlay("sfx_sounds_pause7_in.ogg");
+
+	if (true == IsEmptyEffect)
+	{
+		return;
+	}
+
+	if (CurPassiveType == PassiveType::Chicken)
+	{
+		Player::GetMainPlayer()->AddHP(30);
+		return;
+	}
+	else if (CurPassiveType == PassiveType::Money)
+	{
+		PlayerUI::UI->AddGold(25);
+		return;
+	}
+
+
+	if (IsWeaponButton == true)
+	{
+		StatusUI::UI->UpdateWeapon(CurWeaponType);
+		WeaponStats::AllStats[CurWeaponType].addCount(_Count);
+		WeaponStats::AllStats[CurWeaponType].addDamage(_Damage);
+		WeaponStats::AllStats[CurWeaponType].addDeathTime(_DeathTime);
+		WeaponStats::AllStats[CurWeaponType].addCoolTime(_CoolTime);
+		WeaponStats::AllStats[CurWeaponType].addSpeed(_Speed);
+	}
+	else
+	{
+		StatusUI::UI->UpdatePassive(CurPassiveType);
+
+		switch (CurPassiveType)
+		{
+		case PassiveType::Blackheart:
+			PassiveStats::Blackheart();
+			break;
+		case PassiveType::Redheart:
+			PassiveStats::Redheart();
+			break;
+		case PassiveType::Book:
+			PassiveStats::Book();
+			break;
+		case PassiveType::Glove:
+			PassiveStats::Glove();
+			break;
+		case PassiveType::Candle:
+			PassiveStats::Candle();
+			break;
+		case PassiveType::Expball:
+			PassiveStats::Expball();
+			break;
+		case PassiveType::Crown:
+			PassiveStats::Crown();
+			break;
+		case PassiveType::Spinach:
+			PassiveStats::Spinach();
+			break;
+		case PassiveType::Wing:
+			PassiveStats::Wing();
+			break;
+		case PassiveType::Clover:
+			PassiveStats::Clover();
+			break;
+		case PassiveType::Null:
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void SelectBox::Start()
@@ -866,72 +941,5 @@ void SelectBox::SetPassiveEffect()
 		break;
 	}
 }
-void SelectBox::OnClick()
-{
-	GameEngineSound::SoundPlay("sfx_sounds_pause7_in.ogg");
 
-	if (true == IsEmptyEffect)
-	{
-		return;
-	}
-
-	if (CurPassiveType == PassiveType::Chicken)
-	{
-		Player::GetMainPlayer()->AddHP(30);
-		return;
-	}
-	else if (CurPassiveType == PassiveType::Money)
-	{
-		PlayerUI::UI->AddGold(25);
-		return;
-	}
-
-
-	if (IsWeaponButton == true)
-	{
-		StatusUI::UI->UpdateWeapon(CurWeaponType);
-	}
-	else
-	{
-		StatusUI::UI->UpdatePassive(CurPassiveType);
-		 
-		switch (CurPassiveType)
-		{
-		case PassiveType::Blackheart:
-			PassiveStats::Blackheart();
-			break;
-		case PassiveType::Redheart:
-			PassiveStats::Redheart();
-			break;
-		case PassiveType::Book:
-			PassiveStats::Book();
-			break;
-		case PassiveType::Glove:
-			PassiveStats::Glove();
-			break;
-		case PassiveType::Candle:
-			PassiveStats::Candle();
-			break;
-		case PassiveType::Expball:
-			PassiveStats::Expball();
-			break;
-		case PassiveType::Crown:
-			PassiveStats::Crown();
-			break;
-		case PassiveType::Spinach:
-			PassiveStats::Spinach();
-			break;
-		case PassiveType::Wing:
-			PassiveStats::Wing();
-			break;
-		case PassiveType::Clover:
-			PassiveStats::Clover();
-			break;
-		case PassiveType::Null:
-			break;
-		default:
-			break;
-		}
-	}
-}
 

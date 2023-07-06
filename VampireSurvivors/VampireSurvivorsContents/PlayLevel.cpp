@@ -27,6 +27,7 @@ bool PlayLevel::SpawnCheck = true;
 CharacterType PlayLevel::CurCharacter;
 int PlayLevel::MinSpawnNum = 3;
 int PlayLevel::MaxSpawnNum = 5;
+float PlayLevel::SpawnCooltime = 6;
 
 PlayLevel::PlayLevel()
 {
@@ -165,7 +166,7 @@ void PlayLevel::ItemSpawnerSpawn()
 }
 void PlayLevel::EnemySpawn(float _Delta)
 {
-	static float Cooltime = 0;
+	static float Cooltime = SpawnCooltime;
 	Cooltime -= _Delta;
 
 	if (Cooltime < 0)
@@ -194,7 +195,7 @@ void PlayLevel::EnemySpawn(float _Delta)
 			PrevEnemy2 = NewEnemy2;
 		}
 
-		Cooltime = 6;
+		Cooltime = SpawnCooltime;
 	}
 }
 
