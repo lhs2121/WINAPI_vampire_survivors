@@ -77,6 +77,7 @@ void PauseUI::On()
 	Button1->On();
 	Button2->On();
 
+
 	float4 pos = GetLevel()->GetMainCamera()->GetPos() + Option->GetRenderPos();
 	Button1->SetCollisionPos(pos);
 	Button1->On();
@@ -99,6 +100,7 @@ void PauseUI::Off()
 	Continue->Off();
 	Button1->Off();
 	Button2->Off();
+
 
 	StatusUI::UI->Off();
 }

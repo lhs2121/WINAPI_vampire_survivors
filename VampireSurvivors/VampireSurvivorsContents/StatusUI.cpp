@@ -45,7 +45,7 @@ bool StatusUI::IsAllMaxWeapon()
 	}
 
 	int maxCount = 0;
-	for (int i = 0; i < MyWeapon.size() - 1; i++)
+	for (int i = 0; i < MyWeapon.size(); i++)
 	{
 		if (WeaponStats::AllStats[MyWeapon[i]].isMaxLevel == true)
 		{
@@ -79,7 +79,7 @@ bool StatusUI::IsAllMaxPassvie()
 	}
 
 	int maxCount = 0;
-	for (int i = 0; i < MyPassive.size() - 1; i++)
+	for (int i = 0; i < MyPassive.size(); i++)
 	{
 		if (PassiveStats::AllPassive[MyPassive[i]].isMaxLevel == true)
 		{

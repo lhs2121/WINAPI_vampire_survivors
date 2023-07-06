@@ -477,6 +477,7 @@ WeaponType LevelUpUI::GetRandomTypeBox()
 	{
 		return WeaponType::Null;
 	}
+
 	std::vector<WeaponType> temp = { WeaponType::Knife,WeaponType::MagicWand ,WeaponType::Axe ,WeaponType::Runetracer ,
 		WeaponType::FireWand,WeaponType::Cross ,WeaponType::Whip };
 
