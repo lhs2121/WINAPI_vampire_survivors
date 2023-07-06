@@ -114,7 +114,7 @@ void CharactorSelectUI::Update(float _Delta)
 			CharactorButton1->On();
 			CharactorButton2->On();
 			CharactorCol->On();
-			CharactorCol2->On();
+
 		}
 	}
 	
@@ -128,15 +128,4 @@ void CharactorSelectUI::Update(float _Delta)
 		}
 	}
 
-	if (true == CharactorCol2->CollisonCheck(Mouse, CollisionType::Rect, CollisionType::Rect) && true == SelectPanel->IsUpdate())
-	{
-		if (GameEngineInput::IsDown(VK_LBUTTON))
-		{
-			GameEngineSound::SoundPlay("sfx_sounds_pause7_in.ogg");
-			PlayLevel::CurCharacter = CharacterType::Imelda;
-			GameEngineCore::ChangeLevel("PlayLevel");
-		}
-	}
-	
-	
 }

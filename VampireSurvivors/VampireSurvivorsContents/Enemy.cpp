@@ -303,7 +303,7 @@ void Enemy::CollisionCheck(float _Delta)
 		if (true == Collision->Collision(CollisionOrder::Weapon, WeaponGruop, CollisionType::CirCle, CollisionType::CirCle))
 		{
 			GameEngineSound::SoundPlay("sfx_enemyHit.ogg");
-			ApplyDamage(20);
+			ApplyDamage(40);
 			Damaged_Cooltime = 0.1f;
 		}
 	}
