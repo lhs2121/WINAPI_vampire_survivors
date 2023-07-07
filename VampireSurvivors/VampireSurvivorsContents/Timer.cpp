@@ -48,7 +48,6 @@ void Timer::Update(float _Delta)
 	}
 	if (false == isExecuted1 && minutes >= 0)
 	{
-		GetLevel()->CreateActor<Boss>(UpdateOrder::Monster);
 		Enemy::CurSpawnEnemyType[0] = EnemyType::enemy1;
 		Enemy::CurSpawnEnemyType[1] = EnemyType::enemy2;
 
@@ -94,7 +93,7 @@ void Timer::Update(float _Delta)
 		isExecuted5 = true; // 코드 한번만 실행되게
 	}
 
-	if (false == isExecuted6 && minutes >= 2 && seconds > 45)
+	if (false == isExecuted6 && minutes >= 2 && seconds > 30)
 	{
 		GetLevel()->CreateActor<FinalBoss>(UpdateOrder::Monster);
 		Enemy::CurSpawnEnemyType[0] = EnemyType::enemy4;
